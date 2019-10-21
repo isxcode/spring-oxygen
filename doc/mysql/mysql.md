@@ -14,7 +14,7 @@ docker run \
   -e MYSQL_ROOT_PASSWORD=isxcode \
   -e MYSQL_DATABASE=isxcode \
   -v /root/mysql-data:/var/lib/mysql \
-  -v /root/isxcode-spring/doc/mysql:/etc/mysql/conf.d/mysql.cnf \
+  -v /root/isxcode-spring/doc/mysql:/etc/mysql/conf.d \
   -v /root/isxcode-spring/doc/mysql:/docker-entrypoint-initdb.d \
   mysql
 ```

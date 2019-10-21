@@ -50,7 +50,4 @@ dependencies {
 	//	===================== mysql
 	// mysql-connector-java || mysql连接工具
 	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.18'
-
-	// druid || 阿里数据源
-	compile group: 'com.alibaba', name: 'druid', version: '1.1.18'
 }
