@@ -39,5 +39,4 @@ public class FileEntity extends BaseEntity {
      */
     private String fileStatus;
 
-
 }

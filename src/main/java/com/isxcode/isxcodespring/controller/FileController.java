@@ -1,5 +1,6 @@
 package com.isxcode.isxcodespring.controller;
 
+import com.isxcode.isxcodespring.annotation.Log;
 import com.isxcode.isxcodespring.exception.FileException;
 import com.isxcode.isxcodespring.model.dto.FileRequestDto;
 import com.isxcode.isxcodespring.model.entity.FileEntity;
@@ -64,11 +65,12 @@ public class FileController extends BaseController {
     }
 
     /**
-     * 删除文件
+     * 上传文件
      *
      * @param file 文件的uuid
      * @since 2019/9/30
      */
+    @Log
     @PostMapping("/upload")
     public ResponseEntity uploadFile(@RequestParam("file") MultipartFile file) {
 
@@ -76,7 +78,7 @@ public class FileController extends BaseController {
     }
 
     /**
-     * 上传文件
+     * 删除文件
      *
      * @param fileRequestDto fileRequestDto
      * @since 2019/9/30

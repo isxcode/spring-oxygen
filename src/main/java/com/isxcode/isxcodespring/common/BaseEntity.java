@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
  * @date 2019/10/8
  */
 @Data
-@Component
 public class BaseEntity {
 
     /**

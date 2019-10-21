@@ -77,7 +77,7 @@ public class CodeGenerator {
         // config file go to which package
         PackageConfig pc = new PackageConfig();
         pc.setParent(pkgParent);
-        pc.setEntity("moudle.entity");
+        pc.setEntity("model.entity");
         pc.setServiceImpl("service.impl");
         pc.setMapper("dao");
         mpg.setPackageInfo(pc);
