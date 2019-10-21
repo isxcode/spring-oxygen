@@ -28,13 +28,13 @@ public class BaseEntity {
     /**
      * 创建者
      */
-    @TableField("createBy")
+    @TableField("create_by")
     private String createBy;
 
     /**
      * 创建时间
      */
-    @TableField("createDate")
+    @TableField("create_date")
     private LocalDateTime createDate;
 
     public BaseEntity(){

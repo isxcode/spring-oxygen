@@ -17,7 +17,7 @@ public class IsxcodeProperties {
     /**
      * 文件下载路径
      */
-    private String location = "/file-data/";
+//    private String location = "/file-data/";
 
-//    private String location = "D://";
+    private String location = "D://";
 }
