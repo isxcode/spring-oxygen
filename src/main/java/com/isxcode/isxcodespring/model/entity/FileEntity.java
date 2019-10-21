@@ -1,4 +1,4 @@
-package com.isxcode.isxcodespring.moudle.entity;
+package com.isxcode.isxcodespring.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.isxcode.isxcodespring.common.BaseEntity;

@@ -2,9 +2,9 @@ package com.isxcode.isxcodespring.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.isxcode.isxcodespring.exception.FileException;
-import com.isxcode.isxcodespring.moudle.entity.FileEntity;
+import com.isxcode.isxcodespring.model.entity.FileEntity;
 import com.isxcode.isxcodespring.dao.FileDao;
-import com.isxcode.isxcodespring.moudle.properties.IsxcodeProperties;
+import com.isxcode.isxcodespring.model.properties.IsxcodeProperties;
 import com.isxcode.isxcodespring.service.FileService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -88,7 +89,17 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
 
     @Override
     public void deleteFile(String fileId) {
-//        FileSystemUtils.deleteRecursively(rootLocation.toFile());
+
+        QueryWrapper<FileEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id", fileId);
+        fileDao.delete(queryWrapper);
+
+        try {
+            Path file = rootLocation.resolve(fileId);
+            FileSystemUtils.deleteRecursively(file);
+        } catch (IOException e) {
+            throw new FileException("Could not read file: " + fileId, e);
+        }
     }
 
     @Override

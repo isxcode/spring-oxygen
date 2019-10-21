@@ -1,6 +1,6 @@
 package com.isxcode.isxcodespring;
 
-import com.isxcode.isxcodespring.moudle.properties.IsxcodeProperties;
+import com.isxcode.isxcodespring.model.properties.IsxcodeProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

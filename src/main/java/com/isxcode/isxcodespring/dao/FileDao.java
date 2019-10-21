@@ -3,7 +3,7 @@ package com.isxcode.isxcodespring.dao;
 import org.springframework.stereotype.Component;
 import org.apache.ibatis.annotations.Mapper;
 
-import com.isxcode.isxcodespring.moudle.entity.FileEntity;
+import com.isxcode.isxcodespring.model.entity.FileEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

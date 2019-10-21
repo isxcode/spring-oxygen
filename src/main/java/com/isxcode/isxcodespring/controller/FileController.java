@@ -1,12 +1,14 @@
 package com.isxcode.isxcodespring.controller;
 
 import com.isxcode.isxcodespring.exception.FileException;
-import com.isxcode.isxcodespring.moudle.entity.FileEntity;
+import com.isxcode.isxcodespring.model.dto.FileRequestDto;
+import com.isxcode.isxcodespring.model.entity.FileEntity;
 import com.isxcode.isxcodespring.utils.FormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import com.isxcode.isxcodespring.service.FileService;
@@ -62,15 +64,29 @@ public class FileController extends BaseController {
     }
 
     /**
-     * 上传文件
+     * 删除文件
      *
-     * @param file 上传的文件
+     * @param file 文件的uuid
      * @since 2019/9/30
      */
     @PostMapping("/upload")
     public ResponseEntity uploadFile(@RequestParam("file") MultipartFile file) {
 
         return successResponse("上传文件成功", fileService.uploadFile(file));
+    }
+
+    /**
+     * 上传文件
+     *
+     * @param fileRequestDto fileRequestDto
+     * @since 2019/9/30
+     */
+    @PostMapping("/delete")
+    public ResponseEntity deleteFile(@RequestBody FileRequestDto fileRequestDto) {
+
+        Assert.notNull(fileRequestDto.getFileId(), "fileId 不能为空");
+        fileService.deleteFile(fileRequestDto.getFileId());
+        return successResponse("删除文件成功", "");
     }
 
 

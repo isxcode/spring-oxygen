@@ -2,7 +2,7 @@ package com.isxcode.isxcodespring.service;
 
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
-import com.isxcode.isxcodespring.moudle.entity.FileEntity;
+import com.isxcode.isxcodespring.model.entity.FileEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.multipart.MultipartFile;
 
