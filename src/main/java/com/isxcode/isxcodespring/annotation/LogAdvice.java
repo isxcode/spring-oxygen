@@ -1,13 +1,22 @@
 package com.isxcode.isxcodespring.annotation;
 
+import com.alibaba.fastjson.JSON;
 import com.isxcode.isxcodespring.model.entity.LogEntity;
+import com.isxcode.isxcodespring.service.LogService;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
 
 /**
  * 注解解析器- Log注解
@@ -22,8 +31,12 @@ public class LogAdvice {
 
     private final LogEntity logEntity;
 
+    private final LogService logService;
+
     @Autowired
-    public LogAdvice(LogEntity logEntity) {
+    public LogAdvice(LogEntity logEntity, LogService logService) {
+
+        this.logService = logService;
         this.logEntity = logEntity;
     }
 
@@ -32,13 +45,18 @@ public class LogAdvice {
 
     @Before("operateLog()")
     public void before(JoinPoint joinPoint){
-        System.out.println("执行方法前的操作"+logEntity);
-        System.out.println(joinPoint);
+
+        logEntity.setApiName(joinPoint.getSignature().getName());
+        logEntity.setRequestParams(JSON.toJSONString(joinPoint.getArgs()));
+        logEntity.setStartDate(LocalDateTime.now());
     }
 
-    @After("operateLog()")
-    public void after(JoinPoint joinPoint){
-        System.out.println("执行方法后的操作"+logEntity);
-        System.out.println(joinPoint);
+    @AfterReturning(returning = "response",pointcut = "operateLog()")
+    public void after(JoinPoint joinPoint, ResponseEntity response){
+
+        logEntity.setResponseParams(JSON.toJSONString(response.getBody()));
+        logEntity.setEndDate(LocalDateTime.now());
+        logEntity.setCreateDate(LocalDateTime.now());
+        logService.save(logEntity);
     }
 }

@@ -91,6 +91,21 @@ public class FileController extends BaseController {
         return successResponse("删除文件成功", "");
     }
 
+    /**
+     * 删除文件
+     *
+     * @param fileRequestDto fileRequestDto
+     * @since 2019/9/30
+     */
+    @Log
+    @PostMapping("/test")
+    public ResponseEntity testLog(@RequestBody FileRequestDto fileRequestDto) {
+
+        Assert.notNull(fileRequestDto.getFileId(), "fileId 不能为空");
+        return successResponse("测试文件成功", "test");
+    }
+
+
 
 
 }
