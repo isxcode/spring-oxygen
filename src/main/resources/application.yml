@@ -1,0 +1,15 @@
+server:
+  port: 8080 # 端口号
+  servlet:
+    context-path: /isxcode # 上下文
+
+spring:
+  profiles:
+    active: dev # 使用配置文件
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 开启sql语句日志打印
+
+logging:
+  config: classpath:logback-spring.xml

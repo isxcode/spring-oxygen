@@ -1,0 +1,9 @@
+${AnsiColor.BLACK}
+    _                          __
+   (_)_____  ___________  ____/ /__
+  / / ___/ |/_/ ___/ __ \/ __  / _ \
+ / (__  )>  </ /__/ /_/ / /_/ /  __/
+/_/____/_/|_|\___/\____/\__,_/\___/
+
+${AnsiColor.BLACK}
+:: Spring-Boot ${spring-boot.formatted-version}      :: 未知领域 ${application.version}

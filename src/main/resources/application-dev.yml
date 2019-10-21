@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://106.15.189.6:3306/isxcode
+    username: root
+    password: isxcode
+  servlet:
+    multipart:
+      max-file-size: 3MB # 上传最大文件大小
+      max-request-size: 3MB # 上传最大请求体大小

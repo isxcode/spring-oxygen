@@ -5,14 +5,52 @@ plugins {
 }
 
 group = 'com.isxcode'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 sourceCompatibility = '1.8'
 
 repositories {
+	//  配置阿里镜像
+	maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+	// 中央仓库
 	mavenCentral()
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// spring-boot-starter-web || 提供restful接口
+	compile "org.springframework.boot:spring-boot-starter-web"
+
+	// spring-boot-starter-aop || 使用srping aop 切面工具
+	compile "org.springframework.boot:spring-boot-starter-aop"
+
+	// configuration || 参数配置
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+	// ===================== mybatis plus
+	// mybatis-plus-boot-starter || mybatis plus starter
+	compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.2.0'
+
+	// mybatis-plus-generator || mybatis plus 代码生成工具
+	compile group: 'com.baomidou', name: 'mybatis-plus-generator', version: '3.2.0'
+
+	// freemarker || freemarker 自动生成代码
+	compile group: 'org.freemarker', name: 'freemarker', version: '2.3.29'
+
+	//	===================== lombok
+	// lombok || 自动生成构造器
+	compileOnly 'org.projectlombok:lombok:1.18.10'
+	annotationProcessor 'org.projectlombok:lombok:1.18.10'
+
+	//	===================== junit
+	// junit-jupiter-api || junit测试
+	testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.5.2'
+
+	//	===================== mysql
+	// mysql-connector-java || mysql连接工具
+	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.18'
+
+	// druid || 阿里数据源
+	compile group: 'com.alibaba', name: 'druid', version: '1.1.18'
 }
