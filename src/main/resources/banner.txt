@@ -6,4 +6,4 @@ ${AnsiColor.BLACK}
 /_/____/_/|_|\___/\____/\__,_/\___/
 
 ${AnsiColor.BLACK}
-:: Spring-Boot ${spring-boot.formatted-version}      :: 未知领域 ${application.version}
+:: Spring-Boot ${spring-boot.formatted-version}   ${application.title}   :: 未知领域 ${application.version} ${application.formatted-version} ${spring-boot.version}

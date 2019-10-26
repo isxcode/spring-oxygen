@@ -21,11 +21,8 @@ Content-Disposition: form-data; name="file"; filename="image.jpg"
 
 # 文件上传接口
 
-POST {{host}}/file/delete
+POST {{host}}/file/test
 Content-Type: application/json
 
-{
-  "fileId": "7c104e2cdc944101b6e4758002659735"
-}
 
 ###

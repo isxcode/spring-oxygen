@@ -28,6 +28,9 @@ dependencies {
 	// configuration || 参数配置
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
+	// spring-boot-starter-data-jpa || JPA
+	compile "org.springframework.boot:spring-boot-starter-data-jpa"
+
 	// ===================== mybatis plus
 	// mybatis-plus-boot-starter || mybatis plus starter
 	compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.2.0'
@@ -50,4 +53,8 @@ dependencies {
 	//	===================== mysql
 	// mysql-connector-java || mysql连接工具
 	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.18'
+
+	// fastjson || json解析器
+	compile group: 'com.alibaba', name: 'fastjson', version: '1.2.62'
+
 }

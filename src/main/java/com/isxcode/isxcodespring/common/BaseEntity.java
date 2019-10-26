@@ -6,6 +6,9 @@ import com.isxcode.isxcodespring.utils.GeneratorUtils;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 /**
@@ -22,18 +25,22 @@ public class BaseEntity {
      * 对象的uuid
      */
     @TableField("id")
+    @Id
+    @GeneratedValue
     private String id;
 
     /**
      * 创建者
      */
     @TableField("create_by")
+    @Column(nullable = false)
     private String createBy;
 
     /**
      * 创建时间
      */
     @TableField("create_date")
+    @Column(nullable = false)
     private LocalDateTime createDate;
 
     public BaseEntity(){

@@ -11,11 +11,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 
 /**
@@ -52,7 +48,7 @@ public class LogAdvice {
     }
 
     @AfterReturning(returning = "response",pointcut = "operateLog()")
-    public void after(JoinPoint joinPoint, ResponseEntity response){
+    public void after(ResponseEntity response){
 
         logEntity.setResponseParams(JSON.toJSONString(response.getBody()));
         logEntity.setEndDate(LocalDateTime.now());

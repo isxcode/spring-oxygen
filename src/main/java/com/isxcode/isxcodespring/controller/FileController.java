@@ -4,6 +4,7 @@ import com.isxcode.isxcodespring.annotation.Log;
 import com.isxcode.isxcodespring.exception.FileException;
 import com.isxcode.isxcodespring.model.dto.FileRequestDto;
 import com.isxcode.isxcodespring.model.entity.FileEntity;
+import com.isxcode.isxcodespring.repositories.FileRepository;
 import com.isxcode.isxcodespring.utils.FormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -28,8 +29,12 @@ public class FileController extends BaseController {
 
     private final FileService fileService;
 
+    private final FileRepository fileRepository;
+
     @Autowired
-    public FileController(FileService fileService) {
+    public FileController(FileService fileService, FileRepository fileRepository) {
+
+        this.fileRepository = fileRepository;
         this.fileService = fileService;
     }
 
@@ -94,19 +99,13 @@ public class FileController extends BaseController {
     /**
      * 删除文件
      *
-     * @param fileRequestDto fileRequestDto
      * @since 2019/9/30
      */
-    @Log
     @PostMapping("/test")
-    public ResponseEntity testLog(@RequestBody FileRequestDto fileRequestDto) {
+    public ResponseEntity testLog() {
 
-        Assert.notNull(fileRequestDto.getFileId(), "fileId 不能为空");
-        return successResponse("测试文件成功", "test");
+        return successResponse("测试文件成功", fileRepository.findAll());
     }
-
-
-
 
 }
 

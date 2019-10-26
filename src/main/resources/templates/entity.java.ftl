@@ -14,6 +14,7 @@ import lombok.experimental.Accessors;
 import lombok.NoArgsConstructor;
 </#if>
 import org.springframework.stereotype.Component;
+import java.io.Serializable;
 
 /**
  * ${table.comment!} Entity
@@ -39,7 +40,7 @@ import org.springframework.stereotype.Component;
 @ApiModel(value="${entity}对象", description="${table.comment!}")
 </#if>
 <#if superEntityClass??>
-public class ${entity} extends ${superEntityClass}<#if activeRecord><${entity}></#if> {
+public class ${entity} extends ${superEntityClass}<#if activeRecord><${entity}></#if> implements Serializable{
 <#elseif activeRecord>
 public class ${entity} extends Model<${entity}> {
 <#else>

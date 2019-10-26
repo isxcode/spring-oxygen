@@ -11,3 +11,19 @@ create table file
 )
     comment '文件表';
 
+
+# 日志记录表
+create table log
+(
+    id              varchar(32)  not null comment '日志uuid'
+        primary key,
+    create_by       varchar(32)  not null comment '创建人',
+    create_date     datetime     not null comment '创建时间',
+    api_name        varchar(500) not null comment '接口名称',
+    request_params  varchar(500) null comment '请求参数',
+    response_params varchar(500) null comment '返回参数',
+    end_date        datetime     not null comment '结束时间',
+    start_date      datetime     not null comment '开始时间'
+)
+    comment '日志表';
+
