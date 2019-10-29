@@ -2,6 +2,8 @@ package com.isxcode.isxcodespring.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.isxcode.isxcodespring.annotation.Generate;
+import com.isxcode.isxcodespring.annotation.GenerateType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -34,6 +36,7 @@ public class FileEntity implements Serializable {
     @Id
     @TableField("id")
     @GeneratedValue
+    @Generate(type = GenerateType.UUID)
     private String id;
 
     /**
@@ -41,6 +44,7 @@ public class FileEntity implements Serializable {
      */
     @TableField("create_by")
     @Column(nullable = false)
+    @Generate(type = GenerateType.SYSTEM)
     private String createBy;
 
     /**
@@ -48,6 +52,7 @@ public class FileEntity implements Serializable {
      */
     @TableField("create_date")
     @Column(nullable = false)
+    @Generate(type = GenerateType.DATETIME)
     private LocalDateTime createDate;
 
     /**

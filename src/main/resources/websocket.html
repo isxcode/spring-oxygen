@@ -4,38 +4,33 @@
     <meta charset="utf-8">
     <title>websocket 测试</title>
 
+
     <script type="text/javascript">
-        function WebSocketTest()
-        {
-            if ("WebSocket" in window)
-            {
-                alert("您的浏览器支持 WebSocket!");
+        function WebSocketTest() {
+            if ("WebSocket" in window) {
 
-                // 打开一个 web socket
-                var ws = new WebSocket("ws://localhost:8080/echo");
+                // 检测是否支持websocket
+                console.log("您的浏览器支持 WebSocket!");
 
-                ws.onopen = function()
-                {
-                    // Web Socket 已连接上，使用 send() 方法发送数据
-                    ws.send("发送数据");
-                    alert("数据发送中...");
+                var ws = new WebSocket("ws://localhost:8080/isxcode/myHandler?userId=ispong");
+
+                // 握手请求
+                ws.onopen = function() {
+                    console.log("数据发送中...");
                 };
 
-                ws.onmessage = function (evt)
-                {
-                    var received_msg = evt.data;
-                    alert("数据已接收...");
+                // 接受数据操作
+                ws.onmessage = function (evt) {
+                    console.log("数据已接收...");
+                    console.log(evt.data);
                 };
 
-                ws.onclose = function()
-                {
+                // 后端websocket断开操作
+                ws.onclose = function() {
                     // 关闭 websocket
-                    alert("连接已关闭...");
+                    console.log("连接已关闭...");
                 };
-            }
-
-            else
-            {
+            } else {
                 // 浏览器不支持 WebSocket
                 alert("您的浏览器不支持 WebSocket!");
             }

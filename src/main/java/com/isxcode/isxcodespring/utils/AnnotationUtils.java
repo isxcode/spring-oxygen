@@ -3,7 +3,6 @@ package com.isxcode.isxcodespring.utils;
 import org.springframework.lang.NonNull;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;

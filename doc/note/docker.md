@@ -31,3 +31,26 @@ git config --global credential.helper store
 == clone git
 git clone https://github.com/ispong/isxcode-spring.git
 
+
+## acs 服务器
+ip : 47.105.33.160
+user: root
+pwd liu123456.
+
+
+# 安装rabbitmq服务器
+
+docker pull rabbitmq:management
+docker run \
+    --privileged=true \
+    --restart=always \
+    --name rabbitmq \
+    -d \
+    -p 5672:5672 \
+    -p 15672:15672 \
+    -e RABBITMQ_DEFAULT_USER=admin \
+    -e RABBITMQ_DEFAULT_PASS=admin \
+    -v /root/rabbitmq-data:/var/lib/rabbitmq \
+    rabbitmq:3-management
+       
+docker run -d --hostname my-rabbit --name some-rabbit -e RABBITMQ_DEFAULT_USER=user -e RABBITMQ_DEFAULT_PASS=password rabbitmq:3-management

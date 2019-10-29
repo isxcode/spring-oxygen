@@ -25,6 +25,12 @@ dependencies {
 	// spring-boot-starter-aop || 使用srping aop 切面工具
 	compile "org.springframework.boot:spring-boot-starter-aop"
 
+	// spring-boot-starter-amqp || rabbitMq starter
+	compile "org.springframework.boot:spring-boot-starter-amqp"
+
+	// spring-boot-starter-websocket || websocket starrt
+	compile "org.springframework.boot:spring-boot-starter-websocket"
+
 	// configuration || 参数配置
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
@@ -56,5 +62,11 @@ dependencies {
 
 	// fastjson || json解析器
 	compile group: 'com.alibaba', name: 'fastjson', version: '1.2.62'
+
+	// poi || office文件导出
+	compile group: 'org.apache.poi', name: 'poi', version: '4.1.1'
+
+	// poi-ooxml || poi扩展支持xlsx
+	compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.1'
 
 }

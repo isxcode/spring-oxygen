@@ -11,3 +11,7 @@ git rm -rf --cached .
 
 git remote rm origin 
 git remote add origin https://github.com/ispong/isxcode-spring.git
+
+git config --system --unset credential.helper
+
+git config --global http.emptyAuth true

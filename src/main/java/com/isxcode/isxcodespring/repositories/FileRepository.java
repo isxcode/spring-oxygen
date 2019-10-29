@@ -12,7 +12,7 @@ import org.springframework.data.repository.Repository;
  * @version v0.1.0
  * @date 2019/10/23
  */
-public interface FileRepository extends Repository<FileEntity, String> {
+public interface FileRepository extends Repository<FileEntity, String>{
 
 
 }

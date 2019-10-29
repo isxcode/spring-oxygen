@@ -4,6 +4,7 @@ import com.isxcode.isxcodespring.model.properties.IsxcodeProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * isxcode 控制器
@@ -13,6 +14,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  * @version v0.1.0
  */
 @SpringBootApplication
+@EnableScheduling
 @EnableConfigurationProperties(IsxcodeProperties.class)
 public class IsxcodeSpringApplication {
 

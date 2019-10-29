@@ -1,13 +1,21 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://106.15.189.6:3306/isxcode
+#    url: jdbc:mysql://106.15.189.6:3306/isxcode
+    url: jdbc:mysql://47.105.33.160:3306/aicallsystem
     username: root
-    password: isxcode
+#    password: isxcode
+    password: liu123456.
   servlet:
     multipart:
       max-file-size: 3MB # 上传最大文件大小
       max-request-size: 3MB # 上传最大请求体大小
-
   jpa:
     open-in-view: false
+
+  rabbitmq:
+    host: 106.15.189.6
+    port: 5672
+    username: admin
+    password: admin
+
