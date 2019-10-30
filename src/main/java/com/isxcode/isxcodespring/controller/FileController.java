@@ -8,6 +8,8 @@ import com.isxcode.isxcodespring.repositories.FileRepository;
 import com.isxcode.isxcodespring.service.FileService;
 import com.isxcode.isxcodespring.utils.ExcelUtils;
 import com.isxcode.isxcodespring.utils.FormatUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +18,9 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -26,6 +31,7 @@ import java.util.List;
  * @author ispong
  * @since 2019-10-21
  */
+@Slf4j
 @RestController
 @RequestMapping("/file")
 public class FileController extends BaseController {
@@ -103,23 +109,25 @@ public class FileController extends BaseController {
      *
      * @since 2019/9/30
      */
-    @GetMapping("loadExcel")
-    public ResponseEntity<Resource> loadExcel(){
+    @RequestMapping("loadExcel")
+    public void loadExcel(HttpServletResponse response) {
 
-        // 定义文件名转码
-        // firefox|chrome|safari|opera
-        String fileNameChrome = new String("测试文件".getBytes(), StandardCharsets.ISO_8859_1);
-        // IE
-        String fileNameIe = URLEncoder.encode("测试文件", StandardCharsets.UTF_8);
-        // 获取service层的返回list<DTO>
-        List<FileEntity> list = fileService.list();
+        // 获取文件名
+        String fileName = URLEncoder.encode("测试文件", StandardCharsets.UTF_8);
+        // 获取数据
+        List<FileEntity> data = fileService.list();
         // 自定义Excel的表头名
-        String[] columns = {"版本id","文件uuid", "文件创建者","文件创建时间","文件名称","文件大小","创建状态"};
-        // 使用excel的工具类
-        Resource resource = ExcelUtils.generateExcel(columns, list, FileEntity.class);
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileNameChrome + ".xlsx" + "\"")
-                .body(resource);
+        String[] columns = {"版本id", "文件uuid", "文件创建者", "文件创建时间", "文件名称", "文件大小", "创建状态"};
+        // 生成Excel文件
+        XSSFWorkbook workBook = ExcelUtils.generateExcel(columns, data, FileEntity.class);
+        // 设置返回流
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".xlsx");
+        // 写入返回流
+        try (OutputStream outputStream = response.getOutputStream()) {
+            workBook.write(outputStream);
+        } catch (IOException e) {
+            log.info("无法获取返回流");
+        }
     }
 
 }
