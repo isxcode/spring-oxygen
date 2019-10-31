@@ -1,5 +1,7 @@
 package com.isxcode.isxcodespring.utils;
 
+import com.isxcode.isxcodespring.annotation.ExcelType;
+import com.isxcode.isxcodespring.exception.FileException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.FillPatternType;
@@ -24,13 +26,16 @@ public class ExcelUtils {
     /**
      * 生成Excel表,适用于一切
      *
-     * @param columns 每列名称
-     * @param data 需要显示的数据
-     * @param meta 被认证对象
+     * @param data    需要显示的数据
      * @return 返回spring资源
      * @since 2019-10-29
      */
-    public static XSSFWorkbook generateExcel(String[] columns, List data,Class<?> meta) {
+    public static XSSFWorkbook generateExcel(List<?> data) {
+
+        // 判断数据是否为空
+        if (data.isEmpty()) {
+            throw new FileException("数据为空");
+        }
 
         // 创建Excel对象
         XSSFWorkbook wb = new XSSFWorkbook();
@@ -47,22 +52,25 @@ public class ExcelUtils {
         cellStyle.setFillForegroundColor(new XSSFColor(new java.awt.Color(211, 206, 202), new DefaultIndexedColorMap()));
         cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
+        // 获取注解中的属性
+        Object obj = data.get(0);
+        List<ExcelType> fieldAnnotationList = AnnotationUtils.getAnnotations(obj.getClass(), ExcelType.class);
+
         // 设置表头
         XSSFRow row = sheet.createRow(0);
-        List<String> columnList = Arrays.asList(columns);
-        for (String metaColumn : columnList) {
-            XSSFCell topCell = row.createCell(columnList.indexOf(metaColumn));
-            topCell.setCellValue(metaColumn);
+        for (ExcelType type : fieldAnnotationList) {
+            XSSFCell topCell = row.createCell(fieldAnnotationList.indexOf(type));
+            topCell.setCellValue(type.cellName());
             topCell.setCellStyle(cellStyle);
             // 设置单元格宽度
-            sheet.setColumnWidth(columnList.indexOf(metaColumn), metaColumn.getBytes().length * (1 << 8));
+            sheet.setColumnWidth(fieldAnnotationList.indexOf(type), type.cellWidth() * (1 << 8));
         }
 
         // 反射构建excel,支持String/LocalDate/long
-        Field[] declaredFields = meta.getDeclaredFields();
+        Field[] declaredFields = obj.getClass().getDeclaredFields();
         List<Field> fields = Arrays.asList(declaredFields);
         for (Object metaData : data) {
-            XSSFRow metaRow = sheet.createRow(data.indexOf(metaData)+1);
+            XSSFRow metaRow = sheet.createRow(data.indexOf(metaData) + 1);
             for (Field metaField : fields) {
                 try {
                     XSSFCell cell = metaRow.createCell(fields.indexOf(metaField));

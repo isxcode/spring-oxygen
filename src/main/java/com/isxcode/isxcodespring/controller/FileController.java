@@ -70,7 +70,7 @@ public class FileController extends BaseController {
                         .body(file);
             case "showFile":
                 return ResponseEntity.ok()
-                        .header(HttpHeaders.CONTENT_TYPE, FormatUtils.formatImageName(fileEntity.getFileName()))
+                        .header(HttpHeaders.CONTENT_TYPE, "image/" + fileEntity.getFileName().substring(fileEntity.getFileName().lastIndexOf(".") + 1))
                         .body(file);
             default:
                 throw new FileException("file has problem");
@@ -116,10 +116,8 @@ public class FileController extends BaseController {
         String fileName = URLEncoder.encode("测试文件", StandardCharsets.UTF_8);
         // 获取数据
         List<FileEntity> data = fileService.list();
-        // 自定义Excel的表头名
-        String[] columns = {"版本id", "文件uuid", "文件创建者", "文件创建时间", "文件名称", "文件大小", "创建状态"};
         // 生成Excel文件
-        XSSFWorkbook workBook = ExcelUtils.generateExcel(columns, data, FileEntity.class);
+        XSSFWorkbook workBook = ExcelUtils.generateExcel(data);
         // 设置返回流
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + ".xlsx");
         // 写入返回流
@@ -128,6 +126,7 @@ public class FileController extends BaseController {
         } catch (IOException e) {
             log.info("无法获取返回流");
         }
+
     }
 
 }

@@ -4,7 +4,9 @@ import org.springframework.lang.NonNull;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,6 +45,31 @@ public class AnnotationUtils {
             annotationMap = null;
         }
         return annotationMap;
+    }
+
+    /**
+     * 获取单例注解
+     * 最大字段属性为16个
+     *
+     * @param annotatedElement 被注解的对象
+     * @param annotationType   注解对象
+     * @return Map<Field, < ? extends Annotation>>
+     * @since 2019/10/9
+     */
+    public static <A extends Annotation> List< A> getAnnotations(Class<?> annotatedElement, @NonNull Class<A> annotationType) {
+
+        List<A> annotationList = new ArrayList<>(1 << 4);
+        Field[] declaredFields = annotatedElement.getDeclaredFields();
+        for (Field metaField : declaredFields) {
+            if (metaField.isAnnotationPresent(annotationType)) {
+                Annotation annotation = metaField.getAnnotation(annotationType);
+                annotationList.add((A) annotation);
+            }
+        }
+        if(annotationList.isEmpty()){
+            annotationList = null;
+        }
+        return annotationList;
     }
 
     /**

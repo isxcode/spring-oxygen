@@ -2,6 +2,7 @@ package com.isxcode.isxcodespring.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.isxcode.isxcodespring.annotation.ExcelType;
 import com.isxcode.isxcodespring.annotation.Generate;
 import com.isxcode.isxcodespring.annotation.GenerateType;
 import lombok.Data;
@@ -28,6 +29,7 @@ import java.time.LocalDateTime;
 @Table(name = "file")
 public class FileEntity implements Serializable {
 
+    @ExcelType(cellName = "版本id")
     private static final long serialVersionUID = 1L;
 
     /**
@@ -37,6 +39,7 @@ public class FileEntity implements Serializable {
     @TableField("id")
     @GeneratedValue
     @Generate(type = GenerateType.UUID)
+    @ExcelType(cellName = "文件uuid")
     private String id;
 
     /**
@@ -45,6 +48,7 @@ public class FileEntity implements Serializable {
     @TableField("create_by")
     @Column(nullable = false)
     @Generate(type = GenerateType.SYSTEM)
+    @ExcelType(cellName = "文件创建者")
     private String createBy;
 
     /**
@@ -53,24 +57,27 @@ public class FileEntity implements Serializable {
     @TableField("create_date")
     @Column(nullable = false)
     @Generate(type = GenerateType.DATETIME)
+    @ExcelType(cellName = "文件创建时间")
     private LocalDateTime createDate;
 
     /**
      * 文件的名字
      */
     @Column(nullable = false)
+    @ExcelType(cellName = "文件名称")
     private String fileName;
 
     /**
      * 文件的大小
      */
     @Column(nullable = false)
+    @ExcelType(cellName = "文件大小")
     private String fileSize;
 
     /**
      * 文件状态
      */
     @Column(nullable = false)
+    @ExcelType(cellName = "创建状态")
     private String fileStatus;
-
 }
