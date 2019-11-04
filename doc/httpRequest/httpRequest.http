@@ -26,3 +26,12 @@ Content-Type: application/json
 
 
 ###
+POST http://k8s.definesys.com:30600/pluto/Users/userLogin
+Content-Type: application/json
+
+{
+  "account":"215",
+  "password":"yIV9lwDhmjWnHTzcal7Wmg=="
+}
+
+###

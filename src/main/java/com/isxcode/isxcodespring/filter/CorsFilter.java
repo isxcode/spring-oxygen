@@ -32,6 +32,9 @@ public class CorsFilter extends GenericFilterBean {
         httpServletResponse.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "*");
         httpServletResponse.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
         httpServletResponse.setHeader(HttpHeaders.ACCESS_CONTROL_MAX_AGE, "3600");
+        // post下载接口前端无法获取header
+        httpServletResponse.setHeader(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS,"Content-Disposition");
+
 
         if (!CorsUtils.isPreFlightRequest(httpServletRequest)) {
             chain.doFilter(httpServletRequest, httpServletResponse);

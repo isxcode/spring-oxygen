@@ -37,8 +37,8 @@ public class AnnotationUtils {
         Field[] declaredFields = annotatedElement.getDeclaredFields();
         for (Field metaField : declaredFields) {
             if (metaField.isAnnotationPresent(annotationType)) {
-                Annotation annotation = metaField.getAnnotation(annotationType);
-                annotationMap.put(metaField, (A) annotation);
+                A annotation = metaField.getAnnotation(annotationType);
+                annotationMap.put(metaField, annotation);
             }
         }
         if(annotationMap.isEmpty()){
@@ -56,14 +56,14 @@ public class AnnotationUtils {
      * @return Map<Field, < ? extends Annotation>>
      * @since 2019/10/9
      */
-    public static <A extends Annotation> List< A> getAnnotations(Class<?> annotatedElement, @NonNull Class<A> annotationType) {
+    public static <A extends Annotation> List<A> getAnnotations(Class<?> annotatedElement, @NonNull Class<A> annotationType) {
 
         List<A> annotationList = new ArrayList<>(1 << 4);
         Field[] declaredFields = annotatedElement.getDeclaredFields();
         for (Field metaField : declaredFields) {
             if (metaField.isAnnotationPresent(annotationType)) {
-                Annotation annotation = metaField.getAnnotation(annotationType);
-                annotationList.add((A) annotation);
+                A annotation = metaField.getAnnotation(annotationType);
+                annotationList.add(annotation);
             }
         }
         if(annotationList.isEmpty()){

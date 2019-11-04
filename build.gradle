@@ -69,4 +69,7 @@ dependencies {
 	// poi-ooxml || poi扩展支持xlsx
 	compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.1'
 
+	// httpclient || httpClient请求
+	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.10'
+
 }

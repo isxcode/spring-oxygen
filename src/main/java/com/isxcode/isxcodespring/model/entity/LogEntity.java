@@ -2,11 +2,8 @@ package com.isxcode.isxcodespring.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.isxcode.isxcodespring.annotation.GenerateType;
-import com.isxcode.isxcodespring.common.BaseEntity;
 import com.isxcode.isxcodespring.utils.GeneratorUtils;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.springframework.stereotype.Component;
 

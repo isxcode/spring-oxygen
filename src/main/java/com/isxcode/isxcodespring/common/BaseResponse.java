@@ -10,7 +10,7 @@ import lombok.Data;
  * @version v0.1.0
  */
 @Data
-class BaseResponse {
+public class BaseResponse {
 
     /**
      * 返回的code

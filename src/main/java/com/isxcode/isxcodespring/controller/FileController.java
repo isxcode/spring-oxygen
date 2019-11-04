@@ -7,7 +7,6 @@ import com.isxcode.isxcodespring.model.entity.FileEntity;
 import com.isxcode.isxcodespring.repositories.FileRepository;
 import com.isxcode.isxcodespring.service.FileService;
 import com.isxcode.isxcodespring.utils.ExcelUtils;
-import com.isxcode.isxcodespring.utils.FormatUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +27,8 @@ import java.util.List;
 /**
  * 文件表 Api
  *
+ * jpa是否可以多表查询
+ *
  * @author ispong
  * @since 2019-10-21
  */
@@ -36,8 +37,14 @@ import java.util.List;
 @RequestMapping("/file")
 public class FileController extends BaseController {
 
+    /**
+     * 负责多表查询
+     */
     private final FileService fileService;
 
+    /**
+     * 负责单表操作
+     */
     private final FileRepository fileRepository;
 
     @Autowired
