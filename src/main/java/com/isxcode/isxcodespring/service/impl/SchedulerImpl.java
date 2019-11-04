@@ -2,8 +2,6 @@ package com.isxcode.isxcodespring.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.isxcode.isxcodespring.common.BaseResponse;
-import com.isxcode.isxcodespring.exception.IsxcodeException;
-import com.isxcode.isxcodespring.model.entity.FileEntity;
 import com.isxcode.isxcodespring.utils.HttpClientUtils;
 import com.isxcode.isxcodespring.websocket.MyHandler;
 import com.isxcode.isxcodespring.websocket.RabbitMqHandler;
@@ -40,25 +38,29 @@ public class SchedulerImpl {
      * @date 2019-11-04
      * @version v0.1.0
      */
-    @Scheduled(cron ="* 14 13 * * ?")
+    @Scheduled(cron ="* 20 14 * * ?")
     public void checkInService(){
 
         String tokenUrl = "http://k8s.definesys.com:30600/pluto/Users/userLogin";
-        Map<String, String> map = new HashMap<>();
-//        String requestJson = "" +
-//                "{\n" +
-//                "   \"account\":\"215\",\n" +
-//                "   \"password\":\"yIV9lwDhmjWnHTzcal7Wmg==\"\n" +
-//                "}";
-        map.put("account", "215");
-        map.put("password", "yIV9lwDhmjWnHTzcal7Wmg==");
+        String checkInUrl = "http://k8s.definesys.com:30600/pluto/CheckInHistory/userCheckIn";
+        Map<String, String> headers = new HashMap<>(1);
+        String requestJson = "" +
+                "{\n" +
+                "   \"account\":\"215\",\n" +
+                "   \"password\":\"yIV9lwDhmjWnHTzcal7Wmg==\"\n" +
+                "}";
         try {
-            BaseResponse tokenResponse = HttpClientUtils.doPost(tokenUrl, map, BaseResponse.class);
+            BaseResponse tokenResponse = HttpClientUtils.doPost(tokenUrl, requestJson, headers, BaseResponse.class);
             Map responseMap = JSON.parseObject(String.valueOf(tokenResponse.getData()), HashMap.class);
-            String token = String.valueOf(responseMap.get("token"));
-            System.out.println("token"+token);
+            headers.put("token", String.valueOf(responseMap.get("token")));
+            HttpClientUtils.doPost(checkInUrl, "", headers, BaseResponse.class);
         }catch (IOException ex){
-            throw new IsxcodeException("接口请求失败");
+            try {
+                Thread.sleep(3600000);
+                checkInService();
+            } catch (InterruptedException e) {
+                log.info("睡眠失败");
+            }
         }
     }
 

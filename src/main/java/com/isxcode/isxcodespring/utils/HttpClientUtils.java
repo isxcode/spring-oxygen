@@ -87,14 +87,20 @@ public class HttpClientUtils {
      * @param url         请求路径
      * @param requestStr  请求对象(json)
      * @param responseObj 返回对象
+     * @param headers 请求头
      * @return 返回第三方返回的值
      * @since 2019-11-04
      */
-    public static <A> A doPost(String url, String requestStr, Class<A> responseObj) throws IOException {
+    public static <A> A doPost(String url, String requestStr, Map<String, String> headers, Class<A> responseObj) throws IOException {
 
         HttpPost httpPost = new HttpPost(url);
         httpPost.setHeader(HTTP.CONTENT_TYPE, "application/json;charset=utf-8");
-        httpPost.setEntity(new StringEntity(requestStr, StandardCharsets.UTF_8));
+        if (!requestStr.isEmpty()) {
+            httpPost.setEntity(new StringEntity(requestStr, StandardCharsets.UTF_8));
+        }
+        if (headers != null) {
+            headers.forEach(httpPost::setHeader);
+        }
         HttpResponse response = httpClient.execute(httpPost);
         return JSONObject.parseObject(EntityUtils.toString(response.getEntity()), responseObj);
     }
