@@ -37,6 +37,12 @@ dependencies {
 	// spring-boot-starter-data-jpa || JPA
 	compile "org.springframework.boot:spring-boot-starter-data-jpa"
 
+	// spring-data-redis || spring-redis
+	compile "org.springframework.data:spring-data-redis"
+
+	// lettuce-core || redis/lettuce
+	compile group: 'io.lettuce', name: 'lettuce-core', version: '5.2.1.RELEASE'
+
 	// ===================== mybatis plus
 	// mybatis-plus-boot-starter || mybatis plus starter
 	compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.2.0'
@@ -71,5 +77,6 @@ dependencies {
 
 	// httpclient || httpClient请求
 	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.10'
+
 
 }

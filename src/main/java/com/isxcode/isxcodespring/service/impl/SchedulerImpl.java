@@ -7,6 +7,7 @@ import com.isxcode.isxcodespring.websocket.MyHandler;
 import com.isxcode.isxcodespring.websocket.RabbitMqHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +32,22 @@ public class SchedulerImpl {
     @Autowired
     private RabbitMqHandler rabbitMqHandler;
 
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
+
+    @Scheduled(cron = "* 49 23 * * ?")
+    public void testRedis(){
+
+        redisTemplate.opsForValue().set("hello", "isxcode");
+
+        Boolean hello = redisTemplate.hasKey("hello");
+
+        String helloValue = redisTemplate.opsForValue().get("hello");
+
+        System.out.println(hello + helloValue);
+    }
+
+
     /**
      * 登录服务
      *
@@ -38,8 +55,8 @@ public class SchedulerImpl {
      * @date 2019-11-04
      * @version v0.1.0
      */
-    @Scheduled(cron ="* 20 14 * * ?")
-    public void checkInService(){
+    @Scheduled(cron = "* 20 14 * * ?")
+    public void checkInService() {
 
         String tokenUrl = "http://k8s.definesys.com:30600/pluto/Users/userLogin";
         String checkInUrl = "http://k8s.definesys.com:30600/pluto/CheckInHistory/userCheckIn";
@@ -54,7 +71,7 @@ public class SchedulerImpl {
             Map responseMap = JSON.parseObject(String.valueOf(tokenResponse.getData()), HashMap.class);
             headers.put("token", String.valueOf(responseMap.get("token")));
             HttpClientUtils.doPost(checkInUrl, "", headers, BaseResponse.class);
-        }catch (IOException ex){
+        } catch (IOException ex) {
             try {
                 Thread.sleep(3600000);
                 checkInService();

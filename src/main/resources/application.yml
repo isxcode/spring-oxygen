@@ -8,6 +8,10 @@ spring:
     active: dev # 使用配置文件
   application:
     name: isxcode
+  redis:
+    host: 47.105.33.160
+    port: 8088
+    password: isxcode
 
 mybatis-plus:
   configuration:
@@ -15,4 +19,6 @@ mybatis-plus:
 
 logging:
   config: classpath:logback-spring.xml
+
+
 
