@@ -13,12 +13,24 @@ spring:
     port: 8088
     password: isxcode
 
+#    关于rabbitMq的配置，因为是继承插件所有建议使用配置文件进行配置
+#  rabbitmq:
+#    host: 106.15.189.6
+#    port: 5672
+#    username: admin
+#    password: admin
+#    template:
+#      exchange:
+#      routing-key:
+
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 开启sql语句日志打印
 
+
 logging:
   config: classpath:logback-spring.xml
+
 
 
 

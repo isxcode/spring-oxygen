@@ -13,9 +13,4 @@ spring:
   jpa:
     open-in-view: false
 
-  rabbitmq:
-    host: 106.15.189.6
-    port: 5672
-    username: admin
-    password: admin
 
