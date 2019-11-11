@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
  * @version v0.1.0
  */
 @Configuration
-@EnableRabbit
+//@EnableRabbit
 public class RabbitMqConfig {
 
     /**
@@ -30,14 +30,14 @@ public class RabbitMqConfig {
      * 
      * @since 2019-11-09
      */
-    @Bean
-    public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory() {
-        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
-        factory.setConnectionFactory(connectionFactory());
-        factory.setConcurrentConsumers(3);
-        factory.setMaxConcurrentConsumers(10);
-        return factory;
-    }
+//    @Bean
+//    public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory() {
+//        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+//        factory.setConnectionFactory(connectionFactory());
+//        factory.setConcurrentConsumers(3);
+//        factory.setMaxConcurrentConsumers(10);
+//        return factory;
+//    }
 
     /**
      * 声明connectionFactory
@@ -65,6 +65,7 @@ public class RabbitMqConfig {
      */
     @Bean
     public RabbitAdmin rabbitAdmin() {
+
         return new RabbitAdmin(connectionFactory());
     }
 
@@ -77,8 +78,10 @@ public class RabbitMqConfig {
      */
     @Bean
     public RabbitTemplate rabbitTemplate() {
+
         return new RabbitTemplate(connectionFactory());
     }
+
 
     /**
      * 声明queue
@@ -87,6 +90,7 @@ public class RabbitMqConfig {
      */
     @Bean
     Queue queue() {
+
         Queue queue = new Queue("rabbitQueue", true);
         rabbitAdmin().declareQueue(queue);
         return queue;
@@ -99,11 +103,11 @@ public class RabbitMqConfig {
      * @date 2019-11-09
      * @version v0.1.0
      */
-    @Bean
-    public MessageListener exampleListener() {
-        return message -> System.out.println("received: " + message);
-    }
-    
+//    @Bean
+//    public MessageListener exampleListener() {
+//        return message -> System.out.println("received: " + message);
+//    }
+//
     /**
      * 声明监听行为
      * 
@@ -111,14 +115,14 @@ public class RabbitMqConfig {
      * @date 2019-11-09
      * @version v0.1.0
      */
-    @Bean
-    public SimpleMessageListenerContainer messageListenerContainer() {
-        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-        container.setConnectionFactory(connectionFactory());
-        container.setQueueNames("rabbitQueue");
-        container.setMessageListener(exampleListener());
-        return container;
-    }
+//    @Bean
+//    public SimpleMessageListenerContainer messageListenerContainer() {
+//        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+//        container.setConnectionFactory(connectionFactory());
+//        container.setQueueNames("rabbitQueue");
+//        container.setMessageListener(exampleListener());
+//        return container;
+//    }
     
     
 
@@ -127,12 +131,12 @@ public class RabbitMqConfig {
      *
      * @since 2019-10-28
      */
-    @Bean
-    TopicExchange exchange(RabbitAdmin rabbitAdmin) {
-        TopicExchange topicExchange = new TopicExchange("rabbitExchange");
-        rabbitAdmin.declareExchange(topicExchange);
-        return topicExchange;
-    }
+//    @Bean
+//    TopicExchange exchange(RabbitAdmin rabbitAdmin) {
+//        TopicExchange topicExchange = new TopicExchange("rabbitExchange");
+//        rabbitAdmin.declareExchange(topicExchange);
+//        return topicExchange;
+//    }
 
     /**
      * 必须绑定exchange和queue,spring只会推exchange,
@@ -141,11 +145,11 @@ public class RabbitMqConfig {
      *
      * @since 2019-10-28
      */
-    @Bean
-    Binding bindingExchangeString(Queue queueString, TopicExchange exchange, RabbitAdmin rabbitAdmin) {
-        Binding binding = BindingBuilder.bind(queueString).to(exchange).with("rabbitKey");
-        rabbitAdmin.declareBinding(binding);
-        return binding;
-    }
+//    @Bean
+//    Binding bindingExchangeString(Queue queueString, TopicExchange exchange, RabbitAdmin rabbitAdmin) {
+//        Binding binding = BindingBuilder.bind(queueString).to(exchange).with("rabbitKey");
+//        rabbitAdmin.declareBinding(binding);
+//        return binding;
+//    }
 
 }

@@ -2,8 +2,6 @@ package com.isxcode.isxcodespring.websocket;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
@@ -37,7 +35,7 @@ public class MyHandler extends TextWebSocketHandler {
      * @since 2019-10-28
      */
     @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+    public void afterConnectionEstablished(WebSocketSession session){
 
         log.info("建立握手请求");
         webSocketSession = session;
@@ -49,7 +47,7 @@ public class MyHandler extends TextWebSocketHandler {
      * @since 2019-10-28
      */
     @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status){
 
         log.info("断开连接");
         webSocketSession = null;
@@ -91,9 +89,13 @@ public class MyHandler extends TextWebSocketHandler {
      * @since 2019-10-28
      */
     @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) {
+
         log.info("推送文本消息");
-        session.sendMessage(message);
+        // 替换原始的发送动作
+        // session.sendMessage(message);
+
+
     }
 
     /**
