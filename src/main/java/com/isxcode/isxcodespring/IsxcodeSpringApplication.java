@@ -4,15 +4,17 @@ import com.isxcode.isxcodespring.model.properties.IsxcodeProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * isxcode 控制器
  *
  * @author ispong
- * @date 2019/10/20
  * @version v0.1.0
+ * @date 2019/10/20
  */
+@EnableAspectJAutoProxy
 @SpringBootApplication
 @EnableScheduling
 @EnableConfigurationProperties(IsxcodeProperties.class)

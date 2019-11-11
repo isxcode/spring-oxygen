@@ -27,9 +27,9 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 开启sql语句日志打印
 
-
 logging:
   config: classpath:logback-spring.xml
+
 
 
 

@@ -84,4 +84,23 @@ public class AnnotationUtils {
         return "set"+field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
     }
 
+    /**
+     * 检查路径是否存在
+     *
+     * @param excludes list<String>
+     * @param target   目标
+     * @return 存在返回true
+     * @since 2019-11-11
+     */
+    public static boolean checkExclude(String[] excludes, String target) {
+
+        for (String metaStr : excludes) {
+            if (target.equals(metaStr)) {
+                return false;
+            }
+        }
+        return true;
+
+    }
+
 }

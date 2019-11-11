@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- bean definitions here -->
+
+    <!-- 声明切面对象 -->
+    <bean id="aspectBean" class="com.isxcode.isxcodespring.annotation.TestAspect"/>
+
+    <aop:config>
+
+        <!-- 声明切面编程的 -->
+        <aop:aspect id="testAspect" ref="aspectBean">
+
+            <!-- 声明pointcut -->
+            <aop:pointcut id="pointcutTest" expression="@within(com.isxcode.isxcodespring.annotation.TestAnno)"/>
+
+            <!-- 代理的方法必须写在代理方法中 -->
+            <aop:before pointcut-ref="pointcutTest" method="test"/>
+
+        </aop:aspect>
+
+    </aop:config>
+
+</beans>
