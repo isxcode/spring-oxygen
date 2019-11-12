@@ -12,25 +12,28 @@ spring:
     host: 47.105.33.160
     port: 8088
     password: isxcode
-
-#    关于rabbitMq的配置，因为是继承插件所有建议使用配置文件进行配置
-#  rabbitmq:
-#    host: 106.15.189.6
-#    port: 5672
-#    username: admin
-#    password: admin
-#    template:
-#      exchange:
-#      routing-key:
+  security:
+    user:
+      name: isxcode
+      password: admin
 
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 开启sql语句日志打印
 
+# 日志访问地址 http://localhost:8080/isxcode/actuator/logfile
+# 默认开启访问路径 /actuator/health actuator/info
 logging:
   config: classpath:logback-spring.xml
+  path: logs
+  file: logs/spring.log
 
-
-
-
-
+# 配置actuator属性
+management:
+  endpoints:
+    web:
+      exposure:
+        include: logfile,health,info
+  endpoint:
+    logfile:
+      enabled: true # logfile
