@@ -8,32 +8,30 @@ spring:
     active: dev # 使用配置文件
   application:
     name: isxcode
-  redis:
-    host: 47.105.33.160
-    port: 8088
-    password: isxcode
-  security:
-    user:
-      name: isxcode
-      password: admin
+#  security:
+#    user:
+#      name: isxcode
+#      password: admin
 
+# 开启mybatisPLus-sql语句日志打印
 mybatis-plus:
   configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 开启sql语句日志打印
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-# 日志访问地址 http://localhost:8080/isxcode/actuator/logfile
-# 默认开启访问路径 /actuator/health actuator/info
+# 配置log日志
 logging:
   config: classpath:logback-spring.xml
   path: logs
   file: logs/spring.log
 
-# 配置actuator属性
+# 配置actuator-logfile
 management:
   endpoints:
     web:
       exposure:
-        include: logfile,health,info
+        include: logfile,health
   endpoint:
     logfile:
-      enabled: true # logfile
+      enabled: true
+    health:
+      show-details: always  # 配置文件详细信息

@@ -16,6 +16,7 @@ repositories {
 }
 
 dependencies {
+
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
@@ -36,6 +37,12 @@ dependencies {
 
 	// spring-boot-starter-data-jpa || JPA
 	compile "org.springframework.boot:spring-boot-starter-data-jpa"
+
+	// spring-boot-starter-actuator || spring 监听
+	compile "org.springframework.boot:spring-boot-starter-actuator"
+
+	// spring-boot-starter-security || 安全检查
+//	compile "org.springframework.boot:spring-boot-starter-security"
 
 	// spring-data-redis || spring-redis
 	compile "org.springframework.data:spring-data-redis"
@@ -77,6 +84,4 @@ dependencies {
 
 	// httpclient || httpClient请求
 	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.10'
-
-
 }

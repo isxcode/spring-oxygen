@@ -15,9 +15,18 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 @Configuration
 public class RedisConfig {
 
-//    @Bean
-//    public LettuceConnectionFactory redisConnectionFactory() {
-//
-//        return new LettuceConnectionFactory(new RedisStandaloneConfiguration("47.105.33.160", 8088));
-//    }
+    /**
+     * Lettuce redis 配置中心
+     *
+     * @since 2019-11-12
+     */
+    @Bean
+    public LettuceConnectionFactory redisConnectionFactory() {
+
+        RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
+        configuration.setHostName("47.105.33.160");
+        configuration.setPort(8088);
+        configuration.setPassword("isxcode");
+        return new LettuceConnectionFactory(configuration);
+    }
 }
