@@ -14,3 +14,6 @@ logs
 *.ipr
 out/
 
+## 文档取出
+doc
+

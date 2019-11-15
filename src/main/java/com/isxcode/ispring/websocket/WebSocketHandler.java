@@ -9,7 +9,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
  * @author ispon
  */
 @Slf4j
-public class MyHandler extends TextWebSocketHandler {
+public class WebSocketHandler extends TextWebSocketHandler {
 
     public static WebSocketSession webSocketSession;
 

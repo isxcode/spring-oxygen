@@ -1,10 +1,9 @@
 package com.isxcode.ispring.config;
 
 import com.isxcode.ispring.websocket.HandShakeHandler;
-import com.isxcode.ispring.websocket.MyHandler;
+import com.isxcode.ispring.websocket.WebSocketHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
@@ -54,8 +53,8 @@ public class WebSocketConfig implements WebSocketConfigurer {
     }
 
     @Bean
-    public WebSocketHandler myHandler() {
-        return new MyHandler();
+    public org.springframework.web.socket.WebSocketHandler myHandler() {
+        return new WebSocketHandler();
     }
 
 }
