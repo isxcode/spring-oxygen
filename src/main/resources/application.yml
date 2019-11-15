@@ -1,37 +1,13 @@
+# 基础配置
+
+# java -jar app.jar --spring.profiles.active=dev
+spring:
+  profiles:
+    active: dev # 默认全部使用开发环境的配置,如果需要其他的配置就通过命令的方式注入
+  application:
+    name: isxcode # 项目的名称
+
 server:
-  port: 8080 # 端口号
   servlet:
     context-path: /isxcode # 上下文
 
-spring:
-  profiles:
-    active: dev # 使用配置文件
-  application:
-    name: isxcode
-#  security:
-#    user:
-#      name: isxcode
-#      password: admin
-
-# 开启mybatisPLus-sql语句日志打印
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
-# 配置log日志
-logging:
-  config: classpath:logback-spring.xml
-  path: logs
-  file: logs/spring.log
-
-# 配置actuator-logfile
-management:
-  endpoints:
-    web:
-      exposure:
-        include: logfile,health
-  endpoint:
-    logfile:
-      enabled: true
-    health:
-      show-details: always  # 配置文件详细信息

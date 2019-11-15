@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.isxcode'
 version = '0.0.1'
-sourceCompatibility = '1.8'
+//sourceCompatibility = '1.8'
 
 repositories {
 	//  配置阿里镜像

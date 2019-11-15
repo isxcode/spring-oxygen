@@ -1,15 +1,49 @@
+# 开发环境,用于项目的随意开发
+
+server:
+  port: 8888 # 端口号
+
+# 开启mybatisPLus-sql语句日志打印
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 配置log日志
+logging:
+  config: classpath:logback-spring.xml
+  path: logs
+  file: logs/spring.log
+
+# 配置actuator-logfile
+management:
+  endpoints:
+    web:
+      exposure:
+        include: logfile,health
+  endpoint:
+    logfile:
+      enabled: true
+    health:
+      show-details: always  # 配置文件详细信息
+
+# 自定义属性配置
+isxcode:
+  location: D://
+
+# spring基础配置
 spring:
+  # 数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://106.15.189.6:3306/isxcode
     url: jdbc:mysql://47.105.33.160:3306/aicallsystem
     username: root
-#    password: isxcode
     password: liu123456.
+  # servlet配置
   servlet:
     multipart:
       max-file-size: 3MB # 上传最大文件大小
       max-request-size: 3MB # 上传最大请求体大小
+  # jpa配置
   jpa:
     open-in-view: false
 

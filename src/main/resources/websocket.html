@@ -12,7 +12,7 @@
                 // 检测是否支持websocket
                 console.log("您的浏览器支持 WebSocket!");
 
-                var ws = new WebSocket("wss://hr.definesys.com/api/dev/pluto/wss/task/816f7f7a7c44b1b2wd");
+                var ws = new WebSocket("ws://localhost:8080/pluto/ws/project/b279b7fe5676f090");
 
                 // 握手请求
                 ws.onopen = function() {

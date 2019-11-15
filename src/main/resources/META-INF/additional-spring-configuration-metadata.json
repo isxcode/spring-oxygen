@@ -1,0 +1,28 @@
+{"groups": [
+  {
+    "name": "isxcode",
+    "type": "com.isxcode.ispring.config.PropertiesConfig",
+    "sourceType": "com.isxcode.ispring.config.PropertiesConfig"
+  }
+],"properties": [
+  {
+    "name": "isxcode.location",
+    "type": "java.lang.String",
+    "description": "file download address.",
+    "sourceType": "com.isxcode.ispring.config.PropertiesConfig"
+  }
+],"hints": [
+  {
+    "name": "isxcode.location",
+    "values": [
+      {
+        "value": "/resource",
+        "description": "service address."
+      },
+      {
+        "value": "D://",
+        "description": "location address."
+      }
+    ]
+  }
+]}
