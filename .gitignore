@@ -1,19 +1,11 @@
+### gradle 缓存文件 ###
 .gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**
-!**/src/test/**
-
-# 不上传日志文件夹
-logs
 
 ### IntelliJ IDEA ###
 .idea
-*.iws
-*.iml
-*.ipr
-out/
 
-## 文档取出
-doc
+### 文件打包文件 ###
+build
 
+### 日志文件夹 ###
+logs
