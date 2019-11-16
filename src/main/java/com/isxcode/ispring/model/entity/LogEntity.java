@@ -1,25 +1,31 @@
 package com.isxcode.ispring.model.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.isxcode.ispring.annotation.GenerateType;
-import com.isxcode.ispring.utils.GeneratorUtils;
+import com.isxcode.ispring.common.BaseEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * 日志表 Entity
  *
  * @author ispong
- * @since 2019-10-21
+ * @since 2019-11-15
  */
+@NoArgsConstructor
 @Component
 @Data
 @Accessors(chain = true)
-@TableName("log")
-public class LogEntity {
+@EqualsAndHashCode(callSuper = true)
+@Entity
+@Table(name = "log")
+public class LogEntity extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,33 +45,12 @@ public class LogEntity {
     private String responseParams;
 
     /**
-     * 结束时间
-     */
-    private LocalDateTime endDate;
-
-    /**
      * 开始时间
      */
     private LocalDateTime startDate;
 
     /**
-     * 对象的uuid
+     * 执行时间
      */
-    private String id;
-
-    /**
-     * 创建者
-     */
-    private String createBy;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createDate;
-
-    public LogEntity(){
-        this.id = GeneratorUtils.generateUuid();
-        this.createBy = GenerateType.SYSTEM.toString();
-        this.createDate = LocalDateTime.now();
-    }
+    private long executeTime;
 }

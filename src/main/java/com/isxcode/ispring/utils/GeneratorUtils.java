@@ -1,5 +1,8 @@
 package com.isxcode.ispring.utils;
 
+import com.isxcode.ispring.common.BaseEntity;
+
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -22,4 +25,16 @@ public class GeneratorUtils {
         return UUID.randomUUID().toString().replace("-", "");
     }
 
+    /**
+     * 初始化BaseEntity
+     *
+     * @param baseEntity Entity对象
+     * @since 2019-11-16
+     */
+    public static <A extends BaseEntity> void generateEntity(A baseEntity) {
+
+        baseEntity.setId(GeneratorUtils.generateUuid());
+        baseEntity.setCreateDate(LocalDateTime.now());
+        baseEntity.setCreateBy("ispong");
+    }
 }

@@ -1,27 +1,22 @@
 package com.isxcode.ispring.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.isxcode.ispring.annotation.Logs;
-import com.isxcode.ispring.model.entity.LogEntity;
+import com.isxcode.ispring.common.BaseController;
+import com.isxcode.ispring.common.BaseResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.MessageBuilder;
-import org.springframework.amqp.core.MessageProperties;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Calendar;
-import java.util.UUID;
+
 
 /**
- * 测试类
+ * spring项目测试类
  *
  * @author ispong
  * @version v0.1.0
@@ -31,7 +26,7 @@ import java.util.UUID;
 @Logs
 @RestController
 @RequestMapping("hello")
-public class HelloController {
+public class HelloController extends BaseController {
 
     private final RedisTemplate<String, String> redisTemplate;
 
@@ -43,52 +38,58 @@ public class HelloController {
         this.redisTemplate = redisTemplate;
     }
 
+    /**
+     * 测试项目启动
+     *
+     * @since 2019-11-15
+     */
     @GetMapping("/test")
-    public ResponseEntity<String> test(@RequestParam("test") String test) {
+    public ResponseEntity<BaseResponse> test() {
 
-        log.info("test"+test);
-//        throw new IsxcodeException("异常");
-        return new ResponseEntity<>(Calendar.getInstance().getTime().toString(), HttpStatus.OK);
+        return successResponse("项目启动成功", Calendar.getInstance().getTime().toString());
     }
 
-    @GetMapping("/redis")
-    public ResponseEntity<String> redis() {
-
-        String uuid = UUID.randomUUID().toString();
-        log.info("uuid:" + uuid);
-        redisTemplate.opsForValue().set("isxcode", uuid);
-        return new ResponseEntity<>(redisTemplate.opsForValue().get("isxcode"), HttpStatus.OK);
-    }
-
-    /**
-     * rabbit发送对象
-     *
-     * @since 2019-11-09
-     */
-    @GetMapping("/rabbit")
-    public ResponseEntity<LogEntity> rabbit() {
-
-        LogEntity logEntity = new LogEntity();
-        logEntity.setId(UUID.randomUUID().toString());
-
-        Message message = MessageBuilder.withBody(JSON.toJSONString(logEntity).getBytes())
-                .setContentType(MessageProperties.CONTENT_TYPE_JSON)
-                .build();
-
-        rabbitTemplate.send("rabbitQueue", message);
-        return new ResponseEntity<>(logEntity, HttpStatus.OK);
-    }
-
-    /**
-     * rabbit监听对象
-     *
-     * @since 2019-11-09
-     */
-    @RabbitListener(queues = "rabbitQueue")
-    public void rabbitReceive(Message message) {
-
-        log.info("message:" + JSON.parseObject(new String(message.getBody()), LogEntity.class));
-    }
+//
+//
+//    @GetMapping("/redis")
+//    public ResponseEntity<String> redis() {
+//
+//        String uuid = UUID.randomUUID().toString();
+//        log.info("uuid:" + uuid);
+//        redisTemplate.opsForValue().set("isxcode", uuid);
+//        return new ResponseEntity<>(redisTemplate.opsForValue().get("isxcode"), HttpStatus.OK);
+//    }
+//
+//    /**
+//     * rabbit发送对象
+//     *
+//     * @since 2019-11-09
+//     */
+//    @GetMapping("/rabbit")
+//    public ResponseEntity<LogEntity> rabbit() {
+//
+//        LogEntity logEntity = new LogEntity();
+//        logEntity.setId(UUID.randomUUID().toString());
+//
+//        Message message = MessageBuilder.withBody(JSON.toJSONString(logEntity).getBytes())
+//                .setContentType(MessageProperties.CONTENT_TYPE_JSON)
+//                .build();
+//
+//        rabbitTemplate.send("rabbitQueue", message);
+//        return new ResponseEntity<>(logEntity, HttpStatus.OK);
+//    }
+//
+//    /**
+//     * rabbit监听对象
+//     *
+//     * @since 2019-11-09
+//     */
+//    @RabbitListener(queues = "rabbitQueue")
+//    public void rabbitReceive(Message message) {
+//
+//        log.info("message:" + JSON.parseObject(new String(message.getBody()), LogEntity.class));
+//    }
 
 
 }
+

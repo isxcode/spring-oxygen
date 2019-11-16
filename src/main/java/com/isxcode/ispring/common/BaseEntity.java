@@ -1,13 +1,11 @@
 package com.isxcode.ispring.common;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.isxcode.ispring.annotation.GenerateType;
 import com.isxcode.ispring.utils.GeneratorUtils;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -18,33 +16,37 @@ import java.time.LocalDateTime;
  * @date 2019/10/8
  */
 @Data
-public class BaseEntity {
+@MappedSuperclass
+public class BaseEntity implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 对象的uuid
      */
-    @TableField("id")
     @Id
-    @GeneratedValue
     private String id;
 
     /**
      * 创建者
      */
-    @TableField("create_by")
-    @Column(nullable = false)
     private String createBy;
 
     /**
      * 创建时间
      */
-    @TableField("create_date")
-    @Column(nullable = false)
     private LocalDateTime createDate;
 
-    public BaseEntity(){
-        this.id = GeneratorUtils.generateUuid();
-        this.createBy = GenerateType.SYSTEM.toString();
-        this.createDate = LocalDateTime.now();
+
+    /**
+     * baseEntity 初始化
+     *
+     * @since 2019-11-16
+     */
+    public BaseEntity() {
+
+        this.setId(GeneratorUtils.generateUuid());
+        this.setCreateDate(LocalDateTime.now());
+        this.setCreateBy("ispong");
     }
 }

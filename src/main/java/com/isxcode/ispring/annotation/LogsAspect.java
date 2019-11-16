@@ -1,17 +1,28 @@
 package com.isxcode.ispring.annotation;
 
+import com.alibaba.fastjson.JSON;
 import com.isxcode.ispring.model.entity.LogEntity;
-import com.isxcode.ispring.service.LogService;
+import com.isxcode.ispring.repositories.LogRepository;
+import com.isxcode.ispring.utils.AnnotationUtils;
+import com.isxcode.ispring.utils.GeneratorUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.time.LocalDateTime;
+import java.util.Arrays;
 
 /**
- * 注解解析器- Log注解 AOP切面编程
+ * Logs-注解解析器
  *
  * @author ispong
  * @date 2019/10/21
@@ -22,85 +33,70 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogsAspect {
 
-    /**
-     * 日志服务
-     */
-    private final LogService logService;
+    private final LogRepository logRepository;
 
-    /**
-     * 日志对象
-     */
     private final LogEntity logEntity;
 
     @Autowired
-    public LogsAspect(LogEntity logEntity, LogService logService) {
+    public LogsAspect(LogEntity logEntity, LogRepository logRepository) {
 
-        this.logService = logService;
+        this.logRepository = logRepository;
         this.logEntity = logEntity;
     }
 
     /**
-     * 指定AOP切面的地址
+     * 监听所有Class-Logs注解
      */
     @Pointcut("@within(com.isxcode.ispring.annotation.Logs)")
     public void pointcut() {}
 
-    @Pointcut("@annotation(com.isxcode.ispring.annotation.Logs)")
-    public void pointcut1() {}
-
     /**
-     * 在检测到连接点之前
+     * PostMapping - before
+     *
+     * @since 2019-11-16
      */
-    @Before("pointcut1()&& @annotation(logs)")
-    public void before(JoinPoint joinPoint, Logs logs) {
+    @Before(value = "pointcut()&&@target(logs)&&@within(requestMapping)&&@annotation(postMapping)", argNames = "joinPoint,logs,requestMapping,postMapping")
+    public void beforePost(JoinPoint joinPoint, Logs logs, RequestMapping requestMapping, PostMapping postMapping) {
 
-        log.info("检测到调用接口 before");
-//        logEntity.setApiName(joinPoint.getSignature().getName());
-//        logEntity.setRequestParams(JSON.toJSONString(joinPoint.getArgs()));
-//        logEntity.setStartDate(LocalDateTime.now());
+        if (AnnotationUtils.checkExclude(logs.exclude(), joinPoint.getSignature().getName())) {
+            GeneratorUtils.generateEntity(logEntity);
+            logEntity.setApiName((Arrays.toString(requestMapping.value()) + Arrays.toString(postMapping.value())).replace("[", "").replace("]", ""));
+            logEntity.setRequestParams(JSON.toJSONString(joinPoint.getArgs()));
+            logEntity.setStartDate(LocalDateTime.now());
+            logEntity.setExecuteTime(System.currentTimeMillis());
+        }
     }
 
     /**
-     * 中间代理
+     * GetMapping - before
+     *
+     * @since 2019-11-16
      */
-    @Around("pointcut1()")
-    public Object around(ProceedingJoinPoint pjp) throws Throwable{
+    @Before(value = "pointcut()&&@target(logs)&&@within(requestMapping)&&@annotation(getMapping)", argNames = "joinPoint,logs,requestMapping,getMapping")
+    public void beforeGet(JoinPoint joinPoint, Logs logs, RequestMapping requestMapping, GetMapping getMapping) {
 
-        log.info("中间处理方式 around");
-        Object proceed = pjp.proceed();
-        log.info("around 结束");
-        return proceed;
+        if (AnnotationUtils.checkExclude(logs.exclude(), joinPoint.getSignature().getName())) {
+            GeneratorUtils.generateEntity(logEntity);
+            logEntity.setApiName((Arrays.toString(requestMapping.value()) + Arrays.toString(getMapping.value())).replace("[", "").replace("]", ""));
+            logEntity.setRequestParams(JSON.toJSONString(joinPoint.getArgs()));
+            logEntity.setStartDate(LocalDateTime.now());
+            logEntity.setExecuteTime(System.currentTimeMillis());
+        }
     }
 
     /**
-     * 当检测的service返回值时调用方法
+     * ResponseEntity - afterReturning
+     *
+     * @since 2019-11-16
      */
     @AfterReturning(returning = "response",pointcut = "pointcut()")
     public void afterReturning(ResponseEntity response){
 
-//        logEntity.setResponseParams(JSON.toJSONString(response.getBody()));
-//        logEntity.setEndDate(LocalDateTime.now());
-//        logEntity.setCreateDate(LocalDateTime.now());
-//        logService.save(logEntity);
-        log.info("检测到返回参数 afterreturn");
+        if (logEntity.getApiName() != null) {
+            logEntity.setResponseParams(JSON.toJSONString(response.getBody()));
+            logEntity.setExecuteTime(System.currentTimeMillis() - logEntity.getExecuteTime());
+            logRepository.save(logEntity);
+        }
     }
-
-    /**
-     * 当方法返回报异常时处理
-     */
-    @AfterThrowing("pointcut()")
-    public void afterThrowing(){
-        log.info("异常处理方式 atfer throw");
-    }
-
-    /**
-     * 最终返回
-     */
-    @After("pointcut()&&args(test)&&@annotation(logs)")
-    public void after(String test,Logs logs) {
-
-        log.info("最终的处理方式 after" + test);
-    }
-
 }
 

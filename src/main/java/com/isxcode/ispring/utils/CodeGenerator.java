@@ -45,7 +45,7 @@ public class CodeGenerator {
 
     public static void main(String[] args) {
 
-        String pkgParent = "com.isxcode.isxcodespring";
+        String pkgParent = "com.isxcode.ispring";
 
         AutoGenerator mpg = new AutoGenerator();
         String projectPath = System.getProperty("user.dir");
@@ -68,10 +68,10 @@ public class CodeGenerator {
 
         // config database info
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://106.15.189.6:3306/isxcode?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://47.105.33.160:3306/aicallsystem?useUnicode=true&useSSL=false&characterEncoding=utf8");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("isxcode");
+        dsc.setPassword("liu123456.");
         mpg.setDataSource(dsc);
 
         // config file go to which package

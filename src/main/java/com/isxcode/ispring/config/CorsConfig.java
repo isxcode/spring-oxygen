@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 /**
- * 跨域配置中心
+ * 跨域配置
  *
  * @author ispong
  * @date 2019-11-12
