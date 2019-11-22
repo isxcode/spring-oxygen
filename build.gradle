@@ -1,17 +1,17 @@
 plugins {
 	id 'org.springframework.boot' version '2.1.9.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-	id 'java'
 }
 
+apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
+
 group = 'com.isxcode'
-version = '0.0.1'
-//sourceCompatibility = '1.8'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
-	//  配置阿里镜像
-	maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
-	// 中央仓库
+
+	maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
 	mavenCentral()
 }
 
@@ -20,68 +20,66 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-	// spring-boot-starter-web || 提供restful接口
+	// spring-boot-starter-web
 	compile "org.springframework.boot:spring-boot-starter-web"
 
-	// spring-boot-starter-aop || 使用srping aop 切面工具
+	// spring-boot-starter-aop
 	compile "org.springframework.boot:spring-boot-starter-aop"
 
-	// spring-boot-starter-amqp || rabbitMq starter
-	compile "org.springframework.boot:spring-boot-starter-amqp"
+	// spring-boot-starter-amqp
+//	compile "org.springframework.boot:spring-boot-starter-amqp"
 
-	// spring-boot-starter-websocket || websocket starrt
+	// spring-boot-starter-websocket
 	compile "org.springframework.boot:spring-boot-starter-websocket"
 
-	// configuration || 参数配置
+	// spring-boot-configuration-processor
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
-	// spring-boot-starter-data-jpa || JPA
+	// spring-boot-starter-data-jpa
 	compile "org.springframework.boot:spring-boot-starter-data-jpa"
 
-	// spring-boot-starter-actuator || spring 监听
+	// spring-boot-starter-actuator
 	compile "org.springframework.boot:spring-boot-starter-actuator"
 
-	// spring-boot-starter-security || 安全检查
+	// spring-boot-starter-security
 //	compile "org.springframework.boot:spring-boot-starter-security"
 
-	// spring-data-redis || spring-redis
+	// spring-data-redis
 	compile "org.springframework.data:spring-data-redis"
 
-	// lettuce-core || redis/lettuce
+	// lettuce-core
 	compile group: 'io.lettuce', name: 'lettuce-core', version: '5.2.1.RELEASE'
 
-	// ===================== mybatis plus
-	// mybatis-plus-boot-starter || mybatis plus starter
-	compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.2.0'
+	// jsonwebtoken
+	compile 'io.jsonwebtoken:jjwt-api:0.10.7'
+	compile 'io.jsonwebtoken:jjwt-jackson:0.10.7'
+	runtime 'io.jsonwebtoken:jjwt-impl:0.10.7',
+			'io.jsonwebtoken:jjwt-jackson:0.10.7'
 
-	// mybatis-plus-generator || mybatis plus 代码生成工具
+	// mybatis-plus-boot-starter
+	compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.2.0'
 	compile group: 'com.baomidou', name: 'mybatis-plus-generator', version: '3.2.0'
 
-	// freemarker || freemarker 自动生成代码
+	// freemarker
 	compile group: 'org.freemarker', name: 'freemarker', version: '2.3.29'
 
-	//	===================== lombok
-	// lombok || 自动生成构造器
+	// lombok
 	compileOnly 'org.projectlombok:lombok:1.18.10'
 	annotationProcessor 'org.projectlombok:lombok:1.18.10'
 
-	//	===================== junit
-	// junit-jupiter-api || junit测试
+	// junit-jupiter-api
 	testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.5.2'
 
-	//	===================== mysql
-	// mysql-connector-java || mysql连接工具
+	// mysql-connector-java
 	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.18'
 
-	// fastjson || json解析器
+	// fastjson
 	compile group: 'com.alibaba', name: 'fastjson', version: '1.2.62'
 
-	// poi || office文件导出
+	// poi
 	compile group: 'org.apache.poi', name: 'poi', version: '4.1.1'
-
-	// poi-ooxml || poi扩展支持xlsx
 	compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.1'
 
-	// httpclient || httpClient请求
+	// httpclient
 	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.10'
 }
