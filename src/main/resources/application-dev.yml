@@ -26,11 +26,6 @@ management:
     health:
       show-details: always  # 配置文件详细信息
 
-# 自定义属性配置
-isxcode:
-  location: D://
-
-# spring基础配置
 spring:
   # 数据库配置
   datasource:
@@ -47,4 +42,16 @@ spring:
   jpa:
     open-in-view: false
 
-
+# 自定义属性配置
+isxcode:
+  location: D://
+  jwt-secret: isxcode
+  freemarker:
+    author: ispong
+    company: isxcode
+    project-context: com.isxcode.ispring
+    templates-path: classpath:/templates/
+    controller-name: Controller
+    entity-name: Entity
+    service-name: Service
+    repository-name: Repository

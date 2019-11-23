@@ -26,7 +26,14 @@ Content-Type: application/json
 
 
 ###
-GET {{host}}/log/test
+GET {{host}}/hello/test
+token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2UifQ.JKC-Y0bNX7wVFODEdpz-nlP5hNaIyfGWtY53Af7Rb0U
 
 ###
+###
+
+GET {{host}}/ss
+token: eyJoZWFkZXIyIjoiYmJiIiwiaGVhZGVyMSI6ImFhYSIsImFsZyI6IkhTMjU2In0.eyJjMSI6IjExMSIsImMyIjoiMjIyIiwianRpIjoiMGNhZTllOWMtMGExMi00ODYyLThmNzMtYzBiZjJjMTI1YzdkIiwiaXNzIjoiaXN4Y29kZSIsImlhdCI6MTU3Mzk2OTM2Mywic3ViIjoic3ViamVjdCIsImF1ZCI6InlvdSJ9.-PWXYC_y1FzrepBLsFdJgNWaZ7XjmtZlDlmKFAl9oAY
+
+
 ###

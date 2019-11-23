@@ -2,7 +2,9 @@ package com.isxcode.ispring.common;
 
 import com.isxcode.ispring.utils.GeneratorUtils;
 import lombok.Data;
+import org.springframework.data.annotation.*;
 
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
@@ -30,11 +32,17 @@ public class BaseEntity implements Serializable {
     /**
      * 创建者
      */
+    @CreatedBy
+    @Column(name = "create_by")
     private String createBy;
 
     /**
      * 创建时间
      */
+//    @LastModifiedBy
+//    @LastModifiedDate
+//    @Version
+    @CreatedDate
     private LocalDateTime createDate;
 
 

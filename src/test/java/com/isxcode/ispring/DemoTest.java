@@ -1,6 +1,11 @@
 package com.isxcode.ispring;
 
 import org.junit.Test;
+import freemarker.template.*;
+
+import java.util.*;
+import java.io.*;
+
 
 /**
  * 前提是项目没有错,独立的测试环境
@@ -11,9 +16,9 @@ import org.junit.Test;
  */
 public class DemoTest {
 
-    @Test
-    public void testOne(){
+        @Test
+        public void testOne() throws Exception {
 
-        System.out.println("testing");
-    }
+
+        }
 }

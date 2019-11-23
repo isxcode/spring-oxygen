@@ -1,9 +1,8 @@
 package com.isxcode.ispring.config;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.*;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -18,10 +17,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableJpaRepositories(basePackages = {"com.isxcode.ispring.repositories"})
 @EnableTransactionManagement
-@EnableConfigurationProperties(PropertiesConfig.class)
+@EnableConfigurationProperties
 @EnableAspectJAutoProxy
 @EnableScheduling
-@ImportResource(locations = {"classpath:schema/beans.xml", "classpath:schema/context.xml"})
+@ImportResource(locations = {"classpath:schema/**"})
 public class AppConfig {
 
 }

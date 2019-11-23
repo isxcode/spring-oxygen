@@ -1,19 +1,21 @@
 package com.isxcode.ispring.controller;
 
-import com.isxcode.ispring.annotation.Logs;
+import com.isxcode.ispring.annotation.logs.Logs;
 import com.isxcode.ispring.common.BaseController;
 import com.isxcode.ispring.common.BaseResponse;
+import com.isxcode.ispring.model.dto.UserInfoDto;
+import com.isxcode.ispring.properties.FreemarkerProperties;
+//import io.netty.handler.codec.base64.Base64Encoder;
+import com.isxcode.ispring.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+//import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Calendar;
-
+import java.util.*;
 
 /**
  * spring项目测试类
@@ -30,12 +32,23 @@ public class HelloController extends BaseController {
 
     private final RedisTemplate<String, String> redisTemplate;
 
-    private final RabbitTemplate rabbitTemplate;
+    private final FreemarkerProperties freeMarkerProperties;
 
-    public HelloController(RedisTemplate<String, String> redisTemplate, RabbitTemplate rabbitTemplate) {
+    private final UserRepository userRepository;
 
-        this.rabbitTemplate = rabbitTemplate;
+//    private final RabbitTemplate rabbitTemplate;
+
+    public HelloController(
+            UserRepository userRepository
+            , RedisTemplate<String, String> redisTemplate
+//            , RabbitTemplate rabbitTemplate
+            , FreemarkerProperties freeMarkerProperties
+    ) {
+
+//        this.rabbitTemplate = rabbitTemplate;
+        this.userRepository = userRepository;
         this.redisTemplate = redisTemplate;
+        this.freeMarkerProperties = freeMarkerProperties;
     }
 
     /**
@@ -46,7 +59,16 @@ public class HelloController extends BaseController {
     @GetMapping("/test")
     public ResponseEntity<BaseResponse> test() {
 
-        return successResponse("项目启动成功", Calendar.getInstance().getTime().toString());
+//        try {
+//            FreemarkerUtils.test();
+//        } catch (IOException | TemplateException e) {
+//            e.printStackTrace();
+//        }
+
+        return successResponse("项目启动成功", userRepository.getCustomUserInfo("asdasf"));
+
+//        log.info(freeMarkerProperties.getTemplatesPath());
+//        return successResponse("项目启动成功", Calendar.getInstance().getTime().toString());
     }
 
 //
