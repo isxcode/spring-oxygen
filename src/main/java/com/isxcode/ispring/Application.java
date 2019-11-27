@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * isxcode 启动类
+ * 项目启动类
  *
  * @author ispong
  * @version v0.1.0
@@ -14,9 +14,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Application {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(Application.class, args);
 	}
-
 }
-
 

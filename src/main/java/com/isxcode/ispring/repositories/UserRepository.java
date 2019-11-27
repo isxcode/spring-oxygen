@@ -1,13 +1,7 @@
 package com.isxcode.ispring.repositories;
 
-import com.isxcode.ispring.model.dto.UserInfoDto;
 import com.isxcode.ispring.model.entity.UserEntity;
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-
-import java.util.List;
 
 /**
  * fileEntity
@@ -20,19 +14,18 @@ import java.util.List;
  */
 public interface UserRepository extends JpaRepository<UserEntity, String> {
 
+//    /**
+//     * <p>
+//     *
+//     * @param userId
+//     * @return
+//     * @since 2019-11-22
+//     */
+//    @Select("select usr.id id, ac.passwd passwd\\n\" +\n" +
+//            "            \"from user usr\\n\" +\n" +
+//            "            \"  left join account ac on usr.account_id = ac.id\\n\" +\n" +
+//            "            \"where usr.id = ?1")
+//    UserInfoDto findByAccountId(String userId);
 
-    /**
-     * <p>
-     *
-     * @param
-     * @return
-     * @since 2019-11-22
-     */
-    @Query(value = "" +
-            "select user.id userId, account.passwd password\n" +
-            "from user\n" +
-            "         left join account on user.account_id = account.id\n" +
-            "where user.id = :userId", nativeQuery = true)
-    Object getCustomUserInfo(@Param("userId") String userId);
 
 }

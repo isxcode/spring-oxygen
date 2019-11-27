@@ -15,11 +15,17 @@ logging:
   file: logs/spring.log
 
 # 配置actuator-logfile
+# 查看项目启动的插件状态
+# health : http://localhost:8888/isxcode/actuator/health
+# 查看项目的日志
+# logfile: http://localhost:8888/isxcode/actuator/logfile
+# 查看项目注入的beans
+# beans: http://localhost:8888/isxcode/actuator/beans
 management:
   endpoints:
     web:
       exposure:
-        include: logfile,health
+        include: logfile,health,beans
   endpoint:
     logfile:
       enabled: true

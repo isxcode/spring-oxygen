@@ -1,16 +1,16 @@
 package com.isxcode.ispring.model.dto;
 
-import com.isxcode.ispring.common.BaseEntity;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Value;
 
-import javax.persistence.Entity;
-
-@Data
+//@Data
 //@Value
+@AllArgsConstructor
 public class UserInfoDto{
 
-    private String userId;
+    private String id;
 
-    private String password;
+    private String passwd;
+
 }

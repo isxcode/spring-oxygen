@@ -4,11 +4,13 @@ import com.isxcode.ispring.annotation.logs.Logs;
 import com.isxcode.ispring.common.BaseController;
 import com.isxcode.ispring.common.BaseResponse;
 import com.isxcode.ispring.model.dto.UserInfoDto;
+import com.isxcode.ispring.model.entity.UserEntity;
 import com.isxcode.ispring.properties.FreemarkerProperties;
 //import io.netty.handler.codec.base64.Base64Encoder;
 import com.isxcode.ispring.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 //import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.hibernate.id.UUIDHexGenerator;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,16 +61,14 @@ public class HelloController extends BaseController {
     @GetMapping("/test")
     public ResponseEntity<BaseResponse> test() {
 
-//        try {
-//            FreemarkerUtils.test();
-//        } catch (IOException | TemplateException e) {
-//            e.printStackTrace();
-//        }
-
-        return successResponse("项目启动成功", userRepository.getCustomUserInfo("asdasf"));
-
-//        log.info(freeMarkerProperties.getTemplatesPath());
-//        return successResponse("项目启动成功", Calendar.getInstance().getTime().toString());
+        UserEntity userEntity = new UserEntity();
+        userEntity.setAccountId("abcd");
+        userEntity.setFirstName("i");
+        userEntity.setLastName("spong");
+        userEntity.setNickName("ispong");
+//        userEntity.setUuid("hhhhhhasdfasdf");
+        userRepository.save(userEntity);
+        return successResponse("项目启动成功", Calendar.getInstance().getTime().toString());
     }
 
 //

@@ -4,8 +4,10 @@ import com.isxcode.ispring.common.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.Table;
 import java.io.Serializable;
 
@@ -21,8 +23,6 @@ import java.io.Serializable;
 @Entity
 @Table(name = "user")
 public class UserEntity extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
 
     private String firstName;
 

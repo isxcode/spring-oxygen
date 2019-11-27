@@ -1,12 +1,15 @@
 package com.isxcode.ispring.common;
 
-import com.isxcode.ispring.utils.GeneratorUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.springframework.data.annotation.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -19,6 +22,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -27,34 +31,42 @@ public class BaseEntity implements Serializable {
      * 对象的uuid
      */
     @Id
-    private String id;
+    @GeneratedValue(generator = "uuid",strategy = GenerationType.AUTO)
+    @GenericGenerator(name = "uuid", strategy = "com.isxcode.ispring.common.BaseUuidGenerator")
+    private String uuid;
 
     /**
      * 创建者
      */
+    @JsonIgnore
     @CreatedBy
-    @Column(name = "create_by")
-    private String createBy;
+    private String createdBy;
 
     /**
      * 创建时间
      */
-//    @LastModifiedBy
-//    @LastModifiedDate
-//    @Version
+    @JsonIgnore
     @CreatedDate
-    private LocalDateTime createDate;
-
+    private LocalDateTime createdDate;
 
     /**
-     * baseEntity 初始化
-     *
-     * @since 2019-11-16
+     * 更新者
      */
-    public BaseEntity() {
+    @JsonIgnore
+    @LastModifiedBy
+    private String lastModifiedBy;
 
-        this.setId(GeneratorUtils.generateUuid());
-        this.setCreateDate(LocalDateTime.now());
-        this.setCreateBy("ispong");
-    }
+    /**
+     * 更新时间
+     */
+    @JsonIgnore
+    @LastModifiedDate
+    private LocalDateTime lastModifiedDate;
+
+    /**
+     * 版本号
+     */
+    @JsonIgnore
+    @Version
+    private Integer version;
 }
