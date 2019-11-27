@@ -36,10 +36,10 @@ public class AppConfig {
      * @param appContext ApplicationContext
 	 * @since 2019/10/17
 	 */
-	@Bean
-	public CommandLineRunner run(ApplicationContext appContext) {
-		return args -> Arrays.stream(appContext.getBeanDefinitionNames()).sorted().forEach(System.out::println);
-	}
+//	@Bean
+//	public CommandLineRunner run(ApplicationContext appContext) {
+//		return args -> Arrays.stream(appContext.getBeanDefinitionNames()).sorted().forEach(System.out::println);
+//	}
 
 }
 

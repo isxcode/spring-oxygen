@@ -42,7 +42,7 @@ dependencies {
 	compile "org.springframework.boot:spring-boot-starter-actuator"
 
 	// spring-boot-starter-security
-//	compile "org.springframework.boot:spring-boot-starter-security"
+	compile "org.springframework.boot:spring-boot-starter-security"
 
 	// spring-data-redis
 	compile "org.springframework.data:spring-data-redis"
