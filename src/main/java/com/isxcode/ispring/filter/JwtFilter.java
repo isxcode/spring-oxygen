@@ -1,15 +1,7 @@
 package com.isxcode.ispring.filter;
 
 import com.isxcode.ispring.common.BaseFilter;
-import com.isxcode.ispring.exception.IsxcodeException;
-import com.isxcode.ispring.utils.JwtUtils;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -42,16 +34,24 @@ public class JwtFilter extends BaseFilter {
 //            String jwt = request.getHeader("token");
 //            JwtUtils.decodeJwt(jwt);
 //            // 验证成功放行
-//            doFilter(request, response, filterChain);
+
 //        }catch (JwtException e){
 //            throw new IsxcodeException("身份验证失败");
 //        }
 
+//        String header = request.getHeader("token");
+//        if(header.equals("1")){
+//            String userId = "1";
+//        }
+//        if(header.equals("2")){
+//            String userId = "2";
+//        }
 
-//        SecurityContextHolder.getContext().setAuthentication();
+        // 如何插入用户的信息到安全上传
 //        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        Authentication authentication = SecurityContextHolder.setContext();
         System.out.println("身份校验");
 
+        // 放行
+        doFilter(request, response, filterChain);
     }
 }

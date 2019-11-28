@@ -47,6 +47,19 @@ spring:
   # jpa配置
   jpa:
     open-in-view: false
+  # 发送邮件配置
+  mail:
+    host: smtp.exmail.qq.com
+    port: 465
+    username: song.ping@definesys.com
+    password: aC5G4eAGwY6vmc2X
+    properties:
+      mail.smtp.ssl.enable: true
+      mail.smtp.connectiontimeout: 10000
+      mail.smtp.timeout: 6000
+      mail.smtp.writetimeout: 10000
+  freemarker:
+    template-loader-path: classpath:/templates/
 
 # 自定义属性配置
 isxcode:
