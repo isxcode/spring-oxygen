@@ -6,8 +6,11 @@ spring:
     active: dev # 默认全部使用开发环境的配置,如果需要其他的配置就通过命令的方式注入
   application:
     name: isxcode # 项目的名称
+  jackson:
+    time-zone: GMT+8
 
 server:
   servlet:
     context-path: /isxcode # 上下文
+
 

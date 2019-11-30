@@ -47,12 +47,13 @@ spring:
   # jpa配置
   jpa:
     open-in-view: false
+    show-sql: true
   # 发送邮件配置
   mail:
     host: smtp.exmail.qq.com
     port: 465
-    username: song.ping@definesys.com
-    password: aC5G4eAGwY6vmc2X
+    username: support.pluto@definesys.com
+    password: Pluto0701
     properties:
       mail.smtp.ssl.enable: true
       mail.smtp.connectiontimeout: 10000

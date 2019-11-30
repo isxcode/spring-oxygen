@@ -37,3 +37,13 @@ token: eyJoZWFkZXIyIjoiYmJiIiwiaGVhZGVyMSI6ImFhYSIsImFsZyI6IkhTMjU2In0.eyJjMSI6I
 
 
 ###
+
+POST http://portal.definesys.com:30550/mock/5de1cd117d6f1d000154d3f7/userInfo/getUserInfo?bodyCode=ok
+Content-Type: application/json
+token: 123456
+
+{
+  "userId": "123456"
+}
+
+###

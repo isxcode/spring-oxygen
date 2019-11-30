@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 //import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.hibernate.id.UUIDHexGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,20 +68,36 @@ public class HelloController extends BaseController {
     @GetMapping("/test")
     public ResponseEntity<BaseResponse> test() {
 
-//        UserEntity userEntity = new UserEntity();
-//        userEntity.setAccountId("abcd");
-//        userEntity.setFirstName("i");
-//        userEntity.setLastName("spong");
-//        userEntity.setNickName("ispong");
-////        userEntity.setUuid("hhhhhhasdfasdf");
-//        userRepository.save(userEntity);
+        // 保存DO对象
 
-        Map<String, String> map = new HashMap<>(4);
-        map.put("userName", "ispong");
-        map.put("dayNum", "10");
-        map.put("startDate", "2019-01-01");
-        map.put("endDate", "2019-12-12");
-        EmailUtils.sendHtmlEmail("song.ping@definesys.com", "ispong@outlook.com", FreemarkerUtils.getEmailHtmlContent(map,"template.ftl"), "subject");
+        // 对象更新
+        // DTO 转 DO 通过save() 更新
+
+        // 单字段更新
+        // 使用mod更新  如何处理version字段
+
+        //
+
+        // 带条件查询所有
+        UserEntity entity = userRepository.findAll().get(0);
+        entity.setNickName("ispong");
+        userRepository.save(entity);
+
+
+
+        List<UserEntity> all = userRepository.findAll();
+
+        // 部分更新  // 全部更新  // 条件更新
+        // 条件删除
+        // 插入已经解决
+        // 主要是DTO查询
+
+        userRepository.saveAll(all);
+        // 现在有个需求 更新所有人的token 为1
+        //
+
+        userRepository.updateUserName("ispong2");
+//        EmailUtils.sendHtmlEmail("support.pluto@definesys.com", "song.ping@definesys.com", "测试使用密码发送", "测试使用密码发送");
         return successResponse("项目启动成功", Calendar.getInstance().getTime().toString());
     }
 

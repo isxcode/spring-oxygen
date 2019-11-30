@@ -32,11 +32,11 @@ public class FreemarkerUtils {
     }
 
     /**
-     * 获取邮件模板内容
+     * 通过freemarker模板获取html邮件的String
      *
      * @param map 参数集合
      * @param templateFile 模板文件
-     * @return html文本
+     * @return Email邮件的String
      * @since 2019-11-28
      */
     public static String getEmailHtmlContent(Map<String,String> map,String templateFile){
