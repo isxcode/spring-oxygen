@@ -13,4 +13,8 @@ server:
   servlet:
     context-path: /isxcode # 上下文
 
-
+jasypt:
+  encryptor:
+    property:
+      prefix: "ENC@["
+      suffix: "]"

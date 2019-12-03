@@ -79,26 +79,27 @@ public class HelloController extends BaseController {
         //
 
         // 带条件查询所有
-        UserEntity entity = userRepository.findAll().get(0);
-        entity.setNickName("ispong");
-        userRepository.save(entity);
-
-
-
-        List<UserEntity> all = userRepository.findAll();
-
-        // 部分更新  // 全部更新  // 条件更新
-        // 条件删除
-        // 插入已经解决
-        // 主要是DTO查询
-
-        userRepository.saveAll(all);
-        // 现在有个需求 更新所有人的token 为1
-        //
-
-        userRepository.updateUserName("ispong2");
+//        UserEntity entity = userRepository.findAll().get(0);
+//        entity.setNickName("ispong");
+//        userRepository.save(entity);
+//
+//
+//
+//        List<UserEntity> all = userRepository.findAll();
+//
+//        // 部分更新  // 全部更新  // 条件更新
+//        // 条件删除
+//        // 插入已经解决
+//        // 主要是DTO查询
+//
+//        userRepository.saveAll(all);
+//        // 现在有个需求 更新所有人的token 为1
+//        //
+//
+//        userRepository.updateUserName("ispong2");
 //        EmailUtils.sendHtmlEmail("support.pluto@definesys.com", "song.ping@definesys.com", "测试使用密码发送", "测试使用密码发送");
-        return successResponse("项目启动成功", Calendar.getInstance().getTime().toString());
+        return successResponse("项目启动成功", freeMarkerProperties.getAuthor());
+//        return successResponse("项目启动成功", Calendar.getInstance().getTime().toString());
     }
 
 //

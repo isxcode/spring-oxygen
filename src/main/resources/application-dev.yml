@@ -38,7 +38,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://47.105.33.160:3306/aicallsystem
     username: root
-    password: liu123456.
+    password: ENC@[R3ZE710H1U0nsxSr1x8vJKjD2rl83XEugZwVLOBkLIbrJekh0OE+7Vpsi2lvtpLP] #liu123456.
   # servlet配置
   servlet:
     multipart:
@@ -52,8 +52,8 @@ spring:
   mail:
     host: smtp.exmail.qq.com
     port: 465
-    username: support.pluto@definesys.com
-    password: Pluto0701
+    username: ENC@[QEXGC4JsU3+UeVYv+wkPs5rX0kini9zXO7TknIoxubdhxYGmPx87XRraQgFcqXBsgyhjUBZcbpN30r/DY2xYjQ==] #song.ping@definesys.com
+    password: ENC@[NselmZlLwdhDPcCqaXqETreNEU68mkd1p0gEgn609MZaEcmuNuMxk3Xy/VtYsP+KqNkZfgIp8ryQPCK3iPB6Qg==] #QiRJ8MQcyqbP7C43
     properties:
       mail.smtp.ssl.enable: true
       mail.smtp.connectiontimeout: 10000
@@ -67,7 +67,7 @@ isxcode:
   location: D://
   jwt-secret: isxcode
   freemarker:
-    author: ispong
+    author: ENC@[nqxM+WY3AnW3bH5JJs0d2uZ0zQfvGeAL/mjnwuFCP8AxF8zbb0JRGPd42aRtCpxD]
     company: isxcode
     project-context: com.isxcode.ispring
     templates-path: classpath:/templates/

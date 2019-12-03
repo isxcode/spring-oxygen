@@ -1,7 +1,6 @@
 package com.isxcode.ispring.config;
 
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +32,7 @@ public class AppConfig {
 	/**
 	 * 项目启动时执行
 	 *
-     * @param appContext ApplicationContext
+	 * @param appContext ApplicationContext
 	 * @since 2019/10/17
 	 */
 	@Bean

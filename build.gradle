@@ -88,4 +88,7 @@ dependencies {
 
 	// httpclient
 	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.10'
+
+	// jasypt-spring-boot-starter
+	compile group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot-starter', version: '3.0.0'
 }
