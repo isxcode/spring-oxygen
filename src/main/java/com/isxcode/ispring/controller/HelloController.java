@@ -1,28 +1,24 @@
 package com.isxcode.ispring.controller;
 
-import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
-import com.isxcode.ispring.annotation.logs.Logs;
+import com.isxcode.ispring.annotation.log.Logs;
 import com.isxcode.ispring.common.BaseController;
 import com.isxcode.ispring.common.BaseResponse;
-import com.isxcode.ispring.model.dto.UserInfoDto;
-import com.isxcode.ispring.model.entity.UserEntity;
 import com.isxcode.ispring.properties.FreemarkerProperties;
 //import io.netty.handler.codec.base64.Base64Encoder;
 import com.isxcode.ispring.repositories.UserRepository;
 import com.isxcode.ispring.utils.EmailUtils;
-import com.isxcode.ispring.utils.FreemarkerUtils;
 import lombok.extern.slf4j.Slf4j;
 //import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.hibernate.id.UUIDHexGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.io.File;
+import java.util.Calendar;
 
 /**
  * spring项目测试类
@@ -97,9 +93,8 @@ public class HelloController extends BaseController {
 //        //
 //
 //        userRepository.updateUserName("ispong2");
-//        EmailUtils.sendHtmlEmail("support.pluto@definesys.com", "song.ping@definesys.com", "测试使用密码发送", "测试使用密码发送");
-        return successResponse("项目启动成功", freeMarkerProperties.getAuthor());
-//        return successResponse("项目启动成功", Calendar.getInstance().getTime().toString());
+        EmailUtils.sendInlineEmail("song.ping@definesys.com", "C:\\Users\\ispon\\Desktop\\b8b19a224cc2b37fc5d7779465ca36a2a89d9a8ac6128609f4aa4bfd30c023cf.jpg", "测试使用密码发送");
+        return successResponse("项目启动成功", Calendar.getInstance().getTime().toString());
     }
 
 //

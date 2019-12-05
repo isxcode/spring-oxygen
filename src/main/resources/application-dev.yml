@@ -48,17 +48,20 @@ spring:
   jpa:
     open-in-view: false
     show-sql: true
+
   # 发送邮件配置
   mail:
-    host: smtp.exmail.qq.com
-    port: 465
-    username: ENC@[QEXGC4JsU3+UeVYv+wkPs5rX0kini9zXO7TknIoxubdhxYGmPx87XRraQgFcqXBsgyhjUBZcbpN30r/DY2xYjQ==] #song.ping@definesys.com
-    password: ENC@[NselmZlLwdhDPcCqaXqETreNEU68mkd1p0gEgn609MZaEcmuNuMxk3Xy/VtYsP+KqNkZfgIp8ryQPCK3iPB6Qg==] #QiRJ8MQcyqbP7C43
+    host: smtp.qq.com # 邮箱服务器地址
+    port: 465 # 邮箱服务器端口号
+    username: ENC@[4FmaVNBbiNyVZEF2cDBwGml4ufMnYB6wEMHrBTDPg8MdYWUPlgV0uRyqwfttlaIOA6jl8DpSABXJO7QBVBbkWQ==] # 邮箱账号
+    password: ENC@[bc4ClJDP6nX+XWTtZkBbXPCBlOvTqaWIVogQebWagYJCAO1WBZE2qkTstMp859nCrumGTxboQpNhywo75hPIFQ==] # 邮箱密码
     properties:
-      mail.smtp.ssl.enable: true
-      mail.smtp.connectiontimeout: 10000
-      mail.smtp.timeout: 6000
-      mail.smtp.writetimeout: 10000
+      mail.smtp.ssl.enable: true # 启动ssl协议访问
+      mail.smtp.connectiontimeout: 10000 # 设置连接超时
+      mail.smtp.timeout: 10000 # 设置超时
+      mail.smtp.writetimeout: 10000 # 设置写入超时
+
+  # freemarker配置
   freemarker:
     template-loader-path: classpath:/templates/
 

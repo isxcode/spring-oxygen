@@ -1,10 +1,6 @@
 package com.isxcode.ispring;
 
 import org.junit.Test;
-import freemarker.template.*;
-
-import java.util.*;
-import java.io.*;
 
 
 /**
@@ -19,12 +15,5 @@ public class DemoTest {
         @Test
         public void testOne() throws Exception {
 
-
-                for (int i = 0; i < 10; i++) {
-                        if (i == 5) {
-                                continue;
-                        }
-                        System.out.println(i);
-                }
         }
 }

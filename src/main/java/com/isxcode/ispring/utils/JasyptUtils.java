@@ -14,7 +14,7 @@ public class JasyptUtils {
 
     public static void main(String[] args) {
 
-        String properties = "liu123456.";
+        String properties = "feeibxpgxuhebjah";
 
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
