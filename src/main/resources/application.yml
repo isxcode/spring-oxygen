@@ -9,12 +9,29 @@ spring:
   jackson:
     time-zone: GMT+8
 
+  # spring-mail 配置
+  mail:
+    host: smtp.qq.com # 邮箱服务器地址
+    port: 465 # 邮箱服务器端口号
+    username: ENC@[4FmaVNBbiNyVZEF2cDBwGml4ufMnYB6wEMHrBTDPg8MdYWUPlgV0uRyqwfttlaIOA6jl8DpSABXJO7QBVBbkWQ==] # 邮箱账号
+    password: ENC@[bc4ClJDP6nX+XWTtZkBbXPCBlOvTqaWIVogQebWagYJCAO1WBZE2qkTstMp859nCrumGTxboQpNhywo75hPIFQ==] # 邮箱密码
+    default-encoding: UTF-8 # 邮件字符集
+    protocol: smtp # 邮件发送协议
+    test-connection: false # 是否进行连接测试
+    properties:
+      mail.smtp.ssl.enable: true # 启动ssl协议访问
+      mail.smtp.connectiontimeout: 10000 # 设置连接超时
+      mail.smtp.timeout: 10000 # 设置超时
+      mail.smtp.writetimeout: 10000 # 设置写入超时
+
 server:
   servlet:
     context-path: /isxcode # 上下文
 
+# 配置文件加密
 jasypt:
   encryptor:
     property:
-      prefix: "ENC@["
-      suffix: "]"
+      prefix: "ENC@[" # 标识前缀
+      suffix: "]" # 标识后缀
+    bean: customJasyptStringEncryptor

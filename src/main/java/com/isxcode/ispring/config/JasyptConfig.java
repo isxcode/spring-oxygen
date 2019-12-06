@@ -5,6 +5,7 @@ import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 
 /**
  * 配置文件加密配置
@@ -22,10 +23,9 @@ public class JasyptConfig {
      * @since 2019-12-03
      */
     @Bean
-    public SimpleStringPBEConfig pbeConfig(){
-
+    @Scope("prototype")
+    public SimpleStringPBEConfig pbeConfig() {
         SimpleStringPBEConfig pbeConfig = new SimpleStringPBEConfig();
-        pbeConfig.setPassword("isxcode");
         pbeConfig.setAlgorithm("PBEWITHHMACSHA512ANDAES_256");
         pbeConfig.setKeyObtentionIterations("1000");
         pbeConfig.setPoolSize("1");
@@ -44,8 +44,23 @@ public class JasyptConfig {
     @Bean("jasyptStringEncryptor")
     public StringEncryptor stringEncryptor() {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
-        encryptor.setConfig(pbeConfig());
+        SimpleStringPBEConfig pbeConfig = pbeConfig();
+        pbeConfig.setPassword("example");
+        encryptor.setConfig(pbeConfig);
         return encryptor;
     }
 
+    /**
+     * 自定义加密配置
+     *
+     * @since 2019-12-03
+     */
+    @Bean("customJasyptStringEncryptor")
+    public StringEncryptor customEncryptor() {
+        PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
+        SimpleStringPBEConfig pbeConfig = pbeConfig();
+        pbeConfig.setPassword("isxcode");
+        encryptor.setConfig(pbeConfig);
+        return encryptor;
+    }
 }
