@@ -3,22 +3,28 @@ package com.isxcode.ispring.controller;
 import com.isxcode.ispring.annotation.log.Logs;
 import com.isxcode.ispring.common.BaseController;
 import com.isxcode.ispring.common.BaseResponse;
+import com.isxcode.ispring.model.dto.UserDto;
+import com.isxcode.ispring.model.entity.UserEntity;
 import com.isxcode.ispring.properties.FreemarkerProperties;
 //import io.netty.handler.codec.base64.Base64Encoder;
 import com.isxcode.ispring.repositories.UserRepository;
 import com.isxcode.ispring.utils.EmailUtils;
 import lombok.extern.slf4j.Slf4j;
 //import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * spring项目测试类
@@ -33,28 +39,11 @@ import java.util.Calendar;
 @RequestMapping("hello")
 public class HelloController extends BaseController {
 
-    private final RedisTemplate<String, String> redisTemplate;
-
-    private final FreemarkerProperties freeMarkerProperties;
-
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
-//    private EmailUtils emailUtils;
-//    private final RabbitTemplate rabbitTemplate;
-
-    public HelloController(
-            UserRepository userRepository
-            , RedisTemplate<String, String> redisTemplate
-//            , RabbitTemplate rabbitTemplate
-            , FreemarkerProperties freeMarkerProperties
-    ) {
-
-//        this.rabbitTemplate = rabbitTemplate;
-        this.userRepository = userRepository;
-        this.redisTemplate = redisTemplate;
-        this.freeMarkerProperties = freeMarkerProperties;
-    }
+    private UserEntity userEntity;
 
     /**
      * 测试项目启动
@@ -93,51 +82,85 @@ public class HelloController extends BaseController {
 //        //
 //
 //        userRepository.updateUserName("ispong2");
-        EmailUtils.sendInlineEmail("song.ping@definesys.com", "C:\\Users\\ispon\\Desktop\\b8b19a224cc2b37fc5d7779465ca36a2a89d9a8ac6128609f4aa4bfd30c023cf.jpg", "测试使用密码发送");
+        
         return successResponse("项目启动成功", Calendar.getInstance().getTime().toString());
     }
 
-//
-//
-//    @GetMapping("/redis")
-//    public ResponseEntity<String> redis() {
-//
-//        String uuid = UUID.randomUUID().toString();
-//        log.info("uuid:" + uuid);
-//        redisTemplate.opsForValue().set("isxcode", uuid);
-//        return new ResponseEntity<>(redisTemplate.opsForValue().get("isxcode"), HttpStatus.OK);
-//    }
-//
-//    /**
-//     * rabbit发送对象
-//     *
-//     * @since 2019-11-09
-//     */
-//    @GetMapping("/rabbit")
-//    public ResponseEntity<LogEntity> rabbit() {
-//
-//        LogEntity logEntity = new LogEntity();
-//        logEntity.setId(UUID.randomUUID().toString());
-//
-//        Message message = MessageBuilder.withBody(JSON.toJSONString(logEntity).getBytes())
-//                .setContentType(MessageProperties.CONTENT_TYPE_JSON)
-//                .build();
-//
-//        rabbitTemplate.send("rabbitQueue", message);
-//        return new ResponseEntity<>(logEntity, HttpStatus.OK);
-//    }
-//
-//    /**
-//     * rabbit监听对象
-//     *
-//     * @since 2019-11-09
-//     */
-//    @RabbitListener(queues = "rabbitQueue")
-//    public void rabbitReceive(Message message) {
-//
-//        log.info("message:" + JSON.parseObject(new String(message.getBody()), LogEntity.class));
-//    }
+    /**
+     * 测试jpa添加数据接口
+     * <p>
+     *
+     * @param userDto 用户请求DTO
+     * @since 2019-12-06
+     */
+    public ResponseEntity<BaseResponse> testSave(@RequestBody UserDto userDto) {
 
+        // 复制
+        BeanUtils.copyProperties(userDto, userEntity);
+        // 插入
+        userRepository.save(userEntity);
+        // 返回
+        return successResponse("添加数据成功", "");
+    }
+
+    /**
+     * 测试jpa批量添加数据接口
+     * <p>
+     *
+     * @param userDto 用户请求DTO
+     * @since 2019-12-06
+     */
+    public ResponseEntity<BaseResponse> testSaveBatch(@RequestBody List<UserDto> userDto) {
+
+        // 批量插入对象
+        // 自动添加 系统字段
+
+        List<Object> objects = new ArrayList<>();
+//        for(){
+//            BeanUtils.copyProperties(userDto, userEntity);
+//        }
+//        userRepository.saveAll(objects.iterator());
+
+        return successResponse("添加数据成功", "");
+    }
+
+    /**
+     * 测试jpa单字段更新添加数据接口
+     * <p>
+     *
+     * @param userDto 用户请求DTO
+     * @since 2019-12-06
+     */
+    public ResponseEntity<BaseResponse> testUpdate(@RequestBody UserDto userDto) {
+
+
+        return successResponse("添加数据成功", "");
+    }
+
+    /**
+     * 对字段更新
+     * <p>
+     *
+     * @param userDto 用户请求DTO
+     * @since 2019-12-06
+     */
+    public ResponseEntity<BaseResponse> testUpdateAll(@RequestBody UserDto userDto) {
+
+
+        return successResponse("添加数据成功", "");
+    }
+
+    /**
+     * 批量更新
+     *
+     * @param userDto 用户请求DTO
+     * @since 2019-12-06
+     */
+    public ResponseEntity<BaseResponse> testUpdateBatch(@RequestBody UserDto userDto) {
+
+
+        return successResponse("添加数据成功", "");
+    }
 
 }
 

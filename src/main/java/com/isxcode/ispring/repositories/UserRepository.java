@@ -27,8 +27,10 @@ public interface UserRepository extends JpaRepository<UserEntity, String> {
      */
     @Modifying
     @Transactional(rollbackOn = Exception.class)
-    @Query(value = "update UserEntity set lastName='www' where nickName= ?1")
+    @Query(value = "update UserEntity set version=version+1, lastModifiedBy='',lastModifiedDate='', lastName='www' where nickName= ?1 and version=version+1 ")
     void updateUserName(String nickName);
+
+
 
 
 }

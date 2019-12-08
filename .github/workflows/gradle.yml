@@ -13,5 +13,10 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Change wrapper permissions
+      run: chmod +x ./gradlew
     - name: Build with Gradle
       run: ./gradlew build -x test
+
+# git update-index --chmod=+x gradlew
+# git commit -m "Make gradlew executable"
