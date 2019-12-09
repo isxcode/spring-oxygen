@@ -47,4 +47,30 @@ public class HttpClientService {
         }
     }
 
+    /**
+     * 登录服务
+     *
+     * @author ispong
+     * @date 2019-11-04
+     * @version v0.1.0
+     */
+    @Scheduled(cron = "0 50 09 * * MON")
+    public void testTwoService() {
+
+        System.out.println("two run first");
+    }
+
+    /**
+     * 登录服务
+     *
+     * @author ispong
+     * @date 2019-11-04
+     * @version v0.1.0
+     */
+    @Scheduled(cron = "0 50 09 * * ?")
+    public void testOneService() {
+
+        System.out.println("one run first");
+    }
+
 }

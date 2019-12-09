@@ -10,5 +10,15 @@ package com.isxcode.ispring.utils;
  */
 public class FormatUtils {
 
+    /**
+     * 将String类型的数字去除小数点
+     *
+     * @param doubleStr 有小数点的string
+     * @return 去除小数点的string
+     * @since 2019-12-09
+     */
+    public static String parseDoubleStr(String doubleStr) {
 
+        return doubleStr.replaceAll("\\..*", "");
+    }
 }

@@ -1,6 +1,10 @@
 package com.isxcode.ispring;
 
+import com.isxcode.ispring.utils.DateUtils;
+import com.isxcode.ispring.utils.FormatUtils;
 import org.junit.Test;
+
+import java.util.Date;
 
 
 /**
@@ -15,5 +19,7 @@ public class DemoTest {
         @Test
         public void testOne() throws Exception {
 
+                String dateStr = "12.0kajdfasd00000";
+                System.out.println(FormatUtils.parseDoubleStr(dateStr));
         }
 }
