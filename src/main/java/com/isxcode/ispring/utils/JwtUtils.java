@@ -32,6 +32,7 @@ public class JwtUtils {
 
     @Autowired
     public JwtUtils(PropertiesConfig propertiesConfig) throws NoSuchAlgorithmException {
+
         KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
         keyGenerator.init(256, new SecureRandom(propertiesConfig.getJwtSecret().getBytes()));
         secretKey = Keys.hmacShaKeyFor(keyGenerator.generateKey().getEncoded());

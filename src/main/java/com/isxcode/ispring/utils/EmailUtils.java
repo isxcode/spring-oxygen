@@ -60,7 +60,6 @@ public class EmailUtils {
         try {
             mailSender.send(templateMessage);
         } catch (MailException ex) {
-            System.err.println(ex.getMessage());
             log.info("邮件发送异常,请做补救处理");
         }
     }
@@ -84,7 +83,6 @@ public class EmailUtils {
             helper.setText(htmlContext, true);
             mailSender.send(message);
         } catch (MessagingException ex) {
-            System.err.println(ex.getMessage());
             log.info("邮件发送异常,请做补救处理");
         }
     }
@@ -110,7 +108,6 @@ public class EmailUtils {
             helper.addAttachment(attachmentResource.getFilename(), attachmentResource);
             mailSender.send(message);
         } catch (MessagingException ex) {
-            System.err.println(ex.getMessage());
             log.info("邮件发送异常,请做补救处理");
         }
     }
@@ -137,7 +134,6 @@ public class EmailUtils {
             helper.addAttachment(fileSystemResource.getFilename(), fileSystemResource);
             mailSender.send(message);
         } catch (MessagingException ex) {
-            System.err.println(ex.getMessage());
             log.info("邮件发送异常,请做补救处理");
         }
     }
@@ -163,9 +159,31 @@ public class EmailUtils {
             helper.addInline("inlineId", fileSystemResource);
             mailSender.send(message);
         } catch (MessagingException ex) {
-            System.err.println(ex.getMessage());
             log.info("邮件发送异常,请做补救处理");
         }
     }
 
+    /**
+     * 发送内嵌附件类型的邮件,设置较长超时时间
+     *
+     * @param toEmail            发送邮箱地址
+     * @param attachmentResource 附件资源
+     * @param subject            邮箱主题
+     * @since 2019-12-05
+     */
+    public static void sendInlineEmail(String toEmail, org.springframework.core.io.Resource attachmentResource, String subject) {
+
+        MimeMessage message = mailSender.createMimeMessage();
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setFrom(Objects.requireNonNull(mailSender.getUsername()));
+            helper.setTo(toEmail);
+            helper.setSubject(subject);
+            helper.setText("<html><body><img src='cid:inlineId'></body></html>", true);
+            helper.addInline("inlineId", attachmentResource);
+            mailSender.send(message);
+        } catch (MessagingException ex) {
+            log.info("邮件发送异常,请做补救处理");
+        }
+    }
 }

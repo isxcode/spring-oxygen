@@ -19,7 +19,7 @@ public class DemoTest {
         @Test
         public void testOne() throws Exception {
 
-                String dateStr = "12.0kajdfasd00000";
-                System.out.println(FormatUtils.parseDoubleStr(dateStr));
+                String dateStr = "2019-12-01 12:00:00";
+                System.out.println(DateUtils.addCustomDayNum(DateUtils.parseDateTimeStrToDate(dateStr), 31));
         }
 }

@@ -2,7 +2,6 @@ package com.isxcode.ispring.utils;
 
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
-import com.ulisesbocchio.jasyptspringboot.JasyptSpringBootAutoConfiguration;
 
 /**
  * 配置文件加密工具

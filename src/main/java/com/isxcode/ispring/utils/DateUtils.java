@@ -123,4 +123,19 @@ public class DateUtils {
         }
     }
 
+    /**
+     * 给date类型添加指定的天数
+     *
+     * @param nowDate 当前时间
+     * @param dayNum  天数
+     * @return 日期
+     * @since 2019-12-09
+     */
+    public static Date addCustomDayNum(Date nowDate, Integer dayNum) {
+
+        calendar.setTime(nowDate);
+        calendar.add(Calendar.DATE, dayNum);
+        return calendar.getTime();
+    }
+
 }
