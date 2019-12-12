@@ -1,6 +1,7 @@
 package com.isxcode.ispring;
 
 import com.isxcode.ispring.utils.DateUtils;
+import com.isxcode.ispring.utils.EncryptUtils;
 import com.isxcode.ispring.utils.FormatUtils;
 import org.junit.Test;
 
@@ -19,7 +20,6 @@ public class DemoTest {
         @Test
         public void testOne() throws Exception {
 
-                String dateStr = "2019-12-01 12:00:00";
-                System.out.println(DateUtils.addCustomDayNum(DateUtils.parseDateTimeStrToDate(dateStr), 31));
+                System.out.println(EncryptUtils.encryptAES("hahaha"));
         }
 }

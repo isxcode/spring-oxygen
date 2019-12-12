@@ -1,30 +1,24 @@
 package com.isxcode.ispring.controller;
 
-import com.isxcode.ispring.annotation.log.Logs;
+import com.isxcode.ispring.aspect.log.Logs;
 import com.isxcode.ispring.common.BaseController;
 import com.isxcode.ispring.common.BaseResponse;
 import com.isxcode.ispring.model.dto.UserDto;
 import com.isxcode.ispring.model.entity.UserEntity;
-import com.isxcode.ispring.properties.FreemarkerProperties;
 //import io.netty.handler.codec.base64.Base64Encoder;
 import com.isxcode.ispring.repositories.UserRepository;
-import com.isxcode.ispring.utils.EmailUtils;
+import com.isxcode.ispring.security.UserSecurityDetail;
+import com.isxcode.ispring.utils.EncryptUtils;
+import com.isxcode.ispring.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 //import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 /**
  * spring项目测试类
@@ -45,6 +39,18 @@ public class HelloController extends BaseController {
     @Autowired
     private UserEntity userEntity;
 
+    @PostMapping("/login")
+    public ResponseEntity<BaseResponse> login(@RequestBody UserSecurityDetail userSecurityDetail) {
+
+        // 校验用户的账号/密码
+        if (userSecurityDetail.getUsername().equals("123") && userSecurityDetail.getPassword().equals("123")) {
+            // 生成jwt
+//            JwtUtils.decodeJwt();
+        }
+
+        return successResponse("", "");
+    }
+
     /**
      * 测试项目启动
      *
@@ -52,6 +58,8 @@ public class HelloController extends BaseController {
      */
     @GetMapping("/test")
     public ResponseEntity<BaseResponse> test() {
+
+//        System.out.println("身份认证成功" + getUserId());
 
         // 保存DO对象
 
@@ -82,7 +90,14 @@ public class HelloController extends BaseController {
 //        //
 //
 //        userRepository.updateUserName("ispong2");
-        
+
+
+        String data = "哈哈哈";
+        String s = Base64.getEncoder().encodeToString(data.getBytes());
+        String s1 = new String(Base64.getDecoder().decode(s));
+        System.out.println("加密" + s);
+        System.out.println("解密" + s1);
+
         return successResponse("项目启动成功", Calendar.getInstance().getTime().toString());
     }
 
@@ -123,6 +138,21 @@ public class HelloController extends BaseController {
 
         return successResponse("添加数据成功", "");
     }
+
+    @GetMapping("encryptData")
+    public ResponseEntity<BaseResponse> encryptData(@RequestParam String data) {
+
+
+        return successResponse("加密成功", EncryptUtils.encryptAes(data));
+    }
+
+    @GetMapping("decryptData")
+    public ResponseEntity<BaseResponse> decryptData(@RequestParam String data) {
+
+
+        return successResponse("解密成功", EncryptUtils.decryptAes(data));
+    }
+
 
     /**
      * 测试jpa单字段更新添加数据接口

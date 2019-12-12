@@ -1,6 +1,6 @@
 package com.isxcode.ispring.utils;
 
-import com.isxcode.ispring.annotation.excel.ExcelType;
+import com.isxcode.ispring.aspect.excel.ExcelType;
 import com.isxcode.ispring.exception.FileException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.CreationHelper;

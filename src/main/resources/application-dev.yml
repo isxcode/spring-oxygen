@@ -55,14 +55,6 @@ spring:
 
 # 自定义属性配置
 isxcode:
-  location: D://
+  security:
+    jwt-security-key: isxcode
   jwt-secret: isxcode
-  freemarker:
-    author: ENC@[nqxM+WY3AnW3bH5JJs0d2uZ0zQfvGeAL/mjnwuFCP8AxF8zbb0JRGPd42aRtCpxD]
-    company: isxcode
-    project-context: com.isxcode.ispring
-    templates-path: classpath:/templates/
-    controller-name: Controller
-    entity-name: Entity
-    service-name: Service
-    repository-name: Repository

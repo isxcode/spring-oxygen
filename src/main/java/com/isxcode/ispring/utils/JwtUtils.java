@@ -30,6 +30,9 @@ public class JwtUtils {
 
     private static Key secretKey;
 
+    /**
+     * 初始化一个  Key
+     */
     @Autowired
     public JwtUtils(PropertiesConfig propertiesConfig) throws NoSuchAlgorithmException {
 
@@ -37,6 +40,7 @@ public class JwtUtils {
         keyGenerator.init(256, new SecureRandom(propertiesConfig.getJwtSecret().getBytes()));
         secretKey = Keys.hmacShaKeyFor(keyGenerator.generateKey().getEncoded());
     }
+
 
     /**
      * Id (JWT ID)：编号

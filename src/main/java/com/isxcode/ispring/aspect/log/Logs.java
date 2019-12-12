@@ -1,4 +1,4 @@
-package com.isxcode.ispring.annotation.log;
+package com.isxcode.ispring.aspect.log;
 
 import java.lang.annotation.*;
 

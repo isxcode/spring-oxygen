@@ -1,7 +1,7 @@
 package com.isxcode.ispring.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.isxcode.ispring.annotation.excel.ExcelType;
+import com.isxcode.ispring.aspect.excel.ExcelType;
 import com.isxcode.ispring.common.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

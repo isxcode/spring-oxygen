@@ -2,8 +2,8 @@ package com.isxcode.ispring.filter;
 
 import com.isxcode.ispring.common.BaseFilter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.FilterChain;
@@ -22,6 +22,7 @@ import java.io.IOException;
 @Slf4j
 @Component
 public class JwtFilter extends BaseFilter {
+
 
     /**
      * 具体拦截的方法
@@ -50,9 +51,6 @@ public class JwtFilter extends BaseFilter {
 
         // 如何插入用户的信息到安全上传
         // 从token中拿取信息
-//        Authentication authentication = new Authentication();
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("身份校验");
 
         // 放行
         doFilter(request, response, filterChain);
