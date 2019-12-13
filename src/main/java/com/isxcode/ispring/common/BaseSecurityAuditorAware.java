@@ -1,8 +1,7 @@
-package com.isxcode.ispring.config;
+package com.isxcode.ispring.common;
 
+import com.isxcode.ispring.security.UserSecurityDetail;
 import org.springframework.data.domain.AuditorAware;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -16,12 +15,11 @@ import java.util.Optional;
  * @version v0.1.0
  */
 @Component
-class SpringSecurityAuditorAware implements AuditorAware<String> {
+class BaseSecurityAuditorAware implements AuditorAware<String> {
 
     @Override
     public Optional<String> getCurrentAuditor() {
 
-        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return Optional.of("ispong");
+        return Optional.of(((UserSecurityDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUserId());
     }
 }

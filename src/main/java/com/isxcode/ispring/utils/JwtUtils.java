@@ -1,18 +1,13 @@
 package com.isxcode.ispring.utils;
 
-import com.isxcode.ispring.config.PropertiesConfig;
-import io.jsonwebtoken.Claims;
+import com.alibaba.fastjson.JSON;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import javax.crypto.KeyGenerator;
-import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,72 +17,46 @@ import java.util.UUID;
  * jwt生成工具
  *
  * @author ispong
- * @date 2019-11-17
  * @version v0.1.0
+ * @date 2019-11-17
  */
 @Component
 public class JwtUtils {
 
-    private static Key secretKey;
-
     /**
-     * 初始化一个  Key
+     * 默认加密
      */
-    @Autowired
-    public JwtUtils(PropertiesConfig propertiesConfig) throws NoSuchAlgorithmException {
-
-        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
-        keyGenerator.init(256, new SecureRandom(propertiesConfig.getJwtSecret().getBytes()));
-        secretKey = Keys.hmacShaKeyFor(keyGenerator.generateKey().getEncoded());
-    }
-
+    private static Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     /**
-     * Id (JWT ID)：编号
-     * Issuer (issuer)：签发人
-     * IssuedAt (Issued At)：签发时间
-     * NotBefore (Not Before)：生效时间
-     * Expiration (expiration time)：过期时间
-     * sub (subject)：主题
-     * aud (audience)：受众
+     * jwt 加密
      *
-     * @since 2019-11-17
+     * @param obj 传输对象
+     * @return jwt String
+     * @since 2019-12-12
      */
-    public static String encodeJwt() {
+    public static String encryptJwt(Object obj) {
 
-        // headers
-        Map<String, Object> headers = new HashMap<>(2);
-        headers.put("header1", "aaa");
-        headers.put("header2", "bbb");
+        Map<String, Object> claims = new HashMap<>(1);
+        claims.put("claim", EncryptUtils.encryptAes(JSON.toJSONString(obj)));
 
-        // claim
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("c1", "111");
-        claims.put("c2", "222");
-
-        // date
-        return Jwts.builder().signWith(secretKey, SignatureAlgorithm.HS256)
-                .setHeader(headers)
-                .setClaims(claims)
+        return Jwts.builder()
+                .signWith(secretKey)
                 .setId(UUID.randomUUID().toString())
-                .setIssuer("isxcode")
+                .setClaims(claims)
                 .setIssuedAt(new Date())
-                .setSubject("subject")
-                .setAudience("you")
-//                .setNotBefore()
-//                .setExpiration()
                 .compact();
     }
 
+    /**
+     * jwt 解密
+     *
+     * @param jwtString jwt
+     * @return claim
+     * @since 2019-12-12
+     */
+    public static <A> A decryptJwt(String jwtString, @NonNull Class<A> claimClass) {
 
-    public static String decodeJwt(String jwt) {
-        Claims body = Jwts.parser()
-//                    .deserializeJsonWith(new JacksonDeserializer(User))
-                .setSigningKey(secretKey)
-//                    .setAllowedClockSkewSeconds(seconds)
-                .parseClaimsJws(jwt)
-                .getBody();
-
-        return null;
+        return JSON.parseObject(EncryptUtils.decryptAes(String.valueOf(Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtString).getBody().get("claim"))), claimClass);
     }
 }

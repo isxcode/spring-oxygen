@@ -47,3 +47,13 @@ token: 123456
 }
 
 ###
+
+POST http://localhost:8888/isxcode/hello/login
+Content-Type: application/json
+token: eyJhbGciOiJIUzI1NiJ9.eyJjbGFpbSI6ImJsWXJjV05ZWkVsMWJXMU9UVzE0TmtWRVpFVkNOSGwwU2tkWUwyRXdjamRNYldsbllYUldhVFpNVDJWRFZsaFFTMDUyYTJRclMwbHNiMk5SV2tkMEt6RjFMeXRWWVdGaWJVc3pPWFJ0ZG1ndlVqQm9hSEEzVmtkaWNFRlVZWFl4YjBsSkwwaHJOVmQ0THpnMlNUQlBkWGQxWVVONGEySnJRMFIzWm5wbFNGZEhiV2xSY1VoVkwwOVVaM1pWZDBwTE5XbEVXblo1U0hFdk9HeHVaQ3R2UkRkTU9YWkNlRWx0WkROb2J6ZHRiMDVUZG1sbE0yaGlVWGcwWW01b1pVMDAiLCJpYXQiOjE1NzYyMDQ1NDZ9.ViX3r2nz36cAERthkLryGxTAf95W-hFGLRhNCbHgTt0
+
+###
+
+http://localhost:8888/isxcode/hello/test
+
+###

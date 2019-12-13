@@ -21,6 +21,11 @@ import java.util.UUID;
 @Slf4j
 public class BaseUuidGenerator implements IdentifierGenerator {
 
+    /**
+     * 自定义主键规则
+     *
+     * @since 2019-12-13
+     */
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
 

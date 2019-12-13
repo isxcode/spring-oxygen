@@ -138,4 +138,19 @@ public class DateUtils {
         return calendar.getTime();
     }
 
+    /**
+     * 给date类型添加指定的天数
+     *
+     * @param nowDate 当前时间
+     * @param minNum  分钟
+     * @return 日期
+     * @since 2019-12-09
+     */
+    public static Date addCustomMinNum(Date nowDate, Integer minNum) {
+
+        calendar.setTime(nowDate);
+        calendar.add(Calendar.MINUTE, minNum);
+        return calendar.getTime();
+    }
+
 }

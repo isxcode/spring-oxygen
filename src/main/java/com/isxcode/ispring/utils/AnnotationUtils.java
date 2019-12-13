@@ -103,4 +103,15 @@ public class AnnotationUtils {
 
     }
 
+    /**
+     * 通过object 反射获取 变量名
+     *
+     * @param obj 对象
+     * @return 变量名
+     * @since 2019-12-12
+     */
+    public static String getObjName(Object obj){
+        return obj.getClass().getName();
+    }
+
 }

@@ -21,4 +21,5 @@ public class SecurityProperties {
      * jwt AES 加密钥匙
      */
     private String jwtSecurityKey;
+
 }

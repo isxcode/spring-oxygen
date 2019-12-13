@@ -63,4 +63,23 @@ public class JasyptConfig {
         encryptor.setConfig(pbeConfig);
         return encryptor;
     }
+
+    public static void main(String[] args) {
+
+        String properties = "feeibxpgxuhebjah";
+
+        PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
+        SimpleStringPBEConfig config = new SimpleStringPBEConfig();
+        config.setPassword("isxcode");
+        config.setAlgorithm("PBEWITHHMACSHA512ANDAES_256");
+        config.setKeyObtentionIterations("1000");
+        config.setPoolSize("1");
+        config.setProviderName("SunJCE");
+        config.setSaltGeneratorClassName("org.jasypt.salt.RandomSaltGenerator");
+        config.setIvGeneratorClassName("org.jasypt.iv.RandomIvGenerator");
+        config.setStringOutputType("base64");
+        encryptor.setConfig(config);
+        String encrypt = encryptor.encrypt(properties);
+        System.out.println("put out:" + encrypt);
+    }
 }

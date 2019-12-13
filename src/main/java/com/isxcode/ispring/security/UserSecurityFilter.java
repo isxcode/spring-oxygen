@@ -1,4 +1,4 @@
-package com.isxcode.ispring.config;
+package com.isxcode.ispring.security;
 
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,40 +13,36 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
 
-public class LoginSecurity extends AbstractAuthenticationProcessingFilter {
+/**
+ * spring security 拦截器配置
+ *
+ * @author ispong
+ * @version v0.1.0
+ * @date
+ */
+public class UserSecurityFilter extends AbstractAuthenticationProcessingFilter {
 
-    protected LoginSecurity(String defaultFilterProcessesUrl) {
+    protected UserSecurityFilter(String defaultFilterProcessesUrl) {
         super(defaultFilterProcessesUrl);
     }
 
-    protected LoginSecurity(RequestMatcher requiresAuthenticationRequestMatcher) {
+    protected UserSecurityFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
         super(requiresAuthenticationRequestMatcher);
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
 
-        if (!request.getMethod().equals("POST")) {
-            throw new AuthenticationServiceException(
-                    "Authentication method not supported: " + request.getMethod());
-        }
-        /*
-        // 添加验证码校验功能
-        String captcha = request.getParameter("captcha");
-        if (!checkCaptcha(captcha)) {
-            throw new AuthenticationException("Invalid captcha!");
-        }
-        */
+
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
         username = Objects.isNull(username) ? "" : username.trim();
         password = Objects.isNull(password) ? "" : password;
 
-        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
-                username, password);
+        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
         authRequest.setDetails(authenticationDetailsSource.buildDetails(request));
-        return this.getAuthenticationManager().authenticate(authRequest);
 
+        return this.getAuthenticationManager().authenticate(authRequest);
     }
 }

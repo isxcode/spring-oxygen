@@ -1,9 +1,11 @@
 package com.isxcode.ispring.common;
 
+import com.isxcode.ispring.security.UserSecurityDetail;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * BaseController
@@ -36,9 +38,9 @@ public abstract class BaseController {
      *
      * @since 2019-12-11
      */
-    protected String getUserId(){
+    protected UserSecurityDetail getUserInfo() {
 
-        return ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        return ((UserSecurityDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
     }
 
 }
