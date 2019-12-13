@@ -16,11 +16,11 @@ import java.security.SecureRandom;
 import java.util.Base64;
 
 /**
- * 加解密工具类
+ * 加解密 工具类
  *
  * @author ispong
  * @version v0.1.0
- * @date
+ * @date 2019-11-28
  */
 @Slf4j
 @Component
@@ -43,7 +43,7 @@ public class EncryptUtils {
      * @return 加密后数据
      * @since 2019-12-12
      */
-    public static String encryptAes(String data) {
+    static String encryptAes(String data) {
 
         try {
             Cipher cipher = Cipher.getInstance("AES");
@@ -62,7 +62,7 @@ public class EncryptUtils {
      * @return 解密后数据
      * @since 2019-12-12
      */
-    public static String decryptAes(String data) {
+    static String decryptAes(String data) {
 
         try {
             Cipher cipher = Cipher.getInstance("AES");

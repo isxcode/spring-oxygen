@@ -16,7 +16,7 @@ import java.io.File;
 import java.util.Objects;
 
 /**
- * spring-mail 发送邮件工具类
+ * spring-mail 发送邮件 工具类
  *
  * @author ispong
  * @version v0.1.0

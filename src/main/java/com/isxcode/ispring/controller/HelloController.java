@@ -8,6 +8,7 @@ import com.isxcode.ispring.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Calendar;
 
@@ -53,6 +54,19 @@ public class HelloController extends BaseController {
         }
 
     }
+
+    /**
+     * 用户登录页面
+     *
+     * @since 2019-12-13
+     */
+    @PostMapping("/loginPage")
+    public ModelAndView loginPage() {
+
+
+        return new ModelAndView("");
+    }
+
 
     /**
      * 获取用户信息
