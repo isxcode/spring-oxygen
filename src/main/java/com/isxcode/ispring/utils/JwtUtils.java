@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * jwt生成工具
+ * jwt生成 工具类
  *
  * @author ispong
  * @version v0.1.0
@@ -57,6 +57,12 @@ public class JwtUtils {
      */
     public static <A> A decryptJwt(String jwtString, @NonNull Class<A> claimClass) {
 
-        return JSON.parseObject(EncryptUtils.decryptAes(String.valueOf(Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtString).getBody().get("claim"))), claimClass);
+        return JSON.parseObject(
+                EncryptUtils.decryptAes(
+                        String.valueOf(Jwts.parser()
+                                .setSigningKey(secretKey)
+                                .parseClaimsJws(jwtString)
+                                .getBody()
+                                .get("claim"))), claimClass);
     }
 }

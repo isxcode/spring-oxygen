@@ -53,6 +53,9 @@ dependencies {
 	// spring-boot-starter-freemarker
 	compile "org.springframework.boot:spring-boot-starter-freemarker"
 
+	// spring-boot-starter-thymeleaf
+	compile "org.springframework.boot:spring-boot-starter-thymeleaf"
+
 	// lettuce-core
 	compile group: 'io.lettuce', name: 'lettuce-core', version: '5.2.1.RELEASE'
 

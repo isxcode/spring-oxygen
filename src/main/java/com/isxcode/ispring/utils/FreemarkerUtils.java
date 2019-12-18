@@ -18,7 +18,9 @@ import java.util.Map;
 /**
  * freemarker 工具类
  *
- * @author ispon
+ * @author ispong
+ * @version v0.1.0
+ * @date 2019/10/17
  */
 @Slf4j
 @Component
@@ -27,25 +29,24 @@ public class FreemarkerUtils {
     private static FreeMarkerConfigurer freeMarkerConfigurer;
 
     @Autowired
-    public void setFreeMarkerConfigurer(FreeMarkerConfigurer freeMarkerConfigurer){
+    public void setFreeMarkerConfigurer(FreeMarkerConfigurer freeMarkerConfigurer) {
         FreemarkerUtils.freeMarkerConfigurer = freeMarkerConfigurer;
     }
 
     /**
      * 通过freemarker模板获取html邮件的String
      *
-     * @param map 参数集合
+     * @param map          参数集合
      * @param templateFile 模板文件
      * @return Email邮件的String
      * @since 2019-11-28
      */
-    public static String getEmailHtmlContent(Map<String,String> map,String templateFile){
+    public static String getEmailHtmlContent(Map<String, String> map, String templateFile) {
 
         try {
             Template template = freeMarkerConfigurer.getConfiguration().getTemplate(templateFile);
             return FreeMarkerTemplateUtils.processTemplateIntoString(template, map);
         } catch (IOException | TemplateException e) {
-            e.printStackTrace();
             throw new IsxcodeException("无法解析freemarker");
         }
     }

@@ -1,9 +1,11 @@
 package com.isxcode.ispring.common;
 
+import com.isxcode.ispring.model.dto.UserDto;
 import com.isxcode.ispring.security.UserSecurityDetail;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.core.context.SecurityContextHolder;
 //import org.springframework.security.core.userdetails.UserDetails;
 
@@ -40,6 +42,7 @@ public abstract class BaseController {
      */
     protected UserSecurityDetail getUserInfo() {
 
+        // SecurityContextHolder 获取上下文 使用ThreadLocal 存储用户信息
         return ((UserSecurityDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
     }
 

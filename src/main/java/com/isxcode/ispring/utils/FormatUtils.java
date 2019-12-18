@@ -1,6 +1,8 @@
 package com.isxcode.ispring.utils;
 
 
+import java.security.SecureRandom;
+
 /**
  * 转换类型工具类
  *
@@ -20,5 +22,24 @@ public class FormatUtils {
     public static String parseDoubleStr(String doubleStr) {
 
         return doubleStr.replaceAll("\\..*", "");
+    }
+
+    /**
+     * 自动生成随机数
+     *
+     * @param bit 需要生成几位随机数(最大16位)
+     * @since 2019/10/10
+     */
+    public static String generateNumber(int bit){
+
+        assert bit < 17 : "随机数生成不能超过16位";
+        SecureRandom ng = new SecureRandom();
+        byte[] randomBytes = new byte[8];
+        ng.nextBytes(randomBytes);
+        long msb = 0;
+        for (byte randomByte : randomBytes) {
+            msb = (msb << randomBytes.length) | (randomByte & 0xff);
+        }
+        return String.valueOf(msb).substring(1, 1 + bit);
     }
 }

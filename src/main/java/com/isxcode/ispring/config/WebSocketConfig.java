@@ -13,8 +13,8 @@ import org.springframework.web.socket.server.standard.ServletServerContainerFact
  * websocket配置中心
  *
  * @author ispong
- * @date 2019-11-12
  * @version v0.1.0
+ * @date 2019-11-12
  */
 @Configuration
 @EnableWebSocket
@@ -46,6 +46,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
      */
     @Bean
     public ServletServerContainerFactoryBean createWebSocketContainer() {
+
         ServletServerContainerFactoryBean container = new ServletServerContainerFactoryBean();
         container.setMaxTextMessageBufferSize(8192);
         container.setMaxBinaryMessageBufferSize(8192);
@@ -54,6 +55,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Bean
     public org.springframework.web.socket.WebSocketHandler myHandler() {
+
         return new WebSocketHandler();
     }
 

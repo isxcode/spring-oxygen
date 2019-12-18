@@ -38,22 +38,17 @@ token: eyJoZWFkZXIyIjoiYmJiIiwiaGVhZGVyMSI6ImFhYSIsImFsZyI6IkhTMjU2In0.eyJjMSI6I
 
 ###
 
-POST http://portal.definesys.com:30550/mock/5de1cd117d6f1d000154d3f7/userInfo/getUserInfo?bodyCode=ok
+POST {{host}}/userAuth
 Content-Type: application/json
-token: 123456
 
 {
-  "userId": "123456"
+  "username": "123456"
 }
 
 ###
 
-POST http://localhost:8888/isxcode/hello/login
+POST {{host}}/getUser
 Content-Type: application/json
-token: eyJhbGciOiJIUzI1NiJ9.eyJjbGFpbSI6ImJsWXJjV05ZWkVsMWJXMU9UVzE0TmtWRVpFVkNOSGwwU2tkWUwyRXdjamRNYldsbllYUldhVFpNVDJWRFZsaFFTMDUyYTJRclMwbHNiMk5SV2tkMEt6RjFMeXRWWVdGaWJVc3pPWFJ0ZG1ndlVqQm9hSEEzVmtkaWNFRlVZWFl4YjBsSkwwaHJOVmQ0THpnMlNUQlBkWGQxWVVONGEySnJRMFIzWm5wbFNGZEhiV2xSY1VoVkwwOVVaM1pWZDBwTE5XbEVXblo1U0hFdk9HeHVaQ3R2UkRkTU9YWkNlRWx0WkROb2J6ZHRiMDVUZG1sbE0yaGlVWGcwWW01b1pVMDAiLCJpYXQiOjE1NzYyMDQ1NDZ9.ViX3r2nz36cAERthkLryGxTAf95W-hFGLRhNCbHgTt0
-
-###
-
-http://localhost:8888/isxcode/hello/test
+token: eyJhbGciOiJIUzI1NiJ9.eyJjbGFpbSI6IlZGSlVSSFZyWm1keVdESlVlV28yWWxsaWJYVlNhM05MVlZGWFFURk5XRlpKVG1Vd1NEQllUWEJSWTJkM2RuRTRSVXRUVWxaNFlWcHBSblY1Y0VsV2FBPT0iLCJpYXQiOjE1NzY1NTAxMTJ9.gERfo3pvlV8arCCcJrKhrub9vgTGbqFD69Lx9X7hA2Q
 
 ###

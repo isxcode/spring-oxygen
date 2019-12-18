@@ -7,8 +7,10 @@ import com.isxcode.ispring.security.UserSecurityDetail;
 import com.isxcode.ispring.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Calendar;
 
@@ -20,8 +22,7 @@ import java.util.Calendar;
  * @date 2019-11-11
  */
 @Slf4j
-@RestController
-@RequestMapping("hello")
+@Controller
 public class HelloController extends BaseController {
 
     /**
@@ -35,37 +36,59 @@ public class HelloController extends BaseController {
         return successResponse("项目启动成功", Calendar.getInstance().getTime().toString());
     }
 
-    /**
-     * 用户登录
-     *
-     * @param userDto 用户请求DTO
-     * @since 2019-12-13
-     */
-    @PostMapping("/login")
-    public ResponseEntity<BaseResponse> login(@RequestBody UserDto userDto) {
-
-        if(userDto.getPassword().equals("123")){
-            UserSecurityDetail userSecurityDetail = new UserSecurityDetail();
-            userSecurityDetail.setUsername(userDto.getUsername());
-            userSecurityDetail.setPassword(userDto.getPassword());
-            return successResponse("登录成功", JwtUtils.encryptJwt(userSecurityDetail));
-        }else{
-            return successResponse("登录失败", "");
-        }
-
-    }
+//    /**
+//     * 用户登录界面
+//     *
+//     * @since 2019-12-13
+//     */
+//    @RequestMapping("/login")
+//    public String login() {
+//
+//        return "login";
+//    }
 
     /**
-     * 用户登录页面
+     * 支持oauth和普通登录
      *
      * @since 2019-12-13
      */
-    @PostMapping("/loginPage")
-    public ModelAndView loginPage() {
+    @PostMapping("/userAuth")
+    public ResponseEntity<BaseResponse> userAuth(@RequestBody UserSecurityDetail userSecurityDetail) {
 
 
-        return new ModelAndView("");
+
+        return successResponse("登录成功", JwtUtils.encryptJwt(userInfo));
     }
+
+
+    /**
+     * 第三方登录接口  用户名密码 返回token
+     * 让用户拿着token再去调用获取用户信息接口
+     *
+     * 前端跳转一个第三方认证接口地址 ————》 返回code
+     * 前端拿着这个code 给后端   后端拿到code  去换取第三方的正式token
+     * 如果前端需要什么信息直接通过token去调用接口
+     *
+     * @param
+     * @return
+     * @since 2019-12-18
+     */
+    public void oauth(){
+
+
+    }
+
+
+    /**
+     * 前端通过url 去直接拿code
+     * 后端通过code获取用户信息
+     * 判断用户信息 认证用户
+     *
+     *
+     * @param
+     * @return
+     * @since 2019-12-18
+     */
 
 
     /**
@@ -73,6 +96,7 @@ public class HelloController extends BaseController {
      *
      * @since 2019-12-13
      */
+    @Secured("ROLE_USER")
     @PostMapping("/getUser")
     public ResponseEntity<BaseResponse> getUser() {
 

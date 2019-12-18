@@ -9,6 +9,7 @@ spring:
   jackson:
     time-zone: GMT+8
 
+
   # spring-mail 配置
   mail:
     host: smtp.qq.com # 邮箱服务器地址
@@ -23,6 +24,10 @@ spring:
       mail.smtp.connectiontimeout: 10000 # 设置连接超时
       mail.smtp.timeout: 10000 # 设置超时
       mail.smtp.writetimeout: 10000 # 设置写入超时
+
+  # thymeleaf
+  thymeleaf:
+    prefix: classpath:/auth/
 
 server:
   servlet:

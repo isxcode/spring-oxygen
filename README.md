@@ -1,13 +1,23 @@
-# isxcode-spring
+# demo-spring
 
-- spring boot 实战
-- 简化开发，封装工具，定义开发规范
+> 预计组装成自己的starter
 
+- spring-jpa
+
+- spring-mail
+
+- spring security
+
+- jwt
+
+- redis
+
+- 目录结构
 ```
 ├─java
 │  └─com
 │      └─isxcode
-│          └─isxcodespring
+│          └─demo
 │              ├─annotation        - 自定义注解
 │              ├─common            - 通用类
 │              ├─config            - 配置中心
@@ -20,3 +30,4 @@
     └─templates                    - 代码自动生成模板
 ```
 
+    

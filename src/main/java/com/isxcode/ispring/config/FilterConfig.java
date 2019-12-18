@@ -1,5 +1,6 @@
 //package com.isxcode.ispring.config;
 //
+//import com.isxcode.ispring.security.UserSecurityFilter;
 //import org.springframework.boot.web.servlet.FilterRegistrationBean;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
@@ -22,7 +23,7 @@
 //     * @since 2019-11-16
 //     */
 //    @Bean
-//    public FilterRegistrationBean jwtFilterBean(JwtFilter jwtFilter) {
+//    public FilterRegistrationBean jwtFilterBean(UserSecurityFilter userSecurityFilter) {
 //
 //        FilterRegistrationBean<JwtFilter> jwtFilterBean = new FilterRegistrationBean<>();
 //        jwtFilterBean.setOrder(Ordered.HIGHEST_PRECEDENCE + 9);

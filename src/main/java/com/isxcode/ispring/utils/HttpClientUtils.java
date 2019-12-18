@@ -1,6 +1,5 @@
 package com.isxcode.ispring.utils;
 
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.http.client.HttpClient;
@@ -17,18 +16,18 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 /**
- * 封装httpClient请求
+ * httpClient请求 工具类
  *
  * @author ispong
- * @date 2019-11-04
  * @version v0.1.0
+ * @date 2019-11-04
  */
 public class HttpClientUtils {
 
     private static HttpClient httpClient = HttpClientBuilder.create().build();
 
     /**
-     * 执行get第三方接口调用
+     * get接口调用
      *
      * @param url         请求路径
      * @param requestMap  请求对象(map)
@@ -41,11 +40,13 @@ public class HttpClientUtils {
 
         StringBuilder requestParams = new StringBuilder("?");
         requestMap.forEach((k, v) -> requestParams.append(k).append("=").append(v).append("&"));
-        return JSONObject.parseObject(EntityUtils.toString(httpClient.execute(new HttpGet(url + requestParams)).getEntity()), responseObj);
+        return JSONObject.parseObject(
+                EntityUtils.toString(
+                        httpClient.execute(new HttpGet(url + requestParams)).getEntity()), responseObj);
     }
 
     /**
-     * 执行post第三方接口调用
+     * post接口调用
      *
      * @param url         请求路径
      * @param requestObj  请求对象(obj)
@@ -63,7 +64,7 @@ public class HttpClientUtils {
     }
 
     /**
-     * 执行post第三方接口调用
+     * post接口调用
      *
      * @param url         请求路径
      * @param requestMap  请求对象(map)
@@ -81,7 +82,7 @@ public class HttpClientUtils {
     }
 
     /**
-     * 执行post第三方接口调用
+     * post接口调用
      *
      * @param url         请求路径
      * @param requestStr  请求对象(json)
