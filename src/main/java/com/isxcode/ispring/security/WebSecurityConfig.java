@@ -93,4 +93,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(16);
     }
+
+    @Bean
+    JwtDecoder jwtDecoder() {
+        return NimbusJwtDecoder.fromJwkSetUri(this.jwkSetUri)
+                .jwsAlgorithm(RS512).build();
+    }
 }

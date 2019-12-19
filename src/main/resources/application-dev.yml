@@ -53,6 +53,14 @@ spring:
   freemarker:
     template-loader-path: classpath:/templates/
 
+  # 集成spring的oauth
+  security:
+    oauth2:
+      resourceserver:
+          jwt:
+            jwk-set-uri: https://idp.example.com/.well-known/jwks.json
+            issuer-uri: https://localhost:8888/isxcode/issuer
+
 # 自定义属性配置
 isxcode:
   security:

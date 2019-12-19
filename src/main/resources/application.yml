@@ -28,6 +28,20 @@ spring:
   # thymeleaf
   thymeleaf:
     prefix: classpath:/auth/
+  security:
+    oauth2:
+      client:
+        registration:
+          isxcode:
+            client-id: isxcode-client-id
+            client-secret: isxcode-client-secret
+          provider:
+            isxcode:
+              authorization-uri: http://localhost:8888/oauth2/v1/authorize
+              token-uri: http://localhost:8888/oauth2/v1/token
+              user-info-uri: http://localhost:8888/oauth2/v1/userinfo
+              user-name-attribute: sub
+              jwk-set-uri: http://localhost:8888/oauth2/v1/keys
 
 server:
   servlet:

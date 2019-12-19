@@ -7,10 +7,9 @@ apply plugin: 'io.spring.dependency-management'
 
 group = 'com.isxcode'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
-
 	maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
 	mavenCentral()
 }
@@ -25,9 +24,6 @@ dependencies {
 
 	// spring-boot-starter-aop
 	compile "org.springframework.boot:spring-boot-starter-aop"
-
-	// spring-boot-starter-amqp
-//	compile "org.springframework.boot:spring-boot-starter-amqp"
 
 	// spring-boot-starter-websocket
 	compile "org.springframework.boot:spring-boot-starter-websocket"
@@ -44,10 +40,19 @@ dependencies {
 	// spring-boot-starter-security
 	compile "org.springframework.boot:spring-boot-starter-security"
 
+	// spring-security-jwt
+	compile group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.1.0.RELEASE'
+
 	// spring-data-redis
 //	compile "org.springframework.data:spring-data-redis"
 
-    // spring-boot-starter-mail
+	// lettuce-core
+	compile group: 'io.lettuce', name: 'lettuce-core', version: '5.2.1.RELEASE'
+
+	// spring-boot-starter-amqp
+//	compile "org.springframework.boot:spring-boot-starter-amqp"
+
+	// spring-boot-starter-mail
 	compile "org.springframework.boot:spring-boot-starter-mail"
 
 	// spring-boot-starter-freemarker
@@ -55,9 +60,6 @@ dependencies {
 
 	// spring-boot-starter-thymeleaf
 	compile "org.springframework.boot:spring-boot-starter-thymeleaf"
-
-	// lettuce-core
-	compile group: 'io.lettuce', name: 'lettuce-core', version: '5.2.1.RELEASE'
 
 	// jsonwebtoken
 	compile 'io.jsonwebtoken:jjwt-api:0.10.7'

@@ -3,12 +3,12 @@ package com.isxcode.ispring.controller;
 import com.isxcode.ispring.common.BaseController;
 import com.isxcode.ispring.common.BaseResponse;
 import com.isxcode.ispring.model.dto.UserDto;
-import com.isxcode.ispring.security.UserSecurityDetail;
+//import com.isxcode.ispring.security.UserSecurityDetail;
 import com.isxcode.ispring.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.access.annotation.Secured;
+//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,18 +47,18 @@ public class HelloController extends BaseController {
 //        return "login";
 //    }
 
-    /**
-     * 支持oauth和普通登录
-     *
-     * @since 2019-12-13
-     */
-    @PostMapping("/userAuth")
-    public ResponseEntity<BaseResponse> userAuth(@RequestBody UserSecurityDetail userSecurityDetail) {
-
-
-
-        return successResponse("登录成功", JwtUtils.encryptJwt(userInfo));
-    }
+//    /**
+//     * 支持oauth和普通登录
+//     *
+//     * @since 2019-12-13
+//     */
+//    @PostMapping("/userAuth")
+//    public ResponseEntity<BaseResponse> userAuth(@RequestBody UserSecurityDetail userSecurityDetail) {
+//
+//
+//
+//        return successResponse("登录成功", JwtUtils.encryptJwt(userInfo));
+//    }
 
 
     /**
@@ -96,11 +96,11 @@ public class HelloController extends BaseController {
      *
      * @since 2019-12-13
      */
-    @Secured("ROLE_USER")
-    @PostMapping("/getUser")
-    public ResponseEntity<BaseResponse> getUser() {
-
-        return successResponse("获取用户信息", getUserInfo());
-    }
+//    @Secured("ROLE_USER")
+//    @PostMapping("/getUser")
+//    public ResponseEntity<BaseResponse> getUser() {
+//
+//        return successResponse("获取用户信息", getUserInfo());
+//    }
 }
 
