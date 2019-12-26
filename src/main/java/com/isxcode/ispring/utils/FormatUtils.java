@@ -42,4 +42,5 @@ public class FormatUtils {
         }
         return String.valueOf(msb).substring(1, 1 + bit);
     }
+
 }

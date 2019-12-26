@@ -61,46 +61,6 @@ public class HelloController extends BaseController {
 //    }
 
 
-    /**
-     * 第三方登录接口  用户名密码 返回token
-     * 让用户拿着token再去调用获取用户信息接口
-     *
-     * 前端跳转一个第三方认证接口地址 ————》 返回code
-     * 前端拿着这个code 给后端   后端拿到code  去换取第三方的正式token
-     * 如果前端需要什么信息直接通过token去调用接口
-     *
-     * @param
-     * @return
-     * @since 2019-12-18
-     */
-    public void oauth(){
 
-
-    }
-
-
-    /**
-     * 前端通过url 去直接拿code
-     * 后端通过code获取用户信息
-     * 判断用户信息 认证用户
-     *
-     *
-     * @param
-     * @return
-     * @since 2019-12-18
-     */
-
-
-    /**
-     * 获取用户信息
-     *
-     * @since 2019-12-13
-     */
-//    @Secured("ROLE_USER")
-//    @PostMapping("/getUser")
-//    public ResponseEntity<BaseResponse> getUser() {
-//
-//        return successResponse("获取用户信息", getUserInfo());
-//    }
 }
 

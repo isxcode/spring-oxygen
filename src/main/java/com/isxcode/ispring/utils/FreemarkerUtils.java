@@ -18,6 +18,9 @@ import java.util.Map;
 /**
  * freemarker 工具类
  *
+ * 生成代码工具
+ * ( controller  service  entity  dto repositories )
+ *
  * @author ispong
  * @version v0.1.0
  * @date 2019/10/17
@@ -51,26 +54,31 @@ public class FreemarkerUtils {
         }
     }
 
-    public static void main(String[] args) throws Exception {
 
-        Configuration cfg = new Configuration(Configuration.VERSION_2_3_29);
-        cfg.setDirectoryForTemplateLoading(new File(""));
-        cfg.setDefaultEncoding("UTF-8");
-        cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-        cfg.setLogTemplateExceptions(false);
-        cfg.setWrapUncheckedExceptions(true);
-        cfg.setFallbackOnNullLoopVariable(false);
-
-        // 自己构建的参数对象
-
-        Map root = new HashMap<String, String>(2);
-        root.put("user", "Big Joe");
-
-        // 指定模板指定输出换环境
-        Template temp = cfg.getTemplate("test.ftlh");
-        OutputStream outputStream = new FileOutputStream(new File("D:\\templates"));
-        Writer out = new OutputStreamWriter(outputStream);
-        temp.process(root, out);
-    }
+    /**
+     * freemarker生成器
+     *
+     * 1- 指定数据库  通过数据库名称  指定文件夹   生成Entity Controller
+     *
+     * @since 2019-12-20
+     */
+//    public static void main(String[] args) throws Exception {
+//
+//        Configuration cfg = new Configuration(Configuration.VERSION_2_3_29);
+//        cfg.setDirectoryForTemplateLoading(new File(""));
+//        cfg.setDefaultEncoding("UTF-8");
+//        cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+//        cfg.setLogTemplateExceptions(false);
+//        cfg.setWrapUncheckedExceptions(true);
+//        cfg.setFallbackOnNullLoopVariable(false);
+//
+//        //
+//
+//        // 指定模板指定输出换环境3
+//        Template temp = cfg.getTemplate("test.ftlh");
+//        OutputStream outputStream = new FileOutputStream(new File("D:\\templates"));
+//        Writer out = new OutputStreamWriter(outputStream);
+//        temp.process(root, out);
+//    }
 
 }

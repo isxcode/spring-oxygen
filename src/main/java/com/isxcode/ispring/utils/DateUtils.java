@@ -153,4 +153,16 @@ public class DateUtils {
         return calendar.getTime();
     }
 
+    /**
+     * str转换LocalDateTime
+     *
+     * @param dateStr 日期Str
+     * @return LocalDateTime
+     * @since 2019-12-25
+     */
+    public static LocalDateTime strToLocalDateTime(String dateStr) {
+
+        return LocalDateTime.parse(dateStr.replace(".0", ""), dateTimeFormatter);
+    }
+
 }

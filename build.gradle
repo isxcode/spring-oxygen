@@ -38,7 +38,7 @@ dependencies {
 	compile "org.springframework.boot:spring-boot-starter-actuator"
 
 	// spring-boot-starter-security
-	compile "org.springframework.boot:spring-boot-starter-security"
+//	compile "org.springframework.boot:spring-boot-starter-security"
 
 	// spring-security-jwt
 	compile group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.1.0.RELEASE'
@@ -51,6 +51,9 @@ dependencies {
 
 	// spring-boot-starter-amqp
 //	compile "org.springframework.boot:spring-boot-starter-amqp"
+
+	// spring-boot-starter-jdbc
+//	compile "org.springframework.boot:spring-boot-starter-jdbc"
 
 	// spring-boot-starter-mail
 	compile "org.springframework.boot:spring-boot-starter-mail"

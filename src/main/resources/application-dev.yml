@@ -32,6 +32,8 @@ management:
     health:
       show-details: always  # 配置文件详细信息
 
+
+
 spring:
   # 数据库配置
   datasource:
@@ -60,6 +62,7 @@ spring:
           jwt:
             jwk-set-uri: https://idp.example.com/.well-known/jwks.json
             issuer-uri: https://localhost:8888/isxcode/issuer
+
 
 # 自定义属性配置
 isxcode:

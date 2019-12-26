@@ -1,13 +1,33 @@
 package com.isxcode.ispring.utils;
 
+import com.isxcode.ispring.exception.IsxcodeException;
+import com.isxcode.ispring.utils.sql.ColumnName;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cglib.beans.BeanMap;
 import org.springframework.lang.NonNull;
 
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static java.beans.Introspector.getBeanInfo;
+import static java.util.regex.Pattern.*;
+import static java.util.regex.Pattern.compile;
 
 /**
  * 注解解析工具
@@ -16,6 +36,7 @@ import java.util.Map;
  * @date 2019/10/8
  * @version v0.1.0
  */
+@Slf4j
 public class AnnotationUtils {
 
     /**
@@ -73,6 +94,22 @@ public class AnnotationUtils {
     }
 
     /**
+     * 获取class注解
+     *
+     * @param annotatedElement 被注解的对象
+     * @param annotationType   注解对象
+     * @return Map<Field, < ? extends Annotation>>
+     * @since 2019/10/9
+     */
+    public static <A extends Annotation> A getAnnotation(Class<?> annotatedElement, @NonNull Class<A> annotationType) {
+
+        if (annotatedElement.isAnnotationPresent(annotationType)) {
+            return annotatedElement.getAnnotation(annotationType);
+        }
+        throw new IsxcodeException("注解不存在");
+    }
+
+    /**
      * 转换field的set函数名
      *
      * @param field 属性
@@ -112,6 +149,148 @@ public class AnnotationUtils {
      */
     public static String getObjName(Object obj){
         return obj.getClass().getName();
+    }
+
+    /**
+     * 反射实例化
+     *
+     * @param
+     * @return
+     * @since 2019-12-23
+     */
+    public static <A> A newInstance(Class<A> clazz) {
+
+        try {
+            Constructor<A> constructor = clazz.getDeclaredConstructor();
+            constructor.setAccessible(true);
+            return constructor.newInstance();
+        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            throw new IsxcodeException("对象无法实例化");
+        }
+
+    }
+
+    /**
+     * 反射实例化 支持注解
+     * 因为需要解析注解,所有手动反射获取注解
+     *
+     * @param map   数据
+     * @param clazz 泛型对象
+     * @return 返回对象
+     * @since 2019-12-23
+     */
+    @NonNull
+    public static <A> A mapToBean(Map<String, Object> map, Class<A> clazz) {
+
+        // 反射本身
+        A entity = newInstance(clazz);
+        invokeSetMethod(map, entity, clazz);
+
+        // 反射父级
+        Class<? super A> superclass = clazz.getSuperclass();
+        if (superclass != null && !superclass.isInstance(Object.class)) {
+            invokeSetMethod(map, entity, superclass);
+        }
+
+        return entity;
+    }
+
+    /**
+     * 调用set方法
+     *
+     * @param map    数据
+     * @param entity 对象
+     * @param clazz  对象class
+     * @since 2019-12-25
+     */
+    public static <T> void invokeSetMethod(Map<String, Object> map, T entity, Class<?> clazz) {
+
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            String fieldName;
+            if (field.isAnnotationPresent(ColumnName.class)) {
+                fieldName = field.getAnnotation(ColumnName.class).value();
+            } else {
+                fieldName = humpToLine(field.getName());
+            }
+            if (map.containsKey(fieldName)) {
+                try {
+                    if ("java.time.LocalDateTime".equals(field.getType().getName())) {
+                        getFieldSetMethod(clazz, field).invoke(entity, DateUtils.strToLocalDateTime(map.get(fieldName).toString()));
+                    } else {
+                        getFieldSetMethod(clazz, field).invoke(entity, map.get(fieldName));
+                    }
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    log.info("反射失败");
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+
+    /**
+     * 小驼峰转下划线
+     * 当找到一个大写的时候,替换成_小写
+     *
+     * @param humpStr 小驼峰内容
+     * @return 下划线写法
+     * @since 2019-12-24
+     */
+    private static String humpToLine(String humpStr) {
+
+        Matcher matcher = compile("[A-Z]").matcher(humpStr);
+        StringBuffer lineStrBuff = new StringBuffer();
+        while (matcher.find()) {
+            matcher.appendReplacement(lineStrBuff, "_" + matcher.group(0).toLowerCase());
+        }
+        matcher.appendTail(lineStrBuff);
+        return lineStrBuff.toString();
+    }
+
+    /**
+     * 获取Field的set方法
+     *
+     * @param clazz class类
+     * @param field 属性名
+     * @return 返回方法
+     * @since 2019-12-24
+     */
+    private static Method getFieldSetMethod(Class<?> clazz, Field field) {
+
+        try {
+            return clazz.getDeclaredMethod(translateSetName(field), field.getType());
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new IsxcodeException("方法不存在");
+        }
+    }
+
+
+    @NonNull
+    public static <A> A mapToBean2(Map<String, Object> map, Class<A> clazz) {
+
+        A entity = newInstance(clazz);
+        BeanInfo beanInfo = null;
+        try {
+            beanInfo = getBeanInfo(clazz);
+        } catch (IntrospectionException e) {
+            e.printStackTrace();
+        }
+        assert beanInfo != null;
+        PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+        for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
+            String propertyName = humpToLine(propertyDescriptor.getName());
+            if (map.containsKey(propertyName)) {
+                try {
+                    propertyDescriptor.getWriteMethod().invoke(entity, map.get(propertyName));
+                } catch (Exception e) {
+                    System.err.println("The failure of " + propertyName + " assignment");
+                }
+            }
+        }
+        return entity;
     }
 
 }
