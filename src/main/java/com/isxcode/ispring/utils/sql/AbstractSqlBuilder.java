@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * sql拼接抽象类
@@ -27,16 +25,13 @@ public abstract class AbstractSqlBuilder<T> {
      */
     public final static Map<String, Map<String, String>> BEAN_COLUMNS_MAP = new HashMap<>();
 
-    @Getter
-    @Setter
-    private Map<String, String> columnNames;
 
     /**
-     * 暂存返回类型
+     * 获取数据库字段
      */
     @Getter
     @Setter
-    private Class<?> beanClazz;
+    private Map<String, String> columnNames;
 
     /**
      * 暂存Sql语句
@@ -45,6 +40,8 @@ public abstract class AbstractSqlBuilder<T> {
     @Setter
     private StringBuilder sqlStr;
 
+
+    // 看看有没有算法
     private Boolean whereFlag = true;
 
     private Boolean eqFlag = false;
@@ -54,7 +51,7 @@ public abstract class AbstractSqlBuilder<T> {
     private Boolean orderFlag = false;
 
     /**
-     * 获取自己(无限点击)
+     * 获取自己
      *
      * @return 返回自己
      * @since 2019-12-23
@@ -68,7 +65,11 @@ public abstract class AbstractSqlBuilder<T> {
      */
     T select(String... columns) {
 
-        sqlStr = new StringBuilder(sqlStr.toString().replace("*", String.join(",", columns)));
+        for (String metaColumn : columns) {
+
+        }
+
+//        sqlStr = new StringBuilder(sqlStr.toString().replace("*", String.join(",", tempColumns)));
 
         return getSelf();
     }
@@ -82,6 +83,116 @@ public abstract class AbstractSqlBuilder<T> {
      * @since 2019-12-23
      */
     T eq(String column, String value) {
+
+        if (whereFlag) {
+            sqlStr.append(" where ");
+            whereFlag = false;
+        }
+        if (eqFlag) {
+            sqlStr.append(" and ");
+        }
+        eqFlag = true;
+        sqlStr.append(columnNames.get(column)).append("=").append("'").append(value).append("'");
+
+        return getSelf();
+    }
+
+    /**
+     * 值相等
+     *
+     * @param column 数据库中的字段名
+     * @param value  相等的值
+     * @since 2019-12-23
+     */
+    T gt(String column, String value) {
+
+        if (whereFlag) {
+            sqlStr.append(" where ");
+            whereFlag = false;
+        }
+        if (eqFlag) {
+            sqlStr.append(" and ");
+        }
+        eqFlag = true;
+        sqlStr.append(columnNames.get(column)).append("=").append("'").append(value).append("'");
+
+        return getSelf();
+    }
+
+    /**
+     * 值相等
+     *
+     * @param column 数据库中的字段名
+     * @param value  相等的值
+     * @since 2019-12-23
+     */
+    T lt(String column, String value) {
+
+        if (whereFlag) {
+            sqlStr.append(" where ");
+            whereFlag = false;
+        }
+        if (eqFlag) {
+            sqlStr.append(" and ");
+        }
+        eqFlag = true;
+        sqlStr.append(columnNames.get(column)).append("=").append("'").append(value).append("'");
+
+        return getSelf();
+    }
+
+    /**
+     * 值相等
+     *
+     * @param column 数据库中的字段名
+     * @param value  相等的值
+     * @since 2019-12-23
+     */
+    T between(String column, String value,String value2) {
+
+        if (whereFlag) {
+            sqlStr.append(" where ");
+            whereFlag = false;
+        }
+        if (eqFlag) {
+            sqlStr.append(" and ");
+        }
+        eqFlag = true;
+        sqlStr.append(columnNames.get(column)).append("=").append("'").append(value).append("'");
+
+        return getSelf();
+    }
+
+    /**
+     * 值相等
+     *
+     * @param column 数据库中的字段名
+     * @param value  相等的值
+     * @since 2019-12-23
+     */
+    T gtEq(String column, String value) {
+
+        if (whereFlag) {
+            sqlStr.append(" where ");
+            whereFlag = false;
+        }
+        if (eqFlag) {
+            sqlStr.append(" and ");
+        }
+        eqFlag = true;
+        sqlStr.append(columnNames.get(column)).append("=").append("'").append(value).append("'");
+
+        return getSelf();
+    }
+
+    /**
+     * 值相等
+     *
+     * @param column 数据库中的字段名
+     * @param value  相等的值
+     * @since 2019-12-23
+     */
+    T ltEq(String column, Object value) {
 
         if (whereFlag) {
             sqlStr.append(" where ");

@@ -1,11 +1,14 @@
 package com.isxcode.ispring.utils.sql;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+// 主动提供一些方法给用户去使用
 @Service
-public class SqlService {
+public class SqlService{
 
     private final SqlDao sqlDao;
 
@@ -13,9 +16,11 @@ public class SqlService {
         this.sqlDao = sqlDao;
     }
 
-    public List<SqlUser> getOne() {
-
-        return sqlDao.queryEntity();
+    public void getOne() {
+        sqlDao.getOne();
     }
+
+    // 分页查询
+
 
 }

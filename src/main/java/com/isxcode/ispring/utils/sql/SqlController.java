@@ -28,6 +28,14 @@ public class SqlController extends BaseController {
     @GetMapping("get")
     public ResponseEntity<BaseResponse> getOne() {
 
+
+        String uuid = "123";
+        String name = "song";
+        String sql = "select * from table where uuid = '${uuid}' and name = '${name}'";
+        // 字符串转换器
+
+
+
         for (int i = 0; i < 19; i++) {
             long tempSecond = System.currentTimeMillis();
             sqlService.getOne();

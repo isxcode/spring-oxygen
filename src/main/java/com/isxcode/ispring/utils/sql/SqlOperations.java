@@ -20,6 +20,16 @@ public interface SqlOperations {
     <A> List<A> query();
 
     /**
+     * 查询列表
+     *
+     * @param page 每一页
+     * @param size 每页大小
+     * @return 返回List类型数据对象
+     * @since 2019-12-26
+     */
+    <A> List<A> query(Integer page, Integer size);
+
+    /**
      * 查询某一个值
      *
      * @return 返回映射对象
@@ -35,9 +45,23 @@ public interface SqlOperations {
     void doUpdate();
 
     /**
+     * 执行批量更新
+     *
+     * @since 2019-12-26
+     */
+    void batchUpdate();
+
+    /**
      * 执行保存
      *
      * @since 2019-12-26
      */
     void save();
+
+    /**
+     * 执行删除
+     *
+     * @since 2019-12-26
+     */
+    void doDelete();
 }

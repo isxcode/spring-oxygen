@@ -1,18 +1,17 @@
 package com.isxcode.ispring.utils.sql;
 
-import com.isxcode.ispring.exception.IsxcodeException;
-import com.isxcode.ispring.utils.AnnotationUtils;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
- * sql 执行器
+ * sql jdbcTemplate最终执行器
  *
  * @author ispong
  * @version v0.1.0
@@ -21,6 +20,13 @@ import java.util.Map;
 @Slf4j
 @Component
 public class SqlBuilder<A> extends AbstractSqlBuilder<SqlBuilder<A>> implements SqlOperations {
+
+    /**
+     * 暂存泛型类型
+     */
+    @Getter
+    @Setter
+    private Class<A> genericType;
 
     private static JdbcTemplate jdbcTemplate;
 
@@ -40,39 +46,45 @@ public class SqlBuilder<A> extends AbstractSqlBuilder<SqlBuilder<A>> implements 
     @SuppressWarnings("unchecked")
     public List<A> query() {
 
-        try {
-            log.info("sqlStr:" + getSqlStr().toString());
-            // 初始化返回对象
-            List<A> result = new ArrayList<>();
-            // 遍历解析数据库返回对象
-            for (Map<String, Object> metaBean : jdbcTemplate.queryForList(getSqlStr().toString())) {
-                result.add((A) AnnotationUtils.mapToBean(metaBean, getBeanClazz()));
-            }
-            return result;
-        } catch (Exception e) {
-            throw new IsxcodeException("数据库操作异常");
-        }
+        return jdbcTemplate.query(getSqlStr().toString(), new BeanPropertyRowMapper<>(getGenericType()));
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public A getOne() {
 
-        try {
-            log.info("sqlStr:" + getSqlStr().toString());
-            return (A) AnnotationUtils.mapToBean(jdbcTemplate.queryForMap(getSqlStr().toString()), getBeanClazz());
-        } catch (Exception e) {
-            throw new IsxcodeException("数据库操作异常");
-        }
+        return jdbcTemplate.queryForObject(getSqlStr().toString(), new BeanPropertyRowMapper<>(getGenericType()));
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<A> query(Integer page, Integer size) {
+
+//        jdbcTemplate.q
+        return jdbcTemplate.query(getSqlStr().toString(), new BeanPropertyRowMapper<>(getGenericType()));
     }
 
     @Override
     public void doUpdate() {
 
+        jdbcTemplate.update(getSqlStr().toString());
+    }
+
+    @Override
+    public void batchUpdate() {
+
+        jdbcTemplate.batchUpdate(getSqlStr().toString());
     }
 
     @Override
     public void save() {
 
+        jdbcTemplate.update(getSqlStr().toString());
+    }
+
+    @Override
+    public void doDelete() {
+
+        jdbcTemplate.update(getSqlStr().toString());
     }
 }
