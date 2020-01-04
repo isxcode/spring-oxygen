@@ -10,7 +10,6 @@ spring:
 #    time-zone: GMT+8
 #    date-format: yyyy-MM-dd HH:mm:ss
 
-
   # spring-mail 配置
   mail:
     host: smtp.qq.com # 邮箱服务器地址
@@ -27,22 +26,22 @@ spring:
       mail.smtp.writetimeout: 10000 # 设置写入超时
 
   # thymeleaf
-  thymeleaf:
-    prefix: classpath:/auth/
-  security:
-    oauth2:
-      client:
-        registration:
-          isxcode:
-            client-id: isxcode-client-id
-            client-secret: isxcode-client-secret
-          provider:
-            isxcode:
-              authorization-uri: http://localhost:8888/oauth2/v1/authorize
-              token-uri: http://localhost:8888/oauth2/v1/token
-              user-info-uri: http://localhost:8888/oauth2/v1/userinfo
-              user-name-attribute: sub
-              jwk-set-uri: http://localhost:8888/oauth2/v1/keys
+#  thymeleaf:
+#    prefix: classpath:/auth/
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          isxcode:
+#            client-id: isxcode-client-id
+#            client-secret: isxcode-client-secret
+#          provider:
+#            isxcode:
+#              authorization-uri: http://localhost:8888/oauth2/v1/authorize
+#              token-uri: http://localhost:8888/oauth2/v1/token
+#              user-info-uri: http://localhost:8888/oauth2/v1/userinfo
+#              user-name-attribute: sub
+#              jwk-set-uri: http://localhost:8888/oauth2/v1/keys
 
 server:
   servlet:

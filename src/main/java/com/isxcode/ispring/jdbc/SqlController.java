@@ -1,4 +1,4 @@
-package com.isxcode.ispring.utils.sql;
+package com.isxcode.ispring.jdbc;
 
 import com.isxcode.ispring.common.BaseController;
 import com.isxcode.ispring.common.BaseResponse;

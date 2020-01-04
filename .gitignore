@@ -1,12 +1,14 @@
-### gradle 缓存文件 ###
+# gradle 缓存文件
 .gradle
 
-### IntelliJ IDEA ###
+# IntelliJ IDEA
 .idea
 
-### 文件打包文件 ###
+# 文件打包文件
 build
 
-### 日志文件夹 ###
+# 日志文件夹
 logs
 
+# gradle warpper
+gradle

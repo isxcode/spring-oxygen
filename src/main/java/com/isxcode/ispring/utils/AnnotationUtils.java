@@ -1,9 +1,8 @@
 package com.isxcode.ispring.utils;
 
 import com.isxcode.ispring.exception.IsxcodeException;
-import com.isxcode.ispring.utils.sql.ColumnName;
+import com.isxcode.ispring.jdbc.ColumnName;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cglib.beans.BeanMap;
 import org.springframework.lang.NonNull;
 
 import java.beans.BeanInfo;
@@ -14,19 +13,13 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static java.beans.Introspector.getBeanInfo;
-import static java.util.regex.Pattern.*;
 import static java.util.regex.Pattern.compile;
 
 /**

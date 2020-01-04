@@ -8,6 +8,7 @@
 * 集成 **jjwt**
 * 集成 **jasypt**
 * 集成 **httpClient**
+* 集成 **poi**
 
 ## 项目的目的
 > 为企业级开发提供标准，以java为主，spring全家桶为基础，idea为开发利器

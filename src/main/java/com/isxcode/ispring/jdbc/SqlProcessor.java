@@ -1,4 +1,4 @@
-package com.isxcode.ispring.utils.sql;
+package com.isxcode.ispring.jdbc;
 
 /**
  * sql 解析执行器

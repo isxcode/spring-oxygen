@@ -1,10 +1,9 @@
 package com.isxcode.ispring.security;
 
-//import com.isxcode.ispring.filter.JwtFilter;
-import com.isxcode.ispring.config.CorsConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,19 +27,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final CorsConfig corsConfig;
-
-    public WebSecurityConfig(CorsConfig corsConfig) {
-
-        this.corsConfig = corsConfig;
-    }
-
     @Override
-    public UserDetailsService userDetailsServiceBean() throws Exception {
+    public UserDetailsService userDetailsServiceBean() {
 
-        return new UserDetailServiceImpl();
+        return new UserDetailsServiceImpl();
     }
 
+    @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() {
 
@@ -48,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public AbstractAuthenticationProcessingFilter LoginAuthenticationProcessingFilter() {
+    public AbstractAuthenticationProcessingFilter loginAuthenticationProcessingFilterBean() {
 
         LoginAuthenticationProcessingFilter loginAuthenticationProcessingFilter = new LoginAuthenticationProcessingFilter();
         loginAuthenticationProcessingFilter.setAuthenticationManager(authenticationManagerBean());
@@ -56,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public AbstractAuthenticationProcessingFilter TokenAuthenticationProcessingFilter() {
+    public AbstractAuthenticationProcessingFilter tokenAuthenticationProcessingFilterBean() {
 
         TokenAuthenticationProcessingFilter tokenAuthenticationProcessingFilter = new TokenAuthenticationProcessingFilter();
         tokenAuthenticationProcessingFilter.setAuthenticationManager(authenticationManagerBean());
@@ -66,8 +59,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        // 不进入filter
 
         // 禁用csrf防护
         http.csrf().disable();
@@ -81,46 +72,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 禁用缓存
         http.headers().cacheControl();
 
-//        httpSecurity.exceptionHandling()
-//                .accessDeniedHandler(restfulAccessDeniedHandler)
-//                .authenticationEntryPoint(restAuthenticationEntryPoint);
+        // actuator权限控制
+        http.authorizeRequests().antMatchers("/actuator/**").hasRole("ADMIN");
 
+        // 启动token拦截器
+        http.addFilterBefore(tokenAuthenticationProcessingFilterBean(), UsernamePasswordAuthenticationFilter.class);
 
-        // 获取用户的信息
-        http.userDetailsService(userDetailsServiceBean());
+//        http.authenticationProvider(new TokenAuthenticationProviderImpl());
 
-        // 拦截器
-        http.addFilterBefore(LoginAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
-        http.addFilterBefore(TokenAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
+//        http.userDetailsService(userDetailsServiceBean());
 
-//        http.exceptionHandling().authenticationEntryPoint();
-
-        //AuthenticationManager会调用ProviderManager来获取用户验证信息
-//        http.
-
-        // 拦截actuator请求
-//        http.authorizeRequests().antMatchers("/actuator/**").hasRole("ADMIN");
-//
-        // 放行登录接口
-//        http.authorizeRequests().antMatchers("/userAuth").permitAll();
-
-
-//        // 添加token拦截器
-//        UserAuthFilter userAuthFilter = new UserAuthFilter();
-//        userAuthFilter.setAuthenticationManager(authenticationManagerBean());
-//        http.addFilterAfter(userAuthFilter, JwtFilter.class);
-//        http.authenticationProvider()
-
-//        http.antMatcher("/**").addFilter(jwtFilter);
         // 没有权限自动跳转登录页面
 //        http.formLogin()
 //                .loginPage("/login")
 //                .loginProcessingUrl("/isxcode/userAuth")
 //                .permitAll();
 
-        http.exceptionHandling()
-                .accessDeniedHandler(new AccessDeniedHandlerImpl())
-                .authenticationEntryPoint(new AuthenticationEntryPointImpl());
+//        http.exceptionHandling()
+//                .accessDeniedHandler(new AccessDeniedHandlerImpl())
+//                .authenticationEntryPoint(new AuthenticationEntryPointImpl());
 
         super.configure(http);
     }
@@ -133,6 +103,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
+        auth.userDetailsService(userDetailsServiceBean()).passwordEncoder(passwordEncoder());
         auth.authenticationProvider(new LoginAuthenticationProviderImpl());
         auth.authenticationProvider(new TokenAuthenticationProviderImpl());
         auth.inMemoryAuthentication().withUser("admin").password("{noop}admin").roles("ADMIN");
@@ -145,5 +116,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         return new BCryptPasswordEncoder();
     }
-
 }

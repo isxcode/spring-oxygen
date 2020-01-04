@@ -44,6 +44,14 @@ public abstract class BaseController {
 //
 //        // SecurityContextHolder 获取上下文 使用ThreadLocal 存储用户信息
 //        return ((UserSecurityDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+//
+//    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//if (principal instanceof UserDetails) {
+//        String username = ((UserDetails)principal).getUsername();
+//    } else {
+//        String username = principal.toString();
+//    }
 //    }
 
 }

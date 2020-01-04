@@ -10,7 +10,7 @@ import org.springframework.security.core.Authentication;
 import java.util.Collection;
 
 /**
- * 权限决断中心
+ * 权限认证中心
  *
  * @author ispong
  * @version v0.1.0

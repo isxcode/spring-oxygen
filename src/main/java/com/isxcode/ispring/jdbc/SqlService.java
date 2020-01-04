@@ -1,9 +1,6 @@
-package com.isxcode.ispring.utils.sql;
+package com.isxcode.ispring.jdbc;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 
 // 主动提供一些方法给用户去使用

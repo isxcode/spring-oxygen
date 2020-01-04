@@ -1,13 +1,17 @@
 package com.isxcode.ispring.security;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,14 +29,15 @@ public class TokenAuthenticationProcessingFilter extends AbstractAuthenticationP
 
     public TokenAuthenticationProcessingFilter() {
 
-        super(new AntPathRequestMatcher("/test", "POST"));
+        super(new AntPathRequestMatcher("/**", "POST"));
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
+
         logger.info("权限拦截器");
-        AuthenticationManager authenticationManager = getAuthenticationManager();
-        return null;
+
+        return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken("", ""));
     }
 
 }

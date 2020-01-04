@@ -1,11 +1,8 @@
-package com.isxcode.ispring.utils.sql;
+package com.isxcode.ispring.jdbc;
 
 
-import com.isxcode.ispring.utils.AnnotationUtils;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.*;

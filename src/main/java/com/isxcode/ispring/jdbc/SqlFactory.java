@@ -1,4 +1,4 @@
-package com.isxcode.ispring.utils.sql;
+package com.isxcode.ispring.jdbc;
 
 import com.isxcode.ispring.exception.IsxcodeException;
 
@@ -7,7 +7,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.isxcode.ispring.utils.sql.AbstractSqlBuilder.BEAN_COLUMNS_MAP;
+import static com.isxcode.ispring.jdbc.AbstractSqlBuilder.BEAN_COLUMNS_MAP;
 
 /**
  * 使用工厂模式拼接sql

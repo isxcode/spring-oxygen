@@ -1,7 +1,7 @@
 package com.isxcode.ispring.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.isxcode.ispring.utils.sql.ColumnName;
+import com.isxcode.ispring.jdbc.ColumnName;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedBy;

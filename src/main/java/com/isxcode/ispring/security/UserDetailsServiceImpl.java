@@ -1,6 +1,7 @@
 package com.isxcode.ispring.security;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * @date 2020-01-02
  */
 @Slf4j
-public class UserDetailServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
@@ -27,7 +28,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         String password = "admin";
         String authorityString = "admin";
 
-        return new User(username, new BCryptPasswordEncoder().encode(password), AuthorityUtils.commaSeparatedStringToAuthorityList(authorityString));
+        return User.withUsername(username).password(new BCryptPasswordEncoder().encode(password)).authorities(AuthorityUtils.commaSeparatedStringToAuthorityList(authorityString)).build();
     }
 
 }

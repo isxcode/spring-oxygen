@@ -80,7 +80,7 @@ public class HelloController extends BaseController {
      *
      * @since 2019-12-13
      */
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("/test2")
     public ResponseEntity<BaseResponse> test2() {
 
