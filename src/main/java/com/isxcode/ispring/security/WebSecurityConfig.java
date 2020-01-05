@@ -12,8 +12,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
  * spring security 配置中心
@@ -27,56 +32,60 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Override
-    public UserDetailsService userDetailsServiceBean() {
+//    @Override
+//    public UserDetailsService userDetailsServiceBean() {
+//
+//        return new UserDetailsServiceImpl();
+//    }
 
-        return new UserDetailsServiceImpl();
-    }
-
-    @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() {
-
         return new AuthenticationManagerImpl();
     }
 
+//
+//    @Bean
+//    public AbstractAuthenticationProcessingFilter loginAuthenticationProcessingFilterBean() {
+//
+//        LoginAuthenticationProcessingFilter loginAuthenticationProcessingFilter = new LoginAuthenticationProcessingFilter();
+//        loginAuthenticationProcessingFilter.setAuthenticationManager(authenticationManagerBean());
+//        return loginAuthenticationProcessingFilter;
+//    }
+//
+
     @Bean
-    public AbstractAuthenticationProcessingFilter loginAuthenticationProcessingFilterBean() {
+    public OncePerRequestFilter tokenAuthenticationFilterBean() {
 
-        LoginAuthenticationProcessingFilter loginAuthenticationProcessingFilter = new LoginAuthenticationProcessingFilter();
-        loginAuthenticationProcessingFilter.setAuthenticationManager(authenticationManagerBean());
-        return loginAuthenticationProcessingFilter;
+        return new TokenAuthenticationFilter();
     }
-
-    @Bean
-    public AbstractAuthenticationProcessingFilter tokenAuthenticationProcessingFilterBean() {
-
-        TokenAuthenticationProcessingFilter tokenAuthenticationProcessingFilter = new TokenAuthenticationProcessingFilter();
-        tokenAuthenticationProcessingFilter.setAuthenticationManager(authenticationManagerBean());
-        return tokenAuthenticationProcessingFilter;
-    }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        // 禁用csrf防护
+        // 开启跨域
+//        http.cors();
+//
+//        // 禁用csrf防护
         http.csrf().disable();
+//
+//        // 设置放行路径,spring-security拦截器不会拦截
+        http.authorizeRequests().antMatchers("/userAuth").permitAll();
+//      开启请求头拦截
+        http.httpBasic();
 
-        // 设置放行路径
-        http.authorizeRequests().antMatchers("/sfd").permitAll();
-
-        // 关闭session
+//        // 关闭session 打开会出现302
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-        // 禁用缓存
-        http.headers().cacheControl();
-
-        // actuator权限控制
-        http.authorizeRequests().antMatchers("/actuator/**").hasRole("ADMIN");
-
-        // 启动token拦截器
-        http.addFilterBefore(tokenAuthenticationProcessingFilterBean(), UsernamePasswordAuthenticationFilter.class);
+//
+//        http.formLogin();
+//
+//        // 禁用缓存
+//        http.headers().cacheControl();
+//
+//        // actuator权限控制
+////        http.authorizeRequests().antMatchers("/actuator/**").hasRole("ADMIN");
+//
+//        // 启动token拦截器
+        http.addFilterBefore(tokenAuthenticationFilterBean(), UsernamePasswordAuthenticationFilter.class);
 
 //        http.authenticationProvider(new TokenAuthenticationProviderImpl());
 
@@ -92,7 +101,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .accessDeniedHandler(new AccessDeniedHandlerImpl())
 //                .authenticationEntryPoint(new AuthenticationEntryPointImpl());
 
-        super.configure(http);
+//        super.configure(http);
+
+//        WebAsyncManagerIntegrationFilter
+
+//        BasicAuthenticationFilter
+
+//                http
+//                //关闭跨站请求防护
+//                .cors().and().csrf().disable()
+//                //允许不登陆就可以访问的方法，多个用逗号分隔
+//                .authorizeRequests().antMatchers("/userAuth").permitAll()
+//                //其他的需要授权后访问
+//                .anyRequest().authenticated()
+//                .and()
+//                //增加登录拦截
+//                .addFilterBefore(tokenAuthenticationProcessingFilterBean(), UsernamePasswordAuthenticationFilter.class)
+//                //增加是否登陸过滤
+////                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+//                // 前后端分离是无状态的，所以暫時不用session，將登陆信息保存在token中。
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
     }
 
     /**
@@ -103,17 +132,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        auth.userDetailsService(userDetailsServiceBean()).passwordEncoder(passwordEncoder());
-        auth.authenticationProvider(new LoginAuthenticationProviderImpl());
-        auth.authenticationProvider(new TokenAuthenticationProviderImpl());
+//        auth.userDetailsService(userDetailsServiceBean()).passwordEncoder(passwordEncoder());
         auth.inMemoryAuthentication().withUser("admin").password("{noop}admin").roles("ADMIN");
-        auth.inMemoryAuthentication().withUser("user").password(passwordEncoder().encode("user")).roles("USER");
-        super.configure(auth);
+//        auth.inMemoryAuthentication().withUser("user").password(passwordEncoder().encode("user")).roles("USER");
+        // 下面代码不注释,会出现无法载入自定义用户
+//        super.configure(auth);
     }
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    public BCryptPasswordEncoder passwordEncoder() {
+//
+//        return new BCryptPasswordEncoder();
+//    }
 }

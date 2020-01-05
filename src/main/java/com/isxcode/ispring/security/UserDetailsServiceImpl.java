@@ -26,9 +26,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         // 数据库获取用户名 密码 权限 其他信息
         String username = "admin";
         String password = "admin";
-        String authorityString = "admin";
+        String authorityString = "ROLE_ADMIN";
 
-        return User.withUsername(username).password(new BCryptPasswordEncoder().encode(password)).authorities(AuthorityUtils.commaSeparatedStringToAuthorityList(authorityString)).build();
+        return User.withUsername(username).password(password).authorities(AuthorityUtils.commaSeparatedStringToAuthorityList(authorityString)).build();
     }
 
 }

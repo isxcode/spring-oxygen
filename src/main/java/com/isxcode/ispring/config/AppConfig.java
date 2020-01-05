@@ -30,7 +30,6 @@ import java.util.Arrays;
 @EnableAspectJAutoProxy
 @EnableScheduling
 @ImportResource(locations = {"classpath:schema/**"})
-//@EnableGlobalMethodSecurity(securedEnabled = true)
 public class AppConfig {
 
 	/**

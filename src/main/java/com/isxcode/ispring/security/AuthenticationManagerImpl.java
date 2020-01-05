@@ -10,6 +10,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * 身份认证管理中心
@@ -22,14 +24,14 @@ import javax.annotation.Resource;
 @Slf4j
 public class AuthenticationManagerImpl implements AuthenticationManager {
 
-    AuthenticationProvider tokenAuthenticationProvider;
+    private AuthenticationProvider tokenAuthenticationProvider = new TokenAuthenticationProviderImpl();
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
-        log.info("权限管理");
-        Authentication authenticate = tokenAuthenticationProvider.authenticate(authentication);
-        SecurityContextHolder.getContext().setAuthentication(authenticate);
-        return authenticate;
+        log.info("认证管理");
+
+        return tokenAuthenticationProvider.authenticate(authentication);
     }
+
 }

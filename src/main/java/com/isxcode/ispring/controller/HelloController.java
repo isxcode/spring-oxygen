@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 //import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,7 @@ public class HelloController extends BaseController {
      *
      * @since 2019-11-15
      */
-    @GetMapping("/test")
+    @GetMapping("/test3")
     public ResponseEntity<BaseResponse> test() {
 
         return successResponse("项目启动成功", Calendar.getInstance().getTime().toString());
@@ -68,7 +69,7 @@ public class HelloController extends BaseController {
      *
      * @since 2019-12-13
      */
-    @Secured({"ADMIN"})
+    @Secured({"ROLE_USER"})
     @PostMapping("/test1")
     public ResponseEntity<BaseResponse> test1() {
 
