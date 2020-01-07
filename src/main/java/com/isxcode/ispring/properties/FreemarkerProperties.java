@@ -6,6 +6,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
+ * 属性配置都得配置默认类
+ *
  * @author ispon
  */
 @Data
@@ -13,16 +15,15 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "isxcode.freemarker")
 public class FreemarkerProperties {
 
-
     /**
      * 开关
      */
-    private String status;
+    private String status = "";
 
     /**
      * 在resources的哪个文件夹中
      */
-    private String templatesPath;
+    private String templatesPath = "";
 
     /**
      * 作者

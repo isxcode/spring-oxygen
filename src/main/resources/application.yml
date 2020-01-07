@@ -25,6 +25,15 @@ spring:
       mail.smtp.timeout: 10000 # 设置超时
       mail.smtp.writetimeout: 10000 # 设置写入超时
 
+# freemarker 设置
+  freemarker:
+    enabled: false # 使用启动springMvc
+    cache: false # 关闭缓存
+    charset: UTF-8 # 设置字符集
+    template-loader-path: /templates/ # 设置模板地址
+    check-template-location: false # 检查模板地址是否存在
+#    settings: # freemarker官方配置
+
   # thymeleaf
 #  thymeleaf:
 #    prefix: classpath:/auth/
@@ -54,3 +63,9 @@ jasypt:
       prefix: "ENC@[" # 标识前缀
       suffix: "]" # 标识后缀
     bean: customJasyptStringEncryptor
+
+isxcode:
+  code-generate:
+    templates-path: templates
+    com-path: com.isxcode.ispring
+

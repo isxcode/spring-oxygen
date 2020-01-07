@@ -71,9 +71,6 @@ dependencies {
 	compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.2.0'
 	compile group: 'com.baomidou', name: 'mybatis-plus-generator', version: '3.2.0'
 
-	// freemarker
-	compile group: 'org.freemarker', name: 'freemarker', version: '2.3.29'
-
 	// lombok
 	compileOnly 'org.projectlombok:lombok:1.18.10'
 	annotationProcessor 'org.projectlombok:lombok:1.18.10'

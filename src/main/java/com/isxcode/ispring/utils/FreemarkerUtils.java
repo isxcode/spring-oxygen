@@ -1,23 +1,37 @@
 package com.isxcode.ispring.utils;
 
+import com.isxcode.ispring.TableColumn;
 import com.isxcode.ispring.exception.IsxcodeException;
+import com.isxcode.ispring.jdbc.SqlFactory;
+import com.isxcode.ispring.model.dto.UserDto;
+import com.isxcode.ispring.properties.CodeGenerateProperties;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
+
+import static antlr.build.ANTLR.root;
 
 /**
  * freemarker 工具类
- *
+ * <p>
  * 生成代码工具
  * ( controller  service  entity  dto repositories )
  *
@@ -31,9 +45,13 @@ public class FreemarkerUtils {
 
     private static FreeMarkerConfigurer freeMarkerConfigurer;
 
+    private static CodeGenerateProperties codeGenerateProperties;
+
     @Autowired
-    public void setFreeMarkerConfigurer(FreeMarkerConfigurer freeMarkerConfigurer) {
+    public FreemarkerUtils(FreeMarkerConfigurer freeMarkerConfigurer, CodeGenerateProperties codeGenerateProperties) {
+
         FreemarkerUtils.freeMarkerConfigurer = freeMarkerConfigurer;
+        FreemarkerUtils.codeGenerateProperties = codeGenerateProperties;
     }
 
     /**
@@ -54,31 +72,63 @@ public class FreemarkerUtils {
         }
     }
 
-
     /**
-     * freemarker生成器
+     * 生成java源代码
      *
-     * 1- 指定数据库  通过数据库名称  指定文件夹   生成Entity Controller
-     *
-     * @since 2019-12-20
+     * @param
+     * @return
+     * @since 2020-01-07
      */
-//    public static void main(String[] args) throws Exception {
-//
-//        Configuration cfg = new Configuration(Configuration.VERSION_2_3_29);
-//        cfg.setDirectoryForTemplateLoading(new File(""));
-//        cfg.setDefaultEncoding("UTF-8");
-//        cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-//        cfg.setLogTemplateExceptions(false);
-//        cfg.setWrapUncheckedExceptions(true);
-//        cfg.setFallbackOnNullLoopVariable(false);
-//
-//        //
-//
-//        // 指定模板指定输出换环境3
-//        Template temp = cfg.getTemplate("test.ftlh");
-//        OutputStream outputStream = new FileOutputStream(new File("D:\\templates"));
-//        Writer out = new OutputStreamWriter(outputStream);
-//        temp.process(root, out);
-//    }
+    public static void generateCode(String tableName) throws Exception {
+
+        Map<String, Object> fileConfig = getFileConfig(tableName);
+
+        // 遍历所有templates文件夹
+        Stream<Path> templateFiles = Files.list(Paths.get(ResourceUtils.getURL(ResourceUtils.CLASSPATH_URL_PREFIX + codeGenerateProperties.getTemplatesPath()).toString().replace("file:/", "")));
+        templateFiles.forEach(templateFile -> {
+            try {
+                generateFile(templateFile.getFileName().toString(), fileConfig);
+            } catch (Exception e) {
+                throw new IsxcodeException("文件生成失败");
+            }
+        });
+    }
+
+    public static void generateFile(String templateName, Map<String, Object> fileConfig) throws Exception {
+
+
+        String fileNameOld = templateName.replace(codeGenerateProperties.getTemplateSuffix(), "");
+        String fileType = fileNameOld.replace(".java", "");
+        String fileName = getUpStr(String.valueOf(fileConfig.get("tableName"))) + getUpStr(fileType);
+
+        fileConfig.put("fileName", fileName);
+        fileConfig.put("package", codeGenerateProperties.getPath() + "." + fileType);
+
+        Template template = freeMarkerConfigurer.getConfiguration().getTemplate(templateName);
+        if (!Files.exists(Paths.get(codeGenerateProperties.getProjectPath() + fileType))) {
+            Files.createDirectory(Paths.get(codeGenerateProperties.getProjectPath() + fileType));
+        }
+        if (!Files.exists(Paths.get(codeGenerateProperties.getProjectPath() + fileType + "/" + fileName + ".java"))) {
+            Path file = Files.createFile(Paths.get(codeGenerateProperties.getProjectPath() + fileType + "/" + fileName + ".java"));
+            String fileContent = FreeMarkerTemplateUtils.processTemplateIntoString(template, fileConfig);
+            Files.writeString(file, fileContent);
+        }
+
+    }
+
+    public static Map<String, Object> getFileConfig(String tableName) {
+
+        Map<String, Object> result = new HashMap<>();
+
+        result.put("tableName", tableName);
+        result.put("tableColumns", SqlFactory.selectSql(TableColumn.class).sql("SHOW FULL COLUMNS FROM " + tableName).query());
+
+
+        return result;
+    }
+
+    public static String getUpStr(String str){
+        return str.substring(0, 1).toUpperCase() + str.substring(1);
+    }
 
 }

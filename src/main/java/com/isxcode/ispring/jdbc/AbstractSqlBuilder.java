@@ -311,5 +311,11 @@ public abstract class AbstractSqlBuilder<T> {
         return getSelf();
     }
 
+    public T sql(String sql) {
+
+        sqlStr = new StringBuilder(sql);
+
+        return getSelf();
+    }
 
 }

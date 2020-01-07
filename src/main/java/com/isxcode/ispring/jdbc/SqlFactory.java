@@ -33,13 +33,14 @@ public class SqlFactory {
      * @param genericType 泛型转移/暂存
      * @since 2019-12-23
      */
-    static <A> SqlBuilder<A> selectSql(Class<A> genericType) {
+    public static <A> SqlBuilder<A> selectSql(Class<A> genericType) {
 
         SqlBuilder<A> generateSql = generateSql(genericType);
-        if (!genericType.isAnnotationPresent(Table.class)) {
-            throw new IsxcodeException("注解数据库名");
+        String tableName = "";
+        if (genericType.isAnnotationPresent(Table.class)) {
+            tableName = genericType.getAnnotation(Table.class).name();
         }
-        generateSql.setSqlStr(new StringBuilder("select * from " + genericType.getAnnotation(Table.class).name()));
+        generateSql.setSqlStr(new StringBuilder("select * from " + tableName));
         return generateSql;
     }
 

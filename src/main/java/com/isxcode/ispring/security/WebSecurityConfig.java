@@ -38,10 +38,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        return new UserDetailsServiceImpl();
 //    }
 
-    @Override
-    public AuthenticationManager authenticationManagerBean() {
-        return new AuthenticationManagerImpl();
-    }
+//    @Override
+//    public AuthenticationManager authenticationManagerBean() {
+//        return new AuthenticationManagerImpl();
+//    }
 
 //
 //    @Bean
@@ -66,15 +66,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.cors();
 //
 //        // 禁用csrf防护
-        http.csrf().disable();
+//        http.csrf().disable();
 //
 //        // 设置放行路径,spring-security拦截器不会拦截
-        http.authorizeRequests().antMatchers("/userAuth").permitAll();
+//        http.authorizeRequests().antMatchers("/userAuth").permitAll();
 //      开启请求头拦截
-        http.httpBasic();
+//        http.httpBasic();
 
 //        // 关闭session 打开会出现302
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 //
 //        http.formLogin();
 //
@@ -121,6 +121,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 ////                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
 //                // 前后端分离是无状态的，所以暫時不用session，將登陆信息保存在token中。
 //                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+//        super.configure(http);
 
     }
 
