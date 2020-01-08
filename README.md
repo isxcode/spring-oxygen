@@ -72,3 +72,42 @@ class demo{
     }
 }
 ```
+## 自动生成代码
+> 基于java nio + spring freemarker + spring Resource 自动生成代码
+```http request
+POST http://localhost:8888/isxcode/generateCode
+Content-Type: application/json
+
+{
+  "tableName": "user"
+}
+```
+```yaml
+isxcode:
+  code-generate:
+    project-path: com.isxcode.ispring.demo # 模块地址,可以完全自定义
+    paths:
+      'controller-path': controller # 相对模块地址的controller地址
+      'service-path': service # 相对模块地址的service地址
+      'dao-path': dao # 相对模块地址的dao地址
+      'entity-path': model.entity # 相对模块地址的entity地址
+```
+```java
+class demo{
+    
+    /**
+     * 通过表名自动生成controller/service/dao/entity文件
+     *
+     * @param codeDto 对象请求
+     * @since 2020-01-08
+     */
+    @PostMapping("generateCode")
+    public ResponseEntity<BaseResponse> generateCode(@RequestBody CodeDto codeDto) {
+
+        FormatUtils.checkEmptyStr(codeDto.getTableName(), "tableName 不能为空");
+        codeService.generateCode(codeDto.getTableName());
+        return successResponse("自动代码生成成功", "");
+    }
+}
+```
+}
