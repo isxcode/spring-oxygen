@@ -66,6 +66,9 @@ jasypt:
 
 isxcode:
   code-generate:
-    templates-path: templates
-    com-path: com.isxcode.ispring
-
+    project-path: com.isxcode.ispring.demo
+    paths:
+      'controller-path': controller
+      'service-path': service
+      'dao-path': dao
+      'entity-path': model.entity

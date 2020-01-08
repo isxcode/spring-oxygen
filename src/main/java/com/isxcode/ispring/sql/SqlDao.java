@@ -1,4 +1,4 @@
-package com.isxcode.ispring.jdbc;
+package com.isxcode.ispring.sql;
 
 import com.isxcode.ispring.model.entity.UserEntity;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,9 @@
 package com.isxcode.ispring.utils;
 
 
+import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
+
 import java.security.SecureRandom;
 
 /**
@@ -41,6 +44,12 @@ public class FormatUtils {
             msb = (msb << randomBytes.length) | (randomByte & 0xff);
         }
         return String.valueOf(msb).substring(1, 1 + bit);
+    }
+
+
+    public static void checkEmptyStr(String str, String message) {
+
+        Assert.isTrue(!StringUtils.isEmpty(str), message);
     }
 
 }

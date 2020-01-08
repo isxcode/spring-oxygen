@@ -1,5 +1,6 @@
-package com.isxcode.ispring.security;
+package com.isxcode.ispring.config;
 
+import com.isxcode.ispring.security.TokenAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,7 +30,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
  */
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+//@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 //    @Override
@@ -66,7 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.cors();
 //
 //        // 禁用csrf防护
-//        http.csrf().disable();
+        http.csrf().disable();
 //
 //        // 设置放行路径,spring-security拦截器不会拦截
 //        http.authorizeRequests().antMatchers("/userAuth").permitAll();

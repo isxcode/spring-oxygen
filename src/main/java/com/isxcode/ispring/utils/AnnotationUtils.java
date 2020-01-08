@@ -1,7 +1,7 @@
 package com.isxcode.ispring.utils;
 
 import com.isxcode.ispring.exception.IsxcodeException;
-import com.isxcode.ispring.jdbc.ColumnName;
+import com.isxcode.ispring.sql.ColumnName;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 

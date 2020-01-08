@@ -1,4 +1,4 @@
-package com.isxcode.ispring.jdbc;
+package com.isxcode.ispring.sql;
 
 import org.springframework.stereotype.Service;
 

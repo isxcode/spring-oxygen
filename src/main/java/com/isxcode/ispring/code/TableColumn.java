@@ -1,4 +1,4 @@
-package com.isxcode.ispring;
+package com.isxcode.ispring.code;
 
 import lombok.Data;
 

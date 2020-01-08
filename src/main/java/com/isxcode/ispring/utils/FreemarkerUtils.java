@@ -1,33 +1,16 @@
 package com.isxcode.ispring.utils;
 
-import com.isxcode.ispring.TableColumn;
 import com.isxcode.ispring.exception.IsxcodeException;
-import com.isxcode.ispring.jdbc.SqlFactory;
-import com.isxcode.ispring.model.dto.UserDto;
-import com.isxcode.ispring.properties.CodeGenerateProperties;
-import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import freemarker.template.TemplateExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
-
-import static antlr.build.ANTLR.root;
 
 /**
  * freemarker 工具类
@@ -45,13 +28,10 @@ public class FreemarkerUtils {
 
     private static FreeMarkerConfigurer freeMarkerConfigurer;
 
-    private static CodeGenerateProperties codeGenerateProperties;
-
     @Autowired
-    public FreemarkerUtils(FreeMarkerConfigurer freeMarkerConfigurer, CodeGenerateProperties codeGenerateProperties) {
+    public FreemarkerUtils(FreeMarkerConfigurer freeMarkerConfigurer) {
 
         FreemarkerUtils.freeMarkerConfigurer = freeMarkerConfigurer;
-        FreemarkerUtils.codeGenerateProperties = codeGenerateProperties;
     }
 
     /**
@@ -73,58 +53,14 @@ public class FreemarkerUtils {
     }
 
     /**
-     * 生成java源代码
+     * 获取String
      *
-     * @param
-     * @return
-     * @since 2020-01-07
+     * @since 2020-01-08
      */
-    public static void generateCode(String tableName) throws Exception {
+    public static String getFreemarkerStr(String templateFileName, Object model) throws IOException, TemplateException {
 
-        Map<String, Object> fileConfig = getFileConfig(tableName);
-
-        // 遍历所有templates文件夹
-        Stream<Path> templateFiles = Files.list(Paths.get(ResourceUtils.getURL(ResourceUtils.CLASSPATH_URL_PREFIX + codeGenerateProperties.getTemplatesPath()).toString().replace("file:/", "")));
-        templateFiles.forEach(templateFile -> {
-            try {
-                generateFile(templateFile.getFileName().toString(), fileConfig);
-            } catch (Exception e) {
-                throw new IsxcodeException("文件生成失败");
-            }
-        });
-    }
-
-    public static void generateFile(String templateName, Map<String, Object> fileConfig) throws Exception {
-
-
-        String fileNameOld = templateName.replace(codeGenerateProperties.getTemplateSuffix(), "");
-        String fileType = fileNameOld.replace(".java", "");
-        String fileName = getUpStr(String.valueOf(fileConfig.get("tableName"))) + getUpStr(fileType);
-
-        fileConfig.put("fileName", fileName);
-        fileConfig.put("package", codeGenerateProperties.getPath() + "." + fileType);
-
-        Template template = freeMarkerConfigurer.getConfiguration().getTemplate(templateName);
-        if (!Files.exists(Paths.get(codeGenerateProperties.getProjectPath() + fileType))) {
-            Files.createDirectory(Paths.get(codeGenerateProperties.getProjectPath() + fileType));
-        }
-        if (!Files.exists(Paths.get(codeGenerateProperties.getProjectPath() + fileType + "/" + fileName + ".java"))) {
-            Path file = Files.createFile(Paths.get(codeGenerateProperties.getProjectPath() + fileType + "/" + fileName + ".java"));
-            String fileContent = FreeMarkerTemplateUtils.processTemplateIntoString(template, fileConfig);
-            Files.writeString(file, fileContent);
-        }
-
-    }
-
-    public static Map<String, Object> getFileConfig(String tableName) {
-
-        Map<String, Object> result = new HashMap<>();
-
-        result.put("tableName", tableName);
-        result.put("tableColumns", SqlFactory.selectSql(TableColumn.class).sql("SHOW FULL COLUMNS FROM " + tableName).query());
-
-
-        return result;
+        Template template = freeMarkerConfigurer.getConfiguration().getTemplate(templateFileName);
+        return FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
     }
 
     public static String getUpStr(String str){
