@@ -1,6 +1,8 @@
 package com.isxcode.ispring.code;
 
 import com.isxcode.ispring.sql.SqlFactory;
+import com.isxcode.ispring.utils.FormatUtils;
+import com.isxcode.ispring.utils.PathUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -58,17 +60,29 @@ public class CodeService {
 
         CodeInfo codeInfo = new CodeInfo();
         // 文件夹,通过properties去获取文件夹路径
-//        codeInfo.setDirectoryPath(codeProperties.getProjectPath() + codeProperties.getPaths().get(fileType + "-path"));
+        codeInfo.setDirectoryPath(
+                PathUtils.parsePropertiesToPath(
+                         codeProperties.getMainPath() + "." +
+                                codeProperties.getProjectPath() + "." +
+                                codeProperties.getPaths().get(fileType + "-path")));
 
         // 文件路径
-//        codeInfo.setFilePath();
+        codeInfo.setFilePath(PathUtils.parsePropertiesToPath(
+                codeProperties.getMainPath() + "." +
+                        codeProperties.getProjectPath() + "." +
+                        codeProperties.getPaths().get(fileType + "-path") + "/" + FormatUtils.getUpStr(tableName) + FormatUtils.getUpStr(fileType)) + "." + CodeUtils.parseTemplateFileType(codeProperties.getTemplateFileList().get(fileType)));
 
         // 模板名称
-        codeInfo.setTemplateName(tableName);
+        codeInfo.setTemplateName(codeProperties.getTemplateFileList().get(fileType));
+
+        //
 
         // freemarker的信息
         List<TableColumn> tableColumns = SqlFactory.selectSql(TableColumn.class).sql("SHOW FULL COLUMNS FROM " + tableName).query();
         codeInfo.setTableColumns(tableColumns);
+
+
+
 
         return codeInfo;
     }

@@ -50,11 +50,6 @@ public class CodeProperties {
     private Map<String, String> templateFileList = new HashMap<>();
 
     /**
-     * main路径
-     */
-    private static final String MAIN_PATH = "src/main/";
-
-    /**
      * resources路径
      */
     private static final String RESOURCES_PATH = "src/resources/";
@@ -81,10 +76,12 @@ public class CodeProperties {
      */
     private String daoPath = "";
 
+    private String mainPath = "src.main.java";
+
     /**
      * com路径
      */
-    private String projectPath = "com.isxcode.ispring";
+    private String projectPath = "";
 
     /**
      * 模板地址

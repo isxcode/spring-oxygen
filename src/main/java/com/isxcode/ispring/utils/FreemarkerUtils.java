@@ -63,8 +63,4 @@ public class FreemarkerUtils {
         return FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
     }
 
-    public static String getUpStr(String str){
-        return str.substring(0, 1).toUpperCase() + str.substring(1);
-    }
-
 }

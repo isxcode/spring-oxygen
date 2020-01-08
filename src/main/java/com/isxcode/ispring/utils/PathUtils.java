@@ -23,11 +23,9 @@ import java.nio.file.Paths;
 @Component
 public class PathUtils {
 
-    private final static String JAVA_PATH = "src/main/java/";
+    public static String parsePropertiesToPath(String propertiesPath) {
 
-    public static Path parsePropertiesToPath(String propertiesPath,String fileType){
-
-        return Paths.get(JAVA_PATH + propertiesPath.replace(".", "/") + fileType);
+        return propertiesPath.replace(".", "/");
     }
 
 }
