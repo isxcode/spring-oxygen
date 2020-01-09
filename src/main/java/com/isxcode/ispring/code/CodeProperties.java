@@ -5,14 +5,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -27,20 +22,18 @@ import java.util.stream.Stream;
 @ConfigurationProperties(prefix = "isxcode.code")
 public class CodeProperties {
 
+    public static String ENTITY = "entity";
+
     /**
-     * 初始化浏览模板的地址里面的所有文件
+     * 遍历浏览模板的地址里面的所有文件
      *
      * @since 2020-01-08
      */
     @PostConstruct
-    public void scanTemplateFile() {
+    public void scanTemplateFile() throws Exception {
 
-        try {
-            Stream<Path> templateFiles = Files.list(CodeUtils.getTemplatePath(templatesPath));
-            templateFiles.forEach(templateFile -> templateFileList.put(CodeUtils.parseTemplateFileName(templateFile.getFileName().toString()), templateFile.getFileName().toString()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Stream<Path> templateFiles = Files.list(CodeUtils.getTemplatePath(templatesPath));
+        templateFiles.forEach(templateFile -> templateFileList.put(CodeUtils.parseTemplateFileName(templateFile.getFileName().toString()), templateFile.getFileName().toString()));
     }
 
     /**
@@ -74,7 +67,23 @@ public class CodeProperties {
      */
     private String templateSuffix = ".ftl";
 
+    /**
+     * 作者
+     */
     private String author;
 
+    /**
+     * 忽略字段
+     */
     private List<String> ignoreFields = new ArrayList<>();
+
+    /**
+     * 初始化即将生成的类型
+     */
+    private List<String> fileTypeList = Arrays.asList("controller", "service", "entity", "dao");
+
+    /**
+     * Base类
+     */
+    private Map<String, String> baseClassList = new HashMap<>();
 }

@@ -10,6 +10,7 @@ import java.io.File;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +27,10 @@ public class DemoTest {
         @Test
         public void testOne() throws Exception {
 
-                System.out.println(File.separator);
+                List<String> list = Arrays.asList("controller", "service", "entity", "dao");
+
+                System.out.println(String.join(",", list));
+
 //                Date date = DateUtils.parseDateTimeStrToDate("2019-12-16 00:00:02");
 //                System.out.println("now" + date);
 //                System.out.println(DateUtils.getLastWeekEnd(date, "23:59:59"));

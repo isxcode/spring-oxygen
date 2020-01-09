@@ -4,7 +4,9 @@ package ${packageName};
 import ${package};
 </#list>
 
-import com.isxcode.ispring.common.BaseEntity;
+<#if (baseClassList.entity)??>
+import ${baseClassList.entity};
+</#if>
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -27,10 +29,15 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "${tableName}")
+<#if (baseClassList.entity)??>
 public class ${className} extends BaseEntity implements Serializable{
+<#else>
+public class ${className} implements Serializable{
+</#if>
 
     private static final long serialVersionUID = 1L;
-<#list tableColumns as field>
+<#-- 遍历字段 -->
+<#list fieldList as field>
 
     /**
      * ${field.comment}

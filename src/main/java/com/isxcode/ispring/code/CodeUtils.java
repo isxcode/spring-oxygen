@@ -4,13 +4,20 @@ import com.isxcode.ispring.exception.IsxcodeException;
 import com.isxcode.ispring.utils.FreemarkerUtils;
 import org.springframework.util.ResourceUtils;
 
+import javax.script.ScriptEngine;
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import static java.util.regex.Pattern.compile;
 
 /**
  * 自动生成代码工具类
@@ -31,8 +38,8 @@ public class CodeUtils {
 
         try {
             // 生成文件夹
-            if (!Files.exists(Paths.get(codeInfo.getDirectoryPath()))) {
-                Files.createDirectories(Paths.get(codeInfo.getDirectoryPath()));
+            if (!Files.exists(Paths.get(CodeUtils.parseClassPathToPath(codeInfo.getDirectoryPath())))) {
+                Files.createDirectories(Paths.get(CodeUtils.parseClassPathToPath(codeInfo.getDirectoryPath())));
             }
             // 生成文件
             if (!Files.exists(Paths.get(codeInfo.getFilePath()))) {
@@ -41,6 +48,7 @@ public class CodeUtils {
                 Files.writeString(path, codeContent);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             throw new IsxcodeException("文件生成失败");
         }
     }
@@ -88,7 +96,7 @@ public class CodeUtils {
      * @return 路径
      * @since 2020-01-09
      */
-    public static String parsePath(String pathStr) {
+    public static String parseClassPathToPath(String pathStr) {
 
         return pathStr.replace(".", "/") + "/";
     }
@@ -105,12 +113,27 @@ public class CodeUtils {
     }
 
 
-    public static List<String> generateImportPackages(List<TableColumn> columnList) {
+    /**
+     * 生成需要导入的jar包
+     *
+     * @param fieldList 数据库字段列表
+     * @return 返回需要导入的包
+     * @since 2020-01-09
+     */
+    public static List<String> generateImportPackages(List<TableColumnInfo> fieldList) {
+
         List<String> packages = new ArrayList<>();
-        for (TableColumn metaColumn : columnList) {
-            switch (metaColumn.getType()){
+        for (TableColumnInfo metaColumn : fieldList) {
+
+            switch (metaColumn.getType()) {
                 case "LocalDateTime":
                     packages.add("java.time.LocalDateTime");
+                    break;
+                case "LocalDate":
+                    packages.add("java.time.LocalDate");
+                    break;
+                case "BigDecimal":
+                    packages.add("java.math.BigDecimal");
                     break;
                 default:
             }
@@ -118,4 +141,35 @@ public class CodeUtils {
         return packages.stream().distinct().collect(Collectors.toList());
     }
 
+    /**
+     * 将数据库类型转换成java的类型
+     *
+     * @param dataType 数据库类型
+     * @return java类型
+     * @since 2020-01-09
+     */
+    public static String parseDataType(String dataType) {
+
+        // 取消所有的括号
+        Pattern pattern = compile("\\(.*?\\)");
+        String dataStr = pattern.matcher(dataType).replaceAll("");
+
+        switch (dataStr){
+            case "int":
+                return "Integer";
+            case "datetime":
+                return "LocalDateTime";
+            case "date":
+                return "LocalDate";
+            case "double":
+                return "Double";
+            case "timestamp":
+                return "Long";
+            case "decimal":
+                return "BigDecimal";
+             default:
+                 return "String";
+        }
+
+    }
 }

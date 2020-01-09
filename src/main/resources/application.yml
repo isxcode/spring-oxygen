@@ -65,7 +65,7 @@ jasypt:
     bean: customJasyptStringEncryptor
 
 isxcode:
-  code:
+  code: # 配置代码自动生成器
     module-path: com.isxcode.ispring.demo
     file-paths:
       'controller': controller
@@ -82,3 +82,8 @@ isxcode:
       - created_by
       - last_modified_date
       - last_modified_by
+    base-class-list:
+      'controller': com.isxcode.ispring.common.BaseController
+      'service': com.isxcode.ispring.common.BaseService
+      'dao': com.isxcode.ispring.common.BaseDao
+      'entity': com.isxcode.ispring.common.BaseEntity

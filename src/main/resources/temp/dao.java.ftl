@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 * @author ${author}
 * @since ${date}
 */
-@Repository
 @Slf4j
+@Repository
 public class ${className} {
 
 <#--    private final ${tableHump}Dao ${tableHump}Dao;-->

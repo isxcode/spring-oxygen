@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 代码自动生成
+ * 提供api接口创建代码
  *
  * @author ispong
  * @version v0.1.0
@@ -41,6 +41,5 @@ public class CodeController extends BaseController {
 
         return successResponse("自动代码生成成功", "");
     }
-
 
 }

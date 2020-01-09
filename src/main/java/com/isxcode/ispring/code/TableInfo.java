@@ -3,18 +3,14 @@ package com.isxcode.ispring.code;
 import lombok.Data;
 
 /**
- * 生成代码请求
+ * 数据库信息
  *
  * @author ispong
  * @version v0.1.0
  * @date 2020-01-09
  */
 @Data
-public class CodeDto {
+public class TableInfo {
 
-    /**
-     * 表名
-     */
-    private String tableName;
-
+    private String tableComment;
 }
