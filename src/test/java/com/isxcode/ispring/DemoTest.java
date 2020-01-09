@@ -4,7 +4,11 @@ import com.isxcode.ispring.utils.DateUtils;
 import com.isxcode.ispring.utils.EncryptUtils;
 import com.isxcode.ispring.utils.FormatUtils;
 import org.junit.Test;
+import org.springframework.util.ResourceUtils;
 
+import java.io.File;
+import java.nio.file.FileSystem;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,8 +26,9 @@ public class DemoTest {
         @Test
         public void testOne() throws Exception {
 
-                Date date = DateUtils.parseDateTimeStrToDate("2019-12-16 00:00:02");
-                System.out.println("now" + date);
-                System.out.println(DateUtils.getLastWeekEnd(date, "23:59:59"));
+                System.out.println(File.separator);
+//                Date date = DateUtils.parseDateTimeStrToDate("2019-12-16 00:00:02");
+//                System.out.println("now" + date);
+//                System.out.println(DateUtils.getLastWeekEnd(date, "23:59:59"));
         }
 }

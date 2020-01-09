@@ -53,4 +53,5 @@ public class LogEntity extends BaseEntity implements Serializable {
      * 执行时间
      */
     private long executeTime;
+
 }

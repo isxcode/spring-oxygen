@@ -1,155 +1,41 @@
-<#--package ${package.Entity};-->
+package ${packageName};
 
-<#--<#list table.importPackages as pkg>-->
-<#--import ${pkg};-->
-<#--</#list>-->
-<#--<#if swagger2>-->
-<#--import io.swagger.annotations.ApiModel;-->
-<#--import io.swagger.annotations.ApiModelProperty;-->
-<#--</#if>-->
-<#--<#if entityLombokModel>-->
-<#--import lombok.Data;-->
-<#--import lombok.EqualsAndHashCode;-->
-<#--import lombok.experimental.Accessors;-->
-<#--import lombok.NoArgsConstructor;-->
-<#--</#if>-->
-<#--import org.springframework.stereotype.Component;-->
-<#--import java.io.Serializable;-->
+<#list importPackages as package>
+import ${package};
+</#list>
 
-<#--/**-->
-<#-- * ${table.comment!} Entity-->
-<#-- *-->
-<#-- * @author ${author}-->
-<#-- * @since ${date}-->
-<#-- */-->
-<#--@NoArgsConstructor-->
-<#--@Component-->
-<#--<#if entityLombokModel>-->
-<#--@Data-->
-<#--    <#if superEntityClass??>-->
-<#--@EqualsAndHashCode(callSuper = true)-->
-<#--    <#else>-->
-<#--@EqualsAndHashCode(callSuper = false)-->
-<#--    </#if>-->
-<#--@Accessors(chain = true)-->
-<#--</#if>-->
-<#--<#if table.convert>-->
-<#--@TableName("${table.name}")-->
-<#--</#if>-->
-<#--<#if swagger2>-->
-<#--@ApiModel(value="${entity}对象", description="${table.comment!}")-->
-<#--</#if>-->
-<#--<#if superEntityClass??>-->
-<#--public class ${entity} extends ${superEntityClass}<#if activeRecord><${entity}></#if> implements Serializable{-->
-<#--<#elseif activeRecord>-->
-<#--public class ${entity} extends Model<${entity}> {-->
-<#--<#else>-->
-<#--public class ${entity} implements Serializable {-->
-<#--</#if>-->
+import com.isxcode.ispring.common.BaseEntity;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+import org.springframework.stereotype.Component;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.io.Serializable;
 
-<#--<#if entitySerialVersionUID>-->
-<#--    private static final long serialVersionUID = 1L;-->
-<#--</#if>-->
-<#--&lt;#&ndash; ----------  BEGIN 字段循环遍历  --------&ndash;&gt;-->
-<#--<#list table.fields as field>-->
-<#--    <#if field.keyFlag>-->
-<#--        <#assign keyPropertyName="${field.propertyName}"/>-->
-<#--    </#if>-->
+/**
+ * ${tableComment!} Entity
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@NoArgsConstructor
+@Component
+@Data
+@Accessors(chain = true)
+@EqualsAndHashCode(callSuper = true)
+@Entity
+@Table(name = "${tableName}")
+public class ${className} extends BaseEntity implements Serializable{
 
-<#--    <#if field.comment!?length gt 0>-->
-<#--        <#if swagger2>-->
-<#--    @ApiModelProperty(value = "${field.comment}")-->
-<#--        <#else>-->
-<#--    /**-->
-<#--     * ${field.comment}-->
-<#--     */-->
-<#--        </#if>-->
-<#--    </#if>-->
-<#--    <#if field.keyFlag>-->
-<#--        &lt;#&ndash; 主键 &ndash;&gt;-->
-<#--        <#if field.keyIdentityFlag>-->
-<#--    @TableId(value = "${field.name}", type = IdType.AUTO)-->
-<#--        <#elseif idType??>-->
-<#--    @TableId(value = "${field.name}", type = IdType.${idType})-->
-<#--        <#elseif field.convert>-->
-<#--    @TableId("${field.name}")-->
-<#--        </#if>-->
-<#--        &lt;#&ndash; 普通字段 &ndash;&gt;-->
-<#--    <#elseif field.fill??>-->
-<#--    &lt;#&ndash; -----   存在字段填充设置   ---&ndash;&gt;-->
-<#--        <#if field.convert>-->
-<#--    @TableField(value = "${field.name}", fill = FieldFill.${field.fill})-->
-<#--        <#else>-->
-<#--    @TableField(fill = FieldFill.${field.fill})-->
-<#--        </#if>-->
-<#--    <#elseif field.convert>-->
-<#--    @TableField("${field.name}")-->
-<#--    </#if>-->
-<#--    &lt;#&ndash; 乐观锁注解 &ndash;&gt;-->
-<#--    <#if (versionFieldName!"") == field.name>-->
-<#--    @Version-->
-<#--    </#if>-->
-<#--    &lt;#&ndash; 逻辑删除注解 &ndash;&gt;-->
-<#--    <#if (logicDeleteFieldName!"") == field.name>-->
-<#--    @TableLogic-->
-<#--    </#if>-->
-<#--    private ${field.propertyType} ${field.propertyName};-->
-<#--</#list>-->
-<#--&lt;#&ndash;----------  END 字段循环遍历  --------&ndash;&gt;-->
+    private static final long serialVersionUID = 1L;
+<#list tableColumns as field>
 
-<#--<#if !entityLombokModel>-->
-<#--    <#list table.fields as field>-->
-<#--        <#if field.propertyType == "boolean">-->
-<#--            <#assign getprefix="is"/>-->
-<#--        <#else>-->
-<#--            <#assign getprefix="get"/>-->
-<#--        </#if>-->
-<#--    public ${field.propertyType} ${getprefix}${field.capitalName}() {-->
-<#--        return ${field.propertyName};-->
-<#--    }-->
+    /**
+     * ${field.comment}
+     */
+    private ${field.type} ${field.field};
+</#list>
 
-<#--    <#if entityBuilderModel>-->
-<#--    public ${entity} set${field.capitalName}(${field.propertyType} ${field.propertyName}) {-->
-<#--    <#else>-->
-<#--    public void set${field.capitalName}(${field.propertyType} ${field.propertyName}) {-->
-<#--    </#if>-->
-<#--        this.${field.propertyName} = ${field.propertyName};-->
-<#--        <#if entityBuilderModel>-->
-<#--        return this;-->
-<#--        </#if>-->
-<#--    }-->
-<#--    </#list>-->
-<#--</#if>-->
-
-<#--<#if entityColumnConstant>-->
-<#--    <#list table.fields as field>-->
-<#--    public static final String ${field.name?upper_case} = "${field.name}";-->
-
-<#--    </#list>-->
-<#--</#if>-->
-<#--<#if activeRecord>-->
-<#--    @Override-->
-<#--    protected Serializable pkVal() {-->
-<#--    <#if keyPropertyName??>-->
-<#--        return this.${keyPropertyName};-->
-<#--    <#else>-->
-<#--        return null;-->
-<#--    </#if>-->
-<#--    }-->
-
-<#--</#if>-->
-<#--<#if !entityLombokModel>-->
-<#--    @Override-->
-<#--    public String toString() {-->
-<#--        return "${entity}{" +-->
-<#--    <#list table.fields as field>-->
-<#--        <#if field_index==0>-->
-<#--            "${field.propertyName}=" + ${field.propertyName} +-->
-<#--        <#else>-->
-<#--            ", ${field.propertyName}=" + ${field.propertyName} +-->
-<#--        </#if>-->
-<#--    </#list>-->
-<#--        "}";-->
-<#--    }-->
-<#--</#if>-->
-<#--}-->
+}

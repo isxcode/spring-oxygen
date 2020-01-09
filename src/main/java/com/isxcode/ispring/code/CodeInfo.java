@@ -2,6 +2,8 @@ package com.isxcode.ispring.code;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,4 +24,19 @@ public class CodeInfo {
 
     private List<TableColumn> tableColumns;
 
+    private String className;
+
+    private String tableComment;
+
+    private String author;
+
+    private String packageName;
+
+    private LocalDateTime date;
+
+    private String tableName;
+
+    private List<String> importPackages;
+
+    private String tableHump;
 }

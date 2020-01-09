@@ -243,6 +243,25 @@ public class AnnotationUtils {
     }
 
     /**
+     * 下划线转小驼峰
+     * 当找到一个大写的时候,替换成_小写
+     *
+     * @param lineStr 下滑线内容
+     * @return 下划线写法
+     * @since 2019-12-24
+     */
+    public static String lineToHump(String lineStr) {
+
+        lineStr = lineStr.toLowerCase();
+        StringBuffer humpStrBuff = new StringBuffer();
+        Matcher matcher = compile("_(\\w)").matcher(lineStr);
+        while (matcher.find()){
+            matcher.appendReplacement(humpStrBuff, matcher.group(1).toUpperCase());
+        }
+        return matcher.appendTail(humpStrBuff).toString();
+    }
+
+    /**
      * 获取Field的set方法
      *
      * @param clazz class类

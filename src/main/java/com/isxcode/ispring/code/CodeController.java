@@ -2,8 +2,9 @@ package com.isxcode.ispring.code;
 
 import com.isxcode.ispring.common.BaseController;
 import com.isxcode.ispring.common.BaseResponse;
-import com.isxcode.ispring.utils.FormatUtils;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +35,7 @@ public class CodeController extends BaseController {
     @PostMapping("generateCode")
     public ResponseEntity<BaseResponse> generateCode(@RequestBody CodeDto codeDto) {
 
-        FormatUtils.checkEmptyStr(codeDto.getTableName(), "tableName 不能为空");
+        Assert.isTrue(!StringUtils.isEmpty(codeDto.getTableName()), "tableName 不能为空");
 
         codeService.generateCode(codeDto.getTableName());
 

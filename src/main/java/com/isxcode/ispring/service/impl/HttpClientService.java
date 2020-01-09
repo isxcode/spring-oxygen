@@ -5,12 +5,14 @@ import com.isxcode.ispring.common.BaseResponse;
 import com.isxcode.ispring.utils.HttpClientUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
+@Service
 public class HttpClientService {
 
 

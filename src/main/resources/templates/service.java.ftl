@@ -1,20 +1,23 @@
-<#--package ${package.Service};-->
+package ${packageName};
 
-<#--import org.springframework.stereotype.Component;-->
-<#--import ${package.Entity}.${entity};-->
-<#--import ${superServiceClassPackage};-->
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
-<#--/**-->
-<#-- * ${table.comment!} Service-->
-<#-- *-->
-<#-- * @author ${author}-->
-<#-- * @since ${date}-->
-<#-- */-->
-<#--<#if kotlin>-->
-<#--interface ${table.serviceName} : ${superServiceClass}<${entity}>-->
-<#--<#else>-->
-<#--@Component-->
-<#--public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {-->
+/**
+ * ${tableComment!} Service
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+@Slf4j
+public class ${className} {
 
-<#--}-->
-<#--</#if>-->
+<#--    private final ${tableHump}Dao ${tableHump}Dao;-->
+
+<#--    public ${className}(${tableHump}Dao ${tableHump}Dao){-->
+
+<#--        this.${tableHump}Service=${tableHump}Dao;-->
+<#--    }-->
+
+}

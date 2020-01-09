@@ -65,10 +65,20 @@ jasypt:
     bean: customJasyptStringEncryptor
 
 isxcode:
-  code-generate:
-    project-path: com.isxcode.ispring.demo
-    paths:
-      'controller-path': controller
-      'service-path': service
-      'dao-path': dao
-      'entity-path': model.entity
+  code:
+    module-path: com.isxcode.ispring.demo
+    file-paths:
+      'controller': controller
+      'service': service
+      'dao': dao
+      'entity': model.entity
+    templates-path: templates
+    template-suffix: .ftl
+    author: ispong
+    ignore-fields:
+      - uuid
+      - version
+      - created_date
+      - created_by
+      - last_modified_date
+      - last_modified_by

@@ -1,23 +1,22 @@
 package com.isxcode.ispring.code;
 
-import com.isxcode.ispring.utils.PathUtils;
 import lombok.Data;
-import lombok.NonNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
 /**
- * 自动生成代码工具类
+ * 自动生成代码的配置信息
  *
  * @author ispong
  * @version v0.1.0
@@ -25,7 +24,7 @@ import java.util.stream.Stream;
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "isxcode.code-generate")
+@ConfigurationProperties(prefix = "isxcode.code")
 public class CodeProperties {
 
     /**
@@ -37,7 +36,7 @@ public class CodeProperties {
     public void scanTemplateFile() {
 
         try {
-            Stream<Path> templateFiles = Files.list(CodeUtils.getTemplatePath());
+            Stream<Path> templateFiles = Files.list(CodeUtils.getTemplatePath(templatesPath));
             templateFiles.forEach(templateFile -> templateFileList.put(CodeUtils.parseTemplateFileName(templateFile.getFileName().toString()), templateFile.getFileName().toString()));
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,50 +45,36 @@ public class CodeProperties {
 
     /**
      * 模板列表信息
+     * 记录<contorller,conroller.java.ftl>
      */
     private Map<String, String> templateFileList = new HashMap<>();
 
     /**
-     * resources路径
+     * java包位置
      */
-    private static final String RESOURCES_PATH = "src/resources/";
-
-    private String templateSuffix = ".ftl";
-
-    /**
-     * controller地址
-     */
-    private String controllerPath = "";
-
-    /**
-     * service地址
-     */
-    private String servicePath = "";
-
-    /**
-     * entity地址
-     */
-    private String entityPath = "";
-
-    /**
-     * dao地址
-     */
-    private String daoPath = "";
-
     private String mainPath = "src.main.java";
 
     /**
-     * com路径
+     * 模块路径
      */
-    private String projectPath = "";
+    private String modulePath = "";
+
+    /**
+     * 生成文件的地址
+     */
+    private Map<String, String> filePaths = new HashMap<>();
 
     /**
      * 模板地址
      */
     private String templatesPath = "templates";
 
+    /**
+     * 模板后缀名
+     */
+    private String templateSuffix = ".ftl";
 
+    private String author;
 
-    private Map<String, String> paths = new HashMap<>();
-
+    private List<String> ignoreFields = new ArrayList<>();
 }
