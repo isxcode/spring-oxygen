@@ -65,8 +65,8 @@ jasypt:
     bean: customJasyptStringEncryptor
 
 isxcode:
-  code: # 配置代码自动生成器
-    module-path: com.isxcode.ispring.demo
+  auto-code: # 配置代码自动生成器
+    module-path: com.isxcode.ispring
     file-paths:
       'controller': controller
       'service': service
@@ -84,6 +84,16 @@ isxcode:
       - last_modified_by
     base-class-list:
       'controller': com.isxcode.ispring.common.BaseController
-      'service': com.isxcode.ispring.common.BaseService
-      'dao': com.isxcode.ispring.common.BaseDao
       'entity': com.isxcode.ispring.common.BaseEntity
+
+  # 微信配置
+  we-chat:
+    apps:
+      # 测试环境
+      'test':
+        app-id: wx5ada926e5489824f
+        app-secret: d49e9eaac5633e661ff207353a9c86b1
+        token: test
+#      'prod':
+#        app-id: wx4bde377ea456029e
+#        app-secret: 274729e7d718a3f3bed747ac3fa2b797

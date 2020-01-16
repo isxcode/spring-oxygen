@@ -1,7 +1,7 @@
 package com.isxcode.ispring.utils;
 
 import com.isxcode.ispring.exception.IsxcodeException;
-import com.isxcode.ispring.sql.ColumnName;
+import com.isxcode.ispring.flysql.ColumnName;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 
@@ -9,10 +9,7 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -303,6 +300,21 @@ public class AnnotationUtils {
             }
         }
         return entity;
+    }
+
+    public static Class<?> getSuperClassGenericType(final Class<?> clazz, final int index) {
+        Type genType = clazz.getGenericSuperclass();
+        if (!(genType instanceof ParameterizedType)) {
+            return Object.class;
+        }
+        Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
+        if (index >= params.length || index < 0) {
+            return Object.class;
+        }
+        if (!(params[index] instanceof Class)) {
+            return Object.class;
+        }
+        return (Class<?>) params[index];
     }
 
 }

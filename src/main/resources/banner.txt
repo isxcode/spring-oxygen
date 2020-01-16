@@ -1,9 +1,11 @@
 ${AnsiColor.BLACK}
-    _                          __
-   (_)_____  ___________  ____/ /__
-  / / ___/ |/_/ ___/ __ \/ __  / _ \
- / (__  )>  </ /__/ /_/ / /_/ /  __/
-/_/____/_/|_|\___/\____/\__,_/\___/
+
+                      _____
+_________________________(_)_____________ _      __________  ______  ________ ____________
+__  ___/__  __ \_  ___/_  /__  __ \_  __ `/_______  __ \_  |/_/_  / / /_  __ `/  _ \_  __ \
+_(__  )__  /_/ /  /   _  / _  / / /  /_/ /_/_____/ /_/ /_>  < _  /_/ /_  /_/ //  __/  / / /
+/____/ _  .___//_/    /_/  /_/ /_/_\__, /        \____//_/|_| _\__, / _\__, / \___//_/ /_/
+       /_/                        /____/                      /____/  /____/
 
 ${AnsiColor.BLACK}
-:: Spring-Boot ${spring-boot.formatted-version}   ${application.title}   :: 未知领域 ${application.version} ${application.formatted-version} ${spring-boot.version}
+:: Spring-Boot ${spring-boot.formatted-version}      :: spring-oxygen ${application.formatted-version}

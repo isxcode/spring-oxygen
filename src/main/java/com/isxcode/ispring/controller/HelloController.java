@@ -1,12 +1,13 @@
 package com.isxcode.ispring.controller;
 
-import com.isxcode.ispring.code.CodeDto;
+import com.isxcode.ispring.autocode.CodeDto;
 import com.isxcode.ispring.common.BaseController;
 import com.isxcode.ispring.common.BaseResponse;
 //import com.isxcode.ispring.security.UserSecurityDetail;
 import com.isxcode.ispring.model.dto.UserDto;
 import com.isxcode.ispring.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.access.annotation.Secured;
 //import org.springframework.security.core.context.SecurityContextHolder;
@@ -67,6 +68,8 @@ public class HelloController extends BaseController {
 
         // 指定生成文件
 
+//        LoggerFactory.getLogger()
+//        log.info();
         UserDto userDto = new UserDto();
         userDto.setUsername("123");
         userDto.setPassword("123");

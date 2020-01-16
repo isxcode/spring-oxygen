@@ -2,6 +2,7 @@ package com.isxcode.ispring.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.isxcode.ispring.exception.IsxcodeException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -36,13 +37,17 @@ public class HttpClientUtils {
      * @since 2019-11-04
      */
     @NonNull
-    public static <A> A doGet(String url, Map<String, String> requestMap, Class<A> responseObj) throws IOException {
+    public static <A> A doGet(String url, Map<String, String> requestMap, Class<A> responseObj) {
 
         StringBuilder requestParams = new StringBuilder("?");
         requestMap.forEach((k, v) -> requestParams.append(k).append("=").append(v).append("&"));
-        return JSONObject.parseObject(
-                EntityUtils.toString(
-                        httpClient.execute(new HttpGet(url + requestParams)).getEntity()), responseObj);
+        try {
+            return JSONObject.parseObject(
+                    EntityUtils.toString(
+                            httpClient.execute(new HttpGet(url + requestParams)).getEntity()), responseObj);
+        } catch (IOException e) {
+            throw new IsxcodeException("get接口调用失败");
+        }
     }
 
     /**

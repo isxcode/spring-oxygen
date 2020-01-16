@@ -38,7 +38,7 @@ dependencies {
 	compile "org.springframework.boot:spring-boot-starter-actuator"
 
 	// spring-boot-starter-security
-	compile "org.springframework.boot:spring-boot-starter-security"
+//	compile "org.springframework.boot:spring-boot-starter-security"
 
 	// spring-security-jwt
 	compile group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.1.0.RELEASE'
@@ -66,6 +66,9 @@ dependencies {
 	compile 'io.jsonwebtoken:jjwt-jackson:0.10.7'
 	runtime 'io.jsonwebtoken:jjwt-impl:0.10.7',
 			'io.jsonwebtoken:jjwt-jackson:0.10.7'
+
+	// dom4j
+	compile group: 'dom4j', name: 'dom4j', version: '1.6.1'
 
 	// mybatis-plus-boot-starter
 	compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.2.0'
