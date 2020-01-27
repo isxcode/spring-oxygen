@@ -85,7 +85,7 @@ Content-Type: application/json
 ```yaml
 isxcode:
   code-generate:
-    project-path: com.isxcode.ispring.demo # 模块地址,可以完全自定义
+    project-path: com.isxcode.oxygen.demo # 模块地址,可以完全自定义
     paths:
       'controller-path': controller # 相对模块地址的controller地址
       'service-path': service # 相对模块地址的service地址

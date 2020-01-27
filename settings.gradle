@@ -1,2 +1,7 @@
-// 设置项目名
 rootProject.name = 'spring-oxygen'
+
+include 'oxygen-wechatgo'
+
+rootProject.children.each { project ->
+    project.buildFileName = "${project.name}.gradle"
+}

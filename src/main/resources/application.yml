@@ -9,6 +9,10 @@ spring:
 #  jackson:
 #    time-zone: GMT+8
 #    date-format: yyyy-MM-dd HH:mm:ss
+#  task:
+#    scheduling:
+#      pool:
+#        size: 20
 
   # spring-mail 配置
   mail:
@@ -94,6 +98,9 @@ isxcode:
         app-id: wx5ada926e5489824f
         app-secret: d49e9eaac5633e661ff207353a9c86b1
         token: test
-#      'prod':
-#        app-id: wx4bde377ea456029e
-#        app-secret: 274729e7d718a3f3bed747ac3fa2b797
+      'prod':
+        app-id: wx4bde377ea456029e
+        app-secret: 274729e7d718a3f3bed747ac3fa2b797
+        token: 829d87066e1471011
+
+
