@@ -1,6 +1,5 @@
 package com.isxcode.oxygen.wechatgo;
 
-import com.isxcode.oxygen.exception.IsxcodeException;
 import com.isxcode.oxygen.utils.HttpClientUtils;
 import com.isxcode.oxygen.wechatgo.model.WeChatAccessToken;
 import com.isxcode.oxygen.wechatgo.model.WeChatAppInfo;
@@ -93,17 +92,9 @@ public class WeChatServiceImpl implements WeChatService {
                 // 请求成功
                 return weChatAccessToken;
             default:
-                throw new IsxcodeException(weChatAccessToken.getErrmsg());
+                throw new WeChatException(weChatAccessToken.getErrmsg());
         }
 
     }
-
-//    @SneakyThrows
-//    @Scheduled(fixedRate = 4000)
-//    public void test() {
-//
-//        System.out.println("执行定时器" + new Date());
-//        executorService.execute(new TestSchedular());
-//    }
 
 }

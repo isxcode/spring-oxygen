@@ -1,28 +1,14 @@
 package com.isxcode.oxygen.utils;
 
-
-import com.isxcode.oxygen.autocode.CodeUtils;
-import com.isxcode.oxygen.exception.IsxcodeException;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
-import java.util.Iterator;
 import java.util.stream.Collectors;
-
-import static com.isxcode.oxygen.utils.AnnotationUtils.translateSetName;
 
 /**
  * 转换类型工具类
@@ -64,18 +50,20 @@ public class FormatUtils {
         return String.valueOf(msb).substring(1, 1 + bit);
     }
 
-
-    public static void checkEmptyStr(String str, String message) {
-
-        Assert.isTrue(!StringUtils.isEmpty(str), message);
-    }
-
-
     public static String inputStreamToString(InputStream inputStream) {
 
         return new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))
                 .lines().parallel().collect(Collectors.joining(System.lineSeparator()));
     }
 
+    /**
+     * 首字母大写
+     *
+     * @param str 字符串
+     * @since 2020-01-13
+     */
+    public static String lowerFirstCase(String str) {
 
+        return str.substring(0, 1).toLowerCase() + str.substring(1);
+    }
 }

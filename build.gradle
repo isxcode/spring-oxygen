@@ -19,7 +19,7 @@ dependencies {
 	compile "org.springframework.boot:spring-boot-starter-web"
 
 	// spring-boot-starter-aop
-	compile "org.springframework.boot:spring-boot-starter-aop"
+	compile 'org.springframework.boot:spring-boot-starter-aop'
 
 	// spring-boot-starter-websocket
 	compile "org.springframework.boot:spring-boot-starter-websocket"

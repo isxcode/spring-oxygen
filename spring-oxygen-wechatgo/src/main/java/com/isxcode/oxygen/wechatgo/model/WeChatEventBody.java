@@ -3,7 +3,7 @@ package com.isxcode.oxygen.wechatgo.model;
 import lombok.Data;
 
 /**
- * 微信推送返回体
+ * wechat event back
  * 
  * @author ispong
  * @version v0.1.0

@@ -1,0 +1,20 @@
+description 'spring-oxygen-wechatgo'
+
+apply plugin: 'java'
+
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    mavenCentral()
+}
+
+dependencies {
+
+    compile(project(":spring-oxygen-utils"))
+
+    compile 'org.springframework.boot:spring-boot-starter-web:2.1.9.RELEASE'
+
+    compileOnly 'org.projectlombok:lombok:1.18.10'
+    annotationProcessor 'org.projectlombok:lombok:1.18.10'
+
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.13'
+}

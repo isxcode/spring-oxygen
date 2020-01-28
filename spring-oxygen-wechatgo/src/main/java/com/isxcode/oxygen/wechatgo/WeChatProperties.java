@@ -30,4 +30,9 @@ public class WeChatProperties {
      */
     private Map<String, WeChatAppInfo> apps;
 
+    /**
+     * 当前环境
+     */
+    private String env = "prod";
+
 }

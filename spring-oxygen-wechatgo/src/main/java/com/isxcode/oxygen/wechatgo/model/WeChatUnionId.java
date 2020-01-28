@@ -4,6 +4,13 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * wechat userInfo
+ *
+ * @author ispong
+ * @version v0.1.0
+ * @date 2020-01-27
+ */
 @Data
 public class WeChatUnionId {
 

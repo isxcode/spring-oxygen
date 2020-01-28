@@ -3,7 +3,7 @@ package com.isxcode.oxygen.wechatgo.model;
 import lombok.Data;
 
 /**
- * 微信的配置
+ * wechat config
  *
  * @author ispong
  * @version v0.1.0

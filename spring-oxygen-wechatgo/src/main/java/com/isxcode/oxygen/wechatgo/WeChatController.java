@@ -1,14 +1,13 @@
 package com.isxcode.oxygen.wechatgo;
 
-import com.isxcode.oxygen.exception.IsxcodeException;
-import com.isxcode.oxygen.utils.FormatUtils;
 import com.isxcode.oxygen.wechatgo.model.WeChatEventBody;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 微信-服务器配置
+ * wechat server config
  *
  * @author ispong
  * @version v0.1.0
@@ -21,8 +20,11 @@ public class WeChatController {
 
     private final WeChatService weChatService;
 
-    public WeChatController(WeChatServiceImpl weChatService) {
+    private final WeChatProperties weChatProperties;
 
+    public WeChatController(WeChatProperties weChatProperties, WeChatServiceImpl weChatService) {
+
+        this.weChatProperties = weChatProperties;
         this.weChatService = weChatService;
     }
 
@@ -40,12 +42,14 @@ public class WeChatController {
             @RequestParam("nonce") String nonce,
             @RequestParam("signature") String signature) {
 
-        if (weChatService.checkWeChat(nonce, timestamp, signature, "test")) {
+        log.info("进入get weChatListen");
+
+        if (weChatService.checkWeChat(nonce, timestamp, signature, weChatProperties.getEnv())) {
 
             return echostr;
         }
 
-        throw new IsxcodeException("不是微信发送的请求");
+        throw new WeChatException("不是微信发送的请求");
     }
 
     /**
@@ -58,7 +62,7 @@ public class WeChatController {
     public void weChatListen(HttpServletRequest httpServletRequest) {
 
         // 获取事件信息
-        WeChatEventBody weChatEventBody = FormatUtils.parseWeChatXml(httpServletRequest, WeChatEventBody.class);
+        WeChatEventBody weChatEventBody = WeChatUtils.parseWeChatXml(httpServletRequest, WeChatEventBody.class);
 
         // 判断事件
         switch (weChatEventBody.getEvent()) {

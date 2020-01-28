@@ -1,7 +1,9 @@
 rootProject.name = 'spring-oxygen'
 
-include 'oxygen-wechatgo'
+include 'spring-oxygen-utils'
+include 'spring-oxygen-wechatgo'
 
 rootProject.children.each { project ->
     project.buildFileName = "${project.name}.gradle"
 }
+
