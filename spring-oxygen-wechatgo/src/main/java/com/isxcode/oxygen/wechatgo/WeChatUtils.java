@@ -1,6 +1,6 @@
 package com.isxcode.oxygen.wechatgo;
 
-import com.isxcode.oxygen.utils.XmlUtils;
+import com.isxcode.oxygen.core.utils.XmlUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;

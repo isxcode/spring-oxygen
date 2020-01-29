@@ -1,26 +1,11 @@
-# 开发环境,用于项目的随意开发
-
 server:
-  port: 8080 # 端口号
+  port: 8080
 
-# 开启mybatisPLus-sql语句日志打印
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
-# 配置log日志
 logging:
   config: classpath:logback-spring.xml
   path: logs
   file: logs/spring.log
 
-# 配置actuator-logfile
-# 查看项目启动的插件状态
-# health : http://localhost:8888/isxcode/actuator/health
-# 查看项目的日志
-# logfile: http://localhost:8888/isxcode/actuator/logfile
-# 查看项目注入的beans
-# beans: http://localhost:8888/isxcode/actuator/beans
 management:
   endpoints:
     web:
@@ -30,44 +15,29 @@ management:
     logfile:
       enabled: true
     health:
-      show-details: always  # 配置文件详细信息
+      show-details: always
 
 spring:
   datasource:
-#    type: com.alibaba.druid.pool.DruidDataSource
+    type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://mysql.definesys.com:30002/pluto_dev
     username: pluto
     password: welcome1
 #spring:
-#  # 数据库配置
 #  datasource:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://47.105.33.160:3306/aicallsystem
 #    username: root
 #    password: ENC@[R3ZE710H1U0nsxSr1x8vJKjD2rl83XEugZwVLOBkLIbrJekh0OE+7Vpsi2lvtpLP] #liu123456.
-  # servlet配置
   servlet:
     multipart:
       max-file-size: 3MB # 上传最大文件大小
       max-request-size: 3MB # 上传最大请求体大小
-  # jpa配置
-  jpa:
-    open-in-view: false
-    show-sql: true
 
   # freemarker配置
   freemarker:
     template-loader-path: classpath:/templates/
-
-  # 集成spring的oauth
-#  security:
-#    oauth2:
-#      resourceserver:
-#          jwt:
-#            jwk-set-uri: https://idp.example.com/.well-known/jwks.json
-#            issuer-uri: https://localhost:8888/isxcode/issuer
-
 
 # 自定义属性配置
 isxcode:

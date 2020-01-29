@@ -1,6 +1,6 @@
 package com.isxcode.oxygen.autocode;
 
-import com.isxcode.oxygen.utils.AnnotationUtils;
+import com.isxcode.oxygen.core.utils.AnnotationUtils;
 import lombok.Data;
 
 /**

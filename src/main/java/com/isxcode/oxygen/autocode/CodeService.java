@@ -1,7 +1,7 @@
 package com.isxcode.oxygen.autocode;
 
 import com.isxcode.oxygen.exception.IsxcodeException;
-import com.isxcode.oxygen.utils.FreemarkerUtils;
+import com.isxcode.oxygen.core.utils.FreemarkerUtils;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Files;

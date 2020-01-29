@@ -1,92 +1,49 @@
 plugins {
-	id 'org.springframework.boot' version '2.1.9.RELEASE'
+	id 'org.springframework.boot' version '2.1.9.RELEASE' apply false
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE' apply false
 }
 
-apply plugin: 'java'
-apply plugin: 'io.spring.dependency-management'
+allprojects {
 
-repositories {
-	maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-	mavenCentral()
-}
+	apply plugin: 'java'
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
 
-dependencies {
+	repositories {
+		maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+		mavenCentral()
+	}
 
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-	// spring-boot-starter-web
-	compile "org.springframework.boot:spring-boot-starter-web"
-
-	// spring-boot-starter-aop
-	compile 'org.springframework.boot:spring-boot-starter-aop'
-
-	// spring-boot-starter-websocket
-	compile "org.springframework.boot:spring-boot-starter-websocket"
-
-	// spring-boot-configuration-processor
-	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-
-	// spring-boot-starter-data-jpa
-	compile "org.springframework.boot:spring-boot-starter-data-jpa"
-
-	// spring-boot-starter-actuator
-	compile "org.springframework.boot:spring-boot-starter-actuator"
-
-	// spring-boot-starter-security
-	compile "org.springframework.boot:spring-boot-starter-security"
-
-	// spring-data-redis
-	compile "org.springframework.data:spring-data-redis"
-
-	// lettuce-core
-	compile group: 'io.lettuce', name: 'lettuce-core', version: '5.2.1.RELEASE'
-
-	// spring-boot-starter-amqp
-	compile "org.springframework.boot:spring-boot-starter-amqp"
-
-	// spring-boot-starter-mail
-	compile "org.springframework.boot:spring-boot-starter-mail"
-
-	// spring-boot-starter-freemarker
-	compile "org.springframework.boot:spring-boot-starter-freemarker"
-
-	// spring-boot-starter-thymeleaf
-	compile "org.springframework.boot:spring-boot-starter-thymeleaf"
-
-	// jsonwebtoken
-	compile 'io.jsonwebtoken:jjwt-api:0.10.7'
-	compile 'io.jsonwebtoken:jjwt-jackson:0.10.7'
-	runtime 'io.jsonwebtoken:jjwt-impl:0.10.7',
-			'io.jsonwebtoken:jjwt-jackson:0.10.7'
-
-	// dom4j
-	compile group: 'dom4j', name: 'dom4j', version: '1.6.1'
-
-	// mybatis-plus-boot-starter
-	compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.2.0'
-	compile group: 'com.baomidou', name: 'mybatis-plus-generator', version: '3.2.0'
-
-	// lombok
-	compileOnly 'org.projectlombok:lombok:1.18.10'
-	annotationProcessor 'org.projectlombok:lombok:1.18.10'
-
-	// junit-jupiter-api
-	testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.5.2'
-
-	// mysql-connector-java
-	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.18'
-
-	// fastjson
-	compile group: 'com.alibaba', name: 'fastjson', version: '1.2.62'
-
-	// poi
-	compile group: 'org.apache.poi', name: 'poi', version: '4.1.1'
-	compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.1'
-
-	// httpclient
-	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.10'
-
-	// jasypt-spring-boot-starter
-	compile group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot-starter', version: '3.0.0'
+	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter'
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		compile 'org.springframework.boot:spring-boot-starter-web'
+		compile 'org.springframework.boot:spring-boot-starter-aop'
+		compile 'org.springframework.boot:spring-boot-starter-websocket'
+		annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+		compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+		compile 'org.springframework.boot:spring-boot-starter-actuator'
+		compile 'org.springframework.boot:spring-boot-starter-security'
+		compile 'org.springframework.data:spring-data-redis'
+		compile 'org.springframework.boot:spring-boot-starter-amqp'
+		compile 'org.springframework.boot:spring-boot-starter-freemarker'
+		compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+		compile 'org.springframework.boot:spring-boot-starter-mail'
+		compile 'io.lettuce:lettuce-core:latest.integration'
+		compile 'io.jsonwebtoken:jjwt-api:latest.integration'
+		compile 'io.jsonwebtoken:jjwt-jackson:latest.integration'
+		runtime 'io.jsonwebtoken:jjwt-impl:latest.integration',
+				'io.jsonwebtoken:jjwt-jackson:latest.integration'
+		compile 'org.dom4j:dom4j:latest.integration'
+		compileOnly 'org.projectlombok:lombok:latest.integration'
+		annotationProcessor 'org.projectlombok:lombok:latest.integration'
+		testCompile 'org.junit.jupiter:junit-jupiter-api:latest.integration'
+		compile 'mysql:mysql-connector-java:latest.integration'
+		compile 'com.alibaba:fastjson:latest.integration'
+		compile 'org.apache.poi:poi:latest.integration'
+		compile 'org.apache.poi:poi-ooxml:latest.integration'
+		compile 'org.apache.httpcomponents:httpclient:latest.integration'
+		compile 'com.github.ulisesbocchio:jasypt-spring-boot-starter:latest.integration'
+		compile 'com.alibaba:druid:latest.integration'
+	}
 }

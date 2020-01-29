@@ -1,18 +1,11 @@
-# 基础配置
-
-# java -jar app.jar --spring.profiles.active=dev
 spring:
   profiles:
-    active: dev # 默认全部使用开发环境的配置,如果需要其他的配置就通过命令的方式注入
+    active: dev # java -jar app.jar --spring.profiles.active=dev
   application:
-    name: isxcode # 项目的名称
-#  jackson:
-#    time-zone: GMT+8
-#    date-format: yyyy-MM-dd HH:mm:ss
-#  task:
-#    scheduling:
-#      pool:
-#        size: 20
+    name: ispong-oxygen
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
 
   # spring-mail 配置
   mail:
@@ -36,25 +29,6 @@ spring:
     charset: UTF-8 # 设置字符集
     template-loader-path: /templates/ # 设置模板地址
     check-template-location: false # 检查模板地址是否存在
-#    settings: # freemarker官方配置
-
-  # thymeleaf
-#  thymeleaf:
-#    prefix: classpath:/auth/
-#  security:
-#    oauth2:
-#      client:
-#        registration:
-#          isxcode:
-#            client-id: isxcode-client-id
-#            client-secret: isxcode-client-secret
-#          provider:
-#            isxcode:
-#              authorization-uri: http://localhost:8888/oauth2/v1/authorize
-#              token-uri: http://localhost:8888/oauth2/v1/token
-#              user-info-uri: http://localhost:8888/oauth2/v1/userinfo
-#              user-name-attribute: sub
-#              jwk-set-uri: http://localhost:8888/oauth2/v1/keys
 
 server:
   servlet:
@@ -102,5 +76,3 @@ isxcode:
         app-id: wx4bde377ea456029e
         app-secret: 274729e7d718a3f3bed747ac3fa2b797
         token: 829d87066e1471011
-
-

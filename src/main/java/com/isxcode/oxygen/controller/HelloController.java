@@ -5,7 +5,7 @@ import com.isxcode.oxygen.common.BaseController;
 import com.isxcode.oxygen.common.BaseResponse;
 //import com.isxcode.ispring.security.UserSecurityDetail;
 import com.isxcode.oxygen.model.dto.UserDto;
-import com.isxcode.oxygen.utils.JwtUtils;
+import com.isxcode.oxygen.core.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.access.annotation.Secured;

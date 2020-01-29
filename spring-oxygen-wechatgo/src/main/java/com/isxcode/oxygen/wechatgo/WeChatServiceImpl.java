@@ -1,6 +1,6 @@
 package com.isxcode.oxygen.wechatgo;
 
-import com.isxcode.oxygen.utils.HttpClientUtils;
+import com.isxcode.oxygen.core.utils.HttpClientUtils;
 import com.isxcode.oxygen.wechatgo.model.WeChatAccessToken;
 import com.isxcode.oxygen.wechatgo.model.WeChatAppInfo;
 import lombok.extern.slf4j.Slf4j;

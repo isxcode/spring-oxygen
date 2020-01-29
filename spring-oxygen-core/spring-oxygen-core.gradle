@@ -1,0 +1,8 @@
+//description 'oxygen-wechatgo'
+//
+//dependencies {
+//    compile 'org.dom4j:dom4j:latest.integration'
+//    compile 'org.apache.poi:poi:latest.integration'
+//    compile 'org.apache.poi:poi-ooxml:latest.integration'
+//    compile 'org.apache.httpcomponents:httpclient:latest.integration'
+//}
