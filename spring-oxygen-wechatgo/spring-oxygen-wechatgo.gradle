@@ -1,5 +1,5 @@
-//description = 'Spring Oxygen Wechatgo'
-//
-//dependencies {
-//    compile(project(':spring-oxygen-core'))
-//}
+description = 'Spring Oxygen Wechatgo'
+
+dependencies {
+    compile(project(':spring-oxygen-core'))
+}

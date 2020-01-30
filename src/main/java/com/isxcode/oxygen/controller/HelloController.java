@@ -1,21 +1,23 @@
 package com.isxcode.oxygen.controller;
 
-import com.isxcode.oxygen.autocode.CodeDto;
-import com.isxcode.oxygen.common.BaseController;
-import com.isxcode.oxygen.common.BaseResponse;
-//import com.isxcode.ispring.security.UserSecurityDetail;
+import com.isxcode.oxygen.core.jwt.JwtUtils;
+import com.isxcode.oxygen.flysql.common.BaseController;
+import com.isxcode.oxygen.flysql.common.BaseResponse;
 import com.isxcode.oxygen.model.dto.UserDto;
-import com.isxcode.oxygen.core.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Calendar;
+
+//import com.isxcode.ispring.security.UserSecurityDetail;
 //import org.springframework.security.access.annotation.Secured;
 //import org.springframework.security.core.context.SecurityContextHolder;
 //import org.springframework.security.access.annotation.Secured;
 //import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Calendar;
 
 /**
  * spring项目测试类
@@ -56,7 +58,7 @@ public class HelloController extends BaseController {
      * @since 2019-12-13
      */
     @PostMapping("/userAuth")
-    public ResponseEntity<BaseResponse> userAuth(@RequestBody CodeDto codeDto) {
+    public ResponseEntity<BaseResponse> userAuth() {
 
         // 数据库表字段信息
         // 获取数据库字段信息

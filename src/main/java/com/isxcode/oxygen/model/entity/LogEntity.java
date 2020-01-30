@@ -1,6 +1,6 @@
 package com.isxcode.oxygen.model.entity;
 
-import com.isxcode.oxygen.common.BaseEntity;
+import com.isxcode.oxygen.flysql.common.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

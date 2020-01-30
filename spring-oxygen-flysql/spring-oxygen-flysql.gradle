@@ -1,0 +1,5 @@
+description = 'Spring Oxygen Flysql'
+
+dependencies {
+    compile(project(':spring-oxygen-core'))
+}

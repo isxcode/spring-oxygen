@@ -1,3 +1,18 @@
+/*
+ * Copyright [2020] [ispong]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.isxcode.oxygen.wechatgo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -7,11 +22,11 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static com.isxcode.oxygen.wechatgo.WeChatProperties.WE_CHAT_ACCESS_TOKENS;
+import static com.isxcode.oxygen.wechatgo.WechatgoProperties.WE_CHAT_ACCESS_TOKENS;
 import static java.util.concurrent.Executors.newScheduledThreadPool;
 
 /**
- * 初始化微信的token
+ * init wechat token
  *
  * @author ispong
  * @version v0.1.0
@@ -21,13 +36,10 @@ import static java.util.concurrent.Executors.newScheduledThreadPool;
 @Component
 public class WeChatTokenInit implements InitializingBean {
 
-    private final WeChatServiceImpl weChatService;
+    private final WechatgoServiceImpl weChatService;
 
-    private final WeChatProperties weChatProperties;
+    public WeChatTokenInit(WechatgoServiceImpl weChatService) {
 
-    public WeChatTokenInit(WeChatServiceImpl weChatService, WeChatProperties weChatProperties) {
-
-        this.weChatProperties = weChatProperties;
         this.weChatService = weChatService;
     }
 
@@ -35,11 +47,11 @@ public class WeChatTokenInit implements InitializingBean {
     public void afterPropertiesSet() {
 
         log.info("初始化生成token");
+
         ScheduledExecutorService executorService = newScheduledThreadPool(1);
-        executorService.scheduleAtFixedRate(new Thread(()
-                -> weChatProperties.getApps().forEach((k, v)
-                -> WE_CHAT_ACCESS_TOKENS.put(k, weChatService.getAccessToken(k).getAccess_token()))),
-                0, 1, TimeUnit.HOURS);
+        executorService.scheduleAtFixedRate(
+                new Thread(() ->
+                        WE_CHAT_ACCESS_TOKENS = weChatService.getAccessToken().getAccess_token()), 0, 1, TimeUnit.HOURS);
 
     }
 }

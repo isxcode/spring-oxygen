@@ -1,8 +1,12 @@
-//description 'oxygen-wechatgo'
-//
-//dependencies {
-//    compile 'org.dom4j:dom4j:latest.integration'
-//    compile 'org.apache.poi:poi:latest.integration'
-//    compile 'org.apache.poi:poi-ooxml:latest.integration'
-//    compile 'org.apache.httpcomponents:httpclient:latest.integration'
-//}
+description 'Spring Oxygen Core'
+
+dependencies {
+    compile 'org.dom4j:dom4j:latest.integration'
+    compile 'org.apache.poi:poi:latest.integration'
+    compile 'org.apache.poi:poi-ooxml:latest.integration'
+    compile 'org.apache.httpcomponents:httpclient:latest.integration'
+    compile 'io.jsonwebtoken:jjwt-api:latest.integration'
+    compile 'io.jsonwebtoken:jjwt-jackson:latest.integration'
+    runtime 'io.jsonwebtoken:jjwt-impl:latest.integration',
+            'io.jsonwebtoken:jjwt-jackson:latest.integration'
+}

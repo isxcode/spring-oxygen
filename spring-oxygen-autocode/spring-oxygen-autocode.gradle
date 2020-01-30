@@ -1,0 +1,6 @@
+description = 'Spring Oxygen Autocode'
+
+dependencies {
+    compile(project(':spring-oxygen-core'))
+    compile(project(':spring-oxygen-flysql'))
+}

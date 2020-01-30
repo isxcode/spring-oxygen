@@ -1,8 +1,8 @@
 package com.isxcode.oxygen.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.isxcode.oxygen.common.BaseResponse;
-import com.isxcode.oxygen.core.utils.HttpClientUtils;
+import com.isxcode.oxygen.core.httpclient.HttpClientUtils;
+import com.isxcode.oxygen.flysql.common.BaseResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
