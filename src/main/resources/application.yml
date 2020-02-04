@@ -76,3 +76,4 @@ isxcode:
         app-id: wx4bde377ea456029e
         app-secret: 274729e7d718a3f3bed747ac3fa2b797
         token: 829d87066e1471011
+#debug: true

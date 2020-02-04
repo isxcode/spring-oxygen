@@ -44,3 +44,4 @@ isxcode:
   security:
     jwt-security-key: isxcode
   jwt-secret: isxcode
+

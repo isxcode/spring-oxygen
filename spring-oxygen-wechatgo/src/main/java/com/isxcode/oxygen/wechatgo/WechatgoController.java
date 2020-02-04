@@ -17,19 +17,22 @@ package com.isxcode.oxygen.wechatgo;
 
 import com.isxcode.oxygen.wechatgo.model.WeChatEventBody;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * wechat server config
+ * wechat server api
  *
  * @author ispong
  * @version v0.1.0
  * @date 2020-01-14
  */
 @Slf4j
-@RestController
+@RequestMapping("wechatgo")
 public class WechatgoController {
 
     private final WechatgoService wechatgoService;
@@ -46,7 +49,7 @@ public class WechatgoController {
      * @return 返回微信的认证值
      * @since 2020-01-14
      */
-    @GetMapping("/weChatListen")
+    @GetMapping("/wechatServer")
     public String weChatAuthentication(
             @RequestParam("echostr") String echostr,
             @RequestParam("timestamp") String timestamp,
@@ -67,7 +70,7 @@ public class WechatgoController {
      * @param httpServletRequest servlet请求体
      * @since 2020-01-14
      */
-    @PostMapping("/weChatListen")
+    @PostMapping("/wechatServer")
     public void weChatListen(HttpServletRequest httpServletRequest) {
 
         // 获取事件信息

@@ -15,19 +15,22 @@
  */
 package com.isxcode.oxygen.wechatgo;
 
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
-
 /**
- * wechatgo config
+ * wechatgo constants
  *
  * @author ispong
  * @version v0.1.0
- * @date 2020-01-30
+ * @date 2020-02-04
  */
-@Configuration
-@EnableConfigurationProperties(WechatgoProperties.class)
-public class WechatgoConfig {
+public interface WechatgoConstants {
 
+    /**
+     * starter prefix
+     */
+    String STARTER_PREFIX = "oxygen.wechatgo";
 
+    /**
+     * app id
+     */
+    String APP_ID = "app-id";
 }

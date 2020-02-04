@@ -17,7 +17,6 @@ package com.isxcode.oxygen.wechatgo;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.stereotype.Component;
 
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -33,7 +32,6 @@ import static java.util.concurrent.Executors.newScheduledThreadPool;
  * @date 2020-01-16
  */
 @Slf4j
-@Component
 public class WeChatTokenInit implements InitializingBean {
 
     private final WechatgoServiceImpl weChatService;
@@ -46,7 +44,7 @@ public class WeChatTokenInit implements InitializingBean {
     @Override
     public void afterPropertiesSet() {
 
-        log.info("初始化生成token");
+        log.debug("generate wechatgo token");
 
         ScheduledExecutorService executorService = newScheduledThreadPool(1);
         executorService.scheduleAtFixedRate(

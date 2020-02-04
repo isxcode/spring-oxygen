@@ -19,14 +19,14 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * wechatgo config
+ * wechatgo properties
  *
  * @author ispong
  * @version v0.1.0
  * @date 2020-01-14
  */
 @Data
-@ConfigurationProperties(prefix = "oxygen.wechatgo")
+@ConfigurationProperties("oxygen.wechatgo")
 public class WechatgoProperties {
 
     /**
@@ -37,7 +37,7 @@ public class WechatgoProperties {
     /**
      * appId
      */
-    private String appId = "";
+    private String appId;
 
     /**
      * appSecret

@@ -1,4 +1,10 @@
-# demo-spring
+# spring oxygen
+
+## oxygen-wechatgo
+
+> 封装微信公众号开发工具,starter+yaml配置,快速上手简单易懂
+- [wechatgo](https://github.com/ispong/spring-oxygen/tree/master/spring-oxygen-wechatgo/src/main/java/com/isxcode/oxygen/wechatgo)
+
 * 集成 **spring-mail**
 * 集成 **spring-websocket**
 * 集成 **spring-security**

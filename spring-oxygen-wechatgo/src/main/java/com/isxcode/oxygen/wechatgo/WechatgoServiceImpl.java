@@ -19,8 +19,6 @@ import com.isxcode.oxygen.core.httpclient.HttpClientUtils;
 import com.isxcode.oxygen.wechatgo.model.WeChatAccessToken;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -36,16 +34,13 @@ import java.util.concurrent.Executors;
  * @date 2020-01-14
  */
 @Slf4j
-@Component
 public class WechatgoServiceImpl implements WechatgoService {
 
     private ExecutorService executorService = Executors.newFixedThreadPool(20);
 
-    private WechatgoProperties wechatgoProperties;
+    private final WechatgoProperties wechatgoProperties;
 
-    @Autowired
-    public void setWechatgoProperties(WechatgoProperties wechatgoProperties) {
-
+    public WechatgoServiceImpl(WechatgoProperties wechatgoProperties) {
         this.wechatgoProperties = wechatgoProperties;
     }
 

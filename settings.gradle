@@ -2,11 +2,11 @@ include 'spring-oxygen-core'
 
 include 'spring-oxygen-autocode'
 include 'spring-oxygen-flysql'
+
 include 'spring-oxygen-wechatgo'
+include 'oxygen-wechatgo-spring-boot-starter'
 
 rootProject.name = 'spring-oxygen'
 rootProject.children.each { project ->
     project.buildFileName = "${project.name}.gradle"
 }
-
-
