@@ -7,7 +7,6 @@ import java.lang.annotation.*;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2019/10/21
  */
 @Target(value = {ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

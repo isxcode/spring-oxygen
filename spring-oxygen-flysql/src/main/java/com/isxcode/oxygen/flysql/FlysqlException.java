@@ -20,7 +20,6 @@ package com.isxcode.oxygen.flysql;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2020-01-30
  */
 public class FlysqlException extends RuntimeException{
     public FlysqlException(String message) {

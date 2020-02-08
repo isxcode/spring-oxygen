@@ -24,7 +24,6 @@ import org.springframework.stereotype.Component;
  *
  * @author ispong
  * @version v0.1.0
- * @date
  */
 @Data
 @Component

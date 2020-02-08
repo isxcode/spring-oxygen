@@ -20,7 +20,6 @@ package com.isxcode.oxygen.core.exception;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2020-01-30
  */
 public class UtilsException extends RuntimeException {
 

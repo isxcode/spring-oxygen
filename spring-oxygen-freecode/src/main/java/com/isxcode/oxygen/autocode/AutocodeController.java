@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2020-01-08
  */
 @RestController
 public class AutocodeController extends BaseController {

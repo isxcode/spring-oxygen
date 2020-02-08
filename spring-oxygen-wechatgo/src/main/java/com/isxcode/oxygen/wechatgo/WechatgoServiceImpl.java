@@ -17,6 +17,7 @@ package com.isxcode.oxygen.wechatgo;
 
 import com.isxcode.oxygen.core.httpclient.HttpClientUtils;
 import com.isxcode.oxygen.wechatgo.model.WeChatAccessToken;
+import com.isxcode.oxygen.wechatgo.model.WeChatEventBody;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -26,12 +27,13 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static com.isxcode.oxygen.wechatgo.WechatgoProperties.WE_CHAT_ACCESS_TOKENS;
+
 /**
  * 微信实现类
  *
  * @author ispong
  * @version v0.1.0
- * @date 2020-01-14
  */
 @Slf4j
 public class WechatgoServiceImpl implements WechatgoService {
@@ -41,6 +43,7 @@ public class WechatgoServiceImpl implements WechatgoService {
     private final WechatgoProperties wechatgoProperties;
 
     public WechatgoServiceImpl(WechatgoProperties wechatgoProperties) {
+
         this.wechatgoProperties = wechatgoProperties;
     }
 
@@ -59,6 +62,52 @@ public class WechatgoServiceImpl implements WechatgoService {
 
         // hashcode == signature ?
         return signature.equals(hashcode);
+    }
+
+    @Override
+    public void handlerWechatEvent(WeChatEventBody weChatEventBody) {
+
+        switch (weChatEventBody.getEvent()) {
+            case "subscribe":
+                log.debug("event subscribe");
+                break;
+            case "unsubscribe":
+                log.debug("event unsubscribe");
+                break;
+            default:
+                log.debug("event nothing");
+        }
+    }
+
+    @Override
+    public void sendMsgTemplate(String openId, String templateId, String data) {
+
+    }
+
+    @Override
+    public void sendMsgTemplate(String openId, String templateId, String url, String data) {
+
+    }
+
+    @Override
+    public void sendMsgTemplate(String openId, String templateId, String appId, String pagePath, String data) throws WechatgoException {
+
+        String requestParam = " {\n" +
+                "           \"touser\":\"" + openId + "\",\n" +
+                "           \"template_id\":\"" + templateId + "\",\n" +
+                "           \"miniprogram\":{\n" +
+                "             \"appid\":\"" + appId + "\",\n" +
+                "             \"pagepath\":\"" + pagePath + "\"\n" +
+                "           },          \n" +
+                "           \"data\":\n" + data +
+                "       }";
+
+        try {
+            HttpClientUtils.doPost(wechatgoProperties.getUrl() + "/cgi-bin/message/template/send" + "?access_token=" + WE_CHAT_ACCESS_TOKENS, requestParam);
+        } catch (Exception e) {
+            throw new WechatgoException("send template fail");
+        }
+
     }
 
     @Override

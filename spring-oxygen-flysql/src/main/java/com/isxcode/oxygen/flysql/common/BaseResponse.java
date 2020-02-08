@@ -21,7 +21,6 @@ import lombok.Data;
  * BaseResponse
  *
  * @author ispong
- * @date 2019/10/17
  * @version v0.1.0
  */
 @Data

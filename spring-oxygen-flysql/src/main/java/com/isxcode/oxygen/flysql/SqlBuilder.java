@@ -15,7 +15,6 @@ import java.util.List;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2019-12-23
  */
 @Slf4j
 @Component

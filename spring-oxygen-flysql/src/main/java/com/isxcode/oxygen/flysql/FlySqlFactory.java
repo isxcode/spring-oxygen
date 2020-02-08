@@ -12,7 +12,6 @@ import static com.isxcode.oxygen.flysql.AbstractSqlBuilder.BEAN_COLUMNS_MAP;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2019-12-23
  */
 public class FlySqlFactory {
 

@@ -17,10 +17,7 @@ package com.isxcode.oxygen.wechatgo;
 
 import com.isxcode.oxygen.wechatgo.model.WeChatEventBody;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,15 +26,15 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2020-01-14
  */
 @Slf4j
+@ResponseBody
 @RequestMapping("wechatgo")
 public class WechatgoController {
 
     private final WechatgoService wechatgoService;
 
-    public WechatgoController(WechatgoServiceImpl weChatService) {
+    public WechatgoController(WechatgoService weChatService) {
 
         this.wechatgoService = weChatService;
     }
@@ -45,7 +42,10 @@ public class WechatgoController {
     /**
      * get接口-微信服务器认证
      *
-     * @param echostr 微信的认证值
+     * @param echostr   微信的认证值
+     * @param timestamp timestamp
+     * @param nonce     nonce
+     * @param signature signature
      * @return 返回微信的认证值
      * @since 2020-01-14
      */
@@ -57,7 +57,6 @@ public class WechatgoController {
             @RequestParam("signature") String signature) {
 
         log.debug("wechat go to auth");
-
         if (wechatgoService.checkWeChat(nonce, timestamp, signature)) {
             return echostr;
         }
@@ -73,20 +72,8 @@ public class WechatgoController {
     @PostMapping("/wechatServer")
     public void weChatListen(HttpServletRequest httpServletRequest) {
 
-        // 获取事件信息
+        log.debug("receive wechat event");
         WeChatEventBody weChatEventBody = WechatgoUtils.parseWeChatXml(httpServletRequest, WeChatEventBody.class);
-
-        // 判断事件
-        switch (weChatEventBody.getEvent()) {
-            case "subscribe":
-                log.debug("event subscribe");
-                break;
-            case "unsubscribe":
-                log.debug("event unsubscribe");
-                break;
-            default:
-                log.debug("event nothing");
-        }
-
+        wechatgoService.handlerWechatEvent(weChatEventBody);
     }
 }

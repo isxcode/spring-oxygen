@@ -20,7 +20,6 @@ package com.isxcode.oxygen.wechatgo;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2020-01-28
  */
 public class WechatgoException extends RuntimeException {
 

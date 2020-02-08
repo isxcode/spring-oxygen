@@ -1,9 +1,18 @@
 # wechatgo
 - 快速使用
 
+> 提供功能
+
+1- 快速配置服务器地址
+
+2- 自动刷新access_token
+
+3- 关注/取消关注接口开放
+
+4- 推送模板接口开放
+
 maven
 ```xml
-<!-- https://github.com/ispong/spring-oxygen/oxygen-wechatgo-spring-boot-starter -->
 <dependency>
     <groupId>com.github.ispong</groupId>
     <artifactId>oxygen-wechatgo-spring-boot-starter</artifactId>
@@ -12,7 +21,6 @@ maven
 ```
 gradle
 ```groovy
-// https://github.com/ispong/spring-oxygen/oxygen-wechatgo-spring-boot-starter
 compile group: 'com.github.ispong', name: 'oxygen-wechatgo-spring-boot-starter', version: '0.0.1'
 ```
 

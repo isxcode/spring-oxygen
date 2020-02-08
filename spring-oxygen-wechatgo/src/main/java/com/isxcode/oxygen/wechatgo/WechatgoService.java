@@ -16,13 +16,13 @@
 package com.isxcode.oxygen.wechatgo;
 
 import com.isxcode.oxygen.wechatgo.model.WeChatAccessToken;
+import com.isxcode.oxygen.wechatgo.model.WeChatEventBody;
 
 /**
  * 微信接口
  *
  * @author ispong
  * @version v0.1.0
- * @date 2020-01-14
  */
 public interface WechatgoService {
 
@@ -44,4 +44,46 @@ public interface WechatgoService {
      * @since 2020-01-15
      */
     Boolean checkWeChat(String nonce, String timestamp, String signature);
+
+    /**
+     * 微信推送事件
+     *
+     * @param weChatEventBody 事件体
+     * @since 2020-02-04
+     */
+    void handlerWechatEvent(WeChatEventBody weChatEventBody);
+
+    /**
+     * 发送微信模板(正常发送模板)
+     *
+     * @param openId     接收者openid
+     * @param templateId 模板ID
+     * @param data       模板数据
+     * @since 2020-02-04
+     */
+    void sendMsgTemplate(String openId, String templateId, String data);
+
+    /**
+     * 发送微信模板(带url发送模板)
+     *
+     * @param openId     接收者openid
+     * @param templateId 模板ID
+     * @param data       模板数据
+     * @param url        模板跳转链接（海外帐号没有跳转能力）
+     * @since 2020-02-04
+     */
+    void sendMsgTemplate(String openId, String templateId, String url, String data);
+
+    /**
+     * 发送微信模板(正常发送模板)
+     *
+     * @param openId     接收者openid
+     * @param templateId 模板ID
+     * @param data       模板数据
+     * @param appId      所需跳转到的小程序appid（该小程序appid必须与发模板消息的公众号是绑定关联关系，暂不支持小游戏）
+     * @param pagePath   所需跳转到小程序的具体页面路径，支持带参数,（示例index?foo=bar），要求该小程序已发布，暂不支持小游戏
+     * @since 2020-02-04
+     */
+    void sendMsgTemplate(String openId, String templateId, String appId, String pagePath, String data);
+
 }

@@ -29,7 +29,6 @@ import java.util.Set;
  * filter 基础类
  *
  * @author ispong
- * @date 2019-11-16
  * @version v0.1.0
  */
 public abstract class BaseFilter extends OncePerRequestFilter {

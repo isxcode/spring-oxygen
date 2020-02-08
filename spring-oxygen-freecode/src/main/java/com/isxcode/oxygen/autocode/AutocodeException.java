@@ -13,10 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.isxcode.oxygen.autocode;
+
 /**
- * wechatgo 的一系列
- *
+ * AutocodeException
+ * 
  * @author ispong
  * @version v0.1.0
  */
-package com.isxcode.oxygen.wechatgo;
+public class AutocodeException extends RuntimeException {
+    public AutocodeException(String message) {
+        super(message);
+    }
+}

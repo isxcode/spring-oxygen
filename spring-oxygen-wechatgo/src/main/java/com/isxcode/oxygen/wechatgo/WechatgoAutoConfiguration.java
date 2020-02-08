@@ -28,7 +28,6 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2020-01-30
  */
 @Slf4j
 @Configuration
@@ -63,6 +62,7 @@ public class WechatgoAutoConfiguration {
     /**
      * init wechatgo service
      *
+     * @return WechatgoServiceImpl
      * @since 2020-02-04
      */
     @Bean
@@ -75,6 +75,7 @@ public class WechatgoAutoConfiguration {
     /**
      * init wechatgo token
      *
+     * @return WeChatTokenInit
      * @since 2020-02-04
      */
     @Bean
@@ -88,6 +89,7 @@ public class WechatgoAutoConfiguration {
     /**
      * init wechatgo controller
      *
+     * @return controller
      * @since 2020-02-04
      */
     @Bean

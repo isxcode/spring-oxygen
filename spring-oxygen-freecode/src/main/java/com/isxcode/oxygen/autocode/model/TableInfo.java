@@ -7,7 +7,6 @@ import lombok.Data;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2020-01-09
  */
 @Data
 public class TableInfo {

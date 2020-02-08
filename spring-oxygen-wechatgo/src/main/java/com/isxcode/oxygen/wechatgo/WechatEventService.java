@@ -13,17 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.isxcode.oxygen.autocode;
+package com.isxcode.oxygen.wechatgo;
+
+import com.isxcode.oxygen.wechatgo.model.WeChatEventBody;
 
 /**
- * AutocodeException
- * 
+ * wechat event service
+ *
  * @author ispong
  * @version v0.1.0
- * @date 2020-01-30
  */
-public class AutocodeException extends RuntimeException {
-    public AutocodeException(String message) {
-        super(message);
-    }
+public interface WechatEventService {
+
+    /**
+     * 订阅事件
+     *
+     * @param weChatEventBody 事件体
+     * @since 2020-02-04
+     */
+    void subscribeEvent(WeChatEventBody weChatEventBody);
+
+    /**
+     * 取消订阅事件
+     *
+     * @param weChatEventBody 事件体
+     * @since 2020-02-04
+     */
+    void unsubscribeEvent(WeChatEventBody weChatEventBody);
+
 }

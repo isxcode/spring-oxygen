@@ -29,7 +29,6 @@ import java.util.stream.Stream;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2020-01-07
  */
 @Data
 @ConfigurationProperties(prefix = "oxygen.autocode")

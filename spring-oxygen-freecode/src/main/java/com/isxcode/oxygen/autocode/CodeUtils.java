@@ -19,7 +19,6 @@ import static java.util.regex.Pattern.compile;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2019/10/20
  */
 public class CodeUtils {
 

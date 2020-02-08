@@ -24,7 +24,6 @@ import java.util.Calendar;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2019-11-11
  */
 @Slf4j
 @RestController

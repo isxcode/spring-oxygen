@@ -29,7 +29,6 @@ import java.util.UUID;
  * hibernate 自定义id生成策略
  *
  * @author ispong
- * @date 2019-11-27
  * @version v0.1.0
  */
 @Slf4j

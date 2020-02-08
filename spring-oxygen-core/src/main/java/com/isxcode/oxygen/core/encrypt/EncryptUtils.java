@@ -34,7 +34,6 @@ import java.util.Base64;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2019-11-28
  */
 @Slf4j
 @Component

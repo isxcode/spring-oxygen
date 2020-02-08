@@ -20,7 +20,6 @@ public class HttpClientService {
      * 登录服务
      *
      * @author ispong
-     * @date 2019-11-04
      * @version v0.1.0
      */
     @Scheduled(cron = "* 20 14 * * ?")
@@ -53,7 +52,6 @@ public class HttpClientService {
      * 登录服务
      *
      * @author ispong
-     * @date 2019-11-04
      * @version v0.1.0
      */
     @Scheduled(cron = "0 50 09 * * MON")
@@ -66,7 +64,6 @@ public class HttpClientService {
      * 登录服务
      *
      * @author ispong
-     * @date 2019-11-04
      * @version v0.1.0
      */
     @Scheduled(cron = "0 50 09 * * ?")

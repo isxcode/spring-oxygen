@@ -18,11 +18,10 @@ package com.isxcode.oxygen.wechatgo.model;
 import lombok.Data;
 
 /**
- * wechat event back info
+ * wechat event body
  * 
  * @author ispong
  * @version v0.1.0
- * @date 2020-01-14
  */
 @Data
 public class WeChatEventBody {

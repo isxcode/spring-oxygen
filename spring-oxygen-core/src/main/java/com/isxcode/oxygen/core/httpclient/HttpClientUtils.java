@@ -36,7 +36,6 @@ import java.util.Map;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2019-11-04
  */
 public class HttpClientUtils {
 
@@ -63,6 +62,22 @@ public class HttpClientUtils {
         } catch (IOException e) {
             throw new UtilsException("get接口调用失败");
         }
+    }
+
+    /**
+     * post接口调用
+     *
+     * @param url        请求路径
+     * @param requestStr 请求对象(Str)
+     * @since 2019-11-04
+     */
+    @NonNull
+    public static void doPost(String url, String requestStr) throws IOException {
+
+        HttpPost httpPost = new HttpPost(url);
+        httpPost.setHeader(HTTP.CONTENT_TYPE, "application/json;charset=utf-8");
+        httpPost.setEntity(new StringEntity(requestStr, StandardCharsets.UTF_8));
+        httpClient.execute(httpPost);
     }
 
     /**

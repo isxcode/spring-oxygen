@@ -32,7 +32,6 @@ import java.util.Map;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2019/10/17
  */
 @Slf4j
 @Component

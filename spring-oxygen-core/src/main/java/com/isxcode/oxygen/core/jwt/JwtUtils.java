@@ -19,7 +19,6 @@ import java.util.UUID;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2019-11-17
  */
 @Component
 public class JwtUtils {

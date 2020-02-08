@@ -13,4 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/**
+ * 提供wechat公众号中的数据对象
+ *
+ * @author ispong
+ * @version v0.1.0
+ */
 package com.isxcode.oxygen.wechatgo.model;

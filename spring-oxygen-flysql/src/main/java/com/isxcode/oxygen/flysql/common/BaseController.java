@@ -23,7 +23,6 @@ import org.springframework.http.ResponseEntity;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2019/10/16
  */
 public abstract class BaseController {
 

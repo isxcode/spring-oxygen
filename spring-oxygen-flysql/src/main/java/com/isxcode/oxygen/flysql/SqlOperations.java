@@ -7,7 +7,6 @@ import java.util.List;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2019-12-26
  */
 public interface SqlOperations {
 

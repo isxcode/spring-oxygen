@@ -16,7 +16,6 @@ import static com.isxcode.oxygen.autocode.AutocodeProperties.ENTITY;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2020-01-08
  */
 @Service
 public class CodeService {

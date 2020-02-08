@@ -25,7 +25,6 @@ import java.io.IOException;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2020-01-28
  */
 public class WechatgoUtils {
 
@@ -34,6 +33,8 @@ public class WechatgoUtils {
      *
      * @param httpServletRequest httpServletRequest
      * @param clazz              response
+     * @param <T>                T
+     * @return T
      * @since 2020-01-30
      */
     public static <T> T parseWeChatXml(HttpServletRequest httpServletRequest, Class<T> clazz) {

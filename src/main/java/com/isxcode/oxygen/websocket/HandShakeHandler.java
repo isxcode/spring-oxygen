@@ -12,7 +12,6 @@ import java.util.Map;
  * websocket handshake拦截器
  *
  * @author ispong
- * @date 2019-10-28
  * @version v0.1.0
  */
 @Slf4j

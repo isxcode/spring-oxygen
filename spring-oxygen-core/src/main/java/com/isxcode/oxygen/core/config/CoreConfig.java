@@ -24,7 +24,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  *
  * @author ispong
  * @version v0.1.0
- * @date 2020-01-30
  */
 @Configurable
 @EnableConfigurationProperties(SecurityProperties.class)

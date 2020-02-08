@@ -27,7 +27,6 @@ import java.util.Map;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2019-12-24
  */
 @Component
 public abstract class AbstractSqlBuilder<T> {

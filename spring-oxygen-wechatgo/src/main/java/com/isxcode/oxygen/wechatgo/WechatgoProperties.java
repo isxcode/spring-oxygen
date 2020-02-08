@@ -23,7 +23,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *
  * @author ispong
  * @version v0.1.0
- * @date 2020-01-14
  */
 @Data
 @ConfigurationProperties("oxygen.wechatgo")

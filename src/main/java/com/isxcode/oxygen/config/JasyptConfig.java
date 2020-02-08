@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Scope;
  * 配置文件加密配置
  *
  * @author ispong
- * @date 2019-12-03
  * @version v0.1.0
  */
 @Configuration
