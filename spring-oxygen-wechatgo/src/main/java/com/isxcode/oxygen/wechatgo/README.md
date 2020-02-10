@@ -1,15 +1,8 @@
-# wechatgo
-- 快速使用
+# oxygen-wechatgo
 
-> 提供功能
+### Quickly Start
 
-1- 快速配置服务器地址
-
-2- 自动刷新access_token
-
-3- 关注/取消关注接口开放
-
-4- 推送模板接口开放
+1- import starter jar
 
 maven
 ```xml
@@ -24,7 +17,15 @@ gradle
 compile group: 'com.github.ispong', name: 'oxygen-wechatgo-spring-boot-starter', version: '0.0.1'
 ```
 
-- yaml配置
+2- add @EnableWechatgo
+```java
+@EnableWechatgo
+public class AppConfig {
+
+}
+```
+
+3- config yaml
 ```yaml
 oxygen:
   wechatgo:
@@ -33,26 +34,49 @@ oxygen:
     token: xxx # custom server token
 ```
 
-- 微信服务器配置地址
-```http request
-GET http://localhost:port/context/wechatgo/wechatServer
+4- config wechat server
+```text
+服务器地址(URL) -- http://localhost:port/context/wechatgo/wechatServer
+令牌(Token) -- yaml配置的custom server token
+消息加解密密钥 -- 随机数
+消息加解密方式 -- 明文模式
 ```
 
-- 快捷获取access_token
+5- start application
+```text
+                                                             __          __            
+  ____  _  ____  ______ ____  ____       _      _____  _____/ /_  ____ _/ /_____ _____ 
+ / __ \| |/_/ / / / __ `/ _ \/ __ \_____| | /| / / _ \/ ___/ __ \/ __ `/ __/ __ `/ __ \
+/ /_/ />  </ /_/ / /_/ /  __/ / / /_____/ |/ |/ /  __/ /__/ / / / /_/ / /_/ /_/ / /_/ /
+\____/_/|_|\__, /\__, /\___/_/ /_/      |__/|__/\___/\___/_/ /_/\__,_/\__/\__, /\____/ 
+          /____//____/                                                   /____/        
+```
+
+### Advance Use
+
+- wechat event
 ```java
-class demo{
-    public void useToken(){
-        System.out.println("access_token",WE_CHAT_ACCESS_TOKENS);
-    }   
+public class WechatService implements WechatgoEventHandler {
+
+    @Override
+    public void subscribeEvent(WeChatEventBody weChatEventBody) {
+        // do something           
+    }
+    
+    @Override
+    public void subscribeEvent(WeChatEventBody weChatEventBody) {
+        // do something       
+    }
+
 }
 ```
 
-- 提供扩展接口 (订阅接口/取消订阅接口/模板推送成功接口/模板推送失败接口)
+- wechatgo utils
 ```java
-class demo extends WechatgoService{ 
-    
-        
-    
+class demo {
+    public void test(){
+        WechatgoUtils.sendMsgTemplate("openId", "templateId", "data");
+    }
 }
 ```
 

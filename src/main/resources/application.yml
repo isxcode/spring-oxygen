@@ -64,19 +64,6 @@ isxcode:
       'controller': com.isxcode.ispring.common.BaseController
       'entity': com.isxcode.ispring.common.BaseEntity
 
-  # 微信配置
-  we-chat:
-    apps:
-      # 测试环境
-      'test':
-        app-id: wx5ada926e5489824f
-        app-secret: d49e9eaac5633e661ff207353a9c86b1
-        token: test
-      'prod':
-        app-id: wx4bde377ea456029e
-        app-secret: 274729e7d718a3f3bed747ac3fa2b797
-        token: 829d87066e1471011
-
 logging:
   level:
     root: info
@@ -84,8 +71,9 @@ logging:
   file:
     name: ./logs/spring.log
     max-size: 10MB
-    max-history: 7
+    max-history: 30
     total-size-cap: 100MB
+    clean-history-on-start: true
   exception-conversion-word: '%wEx'
   pattern:
     level: '%5p'
@@ -93,3 +81,9 @@ logging:
     console: '%clr(%d{${LOG_DATEFORMAT_PATTERN}}){faint} %clr(${LOG_LEVEL_PATTERN}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD}'
     file: '%d{${LOG_DATEFORMAT_PATTERN}} ${LOG_LEVEL_PATTERN} %-5(${PID:- }) --- [%15.15t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD}}'
     rolling-file-name: '${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz'
+
+oxygen:
+  wechatgo:
+    app-id: wx5ada926e5489824f # appId
+    app-secret: d49e9eaac5633e661ff207353a9c86b1 # appSecret
+    token: test # custom server token

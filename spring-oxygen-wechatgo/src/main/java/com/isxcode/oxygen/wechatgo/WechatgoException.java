@@ -24,6 +24,6 @@ package com.isxcode.oxygen.wechatgo;
 public class WechatgoException extends RuntimeException {
 
     public WechatgoException(String message) {
-        super(message);
+        super("wechatgo exception:" + message);
     }
 }

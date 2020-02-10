@@ -18,12 +18,12 @@ package com.isxcode.oxygen.wechatgo;
 import com.isxcode.oxygen.wechatgo.model.WeChatEventBody;
 
 /**
- * wechat event service
+ * provide method
  *
  * @author ispong
- * @version v0.1.0
+ * @since 0.0.1
  */
-public interface WechatEventService {
+public interface WechatgoEventHandler {
 
     /**
      * 订阅事件
@@ -31,7 +31,9 @@ public interface WechatEventService {
      * @param weChatEventBody 事件体
      * @since 2020-02-04
      */
-    void subscribeEvent(WeChatEventBody weChatEventBody);
+    default void subscribeEvent(WeChatEventBody weChatEventBody) {
+        System.out.println("测试进入");
+    }
 
     /**
      * 取消订阅事件
@@ -39,6 +41,7 @@ public interface WechatEventService {
      * @param weChatEventBody 事件体
      * @since 2020-02-04
      */
-    void unsubscribeEvent(WeChatEventBody weChatEventBody);
-
+    default void unsubscribeEvent(WeChatEventBody weChatEventBody) {
+        System.out.println("测试进入");
+    }
 }

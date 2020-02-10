@@ -15,11 +15,13 @@
  */
 package com.isxcode.oxygen.wechatgo;
 
+import com.isxcode.oxygen.core.xml.XmlUtils;
 import com.isxcode.oxygen.wechatgo.model.WeChatEventBody;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 /**
  * wechat server api
@@ -70,10 +72,10 @@ public class WechatgoController {
      * @since 2020-01-14
      */
     @PostMapping("/wechatServer")
-    public void weChatListen(HttpServletRequest httpServletRequest) {
+    public void weChatListen(HttpServletRequest httpServletRequest) throws IOException {
 
         log.debug("receive wechat event");
-        WeChatEventBody weChatEventBody = WechatgoUtils.parseWeChatXml(httpServletRequest, WeChatEventBody.class);
+        WeChatEventBody weChatEventBody = XmlUtils.parseXml(httpServletRequest.getInputStream(), WeChatEventBody.class);
         wechatgoService.handlerWechatEvent(weChatEventBody);
     }
 }

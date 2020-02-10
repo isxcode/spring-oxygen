@@ -25,13 +25,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @version v0.1.0
  */
 @Data
-@ConfigurationProperties("oxygen.wechatgo")
+@ConfigurationProperties(WechatgoConstants.STARTER_PREFIX)
 public class WechatgoProperties {
 
     /**
      * temp token
      */
-    public static String WE_CHAT_ACCESS_TOKENS = "";
+    public static String WE_CHAT_ACCESS_TOKEN = "";
 
     /**
      * appId

@@ -66,6 +66,7 @@ public class WechatgoAutoConfiguration {
      * @since 2020-02-04
      */
     @Bean
+    @ConditionalOnBean(WechatgoAutoConfiguration.class)
     public WechatgoServiceImpl initWechatgoServiceImpl() {
 
         log.debug("init wechatgo service");
@@ -80,10 +81,10 @@ public class WechatgoAutoConfiguration {
      */
     @Bean
     @ConditionalOnBean(WechatgoServiceImpl.class)
-    public WeChatTokenInit initWechatgoToken() {
+    public WeChatTokenGenerator initWechatgoToken() {
 
         log.debug("init wechatgo token");
-        return new WeChatTokenInit(initWechatgoServiceImpl());
+        return new WeChatTokenGenerator(initWechatgoServiceImpl());
     }
 
     /**
@@ -93,10 +94,24 @@ public class WechatgoAutoConfiguration {
      * @since 2020-02-04
      */
     @Bean
-    @ConditionalOnBean(WeChatTokenInit.class)
+    @ConditionalOnBean(WeChatTokenGenerator.class)
     public WechatgoController initWechatgoController() {
 
         log.debug("init wechatgo controller");
         return new WechatgoController(initWechatgoServiceImpl());
+    }
+
+    /**
+     * init wechatgo controller
+     *
+     * @return controller
+     * @since 2020-02-04
+     */
+    @Bean
+    @ConditionalOnBean(WeChatTokenGenerator.class)
+    public WechatgoUtils initWechatgoUtils() {
+
+        log.debug("init wechatgo utils");
+        return new WechatgoUtils(wechatgoProperties);
     }
 }

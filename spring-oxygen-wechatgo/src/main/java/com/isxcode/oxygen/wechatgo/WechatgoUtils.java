@@ -15,10 +15,9 @@
  */
 package com.isxcode.oxygen.wechatgo;
 
-import com.isxcode.oxygen.core.xml.XmlUtils;
+import com.isxcode.oxygen.core.httpclient.HttpClientUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
+import static com.isxcode.oxygen.wechatgo.WechatgoProperties.WE_CHAT_ACCESS_TOKEN;
 
 /**
  * wechat utils
@@ -28,24 +27,121 @@ import java.io.IOException;
  */
 public class WechatgoUtils {
 
+    private static WechatgoProperties wechatgoProperties;
+
+    public WechatgoUtils(WechatgoProperties wechatgoProperties) {
+
+        WechatgoUtils.wechatgoProperties = wechatgoProperties;
+    }
+
     /**
-     * parse wechat event
+     * 发送微信模板(正常发送模板)
      *
-     * @param httpServletRequest httpServletRequest
-     * @param clazz              response
-     * @param <T>                T
-     * @return T
-     * @since 2020-01-30
+     * @param openId     接收者openid
+     * @param templateId 模板ID
+     * @param data       模板数据
+     * @since 2020-02-04
      */
-    public static <T> T parseWeChatXml(HttpServletRequest httpServletRequest, Class<T> clazz) {
+    public static void sendMsgTemplate(String openId, String templateId, String data) {
+
+        String requestParam = " {\n" +
+                "           \"touser\":\"" + openId + "\",\n" +
+                "           \"template_id\":\"" + templateId + "\",\n" +
+                "           \"data\":\n" + data.replace("\n", "\\n") +
+                "       }";
 
         try {
-            return XmlUtils.parseXml(httpServletRequest.getInputStream(), clazz);
-        } catch (IOException e) {
-            throw new WechatgoException("httpServletRequest.getInputStream() is null");
+            HttpClientUtils.doPost(wechatgoProperties.getUrl() + "/cgi-bin/message/template/send" + "?access_token=" + WE_CHAT_ACCESS_TOKEN, requestParam);
+        } catch (Exception e) {
+            throw new WechatgoException("send template fail");
         }
 
     }
 
+    /**
+     * 发送微信模板(带url发送模板)
+     *
+     * @param openId     接收者openid
+     * @param templateId 模板ID
+     * @param data       模板数据
+     * @param url        模板跳转链接（海外帐号没有跳转能力）
+     * @since 2020-02-04
+     */
+    public static void sendMsgTemplate(String openId, String templateId, String url, String data) {
 
+        String requestParam = " {\n" +
+                "           \"touser\":\"" + openId + "\",\n" +
+                "           \"url\":\"" + url + "\",  \n" +
+                "           \"template_id\":\"" + templateId + "\",\n" +
+                "           \"data\":\n" + data.replace("\n", "\\n") +
+                "       }";
+
+        try {
+            HttpClientUtils.doPost(wechatgoProperties.getUrl() + "/cgi-bin/message/template/send" + "?access_token=" + WE_CHAT_ACCESS_TOKEN, requestParam);
+        } catch (Exception e) {
+            throw new WechatgoException("send template fail");
+        }
+    }
+
+    /**
+     * 发送微信模板(正常发送模板)
+     *
+     * @param openId     接收者openid
+     * @param templateId 模板ID
+     * @param data       模板数据
+     * @param appId      所需跳转到的小程序appid（该小程序appid必须与发模板消息的公众号是绑定关联关系，暂不支持小游戏）
+     * @param pagePath   所需跳转到小程序的具体页面路径，支持带参数,（示例index?foo=bar），要求该小程序已发布，暂不支持小游戏
+     * @param url        模板跳转链接（海外帐号没有跳转能力）
+     * @since 2020-02-04
+     */
+    public static void sendMsgTemplate(String openId, String templateId, String url, String appId, String pagePath, String data) {
+
+        String requestParam = " {\n" +
+                "           \"touser\":\"" + openId + "\",\n" +
+                "           \"template_id\":\"" + templateId + "\",\n" +
+                "           \"url\":\"" + url + "\",  \n" +
+                "           \"miniprogram\":{\n" +
+                "             \"appid\":\"" + appId + "\",\n" +
+                "             \"pagepath\":\"" + pagePath + "\"\n" +
+                "           },          \n" +
+                "           \"data\":\n" + data.replace("\n", "\\n") +
+                "       }";
+
+        try {
+            HttpClientUtils.doPost(wechatgoProperties.getUrl() + "/cgi-bin/message/template/send" + "?access_token=" + WE_CHAT_ACCESS_TOKEN, requestParam);
+        } catch (Exception e) {
+            throw new WechatgoException("send template fail");
+        }
+
+    }
+
+    /**
+     * 发送微信模板(正常发送模板)
+     *
+     * @param openId     接收者openid
+     * @param templateId 模板ID
+     * @param data       模板数据
+     * @param appId      所需跳转到的小程序appid（该小程序appid必须与发模板消息的公众号是绑定关联关系，暂不支持小游戏）
+     * @param pagePath   所需跳转到小程序的具体页面路径，支持带参数,（示例index?foo=bar），要求该小程序已发布，暂不支持小游戏
+     * @since 2020-02-04
+     */
+    public static void sendMsgTemplate(String openId, String templateId, String appId, String pagePath, String data) {
+
+        String requestParam = " {\n" +
+                "           \"touser\":\"" + openId + "\",\n" +
+                "           \"template_id\":\"" + templateId + "\",\n" +
+                "           \"miniprogram\":{\n" +
+                "             \"appid\":\"" + appId + "\",\n" +
+                "             \"pagepath\":\"" + pagePath + "\"\n" +
+                "           },          \n" +
+                "           \"data\":\n" + data.replace("\n", "\\n") +
+                "       }";
+
+        try {
+            HttpClientUtils.doPost(wechatgoProperties.getUrl() + "/cgi-bin/message/template/send" + "?access_token=" + WE_CHAT_ACCESS_TOKEN, requestParam);
+        } catch (Exception e) {
+            throw new WechatgoException("send template fail");
+        }
+
+    }
 }

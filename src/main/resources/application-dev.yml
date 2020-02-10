@@ -40,9 +40,3 @@ isxcode:
     jwt-security-key: isxcode
   jwt-secret: isxcode
 
-
-oxygen:
-  wechatgo:
-    app-id: wx5ada926e5489824f # appId
-    app-secret: d49e9eaac5633e661ff207353a9c86b1 # appSecret
-    token: test # custom server token

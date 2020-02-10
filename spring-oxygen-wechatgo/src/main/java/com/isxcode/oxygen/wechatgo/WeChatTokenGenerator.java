@@ -21,8 +21,8 @@ import org.springframework.beans.factory.InitializingBean;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static com.isxcode.oxygen.wechatgo.WechatgoProperties.WE_CHAT_ACCESS_TOKENS;
 import static java.util.concurrent.Executors.newScheduledThreadPool;
+import static com.isxcode.oxygen.wechatgo.WechatgoProperties.WE_CHAT_ACCESS_TOKEN;
 
 /**
  * init wechat token
@@ -31,11 +31,11 @@ import static java.util.concurrent.Executors.newScheduledThreadPool;
  * @version v0.1.0
  */
 @Slf4j
-public class WeChatTokenInit implements InitializingBean {
+public class WeChatTokenGenerator implements InitializingBean {
 
     private final WechatgoServiceImpl weChatService;
 
-    public WeChatTokenInit(WechatgoServiceImpl weChatService) {
+    public WeChatTokenGenerator(WechatgoServiceImpl weChatService) {
 
         this.weChatService = weChatService;
     }
@@ -48,7 +48,7 @@ public class WeChatTokenInit implements InitializingBean {
         ScheduledExecutorService executorService = newScheduledThreadPool(1);
         executorService.scheduleAtFixedRate(
                 new Thread(() ->
-                        WE_CHAT_ACCESS_TOKENS = weChatService.getAccessToken().getAccess_token()), 0, 1, TimeUnit.HOURS);
+                        WE_CHAT_ACCESS_TOKEN = weChatService.getAccessToken().getAccess_token()), 0, 1, TimeUnit.HOURS);
 
     }
 }

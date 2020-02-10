@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 /**
- * wechatgo 的一系列
+ * wechatgo service
  *
  * @author ispong
  * @version v0.1.0

@@ -19,7 +19,7 @@ package com.isxcode.oxygen.wechatgo.model;
 import lombok.Data;
 
 /**
- * wechat access token
+ * wechat access_token
  *
  * @author ispong
  * @version v0.1.0

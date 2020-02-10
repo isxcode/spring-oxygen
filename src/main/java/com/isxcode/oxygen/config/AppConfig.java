@@ -1,5 +1,6 @@
 package com.isxcode.oxygen.config;
 
+import com.isxcode.oxygen.wechatgo.EnableWechatgo;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author ispong
  * @version v0.1.0
  */
+@EnableWechatgo
 @EnableJpaRepositories(basePackages = {"com.isxcode.oxygen.repositories"})
 @EnableJpaAuditing
 @EnableConfigurationProperties

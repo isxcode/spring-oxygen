@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 /**
- * 提供wechat公众号中的数据对象
+ * wechat model
  *
  * @author ispong
  * @version v0.1.0

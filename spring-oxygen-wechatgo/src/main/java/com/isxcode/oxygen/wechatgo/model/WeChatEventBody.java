@@ -18,7 +18,7 @@ package com.isxcode.oxygen.wechatgo.model;
 import lombok.Data;
 
 /**
- * wechat event body
+ * wechat event_body
  * 
  * @author ispong
  * @version v0.1.0
