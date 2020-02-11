@@ -54,29 +54,57 @@ oxygen:
 
 ### Advance Use
 
-- wechat event
+实现WechatgoEventHandler可自定义实现各种提供好的接口,比如关注接口,取消关注接口。还可以结合WechatgoTemplate实例去直接实现模板发送之类的方法。请结合官网文档进行使用！
 ```java
+@Service
 public class WechatService implements WechatgoEventHandler {
+
+    @Resource
+    private WechatgoTemplate wechatgoTemplate;
 
     @Override
     public void subscribeEvent(WeChatEventBody weChatEventBody) {
-        // do something           
+               
+        String data = "{\n" +
+                    "           \"touser\":\"OPENID\",\n" +
+                    "           \"template_id\":\"ngqIpbwh8bUfcSsECmogfXcV14J0tQlEpBO27izEYtY\",\n" +
+                    "           \"url\":\"http://weixin.qq.com/download\",  \n" +
+                    "           \"miniprogram\":{\n" +
+                    "             \"appid\":\"xiaochengxuappid12345\",\n" +
+                    "             \"pagepath\":\"index?foo=bar\"\n" +
+                    "           },          \n" +
+                    "           \"data\":{\n" +
+                    "                   \"first\": {\n" +
+                    "                       \"value\":\"恭喜你购买成功！\",\n" +
+                    "                       \"color\":\"#173177\"\n" +
+                    "                   },\n" +
+                    "                   \"keyword1\":{\n" +
+                    "                       \"value\":\"巧克力\",\n" +
+                    "                       \"color\":\"#173177\"\n" +
+                    "                   },\n" +
+                    "                   \"keyword2\": {\n" +
+                    "                       \"value\":\"39.8元\",\n" +
+                    "                       \"color\":\"#173177\"\n" +
+                    "                   },\n" +
+                    "                   \"keyword3\": {\n" +
+                    "                       \"value\":\"2014年9月22日\",\n" +
+                    "                       \"color\":\"#173177\"\n" +
+                    "                   },\n" +
+                    "                   \"remark\":{\n" +
+                    "                       \"value\":\"欢迎再次购买！\",\n" +
+                    "                       \"color\":\"#173177\"\n" +
+                    "                   }\n" +
+                    "           }\n" +
+                    "       }";
+            wechatgoTemplate.sendMsgTemplate(data);
     }
     
     @Override
-    public void subscribeEvent(WeChatEventBody weChatEventBody) {
-        // do something       
+    public void unsubscribeEvent(WeChatEventBody weChatEventBody) {
+        // 取消关注事件       
     }
 
 }
 ```
 
-- wechatgo utils
-```java
-class demo {
-    public void test(){
-        WechatgoUtils.sendMsgTemplate("openId", "templateId", "data");
-    }
-}
-```
 

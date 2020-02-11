@@ -24,13 +24,13 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
 	compile 'org.springframework.boot:spring-boot-starter-actuator'
 //	compile 'org.springframework.boot:spring-boot-starter-security'
-	compile 'org.springframework.data:spring-data-redis'
-	compile 'org.springframework.boot:spring-boot-starter-amqp'
+//	compile 'org.springframework.data:spring-data-redis'
+//	compile 'org.springframework.boot:spring-boot-starter-amqp'
+//	compile 'io.lettuce:lettuce-core:latest.integration'
+	compile 'org.dom4j:dom4j:latest.integration'
 	compile 'org.springframework.boot:spring-boot-starter-freemarker'
 	compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	compile 'org.springframework.boot:spring-boot-starter-mail'
-	compile 'io.lettuce:lettuce-core:latest.integration'
-	compile 'org.dom4j:dom4j:latest.integration'
 	compileOnly 'org.projectlombok:lombok:latest.integration'
 	annotationProcessor 'org.projectlombok:lombok:latest.integration'
 	testCompile 'org.junit.jupiter:junit-jupiter-api:latest.integration'
@@ -74,7 +74,6 @@ subprojects {
 		annotationProcessor 'org.projectlombok:lombok:latest.integration'
 		testCompile 'org.junit.jupiter:junit-jupiter-api:latest.integration'
 		compile 'com.alibaba:fastjson:latest.integration'
-		compile 'com.github.ulisesbocchio:jasypt-spring-boot-starter:latest.integration'
 	}
 
 }

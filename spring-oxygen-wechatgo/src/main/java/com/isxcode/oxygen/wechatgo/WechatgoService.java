@@ -19,7 +19,7 @@ import com.isxcode.oxygen.wechatgo.model.WeChatAccessToken;
 import com.isxcode.oxygen.wechatgo.model.WeChatEventBody;
 
 /**
- * 微信接口
+ * wechatgo service
  *
  * @author ispong
  * @version v0.1.0

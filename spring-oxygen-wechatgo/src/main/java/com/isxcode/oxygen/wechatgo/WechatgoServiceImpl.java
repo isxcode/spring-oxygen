@@ -24,11 +24,9 @@ import org.apache.commons.codec.digest.DigestUtils;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
- * 微信实现类
+ * wechatgo WechatgoServiceImpl
  *
  * @author ispong
  * @version v0.1.0
@@ -36,7 +34,10 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class WechatgoServiceImpl implements WechatgoService {
 
-    private ExecutorService executorService = Executors.newFixedThreadPool(20);
+    /**
+     * temp token
+     */
+    public static String WE_CHAT_ACCESS_TOKEN = "";
 
     private WechatgoEventHandler wechatgoEventHandler;
 
@@ -69,23 +70,6 @@ public class WechatgoServiceImpl implements WechatgoService {
     }
 
     @Override
-    public void handlerWechatEvent(WeChatEventBody weChatEventBody) {
-
-        switch (weChatEventBody.getEvent()) {
-            case "subscribe":
-                log.debug("event subscribe");
-                wechatgoEventHandler.subscribeEvent(weChatEventBody);
-                break;
-            case "unsubscribe":
-                log.debug("event unsubscribe");
-                wechatgoEventHandler.unsubscribeEvent(weChatEventBody);
-                break;
-            default:
-                log.debug("event nothing");
-        }
-    }
-
-    @Override
     public WeChatAccessToken getAccessToken() {
 
         // 配置请求参数
@@ -113,7 +97,27 @@ public class WechatgoServiceImpl implements WechatgoService {
             default:
                 throw new WechatgoException(weChatAccessToken.getErrmsg());
         }
+    }
 
+    @Override
+    public void handlerWechatEvent(WeChatEventBody weChatEventBody) {
+
+        switch (weChatEventBody.getEvent()) {
+            case "subscribe":
+                log.debug("event subscribe");
+                wechatgoEventHandler.subscribeEvent(weChatEventBody);
+                break;
+            case "unsubscribe":
+                log.debug("event unsubscribe");
+                wechatgoEventHandler.unsubscribeEvent(weChatEventBody);
+                break;
+            case "TEMPLATESENDJOBFINISH":
+                log.debug("event send template success");
+                wechatgoEventHandler.sendMsgTemplateResponse(weChatEventBody);
+                break;
+                default:
+                log.debug("event nothing");
+        }
     }
 
 }

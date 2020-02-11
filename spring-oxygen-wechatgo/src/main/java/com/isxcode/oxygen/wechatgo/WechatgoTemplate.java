@@ -15,44 +15,36 @@
  */
 package com.isxcode.oxygen.wechatgo;
 
-import com.isxcode.oxygen.wechatgo.model.WeChatEventBody;
+import com.isxcode.oxygen.core.httpclient.HttpClientUtils;
 
 /**
- * provide method
+ * wechatgo template
  *
  * @author ispong
- * @since 0.0.1
+ * @version v0.1.0
  */
-public interface WechatgoEventHandler {
+public class WechatgoTemplate {
 
-    /**
-     * 订阅事件
-     *
-     * @param weChatEventBody 事件体
-     * @since 2020-02-04
-     */
-    default void subscribeEvent(WeChatEventBody weChatEventBody) {
+    private static WechatgoProperties wechatgoProperties;
 
+    public WechatgoTemplate(WechatgoProperties wechatgoProperties) {
+
+        WechatgoTemplate.wechatgoProperties = wechatgoProperties;
     }
 
     /**
-     * 取消订阅事件
+     * 发送微信模板
      *
-     * @param weChatEventBody 事件体
+     * @param data 模板数据
      * @since 2020-02-04
      */
-    default void unsubscribeEvent(WeChatEventBody weChatEventBody) {
+    public void sendMsgTemplate(String data) {
+
+        try {
+            HttpClientUtils.doPost(wechatgoProperties.getUrl() + "/cgi-bin/message/template/send" + "?access_token=" + WechatgoServiceImpl.WE_CHAT_ACCESS_TOKEN, data);
+        } catch (Exception e) {
+            throw new WechatgoException("send template fail");
+        }
 
     }
-
-    /**
-     * 推送模板消息响应
-     *
-     * @param weChatEventBody 事件体
-     * @since 2020-02-04
-     */
-    default void sendMsgTemplateResponse(WeChatEventBody weChatEventBody) {
-
-    }
-
 }

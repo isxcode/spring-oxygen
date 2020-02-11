@@ -15,36 +15,27 @@
  */
 package com.isxcode.oxygen.wechatgo;
 
-import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * wechatgo properties
+ * Wechatgo Token Thread
  *
  * @author ispong
- * @version v0.1.0
+ * @since  0.0.1
  */
-@Data
-@ConfigurationProperties(WechatgoConstants.STARTER_PREFIX)
-public class WechatgoProperties {
+@Slf4j
+public class WechatgoTokenThread implements Runnable {
 
-    /**
-     * appId
-     */
-    private String appId;
+    private WechatgoService wechatgoService;
 
-    /**
-     * appSecret
-     */
-    private String appSecret;
+    public WechatgoTokenThread(WechatgoService wechatgoService) {
 
-    /**
-     * wechat server token
-     */
-    private String token;
+        this.wechatgoService = wechatgoService;
+    }
 
-    /**
-     * wechat server
-     */
-    private String url = "https://api.weixin.qq.com";
+    @Override
+    public void run() {
+        log.debug("generate wechatgo token");
+        WechatgoServiceImpl.WE_CHAT_ACCESS_TOKEN = wechatgoService.getAccessToken().getAccess_token();
+    }
 }

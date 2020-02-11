@@ -55,4 +55,14 @@ public class WeChatEventBody {
      * 事件KEY值，qrscene_为前缀，后面为二维码的参数值
      */
     private String eventKey;
+
+    /**
+     * 消息模板消息
+     */
+    private String msgId;
+
+    /**
+     * 消息模板状态
+     */
+    private String status;
 }

@@ -18,10 +18,11 @@ package com.isxcode.oxygen.wechatgo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+
+import javax.annotation.Resource;
 
 /**
  * wechatgo autoConfiguration
@@ -30,10 +31,14 @@ import org.springframework.context.annotation.Configuration;
  * @version v0.1.0
  */
 @Slf4j
-@Configuration
-@ConditionalOnProperty(prefix = WechatgoConstants.STARTER_PREFIX, name = WechatgoConstants.APP_ID)
 @EnableConfigurationProperties(WechatgoProperties.class)
 public class WechatgoAutoConfiguration {
+
+    @Resource
+    private WechatgoEventHandler wechatgoEventHandler;
+
+    @Resource
+    private WechatgoService wechatgoService;
 
     private final WechatgoProperties wechatgoProperties;
 
@@ -60,17 +65,34 @@ public class WechatgoAutoConfiguration {
     }
 
     /**
+     * init WechatgoEventHandler
+     *
+     * @return WechatgoEventHandler
+     * @since 2020-02-11
+     */
+    @Bean
+    @ConditionalOnMissingBean(WechatgoEventHandler.class)
+    public WechatgoEventHandler initWechatgoEventHandler() {
+
+        log.debug("init WechatgoEventHandler");
+        return new WechatgoEventHandler() {
+        };
+    }
+
+    /**
      * init wechatgo service
      *
      * @return WechatgoServiceImpl
      * @since 2020-02-04
      */
     @Bean
-    @ConditionalOnBean(WechatgoAutoConfiguration.class)
+    @ConditionalOnClass(WechatgoAutoConfiguration.class)
     public WechatgoServiceImpl initWechatgoServiceImpl() {
 
         log.debug("init wechatgo service");
-        return new WechatgoServiceImpl(wechatgoProperties);
+        WechatgoServiceImpl wechatgoService = new WechatgoServiceImpl(wechatgoProperties);
+        wechatgoService.setWechatgoEventHandler(wechatgoEventHandler);
+        return wechatgoService;
     }
 
     /**
@@ -84,7 +106,7 @@ public class WechatgoAutoConfiguration {
     public WeChatTokenGenerator initWechatgoToken() {
 
         log.debug("init wechatgo token");
-        return new WeChatTokenGenerator(initWechatgoServiceImpl());
+        return new WeChatTokenGenerator(wechatgoService);
     }
 
     /**
@@ -98,7 +120,7 @@ public class WechatgoAutoConfiguration {
     public WechatgoController initWechatgoController() {
 
         log.debug("init wechatgo controller");
-        return new WechatgoController(initWechatgoServiceImpl());
+        return new WechatgoController(wechatgoService);
     }
 
     /**
@@ -109,9 +131,9 @@ public class WechatgoAutoConfiguration {
      */
     @Bean
     @ConditionalOnBean(WeChatTokenGenerator.class)
-    public WechatgoUtils initWechatgoUtils() {
+    public WechatgoTemplate initWechatgoUtils() {
 
         log.debug("init wechatgo utils");
-        return new WechatgoUtils(wechatgoProperties);
+        return new WechatgoTemplate(wechatgoProperties);
     }
 }

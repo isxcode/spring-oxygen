@@ -13,38 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.isxcode.oxygen.wechatgo;
+package com.isxcode.oxygen.wechatgo.annotation;
 
-import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import com.isxcode.oxygen.wechatgo.WechatgoAutoConfiguration;
+import org.springframework.context.annotation.Import;
+
+import java.lang.annotation.*;
 
 /**
- * wechatgo properties
+ * enable start wechatgo @EnableWechatgo
  *
  * @author ispong
- * @version v0.1.0
+ * @since 0.0.1
  */
-@Data
-@ConfigurationProperties(WechatgoConstants.STARTER_PREFIX)
-public class WechatgoProperties {
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Import(WechatgoAutoConfiguration.class)
+@Documented
+public @interface EnableWechatgo {
 
-    /**
-     * appId
-     */
-    private String appId;
-
-    /**
-     * appSecret
-     */
-    private String appSecret;
-
-    /**
-     * wechat server token
-     */
-    private String token;
-
-    /**
-     * wechat server
-     */
-    private String url = "https://api.weixin.qq.com";
 }

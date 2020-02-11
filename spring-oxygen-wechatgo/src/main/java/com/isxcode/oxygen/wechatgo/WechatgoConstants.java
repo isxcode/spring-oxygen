@@ -28,8 +28,4 @@ public interface WechatgoConstants {
      */
     String STARTER_PREFIX = "oxygen.wechatgo";
 
-    /**
-     * app id
-     */
-    String APP_ID = "app-id";
 }

@@ -22,7 +22,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import static java.util.concurrent.Executors.newScheduledThreadPool;
-import static com.isxcode.oxygen.wechatgo.WechatgoProperties.WE_CHAT_ACCESS_TOKEN;
 
 /**
  * init wechat token
@@ -33,9 +32,9 @@ import static com.isxcode.oxygen.wechatgo.WechatgoProperties.WE_CHAT_ACCESS_TOKE
 @Slf4j
 public class WeChatTokenGenerator implements InitializingBean {
 
-    private final WechatgoServiceImpl weChatService;
+    private final WechatgoService weChatService;
 
-    public WeChatTokenGenerator(WechatgoServiceImpl weChatService) {
+    public WeChatTokenGenerator(WechatgoService weChatService) {
 
         this.weChatService = weChatService;
     }
@@ -43,12 +42,7 @@ public class WeChatTokenGenerator implements InitializingBean {
     @Override
     public void afterPropertiesSet() {
 
-        log.debug("generate wechatgo token");
-
         ScheduledExecutorService executorService = newScheduledThreadPool(1);
-        executorService.scheduleAtFixedRate(
-                new Thread(() ->
-                        WE_CHAT_ACCESS_TOKEN = weChatService.getAccessToken().getAccess_token()), 0, 1, TimeUnit.HOURS);
-
+        executorService.scheduleAtFixedRate(new WechatgoTokenThread(weChatService), 0, 90, TimeUnit.MINUTES);
     }
 }
