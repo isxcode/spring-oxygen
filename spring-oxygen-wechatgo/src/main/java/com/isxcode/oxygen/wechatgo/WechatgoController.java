@@ -69,6 +69,7 @@ public class WechatgoController {
      * post接口-接受微信事件(和get接口地址保持一直)
      *
      * @param httpServletRequest servlet请求体
+     * @exception IOException wechatgo异常
      * @since 2020-01-14
      */
     @PostMapping("/wechatServer")

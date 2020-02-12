@@ -1,8 +1,11 @@
 description 'Spring Oxygen Core'
 
 dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-freemarker'
+//		compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
     compile 'org.dom4j:dom4j:latest.integration'
     compile 'org.apache.poi:poi:latest.integration'
+    compile 'com.alibaba:fastjson:latest.integration'
     compile 'org.apache.poi:poi-ooxml:latest.integration'
     compile 'org.apache.httpcomponents:httpclient:latest.integration'
     compile 'io.jsonwebtoken:jjwt-api:latest.integration'

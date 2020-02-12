@@ -10,10 +10,12 @@ apply plugin: 'io.spring.dependency-management'
 repositories {
 	maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
 	mavenCentral()
+	mavenLocal()
 }
 
 dependencies {
-	compile(project(':spring-oxygen-wechatgo'))
+//	compile(project(':spring-oxygen-wechatgo'))
+	compile group: 'com.github.ispong', name: 'spring-oxygen-wechatgo', version: '0.0.1'
 	compile(project(':spring-oxygen-flysql'))
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -42,17 +44,18 @@ dependencies {
 
 subprojects {
 
-	apply plugin: 'maven-publish'
 	apply plugin: 'java'
+	apply plugin: 'maven-publish'
+	apply plugin: 'signing'
 	apply plugin: 'org.springframework.boot'
 	apply plugin: 'io.spring.dependency-management'
 
-	bootJar {
-		enabled false
-	}
+	version = '0.0.1'
+	group = 'com.github.ispong'
 
-	jar {
-		enabled true
+	java {
+		withJavadocJar()
+		withSourcesJar()
 	}
 
 	repositories {
@@ -62,18 +65,76 @@ subprojects {
 
 	dependencies {
 		implementation 'org.springframework.boot:spring-boot-starter'
-		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		compile 'org.springframework.boot:spring-boot-starter-web'
-		compile 'org.springframework.boot:spring-boot-starter-aop'
 		annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-		compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-		compile 'org.springframework.boot:spring-boot-starter-freemarker'
-//		compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
-		compile 'org.springframework.boot:spring-boot-starter-mail'
 		compileOnly 'org.projectlombok:lombok:latest.integration'
 		annotationProcessor 'org.projectlombok:lombok:latest.integration'
-		testCompile 'org.junit.jupiter:junit-jupiter-api:latest.integration'
-		compile 'com.alibaba:fastjson:latest.integration'
 	}
 
+	publishing {
+		publications {
+			mavenJava(MavenPublication) {
+
+				artifactId = project.getName()
+				from components.java
+				versionMapping {
+					usage('java-api') {
+						fromResolutionOf('runtimeClasspath')
+					}
+					usage('java-runtime') {
+						fromResolutionResult()
+					}
+				}
+				pom {
+					name = project.getName()
+					description = project.getName()
+					url = 'https://github.com/ispong/spring-oxygen/tree/master/spring-oxygen-wechatgo/src/main/java/com/isxcode/oxygen/wechatgo'
+					licenses {
+						license {
+							name = 'The Apache License, Version 2.0'
+							url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+						}
+					}
+					developers {
+						developer {
+							name = 'ispong'
+							email = 'ispong@outlook.com'
+						}
+					}
+					scm {
+						connection = 'scm:git:git://github.com/ispong/spring-oxygen.git'
+						developerConnection = 'scm:git:ssh://github.com/ispong/spring-oxygen.git'
+						url = 'https://github.com/ispong/spring-oxygen/tree/master'
+					}
+				}
+			}
+		}
+
+		repositories {
+			maven {
+				def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+				def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+				url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+			}
+		}
+	}
+
+	signing {
+		sign publishing.publications.mavenJava
+	}
+
+	javadoc {
+		options.encoding("UTF-8")
+		if (JavaVersion.current().isJava9Compatible()) {
+			options.addBooleanOption('html5', true)
+		}
+	}
+
+	bootJar {
+		enabled false
+	}
+
+	jar {
+		enabled true
+	}
 }
