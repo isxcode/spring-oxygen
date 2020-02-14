@@ -1,6 +1,6 @@
-package com.isxcode.oxygen.autocode;
+package com.ispong.oxygen.autocode;
 
-import com.isxcode.oxygen.autocode.model.TableColumnInfo;
+import com.ispong.oxygen.autocode.model.TableColumnInfo;
 import org.springframework.util.ResourceUtils;
 
 import java.io.FileNotFoundException;

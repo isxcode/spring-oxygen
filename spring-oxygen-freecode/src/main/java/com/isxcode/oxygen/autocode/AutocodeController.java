@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.isxcode.oxygen.autocode;
+package com.ispong.oxygen.autocode;
 
-import com.isxcode.oxygen.flysql.common.BaseController;
-import com.isxcode.oxygen.flysql.common.BaseResponse;
+import com.ispong.oxygen.flysql.common.BaseController;
+import com.ispong.oxygen.flysql.common.BaseResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;

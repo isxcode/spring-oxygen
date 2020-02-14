@@ -50,7 +50,7 @@ subprojects {
 	apply plugin: 'org.springframework.boot'
 	apply plugin: 'io.spring.dependency-management'
 
-	version = '0.0.1'
+	version = '0.0.2'
 	group = 'com.github.ispong'
 
 	java {
@@ -115,6 +115,10 @@ subprojects {
 				def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
 				def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
 				url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+				credentials {
+					username = sonatypeUsername
+					password = sonatypePassword
+				}
 			}
 		}
 	}

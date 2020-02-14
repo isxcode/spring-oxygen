@@ -1,7 +1,7 @@
-package com.isxcode.oxygen.autocode.model;
+package com.ispong.oxygen.autocode.model;
 
-import com.isxcode.oxygen.autocode.CodeUtils;
-import com.isxcode.oxygen.core.reflect.ReflectUtils;
+import com.ispong.oxygen.autocode.CodeUtils;
+import com.ispong.oxygen.core.reflect.ReflectUtils;
 import lombok.Data;
 
 /**

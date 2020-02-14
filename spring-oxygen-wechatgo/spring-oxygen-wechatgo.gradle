@@ -1,7 +1,1 @@
-
-dependencies {
-//    compile 'org.dom4j:dom4j:latest.integration'
-//    compile 'com.alibaba:fastjson:latest.integration'
-//    compile 'org.apache.httpcomponents:httpclient:latest.integration'
-}
-
+description = 'spring oxygen wechatgo,to fast develope wechat with spring framework'

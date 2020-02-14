@@ -12,3 +12,6 @@ logs
 
 # gradle warpper
 gradle
+
+# secret
+gradle.properties

@@ -1,4 +1,4 @@
-package com.isxcode.oxygen.autocode;
+package com.ispong.oxygen.autocode;
 
 import lombok.Data;
 

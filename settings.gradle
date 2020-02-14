@@ -4,7 +4,6 @@ include 'spring-oxygen-autocode'
 include 'spring-oxygen-flysql'
 
 include 'spring-oxygen-wechatgo'
-include 'oxygen-wechatgo-spring-boot-starter'
 
 rootProject.name = 'spring-oxygen'
 rootProject.children.each { project ->

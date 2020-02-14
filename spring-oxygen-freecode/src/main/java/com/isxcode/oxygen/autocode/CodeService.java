@@ -1,7 +1,7 @@
-package com.isxcode.oxygen.autocode;
+package com.ispong.oxygen.autocode;
 
-import com.isxcode.oxygen.autocode.model.TableColumnInfo;
-import com.isxcode.oxygen.core.freemarker.FreemarkerUtils;
+import com.ispong.oxygen.autocode.model.TableColumnInfo;
+import com.ispong.oxygen.core.freemarker.FreemarkerUtils;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Files;
@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import static com.isxcode.oxygen.autocode.AutocodeProperties.ENTITY;
+import static com.ispong.oxygen.autocode.AutocodeProperties.ENTITY;
 
 /**
  * 自动生成代码实现类

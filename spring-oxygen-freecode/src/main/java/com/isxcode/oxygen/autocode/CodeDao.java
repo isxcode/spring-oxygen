@@ -1,8 +1,8 @@
-package com.isxcode.oxygen.autocode;
+package com.ispong.oxygen.autocode;
 
-import com.isxcode.oxygen.autocode.model.TableColumnInfo;
-import com.isxcode.oxygen.autocode.model.TableInfo;
-import com.isxcode.oxygen.flysql.FlySqlFactory;
+import com.ispong.oxygen.autocode.model.TableColumnInfo;
+import com.ispong.oxygen.autocode.model.TableInfo;
+import com.ispong.oxygen.flysql.FlySqlFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

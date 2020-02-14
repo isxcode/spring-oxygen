@@ -16,7 +16,7 @@ Content-Type: application/json
 ```yaml
 isxcode:
   code:
-    module-path: com.isxcode.oxygen.demo  # 模块地址
+    module-path: com.ispong.oxygen.demo  # 模块地址
     file-paths: # 依赖于模块的地址
       'controller': controller 
       'service': service
