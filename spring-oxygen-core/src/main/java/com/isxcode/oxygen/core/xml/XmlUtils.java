@@ -43,7 +43,7 @@ public class XmlUtils {
      *
      * @param inputStream 数据流
      * @param clazz       需要解析成的对象类
-     * @return 对象
+     * @return 泛型对象
      * @since 2020-01-28
      */
     public static <T> T parseXml(InputStream inputStream, Class<T> clazz) {

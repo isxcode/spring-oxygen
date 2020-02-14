@@ -18,6 +18,7 @@ package com.isxcode.oxygen.wechatgo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 
+import javax.annotation.Resource;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -32,17 +33,17 @@ import static java.util.concurrent.Executors.newScheduledThreadPool;
 @Slf4j
 public class WeChatTokenGenerator implements InitializingBean {
 
-    private final WechatgoService weChatService;
+    @Resource
+    private WechatgoTokenCache wechatgoTokenCache;
 
-    public WeChatTokenGenerator(WechatgoService weChatService) {
-
-        this.weChatService = weChatService;
-    }
+    @Resource
+    private WechatgoService wechatgoService;
 
     @Override
     public void afterPropertiesSet() {
 
         ScheduledExecutorService executorService = newScheduledThreadPool(1);
-        executorService.scheduleAtFixedRate(new WechatgoTokenThread(weChatService), 0, 90, TimeUnit.MINUTES);
+        executorService.scheduleAtFixedRate(new WechatgoTokenThread(wechatgoTokenCache, wechatgoService), 0, 1, TimeUnit.MINUTES);
+
     }
 }

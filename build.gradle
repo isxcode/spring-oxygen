@@ -14,8 +14,8 @@ repositories {
 }
 
 dependencies {
-//	compile(project(':spring-oxygen-wechatgo'))
-	compile group: 'com.github.ispong', name: 'spring-oxygen-wechatgo', version: '0.0.1'
+	compile(project(':spring-oxygen-wechatgo'))
+//	compile group: 'com.github.ispong', name: 'spring-oxygen-wechatgo', version: '0.0.1'
 	compile(project(':spring-oxygen-flysql'))
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -29,7 +29,7 @@ dependencies {
 //	compile 'org.springframework.data:spring-data-redis'
 //	compile 'org.springframework.boot:spring-boot-starter-amqp'
 //	compile 'io.lettuce:lettuce-core:latest.integration'
-	compile 'org.dom4j:dom4j:latest.integration'
+//	compile 'org.dom4j:dom4j:latest.integration'
 	compile 'org.springframework.boot:spring-boot-starter-freemarker'
 	compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	compile 'org.springframework.boot:spring-boot-starter-mail'
@@ -37,7 +37,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok:latest.integration'
 	testCompile 'org.junit.jupiter:junit-jupiter-api:latest.integration'
 	compile 'mysql:mysql-connector-java:latest.integration'
-	compile 'com.alibaba:fastjson:latest.integration'
+//	compile 'com.alibaba:fastjson:latest.integration'
 	compile 'com.github.ulisesbocchio:jasypt-spring-boot-starter:latest.integration'
 	compile 'com.alibaba:druid:latest.integration'
 }
@@ -65,7 +65,7 @@ subprojects {
 
 	dependencies {
 		implementation 'org.springframework.boot:spring-boot-starter'
-		compile 'org.springframework.boot:spring-boot-starter-web'
+		compileOnly 'org.springframework.boot:spring-boot-starter-web'
 		annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 		compileOnly 'org.projectlombok:lombok:latest.integration'
 		annotationProcessor 'org.projectlombok:lombok:latest.integration'

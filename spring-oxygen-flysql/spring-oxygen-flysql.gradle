@@ -2,4 +2,5 @@ description = 'Spring Oxygen Flysql'
 
 dependencies {
     compile(project(':spring-oxygen-core'))
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
 }

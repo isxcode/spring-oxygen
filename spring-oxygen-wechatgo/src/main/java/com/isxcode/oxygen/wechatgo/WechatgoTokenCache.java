@@ -15,44 +15,40 @@
  */
 package com.isxcode.oxygen.wechatgo;
 
-import com.isxcode.oxygen.wechatgo.model.WeChatEventBody;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 
 /**
- * provide method
+ * cache wechat access_token
  *
  * @author ispong
- * @since 0.0.1
+ * @since  0.0.1
  */
-public interface WechatgoEventHandler {
+public class WechatgoTokenCache {
 
     /**
-     * subscribe Event
+     * cache token
      *
-     * @param weChatEventBody weChatEventBody
-     * @since 2020-02-04
+     * @param env env
+     * @return token
+     * @since 2020-02-14
      */
-    default void subscribeEvent(WeChatEventBody weChatEventBody) {
+    @Cacheable(value = "token_cache", key = "#env")
+    public String cacheToken(String env) {
 
+        return "";
     }
 
     /**
-     * unsubscribe Event
+     * update token
      *
-     * @param weChatEventBody weChatEventBody
-     * @since 2020-02-04
+     * @param env         env
+     * @param accessToken accessToken
+     * @return accessToken
+     * @since 2020-02-14
      */
-    default void unsubscribeEvent(WeChatEventBody weChatEventBody) {
-
+    @CachePut(value = "token_cache", key = "#env")
+    public String putToken(String env, String accessToken) {
+        return accessToken;
     }
-
-    /**
-     * send Msg Template Response
-     *
-     * @param weChatEventBody weChatEventBody
-     * @since 2020-02-04
-     */
-    default void sendMsgTemplateResponse(WeChatEventBody weChatEventBody) {
-
-    }
-
 }

@@ -28,4 +28,13 @@ public interface WechatgoConstants {
      */
     String STARTER_PREFIX = "oxygen.wechatgo";
 
+    /**
+     * \n
+     */
+    String SLOPE_N = "\n";
+
+    /**
+     * prod
+     */
+    String ENV = "prod";
 }

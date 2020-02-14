@@ -21,21 +21,24 @@ import lombok.extern.slf4j.Slf4j;
  * Wechatgo Token Thread
  *
  * @author ispong
- * @since  0.0.1
+ * @since 0.0.1
  */
 @Slf4j
 public class WechatgoTokenThread implements Runnable {
 
-    private WechatgoService wechatgoService;
+    private final WechatgoTokenCache wechatgoTokenCache;
 
-    public WechatgoTokenThread(WechatgoService wechatgoService) {
+    private final WechatgoService wechatgoService;
 
+    public WechatgoTokenThread(WechatgoTokenCache wechatgoTokenCache, WechatgoService wechatgoService) {
+
+        this.wechatgoTokenCache = wechatgoTokenCache;
         this.wechatgoService = wechatgoService;
     }
 
     @Override
     public void run() {
         log.debug("generate wechatgo token");
-        WechatgoServiceImpl.WE_CHAT_ACCESS_TOKEN = wechatgoService.getAccessToken().getAccess_token();
+        wechatgoTokenCache.putToken(WechatgoConstants.ENV, wechatgoService.getAccessToken().getAccessToken());
     }
 }

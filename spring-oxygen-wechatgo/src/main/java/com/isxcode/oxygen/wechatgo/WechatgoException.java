@@ -16,7 +16,7 @@
 package com.isxcode.oxygen.wechatgo;
 
 /**
- * 异常处理类
+ * Wechatgo Exception
  *
  * @author ispong
  * @version v0.1.0
@@ -24,6 +24,6 @@ package com.isxcode.oxygen.wechatgo;
 public class WechatgoException extends RuntimeException {
 
     public WechatgoException(String message) {
-        super("wechatgo exception:" + message);
+        super("[wechatgo exception]:" + message);
     }
 }

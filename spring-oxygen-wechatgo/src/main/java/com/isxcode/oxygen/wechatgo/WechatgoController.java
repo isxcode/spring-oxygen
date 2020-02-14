@@ -15,11 +15,12 @@
  */
 package com.isxcode.oxygen.wechatgo;
 
-import com.isxcode.oxygen.core.xml.XmlUtils;
 import com.isxcode.oxygen.wechatgo.model.WeChatEventBody;
+import com.isxcode.oxygen.wechatgo.utils.XmlUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
@@ -34,21 +35,17 @@ import java.io.IOException;
 @RequestMapping("wechatgo")
 public class WechatgoController {
 
-    private final WechatgoService wechatgoService;
-
-    public WechatgoController(WechatgoService weChatService) {
-
-        this.wechatgoService = weChatService;
-    }
+    @Resource
+    private WechatgoService wechatgoService;
 
     /**
-     * get接口-微信服务器认证
+     * get
      *
-     * @param echostr   微信的认证值
+     * @param echostr   echostr
      * @param timestamp timestamp
      * @param nonce     nonce
      * @param signature signature
-     * @return 返回微信的认证值
+     * @return echostr
      * @since 2020-01-14
      */
     @GetMapping("/wechatServer")
@@ -66,17 +63,17 @@ public class WechatgoController {
     }
 
     /**
-     * post接口-接受微信事件(和get接口地址保持一直)
+     * post
      *
-     * @param httpServletRequest servlet请求体
-     * @exception IOException wechatgo异常
+     * @param httpServletRequest httpServletRequest
+     * @throws IOException getInputStream exception
      * @since 2020-01-14
      */
     @PostMapping("/wechatServer")
     public void weChatListen(HttpServletRequest httpServletRequest) throws IOException {
 
         log.debug("receive wechat event");
-        WeChatEventBody weChatEventBody = XmlUtils.parseXml(httpServletRequest.getInputStream(), WeChatEventBody.class);
+        WeChatEventBody weChatEventBody = XmlUtils.parseWechatXml(httpServletRequest.getInputStream());
         wechatgoService.handlerWechatEvent(weChatEventBody);
     }
 }

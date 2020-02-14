@@ -16,15 +16,21 @@
 package com.isxcode.oxygen.wechatgo.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.xml.sax.Attributes;
+import org.xml.sax.helpers.DefaultHandler;
+
+import static com.isxcode.oxygen.wechatgo.WechatgoConstants.SLOPE_N;
 
 /**
  * wechat event_body
- * 
+ *
  * @author ispong
  * @version v0.1.0
  */
 @Data
-public class WeChatEventBody {
+@EqualsAndHashCode(callSuper = true)
+public class WeChatEventBody extends DefaultHandler {
 
     /**
      * 开发者微信号
@@ -65,4 +71,46 @@ public class WeChatEventBody {
      * 消息模板状态
      */
     private String status;
+
+    private String localName;
+
+    @Override
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
+
+        this.localName = qName;
+    }
+
+    @Override
+    public void characters(char[] ch, int start, int length) {
+
+        String date = new String(ch, start, length);
+        if (!SLOPE_N.equals(date)) {
+            switch (this.localName) {
+                case "ToUserName":
+                    this.toUserName = date;
+                    break;
+                case "FromUserName":
+                    this.fromUserName = date;
+                    break;
+                case "CreateTime":
+                    this.createTime = Integer.parseInt(date);
+                    break;
+                case "MsgType":
+                    this.msgType = date;
+                    break;
+                case "Event":
+                    this.event = date;
+                    break;
+                case "MsgId":
+                    this.msgId = date;
+                    break;
+                case "Status":
+                    this.status = date;
+                    break;
+                default:
+            }
+        }
+
+    }
 }
+

@@ -27,28 +27,28 @@ import com.isxcode.oxygen.wechatgo.model.WeChatEventBody;
 public interface WechatgoService {
 
     /**
-     * 获取公众号access_token
+     * get AccessToken
      *
-     * @return 获取公众号token体
+     * @return WeChatAccessToken
      * @since 2020-01-14
      */
     WeChatAccessToken getAccessToken();
 
     /**
-     * 微信公众号校验是否是微信发出的请求
+     * check WeChat
      *
-     * @param nonce     随机数
-     * @param timestamp 时间戳
-     * @param signature 签名
-     * @return true是微信发送的请求
+     * @param nonce     nonce
+     * @param timestamp timestamp
+     * @param signature signature
+     * @return true/false
      * @since 2020-01-15
      */
     Boolean checkWeChat(String nonce, String timestamp, String signature);
 
     /**
-     * 微信推送事件
+     * handler Wechat Event
      *
-     * @param weChatEventBody 事件体
+     * @param weChatEventBody weChatEventBody
      * @since 2020-02-04
      */
     void handlerWechatEvent(WeChatEventBody weChatEventBody);

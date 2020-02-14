@@ -1,5 +1,7 @@
 
 dependencies {
-    compile(project(':spring-oxygen-core'))
+//    compile 'org.dom4j:dom4j:latest.integration'
+//    compile 'com.alibaba:fastjson:latest.integration'
+//    compile 'org.apache.httpcomponents:httpclient:latest.integration'
 }
 

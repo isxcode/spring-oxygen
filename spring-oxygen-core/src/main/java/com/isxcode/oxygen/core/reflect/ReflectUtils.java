@@ -45,10 +45,12 @@ public class ReflectUtils {
     /**
      * 解析field注解
      * 最大字段属性为16个
+     * <p>
      * Map<Field, Generate> fieldAnnotation = getFieldAnnotation(annotatedElement.class, Generate.class);
      * fieldAnnotation.forEach((key, value) -> {
      * System.out.println(key + "：" + value.type());
      * });
+     * </>
      *
      * @param annotatedElement 被注解的对象
      * @param annotationType   注解对象
@@ -101,6 +103,7 @@ public class ReflectUtils {
      *
      * @param annotatedElement 被注解的对象
      * @param annotationType   注解对象
+     * @param <A>              泛型
      * @return Map<Field, < ? extends Annotation>>
      * @since 2019/10/9
      */
@@ -158,6 +161,7 @@ public class ReflectUtils {
      * 反射实例化
      *
      * @param clazz 类型
+     * @param <A>   泛型
      * @return class实体
      * @since 2019-12-23
      */

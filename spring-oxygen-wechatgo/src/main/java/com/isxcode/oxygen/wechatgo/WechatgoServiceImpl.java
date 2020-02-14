@@ -15,12 +15,13 @@
  */
 package com.isxcode.oxygen.wechatgo;
 
-import com.isxcode.oxygen.core.httpclient.HttpClientUtils;
 import com.isxcode.oxygen.wechatgo.model.WeChatAccessToken;
 import com.isxcode.oxygen.wechatgo.model.WeChatEventBody;
+import com.isxcode.oxygen.wechatgo.utils.HttpClientUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.codec.digest.DigestUtils;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,39 +35,14 @@ import java.util.Map;
 @Slf4j
 public class WechatgoServiceImpl implements WechatgoService {
 
-    /**
-     * temp token
-     */
-    public static String WE_CHAT_ACCESS_TOKEN = "";
-
-    private WechatgoEventHandler wechatgoEventHandler;
-
-    public void setWechatgoEventHandler(WechatgoEventHandler wechatgoEventHandler) {
-        this.wechatgoEventHandler = wechatgoEventHandler;
-    }
+    private final WechatgoEventHandler wechatgoEventHandler;
 
     private final WechatgoProperties wechatgoProperties;
 
-    public WechatgoServiceImpl(WechatgoProperties wechatgoProperties) {
+    public WechatgoServiceImpl(WechatgoProperties wechatgoProperties, WechatgoEventHandler wechatgoEventHandler) {
 
+        this.wechatgoEventHandler = wechatgoEventHandler;
         this.wechatgoProperties = wechatgoProperties;
-    }
-
-    @Override
-    public Boolean checkWeChat(String nonce, String timestamp, String signature) {
-
-        // 获取token
-        String token = wechatgoProperties.getToken();
-
-        // token,timestamp,nonce字典序排序得字符串list
-        String[] strings = {token, timestamp, nonce};
-        Arrays.sort(strings);
-
-        // 哈希算法加密(SHA1)list得到hashcode
-        String hashcode = DigestUtils.sha1Hex((strings[0] + strings[1] + strings[2]));
-
-        // hashcode == signature ?
-        return signature.equals(hashcode);
     }
 
     @Override
@@ -82,7 +58,7 @@ public class WechatgoServiceImpl implements WechatgoService {
         WeChatAccessToken weChatAccessToken = HttpClientUtils.doGet(wechatgoProperties.getUrl() + "/cgi-bin/token", requestMap, WeChatAccessToken.class);
 
         // 返回体处理
-        switch (weChatAccessToken.getErrcode()) {
+        switch (weChatAccessToken.getErrCode()) {
             case -1:
                 // 系统繁忙，此时请开发者稍候再试(5秒)
                 try {
@@ -93,16 +69,17 @@ public class WechatgoServiceImpl implements WechatgoService {
                 return getAccessToken();
             case 0:
                 // 请求成功
+                log.debug("wechat token" + weChatAccessToken);
                 return weChatAccessToken;
             default:
-                throw new WechatgoException(weChatAccessToken.getErrmsg());
+                throw new WechatgoException(weChatAccessToken.getErrMsg());
         }
     }
 
     @Override
     public void handlerWechatEvent(WeChatEventBody weChatEventBody) {
 
-        switch (weChatEventBody.getEvent()) {
+        switch (String.valueOf(weChatEventBody.getEvent())) {
             case "subscribe":
                 log.debug("event subscribe");
                 wechatgoEventHandler.subscribeEvent(weChatEventBody);
@@ -115,9 +92,41 @@ public class WechatgoServiceImpl implements WechatgoService {
                 log.debug("event send template success");
                 wechatgoEventHandler.sendMsgTemplateResponse(weChatEventBody);
                 break;
-                default:
+            default:
                 log.debug("event nothing");
         }
+    }
+
+    @Override
+    public Boolean checkWeChat(String nonce, String timestamp, String signature) {
+
+        // 获取token
+        String token = wechatgoProperties.getToken();
+
+        // token,timestamp,nonce字典序排序得字符串list
+        String[] strings = {token, timestamp, nonce};
+        Arrays.sort(strings);
+
+        try {
+            // 哈希算法加密(SHA1)list得到hashcode
+            MessageDigest sha1 = MessageDigest.getInstance("SHA1");
+            sha1.update((strings[0] + strings[1] + strings[2]).getBytes());
+            byte[] digest = sha1.digest();
+            char[] hexDigits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+            char[] hashcode = new char[digest.length * 2];
+            int index = 0;
+            for (byte b : digest) {
+                hashcode[index++] = hexDigits[(b >>> 4) & 0xf];
+                hashcode[index++] = hexDigits[b & 0xf];
+            }
+            log.debug("hashcode" + new String(hashcode) + "--signature" + signature);
+
+            // hashcode == signature ?
+            return signature.equals(new String(hashcode));
+        } catch (NoSuchAlgorithmException e) {
+            throw new WechatgoException("sha1 parse fail");
+        }
+
     }
 
 }

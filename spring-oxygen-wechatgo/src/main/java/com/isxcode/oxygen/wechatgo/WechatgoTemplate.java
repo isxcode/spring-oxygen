@@ -15,7 +15,10 @@
  */
 package com.isxcode.oxygen.wechatgo;
 
-import com.isxcode.oxygen.core.httpclient.HttpClientUtils;
+import com.isxcode.oxygen.wechatgo.utils.HttpClientUtils;
+
+import javax.annotation.Resource;
+
 
 /**
  * wechatgo template
@@ -25,23 +28,22 @@ import com.isxcode.oxygen.core.httpclient.HttpClientUtils;
  */
 public class WechatgoTemplate {
 
-    private static WechatgoProperties wechatgoProperties;
+    @Resource
+    private WechatgoProperties wechatgoProperties;
 
-    public WechatgoTemplate(WechatgoProperties wechatgoProperties) {
-
-        WechatgoTemplate.wechatgoProperties = wechatgoProperties;
-    }
+    @Resource
+    private WechatgoTokenCache wechatgoTokenCache;
 
     /**
-     * 发送微信模板
+     * send Msg Template
      *
-     * @param data 模板数据
+     * @param data data
      * @since 2020-02-04
      */
     public void sendMsgTemplate(String data) {
 
         try {
-            HttpClientUtils.doPost(wechatgoProperties.getUrl() + "/cgi-bin/message/template/send" + "?access_token=" + WechatgoServiceImpl.WE_CHAT_ACCESS_TOKEN, data);
+            HttpClientUtils.doPost(wechatgoProperties.getUrl() + "/cgi-bin/message/template/send" + "?access_token=" + wechatgoTokenCache.cacheToken(WechatgoConstants.ENV), data);
         } catch (Exception e) {
             throw new WechatgoException("send template fail");
         }

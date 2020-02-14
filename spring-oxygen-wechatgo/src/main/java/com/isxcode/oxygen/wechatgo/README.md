@@ -36,7 +36,7 @@ oxygen:
 
 4- config wechat server
 ```text
-服务器地址(URL) -- http://localhost:port/context/wechatgo/wechatServer
+服务器地址(URL) -- http://${localhost}:8080/${context}/wechatgo/wechatServer
 令牌(Token) -- yaml配置的custom server token
 消息加解密密钥 -- 随机数
 消息加解密方式 -- 明文模式
@@ -102,6 +102,11 @@ public class WechatService implements WechatgoEventHandler {
     @Override
     public void unsubscribeEvent(WeChatEventBody weChatEventBody) {
         // 取消关注事件       
+    }
+    
+    @Override
+    public void sendMsgTemplateResponse(WeChatEventBody weChatEventBody) {
+        // 发送模板返回事件        
     }
 
 }

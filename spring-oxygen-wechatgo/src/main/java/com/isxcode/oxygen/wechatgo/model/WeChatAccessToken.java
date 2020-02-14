@@ -16,6 +16,7 @@
  */
 package com.isxcode.oxygen.wechatgo.model;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.Data;
 
 /**
@@ -28,22 +29,26 @@ import lombok.Data;
 public class WeChatAccessToken {
 
     /**
-     * 获取到的凭证
+     * access_token
      */
-    private String access_token;
+    @JsonSetter("access_token")
+    private String accessToken;
 
     /**
-     * 凭证有效时间，单位：秒
+     * expires_in(sec)
      */
-    private Integer expires_in;
+    @JsonSetter("expires_in")
+    private Integer expiresIn;
 
     /**
-     * 返回错误码
+     * err code
      */
-    private Integer errcode = 0;
+    @JsonSetter("errcode")
+    private Integer errCode = 0;
 
     /**
-     * 错误信息
+     * err msg
      */
-    private String errmsg;
+    @JsonSetter("errMsg")
+    private String errMsg;
 }

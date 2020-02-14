@@ -1,5 +1,0 @@
-description = 'Spring Oxygen Wechatgo Starter'
-
-dependencies {
-    compile(project(':spring-oxygen-wechago'))
-}

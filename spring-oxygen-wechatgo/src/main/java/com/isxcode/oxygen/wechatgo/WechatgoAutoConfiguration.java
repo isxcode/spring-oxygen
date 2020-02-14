@@ -20,6 +20,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 
 import javax.annotation.Resource;
@@ -31,19 +32,32 @@ import javax.annotation.Resource;
  * @version v0.1.0
  */
 @Slf4j
+@EnableCaching
 @EnableConfigurationProperties(WechatgoProperties.class)
 public class WechatgoAutoConfiguration {
 
     @Resource
     private WechatgoEventHandler wechatgoEventHandler;
 
-    @Resource
-    private WechatgoService wechatgoService;
-
     private final WechatgoProperties wechatgoProperties;
 
     public WechatgoAutoConfiguration(WechatgoProperties wechatgoProperties) {
         this.wechatgoProperties = wechatgoProperties;
+    }
+
+    /**
+     * init WechatgoEventHandler
+     *
+     * @return WechatgoEventHandler
+     * @since 2020-02-11
+     */
+    @Bean
+    @ConditionalOnMissingBean(WechatgoEventHandler.class)
+    public WechatgoEventHandler initWechatgoEventHandler() {
+
+        log.debug("init WechatgoEventHandler");
+        return new WechatgoEventHandler() {
+        };
     }
 
     /**
@@ -64,19 +78,12 @@ public class WechatgoAutoConfiguration {
         System.out.println("          /____//____/                                                   /____/        ");
     }
 
-    /**
-     * init WechatgoEventHandler
-     *
-     * @return WechatgoEventHandler
-     * @since 2020-02-11
-     */
     @Bean
-    @ConditionalOnMissingBean(WechatgoEventHandler.class)
-    public WechatgoEventHandler initWechatgoEventHandler() {
+    @ConditionalOnClass(WechatgoAutoConfiguration.class)
+    public WechatgoTokenCache initWechatgoTokenCache(){
 
-        log.debug("init WechatgoEventHandler");
-        return new WechatgoEventHandler() {
-        };
+        log.debug("init wechatgo cache");
+        return new WechatgoTokenCache();
     }
 
     /**
@@ -86,13 +93,11 @@ public class WechatgoAutoConfiguration {
      * @since 2020-02-04
      */
     @Bean
-    @ConditionalOnClass(WechatgoAutoConfiguration.class)
+    @ConditionalOnBean(WechatgoAutoConfiguration.class)
     public WechatgoServiceImpl initWechatgoServiceImpl() {
 
         log.debug("init wechatgo service");
-        WechatgoServiceImpl wechatgoService = new WechatgoServiceImpl(wechatgoProperties);
-        wechatgoService.setWechatgoEventHandler(wechatgoEventHandler);
-        return wechatgoService;
+        return new WechatgoServiceImpl(wechatgoProperties, wechatgoEventHandler);
     }
 
     /**
@@ -102,11 +107,25 @@ public class WechatgoAutoConfiguration {
      * @since 2020-02-04
      */
     @Bean
-    @ConditionalOnBean(WechatgoServiceImpl.class)
+    @ConditionalOnBean(WechatgoService.class)
     public WeChatTokenGenerator initWechatgoToken() {
 
         log.debug("init wechatgo token");
-        return new WeChatTokenGenerator(wechatgoService);
+        return new WeChatTokenGenerator();
+    }
+
+    /**
+     * init wechatgo template
+     *
+     * @return controller
+     * @since 2020-02-04
+     */
+    @Bean
+    @ConditionalOnBean(WechatgoTokenCache.class)
+    public WechatgoTemplate initWechatgoTemplate() {
+
+        log.debug("init wechatgo template");
+        return new WechatgoTemplate();
     }
 
     /**
@@ -116,24 +135,10 @@ public class WechatgoAutoConfiguration {
      * @since 2020-02-04
      */
     @Bean
-    @ConditionalOnBean(WeChatTokenGenerator.class)
+    @ConditionalOnBean(WechatgoService.class)
     public WechatgoController initWechatgoController() {
 
         log.debug("init wechatgo controller");
-        return new WechatgoController(wechatgoService);
-    }
-
-    /**
-     * init wechatgo controller
-     *
-     * @return controller
-     * @since 2020-02-04
-     */
-    @Bean
-    @ConditionalOnBean(WeChatTokenGenerator.class)
-    public WechatgoTemplate initWechatgoUtils() {
-
-        log.debug("init wechatgo utils");
-        return new WechatgoTemplate(wechatgoProperties);
+        return new WechatgoController();
     }
 }
