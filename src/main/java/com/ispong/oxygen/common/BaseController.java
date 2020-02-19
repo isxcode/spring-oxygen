@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.flysql.common;
+package com.ispong.oxygen.common;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

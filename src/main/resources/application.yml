@@ -68,6 +68,7 @@ logging:
   level:
     root: info
     com.isxcode.oxygen.wechatgo: debug
+    com.ispong.oxygen.flysql: debug
   file:
     name: ./logs/spring.log
     max-size: 10MB

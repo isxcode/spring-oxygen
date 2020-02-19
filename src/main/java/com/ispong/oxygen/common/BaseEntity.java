@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.flysql.common;
+package com.ispong.oxygen.controller;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ispong.oxygen.flysql.ColumnName;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedBy;
@@ -47,7 +46,7 @@ public class BaseEntity implements Serializable {
      */
     @Id
     @GeneratedValue(generator = "uuid",strategy = GenerationType.AUTO)
-    @GenericGenerator(name = "uuid", strategy = "com.isxcode.oxygen.flysql.common.BaseUuidGenerator")
+    @GenericGenerator(name = "uuid", strategy = "com.ispong.oxygen.common.BaseUuidGenerator")
     private String uuid;
 
     /**
@@ -55,7 +54,6 @@ public class BaseEntity implements Serializable {
      */
     @JsonIgnore
     @CreatedBy
-    @ColumnName("created_by")
     private String createdBy;
 
     /**
@@ -63,7 +61,6 @@ public class BaseEntity implements Serializable {
      */
     @JsonIgnore
     @CreatedDate
-    @ColumnName("created_date")
     private LocalDateTime createdDate;
 
     /**
@@ -71,7 +68,6 @@ public class BaseEntity implements Serializable {
      */
     @JsonIgnore
     @LastModifiedBy
-    @ColumnName("last_modified_by")
     private String lastModifiedBy;
 
     /**
@@ -79,7 +75,6 @@ public class BaseEntity implements Serializable {
      */
     @JsonIgnore
     @LastModifiedDate
-    @ColumnName("last_modified_date")
     private LocalDateTime lastModifiedDate;
 
     /**
@@ -87,6 +82,5 @@ public class BaseEntity implements Serializable {
      */
     @JsonIgnore
     @Version
-    @ColumnName("version")
     private Integer version;
 }

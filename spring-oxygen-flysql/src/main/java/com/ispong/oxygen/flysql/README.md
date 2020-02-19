@@ -1,27 +1,59 @@
-# fly-sql
+# oxygen-flysql
 
-- 放飞sql写法
+### Quickly Start
 
-// 使用工场,生成sql工具
+1- import starter jar
 
-// 利用范式
+maven
+```xml
+<dependency>
+    <groupId>com.github.ispong</groupId>
+    <artifactId>spring-oxygen-flysql</artifactId>
+    <version>0.0.1</version>
+</dependency>
+```
+gradle
+```groovy
+compile group: 'com.github.ispong', name: 'spring-oxygen-flysql', version: '0.0.1'
+```
 
-// 使用sql拼接方式
+2- config dataBase info
+```yaml
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://host:port/dataBaseName
+    username: root
+    password: ENC@[R3ZE710H1U0nsxSr1x8vJKjD2rl83XEugZwVLOBkLIbrJekh0OE+7Vpsi2lvtpLP]
+```
 
-// 能不能把sql的语法规则搞出来
-
+3- create entity dto demo
 ```java
-class demo{  
+
+@FlysqlView(type = DateBaseType.MYSQL, value = "select account name,password password,enabled_status status from user_info where password=:password")
+@FlysqlView(type = DateBaseType.ORACLE, value = "select * from user_info")
+@Data
+class DemoDto{
+        
+    private String name;
     
-    public void demo(){
+    private String password;
 
-        return FlySqlFactory.selectSql(one.class).getOne();
-
-    }
-   
-
+    private String status;
 }
 
+```
 
+4- create demo dao
+```java
+
+class DemoDtoDao{ 
+    
+    public DemoDto getDemoDto(){
+                
+        return FlySqlFactory.viewSql(DemoDto.class).setVar("password","demoName").getOne();  
+    }
+   
+}
 ```
 

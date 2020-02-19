@@ -14,4 +14,4 @@ logs
 gradle
 
 # secret
-#gradle.properties
+gradle.properties

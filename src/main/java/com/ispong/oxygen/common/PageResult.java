@@ -1,4 +1,5 @@
-package com.ispong.oxygen.flysql;
+
+package com.ispong.oxygen.common;
 
 
 import lombok.Data;

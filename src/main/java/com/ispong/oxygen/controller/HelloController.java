@@ -1,9 +1,8 @@
 package com.ispong.oxygen.controller;
 
-import com.ispong.oxygen.core.jwt.JwtUtils;
-import com.ispong.oxygen.flysql.common.BaseController;
-import com.ispong.oxygen.flysql.common.BaseResponse;
-import com.ispong.oxygen.model.dto.UserDto;
+import com.ispong.oxygen.common.BaseController;
+import com.ispong.oxygen.common.BaseResponse;
+import com.ispong.oxygen.flysql.FlySqlFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,33 +47,9 @@ public class HelloController extends BaseController {
     @RequestMapping("/login")
     public String login() {
 
-        return "login";
-    }
-
-    /**
-     * 用户登录接口
-     *
-     * @since 2019-12-13
-     */
-    @PostMapping("/userAuth")
-    public ResponseEntity<BaseResponse> userAuth() {
-
-        // 数据库表字段信息
-        // 获取数据库字段信息
-
-        // 获取数据库信息  包括名称属性 备注
-
-        // 遍历template包  结合作者信息 和 数据库封装的信息
-
-        // 指定生成文件
-
-//        LoggerFactory.getLogger()
-//        log.info();
-        UserDto userDto = new UserDto();
-        userDto.setUsername("123");
-        userDto.setPassword("123");
-        return successResponse("登录成功", JwtUtils.encryptJwt(userDto));
-
+        return FlySqlFactory.viewSql(DemoDto.class)
+                .setValue("password", "ispong1")
+                .getOne().toString();
     }
 
     /**

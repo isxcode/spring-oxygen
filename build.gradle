@@ -1,19 +1,26 @@
+// 设置插件版本
 plugins {
 	id 'org.springframework.boot' version '2.2.4.RELEASE' apply false
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE' apply false
 }
 
+// 声明插件
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
+// 声明仓库
 repositories {
 	maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
 	mavenCentral()
 	mavenLocal()
 }
 
+// 声明依赖
 dependencies {
+	// https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter
+	compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.3.1'
+
 	compile(project(':spring-oxygen-wechatgo'))
 //	compile group: 'com.github.ispong', name: 'spring-oxygen-wechatgo', version: '0.0.1'
 	compile(project(':spring-oxygen-flysql'))
@@ -37,32 +44,38 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok:latest.integration'
 	testCompile 'org.junit.jupiter:junit-jupiter-api:latest.integration'
 	compile 'mysql:mysql-connector-java:latest.integration'
-//	compile 'com.alibaba:fastjson:latest.integration'
+	compile 'com.alibaba:fastjson:latest.integration'
 	compile 'com.github.ulisesbocchio:jasypt-spring-boot-starter:latest.integration'
 	compile 'com.alibaba:druid:latest.integration'
 }
 
+// 子项目配置
 subprojects {
 
+	// 声明插件
 	apply plugin: 'java'
 	apply plugin: 'maven-publish'
 	apply plugin: 'signing'
 	apply plugin: 'org.springframework.boot'
 	apply plugin: 'io.spring.dependency-management'
 
+	// 声明版本号/组织号
 	version = '0.0.2'
 	group = 'com.github.ispong'
 
+	// 生成上传文件
 	java {
 		withJavadocJar()
 		withSourcesJar()
 	}
 
+	// 声明子项目仓库
 	repositories {
 		maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
 		mavenCentral()
 	}
 
+	// 声明子项目依赖
 	dependencies {
 		implementation 'org.springframework.boot:spring-boot-starter'
 		compileOnly 'org.springframework.boot:spring-boot-starter-web'
@@ -71,12 +84,15 @@ subprojects {
 		annotationProcessor 'org.projectlombok:lombok:latest.integration'
 	}
 
+	// 发布版本
 	publishing {
 		publications {
 			mavenJava(MavenPublication) {
 
 				artifactId = project.getName()
 				from components.java
+
+				// 控制版本号
 				versionMapping {
 					usage('java-api') {
 						fromResolutionOf('runtimeClasspath')
@@ -85,36 +101,47 @@ subprojects {
 						fromResolutionResult()
 					}
 				}
+
 				pom {
+
+					// 基础信息
 					name = project.getName()
-					description = project.getName()
-					url = 'https://github.com/ispong/spring-oxygen/tree/master/spring-oxygen-wechatgo/src/main/java/com/isxcode/oxygen/wechatgo'
+					description = project.getName() + ' integration for Spring boot'
+					url = 'https://github.com/ispong/spring-oxygen/tree/master/' + project.getName() + '/src/main/java/com/ispong/oxygen/' + project.getName().split('-').last()
+
+					// 开源证书
 					licenses {
 						license {
 							name = 'The Apache License, Version 2.0'
 							url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
 						}
 					}
+
+					// 开发者信息
 					developers {
 						developer {
 							name = 'ispong'
 							email = 'ispong@outlook.com'
 						}
 					}
+
+					// 源码地址
 					scm {
 						connection = 'scm:git:git://github.com/ispong/spring-oxygen.git'
 						developerConnection = 'scm:git:ssh://github.com/ispong/spring-oxygen.git'
-						url = 'https://github.com/ispong/spring-oxygen/tree/master'
+						url = 'https://github.com/ispong/spring-oxygen/tree/master/' + project.getName() + '/src/main/java/com/ispong/oxygen/' + project.getName().split('-').last()
 					}
 				}
 			}
 		}
 
+		// 发布的仓库配置
 		repositories {
 			maven {
 				def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
 				def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
 				url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+				// 账号密码
 				credentials {
 					username = sonatypeUsername
 					password = sonatypePassword
@@ -123,10 +150,12 @@ subprojects {
 		}
 	}
 
+	// 启动登录插件
 	signing {
 		sign publishing.publications.mavenJava
 	}
 
+	// 配置javadoc
 	javadoc {
 		options.encoding("UTF-8")
 		if (JavaVersion.current().isJava9Compatible()) {
@@ -134,10 +163,12 @@ subprojects {
 		}
 	}
 
+	// 禁用bootJar
 	bootJar {
 		enabled false
 	}
 
+	// 启用jar
 	jar {
 		enabled true
 	}

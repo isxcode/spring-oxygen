@@ -17,10 +17,16 @@ quick start develop wechat by spring framework
 - access_token auto manager
 - provide a number of open api
 
-### oxygen-freecode
-waiting
+### [oxygen-flysql](https://github.com/ispong/spring-oxygen/tree/master/spring-oxygen-flysql/src/main/java/com/ispong/oxygen/flysql)
 
-### oxygen-flysql
+- 支持Mysql数据库快速开发
+- 支持分页
+- 支持乐观锁
+- 支持事务回滚
+- 支持日志
+- 支持数据初始化
+
+### oxygen-freecode
 waiting
 
 ### oxygen-core

@@ -15,215 +15,47 @@
  */
 package com.ispong.oxygen.flysql;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.stereotype.Component;
+import com.ispong.oxygen.flysql.model.SqlCondition;
+import com.ispong.oxygen.flysql.model.SqlStatement;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 
 /**
- * sql拼接抽象类
+ * sql body builder
  *
  * @author ispong
  * @version v0.1.0
  */
-@Component
 public abstract class AbstractSqlBuilder<T> {
 
-    /**
-     * 储存对象信息
-     */
-    public final static Map<String, Map<String, String>> BEAN_COLUMNS_MAP = new HashMap<>();
-
+    public final SqlStatement sqlStatement = new SqlStatement();
 
     /**
-     * 获取数据库字段
-     */
-    @Getter
-    @Setter
-    private Map<String, String> columnNames;
-
-    /**
-     * 暂存Sql语句
-     */
-    @Getter
-    @Setter
-    private StringBuilder sqlStr;
-
-
-    // 看看有没有算法
-    private Boolean whereFlag = true;
-
-    private Boolean eqFlag = false;
-
-    private Boolean orderByFlag = true;
-
-    private Boolean orderFlag = false;
-
-    /**
-     * 获取自己
+     * back self
      *
-     * @return 返回自己
-     * @since 2019-12-23
+     * @return self
+     * @since 0.0.1
      */
     public abstract T getSelf();
 
     /**
-     * 查询的字段
+     * select columns
      *
-     * @since 3.4.2
+     * @param columnNames columnNames
+     * @return self
+     * @since 0.0.1
      */
-    T select(String... columns) {
+    public T select(String... columnNames) {
 
-        for (String metaColumn : columns) {
-
-        }
-
-//        sqlStr = new StringBuilder(sqlStr.toString().replace("*", String.join(",", tempColumns)));
-
-        return getSelf();
-    }
-
-
-    /**
-     * 值相等
-     *
-     * @param column 数据库中的字段名
-     * @param value  相等的值
-     * @since 2019-12-23
-     */
-    T eq(String column, String value) {
-
-        if (whereFlag) {
-            sqlStr.append(" where ");
-            whereFlag = false;
-        }
-        if (eqFlag) {
-            sqlStr.append(" and ");
-        }
-        eqFlag = true;
-        sqlStr.append(columnNames.get(column)).append("=").append("'").append(value).append("'");
-
+        sqlStatement.columnNames = Arrays.asList(columnNames);
         return getSelf();
     }
 
     /**
-     * 值相等
+     * or
      *
-     * @param column 数据库中的字段名
-     * @param value  相等的值
-     * @since 2019-12-23
-     */
-    T gt(String column, String value) {
-
-        if (whereFlag) {
-            sqlStr.append(" where ");
-            whereFlag = false;
-        }
-        if (eqFlag) {
-            sqlStr.append(" and ");
-        }
-        eqFlag = true;
-        sqlStr.append(columnNames.get(column)).append("=").append("'").append(value).append("'");
-
-        return getSelf();
-    }
-
-    /**
-     * 值相等
-     *
-     * @param column 数据库中的字段名
-     * @param value  相等的值
-     * @since 2019-12-23
-     */
-    T lt(String column, String value) {
-
-        if (whereFlag) {
-            sqlStr.append(" where ");
-            whereFlag = false;
-        }
-        if (eqFlag) {
-            sqlStr.append(" and ");
-        }
-        eqFlag = true;
-        sqlStr.append(columnNames.get(column)).append("=").append("'").append(value).append("'");
-
-        return getSelf();
-    }
-
-    /**
-     * 值相等
-     *
-     * @param column 数据库中的字段名
-     * @param value  相等的值
-     * @since 2019-12-23
-     */
-    T between(String column, String value,String value2) {
-
-        if (whereFlag) {
-            sqlStr.append(" where ");
-            whereFlag = false;
-        }
-        if (eqFlag) {
-            sqlStr.append(" and ");
-        }
-        eqFlag = true;
-        sqlStr.append(columnNames.get(column)).append("=").append("'").append(value).append("'");
-
-        return getSelf();
-    }
-
-    /**
-     * 值相等
-     *
-     * @param column 数据库中的字段名
-     * @param value  相等的值
-     * @since 2019-12-23
-     */
-    T gtEq(String column, String value) {
-
-        if (whereFlag) {
-            sqlStr.append(" where ");
-            whereFlag = false;
-        }
-        if (eqFlag) {
-            sqlStr.append(" and ");
-        }
-        eqFlag = true;
-        sqlStr.append(columnNames.get(column)).append("=").append("'").append(value).append("'");
-
-        return getSelf();
-    }
-
-    /**
-     * 值相等
-     *
-     * @param column 数据库中的字段名
-     * @param value  相等的值
-     * @since 2019-12-23
-     */
-    T ltEq(String column, Object value) {
-
-        if (whereFlag) {
-            sqlStr.append(" where ");
-            whereFlag = false;
-        }
-        if (eqFlag) {
-            sqlStr.append(" and ");
-        }
-        eqFlag = true;
-        sqlStr.append(columnNames.get(column)).append("=").append("'").append(value).append("'");
-
-        return getSelf();
-    }
-
-    /**
-     * 符号or
-     *
-     * @param
-     * @return
-     * @since 2019-12-23
+     * @return self
+     * @since 0.0.1
      */
     public T or() {
 
@@ -231,25 +63,10 @@ public abstract class AbstractSqlBuilder<T> {
     }
 
     /**
-     * 符号or
+     * and
      *
-     * @param
-     * @return
-     * @since 2019-12-23
-     */
-    public T where() {
-
-        sqlStr.append(" where ");
-
-        return getSelf();
-    }
-
-    /**
-     * 符号and
-     *
-     * @param
-     * @return
-     * @since 2019-12-23
+     * @return self
+     * @since 0.0.1
      */
     public T and() {
 
@@ -257,93 +74,25 @@ public abstract class AbstractSqlBuilder<T> {
     }
 
     /**
-     * 分组
+     * eq
      *
-     * @param
-     * @return
-     * @since 2019-12-23
+     * @param columnName columnName
+     * @param value      value
+     * @return self
+     * @since 0.0.1
      */
-    public T groupBy(String columns) {
+    public T eq(String columnName, String value) {
+
+        sqlStatement.conditionValues.add(new SqlCondition("eq", columnName, value));
+        return getSelf();
+    }
+
+    T gtEq(String column, String value) {
 
         return getSelf();
     }
 
-    /**
-     * 分组排序
-     *
-     * @param
-     * @return
-     * @since 2019-12-23
-     */
-    public T having(String... conditions) {
-
-        return getSelf();
-    }
-
-    /**
-     * 排序
-     *
-     * @param column    类型
-     * @param orderType 排序方式
-     * @since 2019-12-23
-     */
-    public T orderBy(String column, String orderType) {
-
-        if (orderByFlag) {
-            sqlStr.append(" order by ");
-            orderByFlag = false;
-        }
-        if (orderFlag) {
-            sqlStr.append(",");
-        }
-        orderFlag = true;
-        sqlStr.append(columnNames.get(column)).append(" ").append(orderType);
-
-        return getSelf();
-    }
-
-    /**
-     * 排序
-     *
-     * @param column    类型
-     * @since 2019-12-23
-     */
-    public T update(String column, String value) {
-
-        return getSelf();
-    }
-
-    /**
-     * 个数限制
-     *
-     * @param value 个数
-     * @since 2019-12-23
-     */
-    public T limit(int value) {
-
-        return getSelf();
-    }
-
-    public T sql(String sql) {
-
-        sqlStr = new StringBuilder(sql);
-
-        return getSelf();
-    }
-
-    /**
-     * 不等于
-     *
-     * @param
-     * @return
-     * @since 2020-01-16
-     */
-    public T ne(){
-
-        return getSelf();
-    }
-
-    public T eq(){
+    T ltEq(String column, Object value) {
 
         return getSelf();
     }
@@ -353,12 +102,33 @@ public abstract class AbstractSqlBuilder<T> {
         return getSelf();
     }
 
-    public T ge(){
+    public T lt(){
 
         return getSelf();
     }
 
-    public T lt(){
+    public T setValue(String columnName, String name) {
+
+        sqlStatement.setValues.put(":" + columnName, "'" + name + "'");
+        return getSelf();
+    }
+
+    public T having(String... conditions) {
+
+        return getSelf();
+    }
+
+    public T limit(int value) {
+
+        return getSelf();
+    }
+
+    public T ne(){
+
+        return getSelf();
+    }
+
+    public T ge(){
 
         return getSelf();
     }
@@ -423,10 +193,7 @@ public abstract class AbstractSqlBuilder<T> {
         return getSelf();
     }
 
-    public T select() {
 
-        return getSelf();
-    }
 
     public T unSelect(){
 

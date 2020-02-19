@@ -1,9 +1,8 @@
-include 'spring-oxygen-core'
-
-include 'spring-oxygen-autocode'
-include 'spring-oxygen-flysql'
-
 include 'spring-oxygen-wechatgo'
+include 'spring-oxygen-flysql'
+//include 'spring-oxygen-core'
+
+//include 'spring-oxygen-autocode
 
 rootProject.name = 'spring-oxygen'
 rootProject.children.each { project ->

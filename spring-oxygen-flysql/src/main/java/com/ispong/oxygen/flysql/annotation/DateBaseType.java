@@ -13,31 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.flysql.common;
-
-import lombok.Data;
+package com.ispong.oxygen.flysql.annotation;
 
 /**
- * BaseResponse
+ * database type
  *
  * @author ispong
- * @version v0.1.0
+ * @since  0.0.1
  */
-@Data
-public class BaseResponse {
+public enum DateBaseType {
 
     /**
-     * 返回的code
+     * dateBase Mysql
      */
-    private String code;
+    MYSQL,
 
     /**
-     * 返回的message
+     * dataBase oracle
      */
-    private String message;
+    ORACLE,
 
     /**
-     * 返回体数据
+     * default
      */
-    private Object data;
+    DEFAULT,
 }

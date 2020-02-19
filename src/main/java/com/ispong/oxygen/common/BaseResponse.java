@@ -13,20 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.flysql;
+package com.ispong.oxygen.common;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.Data;
 
 /**
- * FlysqlException
+ * BaseResponse
  *
  * @author ispong
- * @since  0.0.1
+ * @version v0.1.0
  */
-@Slf4j
-public class FlysqlException extends RuntimeException {
+@Data
+public class BaseResponse {
 
-    public FlysqlException(String message) {
-        super("[oxygen-flysql]:" + message);
-    }
+    /**
+     * 返回的code
+     */
+    private String code;
+
+    /**
+     * 返回的message
+     */
+    private String message;
+
+    /**
+     * 返回体数据
+     */
+    private Object data;
 }

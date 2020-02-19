@@ -13,20 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.flysql;
+package com.ispong.oxygen.flysql.annotation;
 
-import lombok.extern.slf4j.Slf4j;
+import java.lang.annotation.*;
 
 /**
- * FlysqlException
+ * for sql views
  *
  * @author ispong
  * @since  0.0.1
  */
-@Slf4j
-public class FlysqlException extends RuntimeException {
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Inherited
+@Documented
+public @interface FlysqlViews {
 
-    public FlysqlException(String message) {
-        super("[oxygen-flysql]:" + message);
-    }
+    FlysqlView[] value();
 }
