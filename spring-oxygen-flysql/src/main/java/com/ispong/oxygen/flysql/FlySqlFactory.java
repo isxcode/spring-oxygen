@@ -15,11 +15,13 @@
  */
 package com.ispong.oxygen.flysql;
 
-import com.ispong.oxygen.flysql.annotation.DateBaseType;
-import com.zaxxer.hikari.HikariDataSource;
+import com.ispong.oxygen.flysql.annotation.ColumnName;
+import com.ispong.oxygen.flysql.model.SqlType;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.util.Objects;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * flysql factory create builder
@@ -29,129 +31,75 @@ import java.util.Objects;
  */
 public class FlySqlFactory {
 
-    public static JdbcTemplate jdbcTemplate;
-
-    public static DateBaseType dataBaseType;
+    private static JdbcTemplate jdbcTemplate;
 
     public FlySqlFactory(JdbcTemplate jdbcTemplate) {
 
         FlySqlFactory.jdbcTemplate = jdbcTemplate;
-        switch (((HikariDataSource) Objects.requireNonNull(jdbcTemplate.getDataSource())).getDriverClassName()) {
-            case "com.mysql.cj.jdbc.Driver":
-                dataBaseType = DateBaseType.MYSQL;
-                break;
-            case "oracle.jdbc.OracleDriver":
-                dataBaseType = DateBaseType.ORACLE;
-                break;
-            default:
+    }
+
+    public static  <A> Map<String, String> getColumnMap(Class<A> genericType) {
+
+        Field[] declaredFields = genericType.getDeclaredFields();
+        Map<String, String> columnMap = new HashMap<>(declaredFields.length);
+        for (Field fieldMeta : declaredFields) {
+            if (fieldMeta.isAnnotationPresent(ColumnName.class)) {
+                columnMap.put(fieldMeta.getName(), fieldMeta.getAnnotation(ColumnName.class).value());
+            } else {
+                columnMap.put(fieldMeta.getName(), fieldMeta.getName());
+            }
         }
+        return columnMap;
     }
 
     /**
-     * dateBase view
+     * view select
      *
      * @since 2019-12-23
      */
     public static <A> SqlExecutor<A> viewSql(Class<A> genericType) {
 
-        return new SqlExecutor<>(genericType, FlysqlConstants.SQL_VIEW, jdbcTemplate, dataBaseType);
+        return new SqlExecutor<>(genericType, jdbcTemplate, SqlType.VIEW_SELECT, getColumnMap(genericType));
     }
 
+    /**
+     * select
+     *
+     * @since 2019-12-23
+     */
+    public static <A> SqlExecutor<A> selectSql(Class<A> genericType) {
 
+        return new SqlExecutor<>(genericType, jdbcTemplate, SqlType.SELECT, getColumnMap(genericType));
+    }
 
+    /**
+     * update
+     *
+     * @since 2019-12-23
+     */
+    public static <A> SqlExecutor<A> updateSql(Class<A> genericType) {
 
-//    /**
-//     * sqlBuilder工厂 生成新的sqlBuilder
-//     *
-//     * @param genericType 泛型转移/暂存
-//     * @since 2019-12-23
-//     */
-//    public static <A> SqlBuilder<A> selectSql(Class<A> genericType) {
-//
-//        SqlBuilder<A> generateSql = generateSql(genericType);
-//        String tableName = "";
-//        if (genericType.isAnnotationPresent(Table.class)) {
-//            tableName = genericType.getAnnotation(Table.class).name();
-//        }
-//        generateSql.setSqlStr(new StringBuilder("select * from " + tableName));
-//        return generateSql;
-//    }
-//
-//    /**
-//     * 更新sql拼接
-//     *
-//     * @since 2019-12-23
-//     */
-//    static <A> SqlBuilder<A> updateSql(Class<A> genericType) {
-//
-//        SqlBuilder<A> generateSql = generateSql(genericType);
-//        if (!genericType.isAnnotationPresent(Table.class)) {
-//            throw new FlysqlException("注解数据库名");
-//        }
-//        generateSql.setSqlStr(new StringBuilder("update " + genericType.getAnnotation(Table.class).name()));
-//        return generateSql;
-//    }
-//
-//    /**
-//     * 删除sql拼接
-//     *
-//     * @since 2019-12-24
-//     */
-//    static <A> SqlBuilder<A> deleteSql(Class<A> genericType) {
-//
-//        SqlBuilder<A> generateSql = generateSql(genericType);
-//        if (!genericType.isAnnotationPresent(Table.class)) {
-//            throw new FlysqlException("注解数据库名");
-//        }
-//        generateSql.setSqlStr(new StringBuilder("delete " + genericType.getAnnotation(Table.class).name()));
-//        return generateSql;
-//    }
-//
-//    /**
-//     * 插入sql拼接
-//     *
-//     * @since 2019-12-24
-//     */
-//    static <A> SqlBuilder<A> insertSql(Class<A> genericType) {
-//
-//        SqlBuilder<A> generateSql = generateSql(genericType);
-//        if (!genericType.isAnnotationPresent(Table.class)) {
-//            throw new FlysqlException("注解数据库名");
-//        }
-//        generateSql.setSqlStr(new StringBuilder("insert into " + genericType.getAnnotation(Table.class).name()));
-//        return generateSql;
-//    }
-//
-//    /**
-//     * 解析bean对象,将注解中的数据库字段映射到对象
-//     *
-//     * @param
-//     * @return
-//     * @since 2019-12-31
-//     */
-//    static Map<String, String> parseColumns(Class<?> beanClazz) {
-//
-//        Map<String, String> columnMap = new HashMap<>();
-//
-//        for (Field metaField : beanClazz.getDeclaredFields()) {
-//
-//            if (metaField.isAnnotationPresent(ColumnName.class)) {
-//                columnMap.put(metaField.getName(), metaField.getAnnotation(ColumnName.class).value());
-//            } else {
-//                columnMap.put(metaField.getName(), metaField.getName());
-//            }
-//        }
-//
-//        for (Field metaField : beanClazz.getSuperclass().getDeclaredFields()) {
-//
-//            if (metaField.isAnnotationPresent(ColumnName.class)) {
-//                columnMap.put(metaField.getName(), metaField.getAnnotation(ColumnName.class).value());
-//            } else {
-//                columnMap.put(metaField.getName(), metaField.getName());
-//            }
-//        }
-//
-//        return columnMap;
-//    }
+        return new SqlExecutor<>(genericType, jdbcTemplate, SqlType.UPDATE, getColumnMap(genericType));
+    }
+
+    /**
+     * delete
+     *
+     * @since 2019-12-23
+     */
+    public static <A> SqlExecutor<A> deleteSql(Class<A> genericType) {
+
+        return new SqlExecutor<>(genericType, jdbcTemplate, SqlType.DELETE, getColumnMap(genericType));
+    }
+
+    /**
+     * insert
+     *
+     * @since 2019-12-23
+     */
+    public static <A> SqlExecutor<A> insertSql(Class<A> genericType) {
+
+        return new SqlExecutor<>(genericType, jdbcTemplate, SqlType.SAVE, getColumnMap(genericType));
+    }
 
 }

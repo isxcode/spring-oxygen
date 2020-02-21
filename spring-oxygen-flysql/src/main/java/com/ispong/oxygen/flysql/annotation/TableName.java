@@ -18,16 +18,15 @@ package com.ispong.oxygen.flysql.annotation;
 import java.lang.annotation.*;
 
 /**
- * for sql views
+ * for entity
  *
  * @author ispong
- * @since 0.0.1
+ * @since  0.0.1
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Inherited
 @Documented
-public @interface FlysqlViews {
+public @interface TableName {
 
-    FlysqlView[] value();
+    String value() default "";
 }

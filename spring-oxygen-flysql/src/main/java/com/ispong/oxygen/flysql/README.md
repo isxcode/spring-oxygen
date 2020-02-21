@@ -17,7 +17,19 @@ gradle
 compile group: 'com.github.ispong', name: 'spring-oxygen-flysql', version: '0.0.1'
 ```
 
-2- config dataBase info
+2- enable flysql
+```java
+import com.ispong.oxygen.flysql.annotation.EnableFlysql;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@EnableFlysql
+class AppConfig{
+
+}
+```
+
+3- config dataBase info
 ```yaml
 spring:
   datasource:
@@ -27,7 +39,7 @@ spring:
     password: ENC@[R3ZE710H1U0nsxSr1x8vJKjD2rl83XEugZwVLOBkLIbrJekh0OE+7Vpsi2lvtpLP]
 ```
 
-3- create entity dto demo
+4- create entity dto demo
 ```java
 
 @FlysqlView(type = DateBaseType.MYSQL, value = "select account name,password password,enabled_status status from user_info where password=:password")
@@ -44,7 +56,7 @@ class DemoDto{
 
 ```
 
-4- create demo dao
+5- create demo dao
 ```java
 
 class DemoDtoDao{ 

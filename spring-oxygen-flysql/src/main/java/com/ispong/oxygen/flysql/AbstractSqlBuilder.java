@@ -16,114 +16,157 @@
 package com.ispong.oxygen.flysql;
 
 import com.ispong.oxygen.flysql.model.SqlCondition;
-import com.ispong.oxygen.flysql.model.SqlStatement;
+import com.ispong.oxygen.flysql.model.SqlOperateType;
+import com.ispong.oxygen.flysql.model.SqlType;
+import org.apache.logging.log4j.util.Strings;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
- * sql body builder
+ * for sql condition
  *
  * @author ispong
  * @version v0.1.0
  */
 public abstract class AbstractSqlBuilder<T> {
 
-    public final SqlStatement sqlStatement = new SqlStatement();
+    public final List<SqlCondition> sqlConditions = new ArrayList<>();
 
-    /**
-     * back self
-     *
-     * @return self
-     * @since 0.0.1
-     */
+    private SqlType sqlType;
+
+    private Map<String, String> columnsMap;
+
+    public AbstractSqlBuilder(SqlType sqlType, Map<String, String> columnsMap) {
+
+        this.sqlType = sqlType;
+        this.columnsMap = columnsMap;
+    }
+
     public abstract T getSelf();
 
-    /**
-     * select columns
-     *
-     * @param columnNames columnNames
-     * @return self
-     * @since 0.0.1
-     */
+    private String addSingleQuote(Object value) {
+
+        return "'" + value + "'";
+    }
+
     public T select(String... columnNames) {
 
-        sqlStatement.columnNames = Arrays.asList(columnNames);
-        return getSelf();
-    }
-
-    /**
-     * or
-     *
-     * @return self
-     * @since 0.0.1
-     */
-    public T or() {
-
-        return getSelf();
-    }
-
-    /**
-     * and
-     *
-     * @return self
-     * @since 0.0.1
-     */
-    public T and() {
-
-        return getSelf();
-    }
-
-    /**
-     * eq
-     *
-     * @param columnName columnName
-     * @param value      value
-     * @return self
-     * @since 0.0.1
-     */
-    public T eq(String columnName, String value) {
-
-        sqlStatement.conditionValues.add(new SqlCondition("eq", columnName, value));
-        return getSelf();
-    }
-
-    T gtEq(String column, String value) {
-
-        return getSelf();
-    }
-
-    T ltEq(String column, Object value) {
-
-        return getSelf();
-    }
-
-    public T gt(){
-
-        return getSelf();
-    }
-
-    public T lt(){
-
+        if (sqlType.equals(SqlType.VIEW_SELECT)) {
+            sqlConditions.add(new SqlCondition(SqlOperateType.SELECT, "", Strings.join(Arrays.asList(columnNames), ',')));
+        }else{
+            List<String> columnNameList = new ArrayList<>(columnNames.length);
+            for (String columnName : columnNames) {
+                columnNameList.add(columnsMap.get(columnName) + " " + columnName);
+            }
+            sqlConditions.add(new SqlCondition(SqlOperateType.SELECT, "", Strings.join(columnNameList, ',')));
+        }
         return getSelf();
     }
 
     public T setValue(String columnName, String name) {
 
-        sqlStatement.setValues.put(":" + columnName, "'" + name + "'");
+        sqlConditions.add(new SqlCondition(SqlOperateType.SET_VALUE, ":" + columnName, "'" + name + "'"));
+        return getSelf();
+    }
+
+    public T or() {
+
+        sqlConditions.add(new SqlCondition(SqlOperateType.OR, "", ""));
+        return getSelf();
+    }
+
+    public T and() {
+
+        sqlConditions.add(new SqlCondition(SqlOperateType.AND, "", ""));
+        return getSelf();
+    }
+
+    public T eq(String columnName, Object value) {
+
+        sqlConditions.add(new SqlCondition(SqlOperateType.EQ, columnsMap.get(columnName), addSingleQuote(value)));
+        return getSelf();
+    }
+
+    public T ne(String columnName, Object value) {
+
+        sqlConditions.add(new SqlCondition(SqlOperateType.NE, columnsMap.get(columnName), addSingleQuote(value)));
+        return getSelf();
+    }
+
+    public T gt(String columnName, Object value) {
+
+        sqlConditions.add(new SqlCondition(SqlOperateType.EQ, columnsMap.get(columnName), addSingleQuote(value)));
+        return getSelf();
+    }
+
+    public T gtEq(String columnName, Object value) {
+
+        sqlConditions.add(new SqlCondition(SqlOperateType.GT_EQ, columnsMap.get(columnName), addSingleQuote(value)));
+        return getSelf();
+    }
+
+    public T lt(String columnName, Object value) {
+
+        sqlConditions.add(new SqlCondition(SqlOperateType.LT, columnsMap.get(columnName), addSingleQuote(value)));
+        return getSelf();
+    }
+
+    public T ltEq(String columnName, Object value) {
+
+        sqlConditions.add(new SqlCondition(SqlOperateType.LT_EQ, columnsMap.get(columnName), addSingleQuote(value)));
+        return getSelf();
+    }
+
+    public T in(String columnName, Object... values) {
+
+        List<String> inValues = new ArrayList<>();
+        Arrays.stream(values).forEach(v -> inValues.add(addSingleQuote(v)));
+        sqlConditions.add(new SqlCondition(SqlOperateType.IN, columnsMap.get(columnName), "(" + Strings.join(inValues, ',') + ")"));
+        return getSelf();
+    }
+
+    public T notIn(String columnName, Object... values) {
+
+        List<String> inValues = new ArrayList<>();
+        Arrays.stream(values).forEach(v -> inValues.add(addSingleQuote(v)));
+        sqlConditions.add(new SqlCondition(SqlOperateType.NOT_IN, columnsMap.get(columnName), "(" + Strings.join(inValues, ',') + ")"));
+        return getSelf();
+    }
+
+    public T between(String columnName, Object value1, Object value2) {
+
+        sqlConditions.add(new SqlCondition(SqlOperateType.BETWEEN, columnsMap.get(columnName), "(" + addSingleQuote(value1) + " and " + addSingleQuote(value2) + ")"));
+        return getSelf();
+    }
+
+    public T orderBy(String columnName, String orderType) {
+
+        sqlConditions.add(new SqlCondition(SqlOperateType.ORDER_BY, columnsMap.get(columnName), orderType));
+        return getSelf();
+    }
+
+    public T like(String columnName, String value) {
+
+        sqlConditions.add(new SqlCondition(SqlOperateType.LIKE, columnsMap.get(columnName), addSingleQuote("%" + value + "%")));
+        return getSelf();
+    }
+
+    public T limit(Integer value) {
+
+        sqlConditions.add(new SqlCondition(SqlOperateType.LIMIT, "", value));
+        return getSelf();
+    }
+
+    public T update(String columnName, Object value) {
+
+        sqlConditions.add(new SqlCondition(SqlOperateType.UPDATE, columnsMap.get(columnName), addSingleQuote(value)));
         return getSelf();
     }
 
     public T having(String... conditions) {
-
-        return getSelf();
-    }
-
-    public T limit(int value) {
-
-        return getSelf();
-    }
-
-    public T ne(){
 
         return getSelf();
     }
@@ -138,17 +181,7 @@ public abstract class AbstractSqlBuilder<T> {
         return getSelf();
     }
 
-    public T between(){
-
-        return getSelf();
-    }
-
     public T notBetween(){
-
-        return getSelf();
-    }
-
-    public T like(){
 
         return getSelf();
     }
@@ -168,39 +201,12 @@ public abstract class AbstractSqlBuilder<T> {
         return getSelf();
     }
 
-    public T in(){
-
-        return getSelf();
-    }
-
-    public T notIn(){
-
-        return getSelf();
-    }
-
-    public T orderBy(){
-
-        return getSelf();
-    }
-
-    public T setVar(){
-
-        return getSelf();
-    }
-
     public T sql(){
 
         return getSelf();
     }
 
-
-
     public T unSelect(){
-
-        return getSelf();
-    }
-
-    public T update(){
 
         return getSelf();
     }

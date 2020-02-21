@@ -16,25 +16,25 @@
 package com.ispong.oxygen.flysql.annotation;
 
 /**
- * database type
+ * dataBase type enum
  *
  * @author ispong
- * @since  0.0.1
+ * @since 0.0.1
  */
 public enum DateBaseType {
 
     /**
-     * dateBase Mysql
+     * Mysql
      */
     MYSQL,
 
     /**
-     * dataBase oracle
+     * oracle
      */
     ORACLE,
 
     /**
-     * default
+     * nothing
      */
     DEFAULT,
 }
