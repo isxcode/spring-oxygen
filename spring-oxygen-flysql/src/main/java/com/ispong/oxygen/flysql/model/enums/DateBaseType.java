@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.flysql.annotation;
+package com.ispong.oxygen.flysql.model.enums;
 
 /**
  * dataBase type enum
@@ -29,7 +29,7 @@ public enum DateBaseType {
     MYSQL,
 
     /**
-     * oracle
+     * Oracle
      */
     ORACLE,
 

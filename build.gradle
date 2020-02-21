@@ -60,7 +60,7 @@ subprojects {
 	apply plugin: 'io.spring.dependency-management'
 
 	// 声明版本号/组织号
-	version = '0.0.2'
+	version = '0.0.1'
 	group = 'com.github.ispong'
 
 	// 生成上传文件

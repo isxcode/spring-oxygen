@@ -15,6 +15,8 @@
  */
 package com.ispong.oxygen.flysql.annotation;
 
+import com.ispong.oxygen.flysql.model.enums.DateBaseType;
+
 import java.lang.annotation.*;
 
 /**

@@ -1,7 +1,7 @@
 package com.ispong.oxygen.controller;
 
 import com.ispong.oxygen.flysql.annotation.ColumnName;
-import com.ispong.oxygen.flysql.annotation.DateBaseType;
+import com.ispong.oxygen.flysql.model.enums.DateBaseType;
 import com.ispong.oxygen.flysql.annotation.FlysqlView;
 import com.ispong.oxygen.flysql.annotation.TableName;
 import lombok.Data;

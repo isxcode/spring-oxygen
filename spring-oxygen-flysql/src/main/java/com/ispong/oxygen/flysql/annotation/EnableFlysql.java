@@ -24,7 +24,7 @@ import java.lang.annotation.*;
  * start flysql @EnableFlysql
  *
  * @author ispong
- * @since  0.0.1
+ * @since 0.0.1
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

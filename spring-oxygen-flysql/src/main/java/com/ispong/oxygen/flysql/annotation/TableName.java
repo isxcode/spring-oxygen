@@ -18,10 +18,10 @@ package com.ispong.oxygen.flysql.annotation;
 import java.lang.annotation.*;
 
 /**
- * for entity
+ * apply dataBase table name
  *
  * @author ispong
- * @since  0.0.1
+ * @since 0.0.1
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

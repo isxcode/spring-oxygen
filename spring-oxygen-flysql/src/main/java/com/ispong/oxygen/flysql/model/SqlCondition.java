@@ -15,6 +15,7 @@
  */
 package com.ispong.oxygen.flysql.model;
 
+import com.ispong.oxygen.flysql.model.enums.SqlOperateType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

@@ -15,13 +15,12 @@
  */
 package com.ispong.oxygen.flysql;
 
-import com.ispong.oxygen.flysql.annotation.DateBaseType;
 import com.ispong.oxygen.flysql.annotation.FlysqlView;
-import com.ispong.oxygen.flysql.annotation.FlysqlViews;
 import com.ispong.oxygen.flysql.annotation.TableName;
 import com.ispong.oxygen.flysql.model.SqlCondition;
-import com.ispong.oxygen.flysql.model.SqlOperateType;
-import com.ispong.oxygen.flysql.model.SqlType;
+import com.ispong.oxygen.flysql.model.enums.DateBaseType;
+import com.ispong.oxygen.flysql.model.enums.SqlOperateType;
+import com.ispong.oxygen.flysql.model.enums.SqlType;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
@@ -36,13 +35,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * sql builder
+ * sql executor
  *
  * @author ispong
  * @version v0.1.0
  */
 @Slf4j
-public class SqlExecutor<A> extends AbstractSqlBuilder<SqlExecutor<A>> implements SqlOperations{
+public class SqlExecutor<A> extends AbstractSqlBuilder<SqlExecutor<A>> implements SqlOperations {
 
     @Getter
     private Class<A> genericType;
@@ -51,17 +50,18 @@ public class SqlExecutor<A> extends AbstractSqlBuilder<SqlExecutor<A>> implement
 
     private SqlType sqlType;
 
-    private Map<String, String> columnsMap;
+    private Map<String, String> columnNameMap;
 
-    public SqlExecutor(Class<A> genericType, JdbcTemplate jdbcTemplate, SqlType sqlType, Map<String, String> columnsMap) {
+    public SqlExecutor(Class<A> genericType, JdbcTemplate jdbcTemplate, SqlType sqlType, Map<String, String> columnNameMap) {
 
-        super(sqlType, columnsMap);
-        this.columnsMap = columnsMap;
+        super(sqlType, columnNameMap);
+        this.columnNameMap = columnNameMap;
         this.sqlType = sqlType;
         this.genericType = genericType;
         SqlExecutor.jdbcTemplate = jdbcTemplate;
 
     }
+
     @Override
     public SqlExecutor<A> getSelf() {
 
@@ -79,13 +79,14 @@ public class SqlExecutor<A> extends AbstractSqlBuilder<SqlExecutor<A>> implement
     }
 
     /**
+     * 是否存在操作条件
      *
-     *
-     * @param
-     * @return
+     * @param sqlCondition   sql条件
+     * @param sqlOperateType sql操作类型
+     * @return true存在
      * @since 0.0.1
      */
-    public Boolean hasOperateType(SqlCondition sqlCondition,SqlOperateType sqlOperateType) {
+    public Boolean hasOperateType(SqlCondition sqlCondition, SqlOperateType sqlOperateType) {
 
         if (sqlCondition == null) {
             return true;
@@ -93,8 +94,16 @@ public class SqlExecutor<A> extends AbstractSqlBuilder<SqlExecutor<A>> implement
         return sqlCondition.getOperateType().equals(sqlOperateType);
     }
 
+    /**
+     * add where
+     *
+     * @param sqlConditionTemp sql条件
+     * @param sqlStringBuilder sql语句
+     * @since 0.0.1
+     */
     public void addWhere(SqlCondition sqlConditionTemp, StringBuilder sqlStringBuilder) {
 
+        // 如果前面存在select或者setVar说明一定没有where,所以添加where
         if (hasOperateType(sqlConditionTemp, SqlOperateType.SELECT) || hasOperateType(sqlConditionTemp, SqlOperateType.SET_VALUE)) {
             sqlStringBuilder.append(" where ");
         } else {
@@ -102,6 +111,13 @@ public class SqlExecutor<A> extends AbstractSqlBuilder<SqlExecutor<A>> implement
         }
     }
 
+    /**
+     * add order by
+     *
+     * @param sqlConditionTemp sql条件
+     * @param sqlStringBuilder sql语句
+     * @since 0.0.1
+     */
     public void addOrderBy(SqlCondition sqlConditionTemp, StringBuilder sqlStringBuilder) {
 
         if (hasOperateType(sqlConditionTemp, SqlOperateType.ORDER_BY)) {
@@ -175,9 +191,25 @@ public class SqlExecutor<A> extends AbstractSqlBuilder<SqlExecutor<A>> implement
                     addWhere(sqlConditionTemp, sqlStringBuilder);
                     sqlStringBuilder.append(sqlConditionMeta.getColumnName()).append(" like ").append(sqlConditionMeta.getValue());
                     break;
+                case NOT_LIKE:
+                    addWhere(sqlConditionTemp, sqlStringBuilder);
+                    sqlStringBuilder.append(sqlConditionMeta.getColumnName()).append(" not like ").append(sqlConditionMeta.getValue());
+                    break;
+                case IS_NULL:
+                    addWhere(sqlConditionTemp, sqlStringBuilder);
+                    sqlStringBuilder.append(sqlConditionMeta.getColumnName()).append(" is null ");
+                    break;
+                case IS_NOT_NULL:
+                    addWhere(sqlConditionTemp, sqlStringBuilder);
+                    sqlStringBuilder.append(sqlConditionMeta.getColumnName()).append(" is not null ");
+                    break;
                 case BETWEEN:
                     addWhere(sqlConditionTemp, sqlStringBuilder);
                     sqlStringBuilder.append(sqlConditionMeta.getColumnName()).append(" between ").append(sqlConditionMeta.getValue());
+                    break;
+                case NOT_BETWEEN:
+                    addWhere(sqlConditionTemp, sqlStringBuilder);
+                    sqlStringBuilder.append(sqlConditionMeta.getColumnName()).append(" not between ").append(sqlConditionMeta.getValue());
                     break;
                 case ORDER_BY:
                     addOrderBy(sqlConditionTemp, sqlStringBuilder);
@@ -190,9 +222,11 @@ public class SqlExecutor<A> extends AbstractSqlBuilder<SqlExecutor<A>> implement
             }
             sqlConditionTemp = sqlConditionMeta;
         }
+        // 如果没有执行select,则把* 替换成对象属性
         if (sqlType.equals(SqlType.SELECT) && selectFlag) {
+
             List<String> columnsList = new ArrayList<>();
-            columnsMap.forEach((k, v) -> columnsList.add(v + " " + k));
+            columnNameMap.forEach((k, v) -> columnsList.add(v + " " + k));
             return sqlStringBuilder.toString().replace("*", Strings.join(columnsList, ','));
         }
         return sqlStringBuilder.toString();
@@ -207,22 +241,33 @@ public class SqlExecutor<A> extends AbstractSqlBuilder<SqlExecutor<A>> implement
     public String parseSelectSql() {
 
         if (sqlType.equals(SqlType.VIEW_SELECT)) {
-            FlysqlView[] flysqlViews = getGenericType().getAnnotation(FlysqlViews.class).value();
-            for (FlysqlView flysqlViewMeta : flysqlViews) {
-                if (flysqlViewMeta.type().equals(DateBaseType.MYSQL)) {
-                    return parseSqlConditions(" select * from (" + flysqlViews[0].value() + ") temp ", sqlConditions);
-                }
+            FlysqlView flysqlView = getGenericType().getAnnotation(FlysqlView.class);
+            if (flysqlView.type().equals(DateBaseType.MYSQL)) {
+                return parseSqlConditions(" select * from (" + flysqlView.value() + ") flysql ", sqlConditions);
             }
         }
         return parseSqlConditions("select * from " + getTableName(), sqlConditions);
     }
 
-    public String parseDeleteSql(){
+    /**
+     * parse delete
+     *
+     * @return sqlString
+     * @since 0.0.1
+     */
+    public String parseDeleteSql() {
 
         return parseSqlConditions("delete from " + getTableName(), sqlConditions);
     }
 
+    /**
+     * parse update
+     *
+     * @return sqlString
+     * @since 0.0.1
+     */
     public String parseUpdateSql() {
+
         StringBuilder sqlStringBuilder = new StringBuilder("update " + getTableName() + " set ");
         for (SqlCondition sqlConditionMeta : sqlConditions) {
             if (sqlConditionMeta.getOperateType().equals(SqlOperateType.UPDATE)) {
@@ -232,8 +277,13 @@ public class SqlExecutor<A> extends AbstractSqlBuilder<SqlExecutor<A>> implement
         return parseSqlConditions(sqlStringBuilder.toString(), sqlConditions);
     }
 
+    /**
+     * getOne
+     *
+     * @return data
+     * @since 0.0.1
+     */
     @Override
-    @SuppressWarnings("unchecked")
     public A getOne() {
 
         String sqlString = parseSelectSql();
@@ -241,8 +291,13 @@ public class SqlExecutor<A> extends AbstractSqlBuilder<SqlExecutor<A>> implement
         return jdbcTemplate.queryForObject(sqlString, new BeanPropertyRowMapper<>(getGenericType()));
     }
 
+    /**
+     * query
+     *
+     * @return List[Data]
+     * @since 0.0.1
+     */
     @Override
-    @SuppressWarnings("unchecked")
     public List<A> query() {
 
         String sqlString = parseSelectSql();
@@ -250,8 +305,15 @@ public class SqlExecutor<A> extends AbstractSqlBuilder<SqlExecutor<A>> implement
         return jdbcTemplate.query(sqlString, new BeanPropertyRowMapper<>(getGenericType()));
     }
 
+    /**
+     * query page size
+     *
+     * @param page page
+     * @param size size
+     * @return List[Data]
+     * @since 0.0.1
+     */
     @Override
-    @SuppressWarnings("unchecked")
     public List<A> query(Integer page, Integer size) {
 
         String sqlString = parseSelectSql() + " limit " + (page - 1) * size + " , " + size;
@@ -259,33 +321,24 @@ public class SqlExecutor<A> extends AbstractSqlBuilder<SqlExecutor<A>> implement
         return jdbcTemplate.query(sqlString, new BeanPropertyRowMapper<>(getGenericType()));
     }
 
+    /**
+     * doUpdate()
+     *
+     * @since 0.0.1
+     */
     @Override
     public void doUpdate() {
+
         String sqlString = parseUpdateSql();
         log.debug("[sql]:" + sqlString);
         jdbcTemplate.update(sqlString);
     }
 
-    @Override
-    public <A> void save(A obj) throws InvocationTargetException, IllegalAccessException {
-
-        PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(genericType);
-        List<String> valueList = new ArrayList<>();
-        List<String> columnList = new ArrayList<>();
-        for (PropertyDescriptor propertyMeta : propertyDescriptors) {
-            if(propertyMeta.getName().equals("class")){
-                continue;
-            }
-            Object invoke = propertyMeta.getReadMethod().invoke(obj);
-            valueList.add("'" + invoke + "'");
-            columnList.add(columnsMap.get(propertyMeta.getName()));
-        }
-        columnsMap.forEach((k,v)-> columnList.add(v));
-        String sqlString = "insert into " + getTableName() + "(" + Strings.join(columnList, ',') + ") value (" + Strings.join(valueList, ',') + ")";
-        log.debug("[sql]:" + sqlString);
-        jdbcTemplate.execute(sqlString);
-    }
-
+    /**
+     * doDelete()
+     *
+     * @since 0.0.1
+     */
     @Override
     public void doDelete() {
 
@@ -293,4 +346,45 @@ public class SqlExecutor<A> extends AbstractSqlBuilder<SqlExecutor<A>> implement
         log.debug("[sql]:" + sqlString);
         jdbcTemplate.update(sqlString);
     }
+
+    @Override
+    public Integer count() {
+
+        String sqlString = parseSqlConditions("select count(1) from " + getTableName(), sqlConditions);
+        log.debug("[sql]:" + sqlString);
+        return jdbcTemplate.queryForObject(sqlString, Integer.class);
+    }
+
+    /**
+     * save()
+     *
+     * @param obj data
+     * @since 0.0.1
+     */
+    @Override
+    public void save(Object obj) {
+
+        PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(genericType);
+        List<String> valueList = new ArrayList<>();
+        List<String> columnList = new ArrayList<>();
+        for (PropertyDescriptor propertyMeta : propertyDescriptors) {
+            if (FlysqlConstants.CLASS.equals(propertyMeta.getName())) {
+                continue;
+            }
+            try {
+                Object value = propertyMeta.getReadMethod().invoke(obj);
+                if (value == null) {
+                    continue;
+                }
+                valueList.add("'" + value + "'");
+                columnList.add(columnNameMap.get(propertyMeta.getName()));
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
+        String sqlString = "insert into " + getTableName() + "(" + Strings.join(columnList, ',') + ") value (" + Strings.join(valueList, ',') + ")";
+        log.debug("[sql]:" + sqlString);
+        jdbcTemplate.execute(sqlString);
+    }
+
 }

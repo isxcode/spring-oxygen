@@ -17,7 +17,19 @@ gradle
 compile group: 'com.github.ispong', name: 'spring-oxygen-flysql', version: '0.0.1'
 ```
 
-2- enable flysql
+2- config dataBase info
+```yaml
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://host:port/dataBase
+    username: xxx
+    password: xxx
+  jpa:
+    open-in-view: true
+```
+
+3- enable flysql
 ```java
 import com.ispong.oxygen.flysql.annotation.EnableFlysql;
 import org.springframework.context.annotation.Configuration;
@@ -29,43 +41,178 @@ class AppConfig{
 }
 ```
 
-3- config dataBase info
-```yaml
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://host:port/dataBaseName
-    username: root
-    password: ENC@[R3ZE710H1U0nsxSr1x8vJKjD2rl83XEugZwVLOBkLIbrJekh0OE+7Vpsi2lvtpLP]
+4- create table A and B
+```sql
+create table demo_table_a
+(
+    a_name varchar(100) null,
+    a_age  int          null,
+    a_desc mediumtext   null
+);
+
+create table demo_table_b
+(
+    b_name varchar(100) null,
+    b_info varchar(200) null,
+    b_date datetime     null
+);
 ```
 
-4- create entity dto demo
+5- create DemoEntity 
 ```java
+import com.ispong.oxygen.flysql.annotation.ColumnName;
+import com.ispong.oxygen.flysql.annotation.TableName;
+import lombok.Data;
 
-@FlysqlView(type = DateBaseType.MYSQL, value = "select account name,password password,enabled_status status from user_info where password=:password")
-@FlysqlView(type = DateBaseType.ORACLE, value = "select * from user_info")
 @Data
-class DemoDto{
-        
-    private String name;
-    
-    private String password;
+@TableName("demo_table_a")
+public class DemoEntity {
 
-    private String status;
+    @ColumnName("a_name")
+    private String customName;
+
+    @ColumnName("a_age")
+    private Integer customAge;
+
+    @ColumnName("a_desc")
+    private String customDesc;
 }
-
 ```
 
-5- create demo dao
+6- create test controller 
 ```java
+import com.ispong.oxygen.flysql.FlySqlFactory;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-class DemoDtoDao{ 
-    
-    public DemoDto getDemoDto(){
-                
-        return FlySqlFactory.viewSql(DemoDto.class).setVar("password","demoName").getOne();  
+import java.util.List;
+
+@RestController
+public class HelloController {
+
+    @GetMapping("saveDemo")
+    public String saveDemo(){
+
+        DemoEntity demoEntity = new DemoEntity();
+        demoEntity.setCustomAge(20);
+        demoEntity.setCustomDesc("a man");
+        demoEntity.setCustomName("li");
+        FlySqlFactory.insertSql(DemoEntity.class).save(demoEntity);
+
+        return "success";
     }
-   
+
+    @GetMapping("getDemo")
+    public String getDemo(){
+
+        DemoEntity customAge = FlySqlFactory.selectSql(DemoEntity.class)
+                .eq("customAge", 11)
+                .getOne();
+
+        return customAge.toString();
+    }
+
+    @GetMapping("queryDemo")
+    public String queryDemo(){
+
+        List<DemoEntity> customAge = FlySqlFactory.selectSql(DemoEntity.class)
+                .gt("customAge", 1)
+                .query();
+
+        return customAge.toString();
+    }
+
+    @GetMapping("deleteDemo")
+    public void deleteDemo(){
+
+        FlySqlFactory.deleteSql(DemoEntity.class)
+                .in("customAge",20)
+                .doDelete();
+    }
+
+    @GetMapping("updateDemo")
+    public void updateDemo(){
+
+        FlySqlFactory.updateSql(DemoEntity.class)
+                .like("customName", "w")
+                .update("customDesc", "better man")
+                .doUpdate();
+    }
+
+    @GetMapping("pageQueryDemo")
+    public String pageQueryDemo(){
+
+        List<DemoEntity> query = FlySqlFactory.selectSql(DemoEntity.class)
+                .like("customName", "w")
+                .query(2, 2);
+
+        return query.toString();
+    }
+
+    @GetMapping("countDemo")
+    public String countDemo(){
+    
+         Integer count = FlySqlFactory.countSql(DemoEntity.class)
+                  .eq("customName","wang")
+                  .count();
+         return String.valueOf(count);
+    }
+
 }
 ```
 
+7- two table
+
+create DemoDto
+```java
+import com.ispong.oxygen.flysql.annotation.FlysqlView;
+import com.ispong.oxygen.flysql.model.enums.DateBaseType;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+@FlysqlView(type = DateBaseType.MYSQL, value = "" +
+        "select a.a_name name, a.a_age age, a_desc descInfo, b.b_info info, b.b_date dateTime\n" +
+        "from demo_table_a a,\n" +
+        "     demo_table_b b\n" +
+        "where a.a_name = b.b_name and a.a_name=:name")
+@Data
+public class DemoDto {
+
+    private String name;
+
+    private String info;
+
+    private String descInfo;
+
+    private LocalDateTime dateTime;
+    
+    private Integer age;
+}
+```
+
+create test controller
+```java
+import com.ispong.oxygen.flysql.FlySqlFactory;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@RestController
+public class TestController {
+
+    @GetMapping("queryDemoDto")
+    public String queryDemo(){
+
+        List<DemoDto> query = FlySqlFactory.viewSql(DemoDto.class)
+                .setValue("name", "wang")
+                .lt("dateTime", LocalDateTime.now())
+                .query();
+
+        return query.toString();
+    }
+
+}
+```

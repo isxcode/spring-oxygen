@@ -16,7 +16,7 @@
 package com.ispong.oxygen.flysql;
 
 import com.ispong.oxygen.flysql.annotation.ColumnName;
-import com.ispong.oxygen.flysql.model.SqlType;
+import com.ispong.oxygen.flysql.model.enums.SqlType;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.lang.reflect.Field;
@@ -38,68 +38,103 @@ public class FlySqlFactory {
         FlySqlFactory.jdbcTemplate = jdbcTemplate;
     }
 
-    public static  <A> Map<String, String> getColumnMap(Class<A> genericType) {
+    /**
+     * 获取对象属性的注解和属性名,方便替换别名
+     *
+     * @param genericType 类型
+     * @return 属性名,注解名
+     * @since 0.0.1
+     */
+    public static Map<String, String> getColumnNameMap(Class<?> genericType) {
 
         Field[] declaredFields = genericType.getDeclaredFields();
-        Map<String, String> columnMap = new HashMap<>(declaredFields.length);
+        Map<String, String> columnNameMap = new HashMap<>(declaredFields.length);
         for (Field fieldMeta : declaredFields) {
             if (fieldMeta.isAnnotationPresent(ColumnName.class)) {
-                columnMap.put(fieldMeta.getName(), fieldMeta.getAnnotation(ColumnName.class).value());
+                columnNameMap.put(fieldMeta.getName(), fieldMeta.getAnnotation(ColumnName.class).value());
             } else {
-                columnMap.put(fieldMeta.getName(), fieldMeta.getName());
+                columnNameMap.put(fieldMeta.getName(), fieldMeta.getName());
             }
         }
-        return columnMap;
+        return columnNameMap;
     }
 
     /**
      * view select
      *
+     * @param <A>         model class
+     * @param genericType mode
+     * @return SqlExecutor
      * @since 2019-12-23
      */
     public static <A> SqlExecutor<A> viewSql(Class<A> genericType) {
 
-        return new SqlExecutor<>(genericType, jdbcTemplate, SqlType.VIEW_SELECT, getColumnMap(genericType));
+        return new SqlExecutor<>(genericType, jdbcTemplate, SqlType.VIEW_SELECT, getColumnNameMap(genericType));
     }
 
     /**
      * select
      *
+     * @param <A>         model class
+     * @param genericType mode
+     * @return SqlExecutor
      * @since 2019-12-23
      */
     public static <A> SqlExecutor<A> selectSql(Class<A> genericType) {
 
-        return new SqlExecutor<>(genericType, jdbcTemplate, SqlType.SELECT, getColumnMap(genericType));
+        return new SqlExecutor<>(genericType, jdbcTemplate, SqlType.SELECT, getColumnNameMap(genericType));
     }
 
     /**
      * update
      *
+     * @param <A>         model class
+     * @param genericType mode
+     * @return SqlExecutor
      * @since 2019-12-23
      */
     public static <A> SqlExecutor<A> updateSql(Class<A> genericType) {
 
-        return new SqlExecutor<>(genericType, jdbcTemplate, SqlType.UPDATE, getColumnMap(genericType));
+        return new SqlExecutor<>(genericType, jdbcTemplate, SqlType.UPDATE, getColumnNameMap(genericType));
     }
 
     /**
      * delete
      *
+     * @param <A>         model class
+     * @param genericType mode
+     * @return SqlExecutor
      * @since 2019-12-23
      */
     public static <A> SqlExecutor<A> deleteSql(Class<A> genericType) {
 
-        return new SqlExecutor<>(genericType, jdbcTemplate, SqlType.DELETE, getColumnMap(genericType));
+        return new SqlExecutor<>(genericType, jdbcTemplate, SqlType.DELETE, getColumnNameMap(genericType));
     }
 
     /**
      * insert
      *
+     * @param <A>         model class
+     * @param genericType mode
+     * @return SqlExecutor
      * @since 2019-12-23
      */
     public static <A> SqlExecutor<A> insertSql(Class<A> genericType) {
 
-        return new SqlExecutor<>(genericType, jdbcTemplate, SqlType.SAVE, getColumnMap(genericType));
+        return new SqlExecutor<>(genericType, jdbcTemplate, SqlType.INSERT, getColumnNameMap(genericType));
+    }
+
+    /**
+     * count
+     *
+     * @param <A>         model class
+     * @param genericType mode
+     * @return SqlExecutor
+     * @since 2019-12-23
+     */
+    public static <A> SqlExecutor<A> countSql(Class<A> genericType) {
+
+        return new SqlExecutor<>(genericType, jdbcTemplate, SqlType.COUNT, getColumnNameMap(genericType));
     }
 
 }

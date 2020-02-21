@@ -2,4 +2,5 @@ description = 'spring oxygen flysql integration for Spring boot'
 
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'mysql:mysql-connector-java:latest.integration'
 }

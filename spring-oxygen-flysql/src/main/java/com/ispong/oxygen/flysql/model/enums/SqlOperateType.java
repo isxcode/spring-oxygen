@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.flysql.model;
+package com.ispong.oxygen.flysql.model.enums;
 
 /**
- * operate type
+ * sql operate type
  *
  * @author ispong
- * @since  0.0.1
+ * @since 0.0.1
  */
 public enum SqlOperateType {
 
@@ -32,7 +32,7 @@ public enum SqlOperateType {
      * eq()
      */
     EQ,
-    
+
     /**
      * ne()
      */
@@ -42,12 +42,12 @@ public enum SqlOperateType {
      * setVar()
      */
     SET_VALUE,
-    
+
     /**
      * between()
      */
     BETWEEN,
-    
+
     /**
      * lt()
      */
@@ -103,5 +103,28 @@ public enum SqlOperateType {
      */
     LIMIT,
 
+    /**
+     * update()
+     */
     UPDATE,
+
+    /**
+     * isNull()
+     */
+    IS_NULL,
+
+    /**
+     * isNull()
+     */
+    IS_NOT_NULL,
+
+    /**
+     * notBetween()
+     */
+    NOT_BETWEEN,
+
+    /**
+     * notLike()
+     */
+    NOT_LIKE
 }

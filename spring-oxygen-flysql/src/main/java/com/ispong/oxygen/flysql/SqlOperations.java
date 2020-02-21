@@ -1,6 +1,20 @@
+/*
+ * Copyright [2020] [ispong]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.ispong.oxygen.flysql;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
@@ -12,49 +26,61 @@ import java.util.List;
 public interface SqlOperations {
 
     /**
-     * 查询列表
+     * query
      *
-     * @return 返回List类型数据对象
+     * @param <A> model class
+     * @return data
      * @since 2019-12-26
      */
     <A> List<A> query();
 
     /**
-     * 查询列表
+     * query page size
      *
-     * @param page 每一页
-     * @param size 每页大小
-     * @return 返回List类型数据对象
+     * @param page page
+     * @param size size
+     * @param <A>  model class
+     * @return data
      * @since 2019-12-26
      */
     <A> List<A> query(Integer page, Integer size);
 
     /**
-     * 查询某一个值
+     * get one
      *
-     * @return 返回映射对象
+     * @param <A> model class
+     * @return data
      * @since 2019-12-26
      */
     <A> A getOne();
 
     /**
-     * 执行更新
+     * update
      *
      * @since 2019-12-26
      */
     void doUpdate();
 
     /**
-     * 执行保存
+     * save
      *
+     * @param obj model object
      * @since 2019-12-26
      */
-    <A> void save(A obj) throws InvocationTargetException, IllegalAccessException;
+    void save(Object obj);
 
     /**
-     * 执行删除
+     * delete
      *
      * @since 2019-12-26
      */
     void doDelete();
+
+    /**
+     * count
+     *
+     * @return countNum
+     * @since 0.0.1
+     */
+    Integer count();
 }
