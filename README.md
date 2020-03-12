@@ -32,6 +32,8 @@ There are a number of modules in Spring Oxygen, here is a quick overview:
 
 - Integrated WeChat platform rapid development
 
+***
+
 #### Thanks for free JetBrains Open Source license
 
 <a href="https://www.jetbrains.com/?from=spring-oxygen" target="_blank"><img src="https://github.com/ispong/spring-oxygen/blob/master/Idea-logo.png?raw=true" height="100" alt="idea"/></a>
