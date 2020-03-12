@@ -1,42 +1,37 @@
-# [spring-oxygen](https://github.com/ispong/spring-oxygen) &middot; ![Status](https://img.shields.io/badge/status-developing-ff69b4?style=flat-square) ![Spring](https://img.shields.io/badge/spring-2.2.x-blue?style=flat-square) ![Maven Central](https://img.shields.io/maven-central/v/com.github.ispong/spring-oxygen-flysql?style=flat-square) ![GitHub last commit](https://img.shields.io/github/last-commit/ispong/spring-oxygen?style=flat-square) ![GitHub](https://img.shields.io/github/license/ispong/spring-oxygen?style=flat-square)
+# [spring-oxygen](https://github.com/ispong/spring-oxygen) &middot; [![Status](https://img.shields.io/badge/status-developing-ff69b4?style=flat-square)](https://github.com/ispong/spring-oxygen) [![Spring](https://img.shields.io/badge/spring-2.2.x-blue?style=flat-square)](https://spring.io/) [![Maven Central](https://img.shields.io/maven-central/v/com.github.ispong/spring-oxygen-flysql?style=flat-square)](https://search.maven.org/search?q=g:com.github.ispong) [![GitHub last commit](https://img.shields.io/github/last-commit/ispong/spring-oxygen?style=flat-square)](https://github.com/ispong/spring-oxygen) [![GitHub](https://img.shields.io/github/license/ispong/spring-oxygen?style=flat-square)](https://github.com/ispong/spring-oxygen/blob/master/LICENSE)
 
+Spring rapid development integration framework
 
-integration for Spring boot 2.2.X
+## Installation
 
-### Our primary goals are
+```xml
+<dependency>
+  <groupId>com.github.ispong</groupId>
+  <artifactId>spring-oxygen-flysql</artifactId>
+  <version>0.0.1</version>
+</dependency>
+```
 
-- provide a series of integration tools for fast develop spring project
+## Documentation
 
-### Modules
+You can find the spring-oxygen documentation [on the website](https://ispong.gitee.io/spring-oxygen).  
+
+## Modules
 
 There are a number of modules in Spring Oxygen, here is a quick overview:
 
-#### [oxygen-wechatgo](https://github.com/ispong/spring-oxygen/tree/master/spring-oxygen-wechatgo/src/main/java/com/ispong/oxygen/wechatgo)
-
-quick start develop wechat by spring framework
-
-- yaml fast config
-- access_token auto manager
-- provide a number of open api
-
-#### [oxygen-flysql](https://github.com/ispong/spring-oxygen/tree/master/spring-oxygen-flysql/src/main/java/com/ispong/oxygen/flysql)
-
-- 支持Mysql数据库快速开发
-- 支持分页
-- 支持乐观锁
-- 支持事务回滚
-- 支持日志
-- 支持数据初始化
-
 ### [oxygen-core](https://github.com/ispong/spring-oxygen/tree/master/spring-oxygen-core/src/main/java/com/ispong/oxygen/core)
 
-- oxygen核心包
-> 支持各种开发工具,负责工具类的统一管理
+- Integrate a range of rapid development tools
 
-### oxygen-freecode
-waiting
+### [oxygen-flysql](https://github.com/ispong/spring-oxygen/tree/master/spring-oxygen-flysql/src/main/java/com/ispong/oxygen/flysql)
 
-## Thanks for free JetBrains Open Source license
+- Integrated spring jdbc rapid development
 
-<a href="https://www.jetbrains.com/?from=spring-oxygen" target="_blank">
-<img src="https://user-images.githubusercontent.com/1787798/69898077-4f4e3d00-138f-11ea-81f9-96fb7c49da89.png" height="200"/></a>
+### [oxygen-wechatgo](https://github.com/ispong/spring-oxygen/tree/master/spring-oxygen-wechatgo/src/main/java/com/ispong/oxygen/wechatgo)
+
+- Integrated WeChat platform rapid development
+
+#### Thanks for free JetBrains Open Source license
+
+<a href="https://www.jetbrains.com/?from=spring-oxygen" target="_blank"><img src="https://github.com/ispong/spring-oxygen/blob/master/Idea-logo.png?raw=true" height="100" alt="idea"/></a>
