@@ -13,22 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.core.encrypt;
+package com.ispong.oxygen.flysql;
 
+import com.ispong.oxygen.flysql.enums.SqlOperateType;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 /**
- * Encrypt Properties
+ * sql条件对象
  *
  * @author ispong
- * @version v0.1.0
+ * @since 0.0.1
  */
 @Data
-@Component
-@ConfigurationProperties(prefix = "oxygen.core.security.encrypt")
-public class EncryptProperties {
+@AllArgsConstructor
+public class SqlCondition {
 
-    private String aesSecurityKey = "demo";
+    /**
+     * 条件类型
+     */
+    private SqlOperateType operateType;
+
+    /**
+     * 字段名
+     */
+    private String columnName;
+
+    /**
+     * 字段内容
+     */
+    private Object value;
 }

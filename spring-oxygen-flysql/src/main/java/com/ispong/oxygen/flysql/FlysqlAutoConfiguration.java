@@ -17,40 +17,58 @@ package com.ispong.oxygen.flysql;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * FlysqlAutoConfiguration
+ * 自动配置
  *
  * @author ispong
  * @since 0.0.1
  */
 @Slf4j
+@EnableConfigurationProperties(FlysqlDataSourceProperties.class)
 public class FlysqlAutoConfiguration {
 
-    @Resource
-    private JdbcTemplate jdbcTemplate;
-
     @Bean
     @ConditionalOnClass(FlysqlAutoConfiguration.class)
-    private void initBanner(){
-        log.debug("init banner");
-        System.out.print("                                                     _____.__                     .__   \n");
-        System.out.print("  _______  ______.__. ____   ____   ____           _/ ____\\  | ___.__. ___________|  |  \n");
-        System.out.print(" /  _ \\  \\/  <   |  |/ ___\\_/ __ \\ /    \\   ______ \\   __\\|  |<   |  |/  ___/ ____/  |  \n");
-        System.out.print("(  <_> >    < \\___  / /_/  >  ___/|   |  \\ /_____/  |  |  |  |_\\___  |\\___ < <_|  |  |__\n");
-        System.out.print(" \\____/__/\\_ \\/ ____\\___  / \\___  >___|  /          |__|  |____/ ____/____  >__   |____/\n");
-        System.out.print("            \\/\\/   /_____/      \\/     \\/                      \\/         \\/   |__|     \n");
+    private void initBanner() {
+        log.debug("welcome to use oxygen-flysql");
+        System.out.println("                                           ______                 __");
+        System.out.println("  ____  _  ____  ______ ____  ____        / __/ /_  ___________ _/ /");
+        System.out.println(" / __ \\| |/_/ / / / __ `/ _ \\/ __ \\______/ /_/ / / / / ___/ __ `/ / ");
+        System.out.println("/ /_/ />  </ /_/ / /_/ /  __/ / / /_____/ __/ / /_/ (__  ) /_/ / /  ");
+        System.out.println("\\____/_/|_|\\__, /\\__, /\\___/_/ /_/     /_/ /_/\\__, /____/\\__, /_/   ");
+        System.out.println("          /____//____/                       /____/        /_/      ");
     }
 
+    /**
+     * 初始化多数据源
+     *
+     * @param flysqlDataSourceProperties 数据源yaml配置
+     * @param jdbcTemplate               原生jdbcTemplate
+     * @since 0.0.1
+     */
     @Bean
     @ConditionalOnClass(FlysqlAutoConfiguration.class)
-    private FlySqlFactory initFlySqlFactory() {
+    private Flysql initFlySqlFactory(FlysqlDataSourceProperties flysqlDataSourceProperties, JdbcTemplate jdbcTemplate) {
 
-        return new FlySqlFactory(jdbcTemplate);
+        Map<String, JdbcTemplate> jdbcTemplateMap;
+        Map<String, DataSourceProperties> dataSourcePropertiesMap = flysqlDataSourceProperties.getDatasource();
+        if (dataSourcePropertiesMap == null) {
+            jdbcTemplateMap = new HashMap<>(1);
+        } else {
+            jdbcTemplateMap = new HashMap<>(dataSourcePropertiesMap.size() + 1);
+            dataSourcePropertiesMap.forEach((k, v) -> jdbcTemplateMap.put(k, new JdbcTemplate(v.initializeDataSourceBuilder().build())));
+        }
+
+        jdbcTemplateMap.put(FlysqlConstants.PRIMARY_DATASOURCE_NAME, jdbcTemplate);
+        return new Flysql(jdbcTemplateMap);
     }
 
 }

@@ -15,12 +15,13 @@
  */
 package com.ispong.oxygen.flysql.annotation;
 
-import com.ispong.oxygen.flysql.model.enums.DateBaseType;
+import com.ispong.oxygen.flysql.FlysqlConstants;
+import com.ispong.oxygen.flysql.enums.DateBaseType;
 
 import java.lang.annotation.*;
 
 /**
- * annotation FlysqlView
+ * 注解识别子视图
  *
  * @author ispong
  * @since 0.0.1
@@ -32,7 +33,21 @@ import java.lang.annotation.*;
 @Repeatable(FlysqlViews.class)
 public @interface FlysqlView {
 
+    /**
+     * 指定数据库类型
+     * @return 数据库类型
+     */
     DateBaseType type() default DateBaseType.DEFAULT;
 
+    /**
+     * 指定视图名称
+     * @return 视图名称
+     */
+    String name() default FlysqlConstants.PRIMARY_VIEW_NAME;
+
+    /**
+     * 视图内容
+     * @return 视图内容
+     */
     String value();
 }

@@ -18,7 +18,7 @@ package com.ispong.oxygen.flysql.annotation;
 import java.lang.annotation.*;
 
 /**
- * for sql views
+ * 包含所有的子视图
  *
  * @author ispong
  * @since 0.0.1

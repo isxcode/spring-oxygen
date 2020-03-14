@@ -13,28 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.flysql.model.enums;
+package com.ispong.oxygen.flysql.enums;
 
 /**
- * dataBase type enum
+ * sql type
  *
  * @author ispong
  * @since 0.0.1
  */
-public enum DateBaseType {
+public enum SqlType {
 
     /**
-     * Mysql
+     * insert sql
      */
-    MYSQL,
+    INSERT,
 
     /**
-     * Oracle
+     * delete sql
      */
-    ORACLE,
+    DELETE,
 
     /**
-     * nothing
+     * update sql
      */
-    DEFAULT,
+    UPDATE,
+
+    /**
+     * sql view select
+     */
+    VIEW,
+
+    /**
+     * select sql
+     */
+    SELECT,
 }

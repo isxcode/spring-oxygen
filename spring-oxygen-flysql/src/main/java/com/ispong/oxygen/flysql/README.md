@@ -81,7 +81,7 @@ public class DemoEntity {
 
 6- create test controller 
 ```java
-import com.ispong.oxygen.flysql.FlySqlFactory;
+import com.ispong.oxygen.flysql.Flysql;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -97,7 +97,7 @@ public class HelloController {
         demoEntity.setCustomAge(20);
         demoEntity.setCustomDesc("a man");
         demoEntity.setCustomName("li");
-        FlySqlFactory.insertSql(DemoEntity.class).save(demoEntity);
+        Flysql.insertSql(DemoEntity.class).save(demoEntity);
 
         return "success";
     }
@@ -105,7 +105,7 @@ public class HelloController {
     @GetMapping("getDemo")
     public String getDemo(){
 
-        DemoEntity customAge = FlySqlFactory.selectSql(DemoEntity.class)
+        DemoEntity customAge = Flysql.selectSql(DemoEntity.class)
                 .eq("customAge", 11)
                 .getOne();
 
@@ -115,7 +115,7 @@ public class HelloController {
     @GetMapping("queryDemo")
     public String queryDemo(){
 
-        List<DemoEntity> customAge = FlySqlFactory.selectSql(DemoEntity.class)
+        List<DemoEntity> customAge = Flysql.selectSql(DemoEntity.class)
                 .gt("customAge", 1)
                 .query();
 
@@ -125,7 +125,7 @@ public class HelloController {
     @GetMapping("deleteDemo")
     public void deleteDemo(){
 
-        FlySqlFactory.deleteSql(DemoEntity.class)
+        Flysql.deleteSql(DemoEntity.class)
                 .in("customAge",20)
                 .doDelete();
     }
@@ -133,7 +133,7 @@ public class HelloController {
     @GetMapping("updateDemo")
     public void updateDemo(){
 
-        FlySqlFactory.updateSql(DemoEntity.class)
+        Flysql.updateSql(DemoEntity.class)
                 .like("customName", "w")
                 .update("customDesc", "better man")
                 .doUpdate();
@@ -142,7 +142,7 @@ public class HelloController {
     @GetMapping("pageQueryDemo")
     public String pageQueryDemo(){
 
-        List<DemoEntity> query = FlySqlFactory.selectSql(DemoEntity.class)
+        List<DemoEntity> query = Flysql.selectSql(DemoEntity.class)
                 .like("customName", "w")
                 .query(2, 2);
 
@@ -152,7 +152,7 @@ public class HelloController {
     @GetMapping("countDemo")
     public String countDemo(){
     
-         Integer count = FlySqlFactory.countSql(DemoEntity.class)
+         Integer count = Flysql.countSql(DemoEntity.class)
                   .eq("customName","wang")
                   .count();
          return String.valueOf(count);
@@ -166,7 +166,7 @@ public class HelloController {
 create DemoDto
 ```java
 import com.ispong.oxygen.flysql.annotation.FlysqlView;
-import com.ispong.oxygen.flysql.model.enums.DateBaseType;
+import com.ispong.oxygen.flysql.enums.DateBaseType;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -193,7 +193,7 @@ public class DemoDto {
 
 create test controller
 ```java
-import com.ispong.oxygen.flysql.FlySqlFactory;
+import com.ispong.oxygen.flysql.Flysql;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -206,7 +206,7 @@ public class TestController {
     @GetMapping("queryDemoDto")
     public String queryDemo(){
 
-        List<DemoDto> query = FlySqlFactory.viewSql(DemoDto.class)
+        List<DemoDto> query = Flysql.viewSql(DemoDto.class)
                 .setValue("name", "wang")
                 .lt("dateTime", LocalDateTime.now())
                 .query();

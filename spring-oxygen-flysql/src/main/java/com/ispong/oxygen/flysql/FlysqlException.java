@@ -27,6 +27,6 @@ import lombok.extern.slf4j.Slf4j;
 public class FlysqlException extends RuntimeException {
 
     public FlysqlException(String message) {
-        super("[oxygen-flysql]:" + message);
+        super("[oxygen-flysql-exception]:" + message);
     }
 }

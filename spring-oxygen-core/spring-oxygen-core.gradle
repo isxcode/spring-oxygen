@@ -1,6 +1,8 @@
 description 'Spring Oxygen Core'
 
 dependencies {
+
+
     compile 'org.springframework.boot:spring-boot-starter-freemarker'
 		compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
     compile 'org.dom4j:dom4j:latest.integration'

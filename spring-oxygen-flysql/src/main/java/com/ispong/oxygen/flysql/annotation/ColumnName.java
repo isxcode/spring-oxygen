@@ -18,7 +18,7 @@ package com.ispong.oxygen.flysql.annotation;
 import java.lang.annotation.*;
 
 /**
- * apply dateBase columnName
+ * 映射数据库中字段
  *
  * @author ispong
  * @since 0.0.1

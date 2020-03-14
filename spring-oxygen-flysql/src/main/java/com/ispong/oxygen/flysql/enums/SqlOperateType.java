@@ -13,7 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.flysql.model.enums;
+package com.ispong.oxygen.flysql.enums;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * sql operate type
@@ -21,110 +25,115 @@ package com.ispong.oxygen.flysql.model.enums;
  * @author ispong
  * @since 0.0.1
  */
+@AllArgsConstructor
 public enum SqlOperateType {
 
     /**
      * select()
      */
-    SELECT,
+    SELECT(""),
 
     /**
      * eq()
      */
-    EQ,
+    EQ(" = "),
 
     /**
      * ne()
      */
-    NE,
+    NE(" != "),
 
     /**
      * setVar()
      */
-    SET_VALUE,
+    SET_VALUE(""),
 
     /**
      * between()
      */
-    BETWEEN,
+    BETWEEN(" and "),
 
     /**
      * lt()
      */
-    LT,
+    LT(" < "),
 
     /**
      * ltEq()
      */
-    LT_EQ,
+    LT_EQ(" <= "),
 
     /**
      * gt()
      */
-    GT,
+    GT(" > "),
 
     /**
      * gtEq()
      */
-    GT_EQ,
+    GT_EQ(" >= "),
 
     /**
      * orderBy()
      */
-    ORDER_BY,
+    ORDER_BY(""),
 
     /**
      * like()
      */
-    LIKE,
+    LIKE(" like "),
 
     /**
      * notIn()
      */
-    NOT_IN,
+    NOT_IN(" not in "),
 
     /**
      * in()
      */
-    IN,
+    IN(" in "),
 
     /**
      * or()
      */
-    OR,
+    OR(" or "),
 
     /**
      * and()
      */
-    AND,
+    AND(" and "),
 
     /**
      * limit()
      */
-    LIMIT,
+    LIMIT(" limit "),
 
     /**
      * update()
      */
-    UPDATE,
+    UPDATE(" update "),
 
     /**
      * isNull()
      */
-    IS_NULL,
+    IS_NULL(" is null "),
 
     /**
      * isNull()
      */
-    IS_NOT_NULL,
+    IS_NOT_NULL(" is not null "),
 
     /**
      * notBetween()
      */
-    NOT_BETWEEN,
+    NOT_BETWEEN(" not between "),
 
     /**
      * notLike()
      */
-    NOT_LIKE
+    NOT_LIKE(" not like "),;
+
+    @Setter
+    @Getter
+    private String code;
 }

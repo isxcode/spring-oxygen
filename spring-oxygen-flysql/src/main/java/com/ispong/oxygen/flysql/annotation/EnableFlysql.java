@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
- * start flysql @EnableFlysql
+ * 启动flysql
  *
  * @author ispong
  * @since 0.0.1

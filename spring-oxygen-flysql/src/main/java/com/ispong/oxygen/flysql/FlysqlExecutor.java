@@ -18,51 +18,48 @@ package com.ispong.oxygen.flysql;
 import java.util.List;
 
 /**
- * sql operations
+ * 定义sql最终执行方式
  *
  * @author ispong
  * @version v0.1.0
  */
-public interface SqlOperations {
+public interface FlysqlExecutor<A> {
 
     /**
-     * query
+     * select 正常查询
      *
-     * @param <A> model class
-     * @return data
+     * @return list[data]
      * @since 2019-12-26
      */
-    <A> List<A> query();
+    List<A> query();
 
     /**
-     * query page size
+     * select 分页查询
      *
      * @param page page
      * @param size size
-     * @param <A>  model class
-     * @return data
+     * @return list[data]
      * @since 2019-12-26
      */
-    <A> List<A> query(Integer page, Integer size);
+    List<A> query(Integer page, Integer size);
 
     /**
-     * get one
+     * select 查询一个对象
      *
-     * @param <A> model class
      * @return data
      * @since 2019-12-26
      */
-    <A> A getOne();
+    A getOne();
 
     /**
-     * update
+     * update 数据更新
      *
      * @since 2019-12-26
      */
     void doUpdate();
 
     /**
-     * save
+     * save 保存一条数据
      *
      * @param obj model object
      * @since 2019-12-26
@@ -70,14 +67,14 @@ public interface SqlOperations {
     void save(Object obj);
 
     /**
-     * delete
+     * delete 删除数据
      *
      * @since 2019-12-26
      */
     void doDelete();
 
     /**
-     * count
+     * count 查询数据条数
      *
      * @return countNum
      * @since 0.0.1

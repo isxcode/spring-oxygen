@@ -13,25 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.flysql.model;
-
-import com.ispong.oxygen.flysql.model.enums.SqlOperateType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+package com.ispong.oxygen.flysql.enums;
 
 /**
- * sql condition model
+ * dataBase type enum
  *
  * @author ispong
  * @since 0.0.1
  */
-@Data
-@AllArgsConstructor
-public class SqlCondition {
+public enum DateBaseType {
 
-    private SqlOperateType operateType;
+    /**
+     * Mysql
+     */
+    MYSQL,
 
-    private String columnName;
+    /**
+     * Oracle
+     */
+    ORACLE,
 
-    private Object value;
+    /**
+     * nothing
+     */
+    DEFAULT,
 }

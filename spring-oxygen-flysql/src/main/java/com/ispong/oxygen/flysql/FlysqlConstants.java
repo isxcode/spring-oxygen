@@ -24,5 +24,20 @@ package com.ispong.oxygen.flysql;
 public interface FlysqlConstants {
 
     String CLASS = "class";
+
+    /**
+     * 默认数据源名称
+     */
+    String PRIMARY_DATASOURCE_NAME = "primary";
+
+    /**
+     * 默认视图名称
+     */
+    String PRIMARY_VIEW_NAME = "primary";
+
+    /**
+     * select *  替换字段
+     */
+    String SELECT_REPLACE_CONTENT = "spring-oxygen-flysql-select";
 }
 
