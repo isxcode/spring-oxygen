@@ -4,12 +4,32 @@ Spring rapid development integration framework
 
 ## Installation
 
+Maven
 ```xml
 <dependency>
   <groupId>com.github.ispong</groupId>
-  <artifactId>spring-oxygen-flysql</artifactId>
+  <artifactId>spring-oxygen</artifactId>
   <version>0.0.1</version>
 </dependency>
+```
+
+Gradle
+```groovy
+implementation 'com.github.ispong:spring-oxygen:0.0.1'
+```
+
+Start Up
+```java
+import com.ispong.oxygen.flysql.annotation.EnableFlysql;
+import com.ispong.oxygen.wechatgo.annotation.EnableWechatgo;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@EnableFlysql
+@EnableWechatgo
+public class AppConfig {
+
+}
 ```
 
 ## Documentation
@@ -20,20 +40,49 @@ You can find the spring-oxygen documentation [on the website](https://ispong.git
 
 There are a number of modules in Spring Oxygen, here is a quick overview:
 
-### [oxygen-core](https://github.com/ispong/spring-oxygen/tree/master/spring-oxygen-core/src/main/java/com/ispong/oxygen/core)
-
-- Integrate a range of rapid development tools
-
 ### [oxygen-flysql](https://github.com/ispong/spring-oxygen/tree/master/spring-oxygen-flysql/src/main/java/com/ispong/oxygen/flysql)
 
-- Integrated spring jdbc rapid development
+- Integrate spring jdbc rapid development
+
+- Example
+```java
+import org.springframework.stereotype.Repository;
+import com.ispong.oxygen.flysql.Flysql;
+
+@Repository
+public class DemoDao {
+
+    public List<DemoEntity> queryDemo() {
+
+        return Flysql.select(Demo.class)
+                .select("column", "column1", "column2", "column3")
+                .eq("column", "v")
+                .between("column", "v1", "v2")
+                .gt("column", "v")
+                .ltEq("column", "v")
+                .like("column", "v")
+                .in("column", "v1", "v2", "v3")
+                .orderBy("column", "desc")
+                .query();
+    }
+}
+```
 
 ### [oxygen-wechatgo](https://github.com/ispong/spring-oxygen/tree/master/spring-oxygen-wechatgo/src/main/java/com/ispong/oxygen/wechatgo)
 
-- Integrated WeChat platform rapid development
+- Integrate WeChat platform rapid development
+
+- Example
+```yaml
+oxygen:
+  wechatgo:
+    app-id: xxxxx # appId
+    app-secret: xxxxx # appSecret
+    token: xxxxx # custom server token
+```
 
 ***
 
 #### Thanks for free JetBrains Open Source license
 
-<a href="https://www.jetbrains.com/?from=spring-oxygen" target="_blank"><img src="https://github.com/ispong/spring-oxygen/blob/master/Idea-logo.png?raw=true" height="100" alt="idea"/></a>
+<a href="https://www.jetbrains.com/?from=spring-oxygen" target="_blank"><img src="https://github.com/ispong/spring-oxygen/blob/master/doc/jetbrains.png?raw=true" height="80" alt="jetbrains"/></a>
