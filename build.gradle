@@ -6,50 +6,65 @@ plugins {
 
 // 声明插件
 apply plugin: 'java'
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-// 声明仓库
-repositories {
-	maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-	mavenCentral()
-	mavenLocal()
-}
 
 // 声明依赖
 dependencies {
-	// https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter
-	compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.3.1'
 
-	compile(project(':spring-oxygen-wechatgo'))
-//	compile group: 'com.github.ispong', name: 'spring-oxygen-wechatgo', version: '0.0.1'
-	compile(project(':spring-oxygen-flysql'))
+	compile 'com.github.ispong:spring-oxygen:0.0.3'
+
+	// spring boot
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	compile 'org.springframework.boot:spring-boot-starter-web'
-	compile 'org.springframework.boot:spring-boot-starter-aop'
-	compile 'org.springframework.boot:spring-boot-starter-websocket'
-	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-	compile 'org.springframework.boot:spring-boot-starter-actuator'
+
+	compileOnly 'org.projectlombok:lombok:latest.integration'
+	annotationProcessor 'org.projectlombok:lombok:latest.integration'
+
+
+	// https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter
+//	compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.3.1'
+//	compile(project(':spring-core'))
+
+//	compile 'org.springframework.boot:spring-boot-starter-aop'
+//	compile 'org.springframework.boot:spring-boot-starter-websocket'
+//	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+//	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+//	compile 'org.springframework.boot:spring-boot-starter-actuator'
 //	compile 'org.springframework.boot:spring-boot-starter-security'
 //	compile 'org.springframework.data:spring-data-redis'
 //	compile 'org.springframework.boot:spring-boot-starter-amqp'
 //	compile 'io.lettuce:lettuce-core:latest.integration'
 //	compile 'org.dom4j:dom4j:latest.integration'
-	compile 'org.springframework.boot:spring-boot-starter-freemarker'
-	compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	compile 'org.springframework.boot:spring-boot-starter-mail'
-	compileOnly 'org.projectlombok:lombok:latest.integration'
-	annotationProcessor 'org.projectlombok:lombok:latest.integration'
-	testCompile 'org.junit.jupiter:junit-jupiter-api:latest.integration'
-	compile 'mysql:mysql-connector-java:latest.integration'
-	compile 'com.alibaba:fastjson:latest.integration'
-	compile 'com.github.ulisesbocchio:jasypt-spring-boot-starter:latest.integration'
-	compile 'com.alibaba:druid:latest.integration'
+//	compile 'org.springframework.boot:spring-boot-starter-freemarker'
+//	compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+//	compile 'org.springframework.boot:spring-boot-starter-mail'
+//	testCompile 'org.junit.jupiter:junit-jupiter-api:latest.integration'
+//	compile 'mysql:mysql-connector-java:latest.integration'
+//	compile 'com.alibaba:fastjson:latest.integration'
+//	compile 'com.github.ulisesbocchio:jasypt-spring-boot-starter:latest.integration'
+//	compile 'com.alibaba:druid:latest.integration'
 }
 
-// 子项目配置
+// 统一组织/版本号/镜像仓库
+allprojects {
+
+	// 声明版本号/组织号
+	version = '0.0.3'
+	group = 'com.github.ispong'
+
+	// 声明子项目仓库
+	repositories {
+		maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+		mavenCentral()
+		mavenLocal()
+	}
+}
+
 subprojects {
 
 	// 声明插件
@@ -58,31 +73,6 @@ subprojects {
 	apply plugin: 'signing'
 	apply plugin: 'org.springframework.boot'
 	apply plugin: 'io.spring.dependency-management'
-
-	// 声明版本号/组织号
-	version = '0.0.1'
-	group = 'com.github.ispong'
-
-	// 生成上传文件
-	java {
-		withJavadocJar()
-		withSourcesJar()
-	}
-
-	// 声明子项目仓库
-	repositories {
-		maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-		mavenCentral()
-	}
-
-	// 声明子项目依赖
-	dependencies {
-		implementation 'org.springframework.boot:spring-boot-starter'
-		compileOnly 'org.springframework.boot:spring-boot-starter-web'
-		annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-		compileOnly 'org.projectlombok:lombok:latest.integration'
-		annotationProcessor 'org.projectlombok:lombok:latest.integration'
-	}
 
 	// 发布版本
 	publishing {
@@ -155,6 +145,12 @@ subprojects {
 		sign publishing.publications.mavenJava
 	}
 
+	// 生成上传文件
+	java {
+		withJavadocJar()
+		withSourcesJar()
+	}
+
 	// 配置javadoc
 	javadoc {
 		options.encoding("UTF-8")
@@ -173,3 +169,4 @@ subprojects {
 		enabled true
 	}
 }
+

@@ -1,17 +1,11 @@
-# gradle 缓存文件
+# gradle缓存文件不提交
 .gradle
 
-# IntelliJ IDEA
+# idea缓存文件不提交
 .idea
 
-# 文件打包文件
-build
+# 所有的build文件夹都不提交
+**/build
 
-# 日志文件夹
+# 日志文件夹不提交
 logs
-
-# gradle warpper
-gradle
-
-# secret
-gradle.properties
