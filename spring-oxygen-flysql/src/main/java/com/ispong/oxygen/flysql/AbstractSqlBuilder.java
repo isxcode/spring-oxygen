@@ -15,6 +15,7 @@
  */
 package com.ispong.oxygen.flysql;
 
+import com.ispong.oxygen.flysql.enums.OrderType;
 import com.ispong.oxygen.flysql.enums.SqlOperateType;
 import org.apache.logging.log4j.util.Strings;
 
@@ -160,9 +161,9 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
     }
 
     @Override
-    public T orderBy(String columnName, String orderType) {
+    public T orderBy(String columnName, OrderType orderType) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.ORDER_BY, columnsMap.get(columnName), orderType));
+        sqlConditions.add(new SqlCondition(SqlOperateType.ORDER_BY, columnsMap.get(columnName), orderType.getOrderType()));
         return getSelf();
     }
 

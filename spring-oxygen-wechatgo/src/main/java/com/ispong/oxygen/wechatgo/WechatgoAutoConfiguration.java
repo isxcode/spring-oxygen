@@ -33,7 +33,7 @@ import javax.annotation.Resource;
  */
 @Slf4j
 @EnableCaching
-@EnableConfigurationProperties(WechatgoProperties.class)
+@EnableConfigurationProperties({WechatgoProperties.class})
 public class WechatgoAutoConfiguration {
 
     @Resource
@@ -69,7 +69,7 @@ public class WechatgoAutoConfiguration {
     @ConditionalOnClass(WechatgoAutoConfiguration.class)
     public void initWechatgoBanner() {
 
-        log.debug("init wechatgo banner");
+        log.info("welcome to use oxygen-wechatgo");
         System.out.println("                                                             __          __            ");
         System.out.println("  ____  _  ____  ______ ____  ____       _      _____  _____/ /_  ____ _/ /_____ _____ ");
         System.out.println(" / __ \\| |/_/ / / / __ `/ _ \\/ __ \\_____| | /| / / _ \\/ ___/ __ \\/ __ `/ __/ __ `/ __ \\");

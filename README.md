@@ -9,13 +9,13 @@ Maven
 <dependency>
   <groupId>com.github.ispong</groupId>
   <artifactId>spring-oxygen</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.3</version>
 </dependency>
 ```
 
 Gradle
 ```groovy
-implementation 'com.github.ispong:spring-oxygen:0.0.1'
+implementation 'com.github.ispong:spring-oxygen:0.0.3'
 ```
 
 Start Up
@@ -38,9 +38,9 @@ You can find the spring-oxygen documentation [on the website](https://ispong.git
 
 ## Modules
 
-There are a number of modules in Spring Oxygen, here is a quick overview:
+There are a number of modules in spring-oxygen, here is a quick overview:
 
-### [oxygen-flysql](https://github.com/ispong/spring-oxygen/tree/master/spring-oxygen-flysql/src/main/java/com/ispong/oxygen/flysql)
+### [oxygen-flysql](https://ispong.gitee.io/spring-oxygen)
 
 - Integrate spring jdbc rapid development
 
@@ -48,27 +48,27 @@ There are a number of modules in Spring Oxygen, here is a quick overview:
 ```java
 import org.springframework.stereotype.Repository;
 import com.ispong.oxygen.flysql.Flysql;
+import com.ispong.oxygen.flysql.enums.OrderType;
 
 @Repository
-public class DemoDao {
+public class UserDao {
 
-    public List<DemoEntity> queryDemo() {
+    public List<UserEntity> queryUser() {
 
-        return Flysql.select(Demo.class)
-                .select("column", "column1", "column2", "column3")
-                .eq("column", "v")
-                .between("column", "v1", "v2")
-                .gt("column", "v")
-                .ltEq("column", "v")
-                .like("column", "v")
-                .in("column", "v1", "v2", "v3")
-                .orderBy("column", "desc")
+        return Flysql.select(UserEntity.class)
+                .select("userName", "sex", "account", "age")
+                .eq("userName", "ispong")
+                .between("point", 100, 200)
+                .gt("age", "18")
+                .like("sex", "M")
+                .in("userPower", "ADMIN", "USER", "MANAGER")
+                .orderBy("userIndex", OrderType.DESC)
                 .query();
     }
 }
 ```
 
-### [oxygen-wechatgo](https://github.com/ispong/spring-oxygen/tree/master/spring-oxygen-wechatgo/src/main/java/com/ispong/oxygen/wechatgo)
+### [oxygen-wechatgo](https://ispong.gitee.io/spring-oxygen)
 
 - Integrate WeChat platform rapid development
 
@@ -81,8 +81,24 @@ oxygen:
     token: xxxxx # custom server token
 ```
 
+```java
+import com.ispong.oxygen.wechatgo.WechatgoEventHandler;
+import com.ispong.oxygen.wechatgo.model.WeChatEventBody;
+import org.springframework.stereotype.Service;
+
+@Service
+public class WechatgoService implements WechatgoEventHandler {
+
+    @Override
+    public void subscribeEvent(WeChatEventBody weChatEventBody) {
+        
+        // do subscribe event
+    }
+}
+```
+
 ***
 
 #### Thanks for free JetBrains Open Source license
 
-<a href="https://www.jetbrains.com/?from=spring-oxygen" target="_blank"><img src="https://github.com/ispong/spring-oxygen/blob/master/doc/jetbrains.png?raw=true" height="80" alt="jetbrains"/></a>
+<a href="https://www.jetbrains.com/?from=spring-oxygen" target="_blank"><img src="https://github.com/ispong/spring-oxygen/blob/master/doc/jetbrains.png?raw=true" height="100" alt="jetbrains"/></a>

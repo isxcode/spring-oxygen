@@ -38,7 +38,7 @@ public class FlysqlAutoConfiguration {
     @Bean
     @ConditionalOnClass(FlysqlAutoConfiguration.class)
     private void initBanner() {
-        log.debug("welcome to use oxygen-flysql");
+        log.info("welcome to use oxygen-flysql");
         System.out.println("                                           ______                 __");
         System.out.println("  ____  _  ____  ______ ____  ____        / __/ /_  ___________ _/ /");
         System.out.println(" / __ \\| |/_/ / / / __ `/ _ \\/ __ \\______/ /_/ / / / / ___/ __ `/ / ");

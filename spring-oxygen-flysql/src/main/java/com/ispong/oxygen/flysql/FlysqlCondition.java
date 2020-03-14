@@ -1,5 +1,7 @@
 package com.ispong.oxygen.flysql;
 
+import com.ispong.oxygen.flysql.enums.OrderType;
+
 /**
  * 规定条件
  *
@@ -162,7 +164,7 @@ public interface FlysqlCondition<T> {
      * @return self
      * @since 0.0.1
      */
-    T orderBy(String columnName, String orderType);
+    T orderBy(String columnName, OrderType orderType);
 
     /**
      * like()

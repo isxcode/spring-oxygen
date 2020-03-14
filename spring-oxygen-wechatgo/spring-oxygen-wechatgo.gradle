@@ -1,2 +1,8 @@
-description = 'spring-oxygen-wechatgo integration for Spring boot'
+dependencies {
 
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    compileOnly 'org.projectlombok:lombok:latest.integration'
+    annotationProcessor 'org.projectlombok:lombok:latest.integration'
+}
