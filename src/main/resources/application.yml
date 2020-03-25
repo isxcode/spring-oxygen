@@ -1,4 +1,5 @@
 spring:
+  # profile
   profiles:
     active: dev # java -jar app.jar --spring.profiles.active=dev
   application:
@@ -7,7 +8,13 @@ spring:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
 
-  # spring-mail 配置
+  # 请求管理
+  servlet:
+    multipart:
+      max-file-size: 3MB # 上传最大文件大小
+      max-request-size: 3MB # 上传最大请求体大小
+
+  # spring-mail
   mail:
     host: smtp.qq.com # 邮箱服务器地址
     port: 465 # 邮箱服务器端口号
@@ -22,7 +29,16 @@ spring:
       mail.smtp.timeout: 10000 # 设置超时
       mail.smtp.writetimeout: 10000 # 设置写入超时
 
-# freemarker 设置
+  # 数据库配置
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:~/h2
+    username: root
+    password: root
+#    schema: db/schema.sql
+#    data: db/data.sql
+
+  # freemarker 设置
   freemarker:
     enabled: false # 使用启动springMvc
     cache: false # 关闭缓存
@@ -30,40 +46,22 @@ spring:
     template-loader-path: /templates/ # 设置模板地址
     check-template-location: false # 检查模板地址是否存在
 
+  # h2-config
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        trace: true
+        web-allow-others: true
+
+# 服务器配置
 server:
   servlet:
-    context-path: /isxcode # 上下文
+    context-path: /spring-oxygen # context
+  port: 8888
 
-# 配置文件加密
-jasypt:
-  encryptor:
-    property:
-      prefix: "ENC@[" # 标识前缀
-      suffix: "]" # 标识后缀
-    bean: customJasyptStringEncryptor
-
-isxcode:
-  auto-code: # 配置代码自动生成器
-    module-path: com.isxcode.ispring
-    file-paths:
-      'controller': controller
-      'service': service
-      'dao': dao
-      'entity': model.entity
-    templates-path: templates
-    template-suffix: .ftl
-    author: ispong
-    ignore-fields:
-      - uuid
-      - version
-      - created_date
-      - created_by
-      - last_modified_date
-      - last_modified_by
-    base-class-list:
-      'controller': com.isxcode.ispring.common.BaseController
-      'entity': com.isxcode.ispring.common.BaseEntity
-
+# spring-logging
 logging:
   level:
     root: info
@@ -83,8 +81,41 @@ logging:
     file: '%d{${LOG_DATEFORMAT_PATTERN}} ${LOG_LEVEL_PATTERN} %-5(${PID:- }) --- [%15.15t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD}}'
     rolling-file-name: '${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz'
 
+# spring-oxygen
 oxygen:
   wechatgo:
     app-id: wx5ada926e5489824f # appId
     app-secret: d49e9eaac5633e661ff207353a9c86b1 # appSecret
     token: test # custom server token
+  flysql:
+    datasource:
+      pluto:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://mysql.definesys.com:30002/pluto_dev
+        username: pluto
+        password: welcome1
+  system:
+    file:
+      location: D://
+
+# jasypt
+jasypt:
+  encryptor:
+    property:
+      prefix: "ENC@[" # 标识前缀
+      suffix: "]" # 标识后缀
+    bean: customJasyptStringEncryptor # 使用自定义加密规则
+
+# spring-actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: logfile,health,beans,metrics
+  endpoint:
+    logfile:
+      enabled: true
+    health:
+      show-details: always
+    metrics:
+      enabled: true

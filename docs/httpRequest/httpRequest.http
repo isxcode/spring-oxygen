@@ -1,0 +1,49 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection) or
+# paste cURL into the file and request will be converted to HTTP Request format.
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+# 文件上传接口
+
+POST {{host}}/file/upload
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="2.png"
+
+< C:\Users\ispon\Desktop\2.png
+--WebAppBoundary
+
+
+###
+POST http://localhost:8888/spring-oxygen/file/upload
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="img.png"
+
+< C:\Users\ispon\Desktop\test.png
+
+###
+
+
+### 接口设定原理
+
+#1- 不相信任何前端的数据
+#2- 接口使用map返回，灵活整齐
+#3- 接口传入参数保持整齐
+#4- 数据初步验证规则
+#5- 接口地址设计规则 全是小写 （http://host:ip/context/moudle/api）
+
+### 用户登录接口 post
+
+POST {}/user/api
+Content-Type: application/json
+
+{}
+
+###
+

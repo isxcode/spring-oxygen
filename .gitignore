@@ -6,6 +6,10 @@
 
 # 所有的build文件夹都不提交
 **/build
+**/out
 
 # 日志文件夹不提交
 logs
+
+# 配置文件不能提交
+gradle.properties

@@ -29,9 +29,21 @@ public class Application {
 	 * @since 0.0.1
 	 */
 	@GetMapping("/test")
-	public String test(){
+	public String test() {
 
 		return Calendar.getInstance().getTime().toString();
 	}
+
+//	/**
+//	 * 命令行
+//	 *
+//	 * @param appContext app上下文
+//	 * @since 0.0.1
+//	 */
+//	@Bean
+//	public CommandLineRunner run(ApplicationContext appContext) {
+//
+//		return args -> Arrays.stream(appContext.getBeanDefinitionNames()).sorted().forEach(System.out::println);
+//	}
 }
 

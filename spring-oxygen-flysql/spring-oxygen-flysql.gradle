@@ -2,6 +2,7 @@ dependencies {
 
     compile 'mysql:mysql-connector-java:latest.integration'
     compile 'org.springframework.boot:spring-boot-starter-jdbc'
+    compileOnly 'org.springframework.boot:spring-boot-starter-web'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
     compileOnly 'org.projectlombok:lombok:latest.integration'

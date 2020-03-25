@@ -101,4 +101,4 @@ public class WechatgoService implements WechatgoEventHandler {
 
 #### Thanks for free JetBrains Open Source license
 
-<a href="https://www.jetbrains.com/?from=spring-oxygen" target="_blank"><img src="https://github.com/ispong/spring-oxygen/blob/master/doc/jetbrains.png?raw=true" height="100" alt="jetbrains"/></a>
+<a href="https://www.jetbrains.com/?from=spring-oxygen" target="_blank"><img src="https://github.com/ispong/spring-oxygen/blob/master/doc/jetbrains.png?raw=true" height="150" alt="jetbrains"/></a>
