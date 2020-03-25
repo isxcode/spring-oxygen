@@ -1,5 +1,6 @@
 package com.ispong.oxygen.security;
 
+import com.ispong.oxygen.OxygenConstants;
 import com.ispong.oxygen.core.encrypt.EncryptUtils;
 import com.ispong.oxygen.module.user.entity.UserEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -35,23 +36,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        // 获取请求头中得jwt值
         String authorization = request.getHeader("Authorization");
 
-        // 如果jwt存在则默认为""
         if (authorization == null) {
-            authorization = "";
+            request.getRequestDispatcher(OxygenConstants.EXCEPTION_CONTROLLER + "?exception=" + "authorization is null").forward(request, response);
+            return;
         }
 
         try {
-            // jwt解析工具,获取用户信息对象
             UserEntity userEntity = EncryptUtils.jwtDecrypt(authorization, UserEntity.class);
-            // 创建临时身份对象
             AuthenticationToken authRequest = new AuthenticationToken(userEntity.getUserId(), "");
-            // 进入认证管理中心,进行认证
             authenticationManager.authenticate(authRequest);
-        }catch (Exception e){
-            request.getRequestDispatcher("/userAuthException").forward(request, response);
+        } catch (Exception e) {
+            request.getRequestDispatcher(OxygenConstants.EXCEPTION_CONTROLLER + "?exception=" + "jwt authorization error").forward(request, response);
+            return;
         }
 
         // 放行

@@ -1,16 +1,15 @@
 package com.ispong.oxygen.config;
 
-import com.fasterxml.classmate.TypeResolver;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.models.auth.In;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.context.request.async.DeferredResult;
-import springfox.documentation.builders.*;
-import springfox.documentation.schema.ModelRef;
-import springfox.documentation.schema.WildcardType;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
@@ -23,7 +22,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static springfox.documentation.schema.AlternateTypeRules.newRule;
 
 /**
  * swagger 配置
@@ -37,18 +35,36 @@ import static springfox.documentation.schema.AlternateTypeRules.newRule;
 @Configuration
 public class SwaggerConfig{
 
+
+//    @Autowired
+//    private TypeResolver typeResolver;
+
+
     /**
      * 设置生成接口的地址
      */
     private String controllerPath = "com.ispong.oxygen.module";
 
+    /**
+     * 创建apiInfo
+     *
+     * @since 0.0.1
+     */
     private ApiInfo initApiInfo() {
-
+        
         return new ApiInfoBuilder()
                 .title("spring-oxygen documents")
-                .description("spring-oxygen documents")
-//                .version("1.0")
                 .build();
+    }
+
+    /**
+     * 创建apiKey
+     *
+     * @since 0.0.1
+     */
+    private ApiKey initApiKey() {
+
+        return new ApiKey("Authorization", HttpHeaders.AUTHORIZATION, In.HEADER.name());
     }
 
     @Bean
@@ -63,68 +79,75 @@ public class SwaggerConfig{
                 .pathMapping("/")
                 .directModelSubstitute(LocalDate.class, String.class)
                 .genericModelSubstitutes(ResponseEntity.class)
-                .alternateTypeRules(
-                        newRule(typeResolver.resolve(DeferredResult.class,
-                                typeResolver.resolve(ResponseEntity.class, WildcardType.class)),
-                                typeResolver.resolve(WildcardType.class)))
+//                .alternateTypeRules(
+//                        newRule(typeResolver.resolve(DeferredResult.class,
+//                                typeResolver.resolve(ResponseEntity.class, WildcardType.class)),
+//                                typeResolver.resolve(WildcardType.class)))
                 .useDefaultResponseMessages(false)
-                .globalResponseMessage(RequestMethod.GET,
-                        newArrayList(new ResponseMessageBuilder()
-                                .code(500)
-                                .message("500 message")
-                                .responseModel(new ModelRef("Error"))
-                                .build()))
-//                .securitySchemes(newArrayList(apiKey()))
+//                .globalResponseMessage(RequestMethod.GET,
+//                        newArrayList(new ResponseMessageBuilder()
+//                                .code(500)
+//                                .message("500 message")
+//                                .responseModel(new ModelRef("Error"))
+//                                .build()))
+                .securitySchemes(newArrayList(initApiKey()))
                 .securityContexts(newArrayList(securityContext()))
                 .enableUrlTemplating(true)
-                .globalOperationParameters(
-                        newArrayList(new ParameterBuilder()
-                                .name("someGlobalParameter")
-                                .description("Description of someGlobalParameter")
-                                .modelRef(new ModelRef("string"))
-                                .parameterType("query")
-                                .required(true)
-                                .build()))
+//                .globalOperationParameters(
+//                        newArrayList(new ParameterBuilder()
+//                                .name("someGlobalParameter")
+//                                .description("Description of someGlobalParameter")
+//                                .modelRef(new ModelRef("string"))
+//                                .parameterType("query")
+//                                .required(true)
+//                                .build()))
 //                .tags(new Tag("Pet Service", "All apis relating to pets"))
 //                .additionalModels(typeResolver.resolve(AdditionalModel.class))
                 ;
     }
 
-    @Autowired
-    private TypeResolver typeResolver;
 
-//    private ApiKey apiKey() {
-//        return new ApiKey("mykey", "api_key", "header");
-//    }
-
-    private SecurityContext securityContext() {
-        return SecurityContext.builder()
-                .securityReferences(defaultAuth())
-                .forPaths(PathSelectors.regex("/anyPath.*"))
-                .build();
-    }
-
+    /**
+     *
+     *
+     * @param
+     * @return
+     * @since 0.0.1
+     */
     List<SecurityReference> defaultAuth() {
-        AuthorizationScope authorizationScope
-                = new AuthorizationScope("global", "accessEverything");
+
+        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
-        return newArrayList(
-                new SecurityReference("mykey", authorizationScopes));
+        return newArrayList(new SecurityReference("Authorization", authorizationScopes));
     }
 
-    @Bean
-    SecurityConfiguration security() {
-        return SecurityConfigurationBuilder.builder()
-                .clientId("test-app-client-id")
-                .clientSecret("test-app-client-secret")
-                .realm("test-app-realm")
-                .appName("test-app")
-                .scopeSeparator(",")
-                .additionalQueryStringParams(null)
-                .useBasicAuthenticationWithAccessCodeGrant(false)
+
+    /**
+     * 上下文路径选择器
+     * 
+     * @since 0.0.1
+     */
+    private SecurityContext securityContext() {
+
+        return SecurityContext.builder()
+                .securityReferences(defaultAuth())
+                .forPaths(PathSelectors.regex("^(?!auth).*$"))
                 .build();
     }
+
+//    @Bean
+//    SecurityConfiguration security() {
+//        return SecurityConfigurationBuilder.builder()
+//                .clientId("test-app-client-id")
+//                .clientSecret("test-app-client-secret")
+//                .realm("test-app-realm")
+//                .appName("test-app")
+//                .scopeSeparator(",")
+//                .additionalQueryStringParams(null)
+//                .useBasicAuthenticationWithAccessCodeGrant(false)
+//                .build();
+//    }
 
     @Bean
     UiConfiguration uiConfig() {

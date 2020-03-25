@@ -1,78 +1,60 @@
 package com.ispong.oxygen.module.user;
 
-import com.ispong.oxygen.core.encrypt.EncryptUtils;
 import com.ispong.oxygen.flysql.common.BaseController;
-import com.ispong.oxygen.module.user.entity.UserEntity;
-import com.ispong.oxygen.module.user.view.UserViewEntity;
-import org.springframework.web.bind.annotation.*;
+import com.ispong.oxygen.flysql.common.BaseResponse;
+import com.ispong.oxygen.module.user.request.UserSignInReq;
+import com.ispong.oxygen.module.user.request.UserSignUpReq;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
-@RequestMapping
+/**
+ * 用户模块
+ *
+ * @author ispong
+ * @since 0.0.1
+ */
+@Api(tags = "用户模块")
 @RestController
+@RequestMapping
 public class UserController extends BaseController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    @GetMapping("/userAuth")
-    public String userLogin() {
+    public UserController(UserService userService) {
 
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUserId("ispong");
-        return EncryptUtils.jwtEncrypt(userEntity);
+        this.userService = userService;
     }
 
-    public UserController(UserRepository userRepository) {
+    /**
+     * 用户验证接口
+     *
+     * @param userSignInReq 用户登录请求对象
+     * @since 0.0.1
+     */
+    @ApiOperation("用户登录接口")
+    @PostMapping("/userSignIn")
+    public ResponseEntity<BaseResponse<String>> userSignIn(@RequestBody UserSignInReq userSignInReq) {
 
-        this.userRepository = userRepository;
+        return successResponse("用户登录成功", userService.userSignIn(userSignInReq));
     }
 
-    @PostMapping("/queryUser")
-    public List<UserEntity> queryUserEntity() {
+    /**
+     * 用户注册接口
+     *
+     * @param userSignUpReq 用户注册请求对象
+     * @since 0.0.1
+     */
+    @ApiOperation("用户注册接口")
+    @PostMapping("userSignUp")
+    public ResponseEntity<BaseResponse<String>> userSignUp(@RequestBody UserSignUpReq userSignUpReq) {
 
-        return userRepository.queryUser();
+        userService.userSignUp(userSignUpReq);
+        return successResponse("用户注册成功", "");
     }
 
-    @GetMapping("/queryViewUser")
-    public List<UserViewEntity> queryViewUser() {
-
-        return userRepository.queryViewUser();
-    }
-
-    @GetMapping("/saveUser")
-    public void saveUserEntity() {
-
-        userRepository.insertUser();
-    }
-
-    @GetMapping("/updateUser")
-    public void updateUserEntity() {
-
-        userRepository.updateUser();
-    }
-
-    @GetMapping("/deleteUser")
-    public void deleteUserEntity() {
-
-        userRepository.deleteUser();
-    }
-
-    @GetMapping("/countUser")
-    public String countUserEntity() {
-
-        return String.valueOf(userRepository.countUser());
-    }
-
-    @PostMapping("/postAdmin")
-    public Object getStr(@RequestBody String name) {
-
-        // 请求数据 做数据校验
-
-        // 返回数据 做数据整合
-
-        // 不想封装对象,创建对象很烦
-
-
-        return "service.get();";
-    }
 }

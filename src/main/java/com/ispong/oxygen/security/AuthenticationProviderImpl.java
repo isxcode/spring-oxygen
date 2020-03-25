@@ -47,7 +47,7 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
         // 获取userDetail
-        UserDetails userDetail = userDetailsService.loadUserByUsername(authentication.getName());
+        UserDetails userDetail = userDetailsService.loadUserByUsername(authentication.getPrincipal().toString());
 
         if (userDetail == null) {
             throw new AuthException("用户不存在");

@@ -15,19 +15,22 @@
  */
 package com.ispong.oxygen.flysql;
 
-import com.ispong.oxygen.flysql.annotation.FlysqlView;
-import com.ispong.oxygen.flysql.annotation.FlysqlViews;
+import com.ispong.oxygen.flysql.annotation.*;
 import com.ispong.oxygen.flysql.enums.SqlOperateType;
 import com.ispong.oxygen.flysql.enums.SqlType;
 import lombok.Getter;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.BeanUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -194,6 +197,7 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
         jdbcTemplate.update(sqlString);
     }
 
+    @SneakyThrows
     @Override
     public void save(Object obj) {
 
@@ -205,18 +209,27 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
         for (PropertyDescriptor propertyMeta : propertyDescriptors) {
             if (!FlysqlConstants.CLASS.equals(propertyMeta.getName())) {
                 String value;
-                try {
-                    Object invoke = propertyMeta.getReadMethod().invoke(obj);
-                    value = invoke == null ? "null" : "'" + invoke + "'";
-                } catch (IllegalAccessException | InvocationTargetException e) {
-                    value = "null";
+                Field metaField = propertyMeta.getReadMethod().getDeclaringClass().getDeclaredField(propertyMeta.getName());
+                if (metaField.isAnnotationPresent(CreatedBy.class) || metaField.isAnnotationPresent(LastModifiedBy.class)) {
+                    value = "'" + SecurityContextHolder.getContext().getAuthentication().getName() + "'";
+                } else if (metaField.isAnnotationPresent(CreatedDate.class) || metaField.isAnnotationPresent(LastModifiedDate.class)) {
+                    value = "'" + LocalDateTime.now().toString() + "'";
+                } else if (metaField.isAnnotationPresent(Version.class)) {
+                    value = "'" + 1 + "'";
+                } else {
+                    try {
+                        Object invoke = propertyMeta.getReadMethod().invoke(obj);
+                        value = invoke == null ? "null" : "'" + invoke + "'";
+                    } catch (IllegalAccessException | InvocationTargetException e) {
+                        value = "null";
+                    }
                 }
                 columnList.add(columnsMap.get(propertyMeta.getName()));
                 valueList.add(value);
             }
         }
 
-        String sqlString = "insert into " + FlysqlUtils.getTableName(getGenericType()) + " ( " + Strings.join(columnList, ',') + " ) value ( " + Strings.join(valueList, ',') + ")";
+        String sqlString = "insert into " + FlysqlUtils.getTableName(getGenericType()) + " ( " + Strings.join(columnList, ',') + " ) values ( " + Strings.join(valueList, ',') + ")";
         log.debug("[oxygen-flysql-sql]:" + sqlString);
         jdbcTemplate.execute(sqlString);
     }

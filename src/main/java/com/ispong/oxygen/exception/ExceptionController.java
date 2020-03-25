@@ -1,6 +1,7 @@
 package com.ispong.oxygen.exception;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -18,9 +19,10 @@ public class ExceptionController {
      *
      * @since 7/5/2019
      */
-    @RequestMapping("/userAuthException")
-    public void userAuthException(AuthException e) {
+    @RequestMapping("/exception")
+    public void Exception(@RequestParam String exception) {
 
-        throw new AuthException(e.getMessage());
+        throw new AuthException(exception);
     }
+
 }

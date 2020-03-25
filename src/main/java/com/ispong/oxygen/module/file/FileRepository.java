@@ -1,7 +1,9 @@
 package com.ispong.oxygen.module.file;
 
 import com.ispong.oxygen.flysql.Flysql;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class FileRepository {
 
     public void saveFile(FileEntity fileEntity) {

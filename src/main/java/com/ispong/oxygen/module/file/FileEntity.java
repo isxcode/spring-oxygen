@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("files")
+@TableName("file")
 public class FileEntity extends BaseEntity {
 
     /**

@@ -6,7 +6,6 @@ import com.ispong.oxygen.module.user.view.UserViewEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -25,20 +24,9 @@ public class UserRepository {
                 .query();
     }
 
-    public void insertUser(){
+    public void saveUser(UserEntity userEntity) {
 
-        UserEntity userEntity = new UserEntity();
-        userEntity.setAccount("ispong");
-        userEntity.setPassword("123456");
-        userEntity.setEnabledStatus("enable");
-        userEntity.setUserId("ispong");
-        userEntity.setCreatedBy("system");
-        userEntity.setCreatedDate(LocalDateTime.now());
-        userEntity.setLastModifiedBy("system");
-        userEntity.setLastModifiedDate(LocalDateTime.now());
-        userEntity.setUserId("1234");
-        Flysql.insert(UserEntity.class,"ispong").save(userEntity);
-
+        Flysql.insert(UserEntity.class).save(userEntity);
     }
 
     public void updateUser(){
@@ -63,6 +51,20 @@ public class UserRepository {
         return Flysql.select(UserEntity.class, "ispong")
                 .eq("createdBy", "system")
                 .count();
+    }
+
+    public UserEntity getUserInfo(String userId) {
+
+        return Flysql.select(UserEntity.class)
+                .eq("userId", userId)
+                .getOne();
+    }
+
+    public UserEntity getUserInfoByAccount(String account) {
+
+        return Flysql.select(UserEntity.class)
+                .eq("account", account)
+                .getOne();
     }
 
 }

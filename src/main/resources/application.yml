@@ -35,7 +35,7 @@ spring:
     url: jdbc:h2:~/h2
     username: root
     password: root
-#    schema: db/schema.sql
+#    schema: classpath:db/schema.sql
 #    data: db/data.sql
 
   # freemarker 设置
@@ -54,6 +54,12 @@ spring:
       settings:
         trace: true
         web-allow-others: true
+  # 生成spring-security默认角色
+  security:
+    user:
+      name: admin
+      password: admin
+      roles: OXYGEN_ADMIN
 
 # 服务器配置
 server:
@@ -83,6 +89,8 @@ logging:
 
 # spring-oxygen
 oxygen:
+  file:
+    location: D://
   wechatgo:
     app-id: wx5ada926e5489824f # appId
     app-secret: d49e9eaac5633e661ff207353a9c86b1 # appSecret
@@ -94,9 +102,7 @@ oxygen:
         url: jdbc:mysql://mysql.definesys.com:30002/pluto_dev
         username: pluto
         password: welcome1
-  system:
-    file:
-      location: D://
+
 
 # jasypt
 jasypt:
@@ -119,3 +125,4 @@ management:
       show-details: always
     metrics:
       enabled: true
+

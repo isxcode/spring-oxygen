@@ -14,10 +14,10 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("user_info")
+@TableName("user")
 public class UserEntity extends BaseEntity {
 
-    @ColumnName("user_id")
+    @ColumnName("user_uuid")
     private String userId;
 
     @ColumnName("account")
@@ -26,6 +26,9 @@ public class UserEntity extends BaseEntity {
     @ColumnName("password")
     private String password;
 
-    @ColumnName("enabled_status")
-    private String enabledStatus;
+    @ColumnName("authority")
+    private String authority;
+
+    @ColumnName("phone")
+    private String phone;
 }

@@ -15,19 +15,18 @@
  */
 package com.ispong.oxygen.security;
 
-import org.springframework.context.annotation.Bean;
+import com.ispong.oxygen.module.user.UserService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -47,12 +46,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * 自定义拦截器放行路径
      */
     private List<String> excludeUrlPaths = Arrays.asList(
-            "/userAuth",
-            "/file/**",
+            "/userSignUp",
+            "/userSignIn",
+            "/file/show/**",
+            "/file/download/**",
             "/login",
             "/logout",
             // 系统监控
             "/actuator/**",
+            // h2 嵌入式
+            "/h2-console/**",
             // swagger 放行路径
             "/",
             "/csrf",
@@ -65,8 +68,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * 任何人都可以访问
      */
     private List<String> allPaths = Arrays.asList(
-            "/file/**",
-            "/userAuth",
+            // h2 嵌入式
+            "/h2-console/**",
+            "/file/show/**",
+            "/file/download/**",
+            "/userSignUp",
+            "/userSignIn",
             "/login",
             "/logout");
 
@@ -83,6 +90,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/swagger-resources/**",
             "/webjars/springfox-swagger-ui/**");
 
+    @Resource
+    private UserService userService;
+
     /**
      * 自定义 UserDetailsService
      *
@@ -91,7 +101,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     public UserDetailsService initUserDetailsServiceBean() {
 
-        return new UserDetailsServiceImpl();
+        return new UserDetailsServiceImpl(userService);
     }
 
     /**
@@ -121,10 +131,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+//         ​.and().exceptionHandling().accessDeniedHandler(new AccessDeniedHandlerImpl())
+//       ​.and().logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
+//       ​.and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+
+
         http.cors();
         http.csrf().disable();
         // 不能禁用session 会影响原有的spring-security使用
-        // http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.headers().cacheControl();
         // 开启X-Frame-Options
         http.headers().frameOptions().disable();
@@ -140,18 +155,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.antMatcher("/**").addFilterBefore(new JwtAuthenticationFilter(initAuthenticationManagerBean(), excludeUrlPaths), UsernamePasswordAuthenticationFilter.class);
 
         super.configure(http);
-    }
-
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-        auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder().encode("admin")).roles("OXYGEN_ADMIN");
-    }
-
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-
-        return new BCryptPasswordEncoder();
     }
 }

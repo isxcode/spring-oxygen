@@ -1,5 +1,8 @@
 package com.ispong.oxygen.security;
 
+import com.ispong.oxygen.exception.AuthException;
+import com.ispong.oxygen.module.user.UserService;
+import com.ispong.oxygen.module.user.entity.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -16,12 +19,22 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 @Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+    private UserService userService;
+
+    public UserDetailsServiceImpl(UserService userService) {
+
+        this.userService = userService;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 
-        if (userId.equals("ispong")) {
-            return User.withUsername(userId).password("password").authorities(AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER")).build();
+        UserEntity userInfo = userService.getUserInfo(userId);
+
+        if (userInfo != null) {
+            return User.withUsername(userInfo.getAccount()).password(userInfo.getPassword()).authorities(AuthorityUtils.commaSeparatedStringToAuthorityList(userInfo.getAuthority())).build();
         }
-        return null;
+        throw new AuthException("用户不存在");
     }
+
 }

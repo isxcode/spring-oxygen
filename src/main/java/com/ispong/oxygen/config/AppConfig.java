@@ -3,8 +3,6 @@ package com.ispong.oxygen.config;
 //import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 import com.ispong.oxygen.flysql.annotation.EnableFlysql;
-import com.ispong.oxygen.properties.OxygenProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -21,7 +19,6 @@ import org.springframework.context.annotation.Configuration;
 //@EnableAspectJAutoProxy
 //@EnableScheduling
 //@EnableAsync
-@EnableConfigurationProperties(OxygenProperties.class)
 //@ImportResource(locations = {"classpath:schema/**"})
 public class AppConfig {
 

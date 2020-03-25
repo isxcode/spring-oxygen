@@ -1,7 +1,9 @@
 package com.ispong.oxygen.module.file;
 
+import com.ispong.oxygen.OxygenConstants;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.UUID;
 
 /**
  * 文件业务服务
@@ -19,6 +22,7 @@ import java.nio.file.StandardCopyOption;
  * @author ispong
  * @since 0.0.1
  */
+@Service
 public class FileService {
 
     private final FileRepository fileRepository;
@@ -33,15 +37,20 @@ public class FileService {
 
     public String uploadFile(MultipartFile file) {
 
-        // 判断文件不为空
-        if (file == null || file.isEmpty()) {
+        if (file == null || file.isEmpty() || file.getOriginalFilename() == null) {
             throw new FileException("无法储存空文件");
         }
 
+        // 封装上传对象
         FileEntity fileEntity = new FileEntity();
-        fileEntity.setFileName(file.getOriginalFilename());
+        fileEntity.setFileId(UUID.randomUUID().toString());
+        String fileName = file.getOriginalFilename();
+        String suffix = fileName.substring(fileName.lastIndexOf('.') + 1);
+        fileName = fileName.substring(0, fileName.length() - suffix.length() - 1);
+        fileEntity.setFileName(fileName);
+        fileEntity.setFileSuffix(suffix);
         fileEntity.setFileSize(file.getSize());
-        fileEntity.setFileStatus("1");
+        fileEntity.setFileStatus(OxygenConstants.ENABLE);
         fileRepository.saveFile(fileEntity);
 
         // 上传文件
@@ -51,7 +60,6 @@ public class FileService {
         } catch (IOException e) {
             throw new FileException("上传文件失败");
         }
-
         return fileEntity.getFileId();
     }
 
@@ -76,6 +84,12 @@ public class FileService {
         }
     }
 
+    /**
+     * 删除文件
+     *
+     * @param fileId fileUuid
+     * @since 0.0.1
+     */
     public void deleteFile(String fileId) {
 
         fileRepository.deleteFile(fileId);
