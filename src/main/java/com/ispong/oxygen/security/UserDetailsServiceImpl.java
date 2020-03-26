@@ -29,10 +29,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 
+        log.debug("UserDetailsServiceImpl 获取用户详情");
         UserEntity userInfo = userService.getUserInfo(userId);
 
         if (userInfo != null) {
-            return User.withUsername(userInfo.getAccount()).password(userInfo.getPassword()).authorities(AuthorityUtils.commaSeparatedStringToAuthorityList(userInfo.getAuthority())).build();
+            String authority = userInfo.getAuthority();
+            return User.withUsername(userInfo.getAccount()).password(userInfo.getPassword()).authorities(AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_" + authority)).build();
         }
         throw new AuthException("用户不存在");
     }

@@ -15,12 +15,11 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
     /**
      * 对外抛出可调用接口
-     *
      */
-    public void send(Object obj){
+    public void send(Object obj) {
 
         try {
-            if( webSocketSession != null){
+            if (webSocketSession != null) {
                 TextMessage textMessage = new TextMessage(new ObjectMapper().writeValueAsString(obj));
                 handleTextMessage(webSocketSession, textMessage);
             }
@@ -47,7 +46,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
      * @since 2019-10-28
      */
     @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status){
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
 
         log.info("断开连接");
         webSocketSession = null;
@@ -60,6 +59,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
      */
     @Override
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
+
         log.info("推送异常处理");
     }
 

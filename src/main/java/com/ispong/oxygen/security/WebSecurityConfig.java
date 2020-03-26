@@ -136,15 +136,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-//         ​.and().exceptionHandling().accessDeniedHandler(new AccessDeniedHandlerImpl())
-//       ​.and().logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
-//       ​.and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-
-
         http.cors();
         http.csrf().disable();
-        // 不能禁用session 会影响原有的spring-security使用
-//         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        // 不能禁用session 会影响原有的spring-security使用 http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.headers().cacheControl();
         // 开启X-Frame-Options
         http.headers().frameOptions().disable();
@@ -152,11 +146,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 放行全部
 //        http.authorizeRequests().antMatchers("/**").permitAll();
 
+//        http.logout().logoutSuccessHandler(new LogoutSuccessHandlerImpl());
+//        http.exceptionHandling().accessDeniedHandler(new AccessDeniedHandlerImpl());
+
         // 系统登录控制
         http.authorizeRequests().antMatchers(adminPaths.toArray(new String[0])).hasRole("OXYGEN_ADMIN");
         http.authorizeRequests().antMatchers(allPaths.toArray(new String[0])).permitAll();
-
-        // 添加拦截器
         http.antMatcher("/**").addFilterBefore(new JwtAuthenticationFilter(initAuthenticationManagerBean(), excludeUrlPaths), UsernamePasswordAuthenticationFilter.class);
 
         super.configure(http);

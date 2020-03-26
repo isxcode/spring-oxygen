@@ -43,12 +43,14 @@ dependencies {
 	compile 'io.springfox:springfox-swagger2:latest.integration'
 	compile 'io.springfox:springfox-swagger-ui:latest.integration'
 
+	// spring-aop
+	compile 'org.springframework.boot:spring-boot-starter-aop'
+
 	// h2
 	compile 'com.h2database:h2:latest.integration'
 
 //	implementation 'org.junit.jupiter:junit-jupiter'
 
-//	compile 'org.springframework.boot:spring-boot-starter-aop'
 //	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 //	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
 //	compile 'org.springframework.data:spring-data-redis'

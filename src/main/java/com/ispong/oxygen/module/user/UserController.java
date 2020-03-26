@@ -2,6 +2,7 @@ package com.ispong.oxygen.module.user;
 
 import com.ispong.oxygen.flysql.common.BaseController;
 import com.ispong.oxygen.flysql.common.BaseResponse;
+import com.ispong.oxygen.module.log.Logs;
 import com.ispong.oxygen.module.user.request.UserSignInReq;
 import com.ispong.oxygen.module.user.request.UserSignUpReq;
 import io.swagger.annotations.Api;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author ispong
  * @since 0.0.1
  */
+@Logs
 @Api(tags = "用户模块")
 @RestController
 @RequestMapping("/user")
