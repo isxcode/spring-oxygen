@@ -46,34 +46,39 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * 自定义拦截器放行路径
      */
     private List<String> excludeUrlPaths = Arrays.asList(
-            "/userSignUp",
-            "/userSignIn",
+            // user
+            "/user/userSignUp",
+            "/user/userSignIn",
+            // file
             "/file/show/**",
             "/file/download/**",
+            // spring-security
             "/login",
             "/logout",
-            // 系统监控
+            // actuator
             "/actuator/**",
             // h2 嵌入式
             "/h2-console/**",
-            // swagger 放行路径
-            "/",
-            "/csrf",
+            // swagger
             "/v2/api-docs",
-            "/swagger-ui.html/**",
             "/swagger-resources/**",
-            "/webjars/springfox-swagger-ui/**");
+            "/swagger-ui.html**",
+            "/webjars/**",
+            "favicon.ico");
 
     /**
      * 任何人都可以访问
      */
     private List<String> allPaths = Arrays.asList(
-            // h2 嵌入式
+            // h2
             "/h2-console/**",
+            // file
             "/file/show/**",
             "/file/download/**",
-            "/userSignUp",
-            "/userSignIn",
+            // user
+            "/user/userSignUp",
+            "/user/userSignIn",
+            // spring-security
             "/login",
             "/logout");
 
@@ -81,14 +86,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * 管理员控制权限
      */
     private List<String> adminPaths = Arrays.asList(
+            // actuator
             "/actuator/**",
-            // swagger 放行路径
-            "/",
-            "/csrf",
+            // swagger
             "/v2/api-docs",
-            "/swagger-ui.html/**",
             "/swagger-resources/**",
-            "/webjars/springfox-swagger-ui/**");
+            "/swagger-ui.html**",
+            "/webjars/**",
+            "favicon.ico");
 
     @Resource
     private UserService userService;

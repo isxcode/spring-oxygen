@@ -1,6 +1,7 @@
 package com.ispong.oxygen.config;
 
 import io.swagger.models.auth.In;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +20,7 @@ import springfox.documentation.swagger.web.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -38,7 +40,6 @@ public class SwaggerConfig{
 
 //    @Autowired
 //    private TypeResolver typeResolver;
-
 
     /**
      * 设置生成接口的地址
@@ -71,6 +72,7 @@ public class SwaggerConfig{
     public Docket petApi() {
 
         return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("spring-oxygen")
                 .apiInfo(initApiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(controllerPath))
@@ -92,7 +94,7 @@ public class SwaggerConfig{
 //                                .build()))
                 .securitySchemes(newArrayList(initApiKey()))
                 .securityContexts(newArrayList(securityContext()))
-                .enableUrlTemplating(true)
+                .enableUrlTemplating(false)
 //                .globalOperationParameters(
 //                        newArrayList(new ParameterBuilder()
 //                                .name("someGlobalParameter")
@@ -106,12 +108,7 @@ public class SwaggerConfig{
                 ;
     }
 
-
     /**
-     *
-     *
-     * @param
-     * @return
      * @since 0.0.1
      */
     List<SecurityReference> defaultAuth() {
@@ -124,15 +121,23 @@ public class SwaggerConfig{
 
 
     /**
-     * 上下文路径选择器
+     * 上下文路径选择器  这是哪些路劲拦截
+     * 使用java的正则表达式
+     * 目前不拦截
      * 
      * @since 0.0.1
      */
     private SecurityContext securityContext() {
 
+        List<String> excludeUrlPaths = Arrays.asList(
+                "(/user/userSignIn)",
+                "(/user/userSignUp)",
+                "(/file/show)",
+                "(/file/download)");
+
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
-                .forPaths(PathSelectors.regex("^(?!auth).*$"))
+                .forPaths(PathSelectors.regex("(?!" + Strings.join(excludeUrlPaths, '|') + ").*"))
                 .build();
     }
 
@@ -151,12 +156,11 @@ public class SwaggerConfig{
 
     @Bean
     UiConfiguration uiConfig() {
-
         return UiConfigurationBuilder.builder()
                 .deepLinking(true)
                 .displayOperationId(false)
-                .defaultModelsExpandDepth(1)
-                .defaultModelExpandDepth(1)
+                .defaultModelsExpandDepth(-1)
+                .defaultModelExpandDepth(-1)
                 .defaultModelRendering(ModelRendering.EXAMPLE)
                 .displayRequestDuration(false)
                 .docExpansion(DocExpansion.NONE)

@@ -52,7 +52,7 @@ spring:
       enabled: true
       path: /h2-console
       settings:
-        trace: true
+        trace: false
         web-allow-others: true
   # 生成spring-security默认角色
   security:
@@ -125,4 +125,3 @@ management:
       show-details: always
     metrics:
       enabled: true
-

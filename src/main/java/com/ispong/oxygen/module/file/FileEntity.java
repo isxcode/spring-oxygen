@@ -1,6 +1,7 @@
 package com.ispong.oxygen.module.file;
 
 import com.ispong.oxygen.flysql.annotation.ColumnName;
+import com.ispong.oxygen.flysql.annotation.RowId;
 import com.ispong.oxygen.flysql.annotation.TableName;
 import com.ispong.oxygen.flysql.common.BaseEntity;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class FileEntity extends BaseEntity {
     /**
      * 文件的uuid
      */
+    @RowId
     @ColumnName("FILE_UUID")
     private String fileId;
 
