@@ -1,4 +1,4 @@
-package com.ispong.oxygen;
+package com.ispong.oxygen.constants;
 
 public interface OxygenConstants {
 

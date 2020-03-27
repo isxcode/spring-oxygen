@@ -1,6 +1,6 @@
 package com.ispong.oxygen.module.file;
 
-import com.ispong.oxygen.OxygenConstants;
+import com.ispong.oxygen.constants.OxygenConstants;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;

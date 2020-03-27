@@ -26,7 +26,9 @@ public class HandShakeHandler implements HandshakeInterceptor {
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
 
         log.info("握手前操作");
-        return false;
+
+        // 返回true确认握手 返回false拒绝握手
+        return true;
     }
 
     /**

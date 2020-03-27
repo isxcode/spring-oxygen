@@ -31,9 +31,6 @@ public class LogEntity extends BaseEntity {
     @ColumnName("api_name")
     private String apiName;
 
-    @ColumnName("module_name")
-    private String moduleName;
-
     @ColumnName("request_body")
     private String requestBody;
 

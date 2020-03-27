@@ -43,15 +43,16 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 
-        registry.addHandler(myHandler(), "/myHandler")
+        registry.addHandler(myHandler(), "/ws/websocketHandler")
                 .addInterceptors(new HandShakeHandler())
                 .setAllowedOrigins("*");
 
-        registry.addHandler(myHandler(), "/myHandler")
+        registry.addHandler(myHandler(), "/ws/myHandler")
                 .addInterceptors(new HandShakeHandler())
                 .setAllowedOrigins("*")
                 .withSockJS()
                 .setHeartbeatTime(30000);
+
     }
 
     /**

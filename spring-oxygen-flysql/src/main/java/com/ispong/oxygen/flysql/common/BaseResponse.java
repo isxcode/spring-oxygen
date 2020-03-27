@@ -15,7 +15,9 @@
  */
 package com.ispong.oxygen.flysql.common;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 接口返回模板
@@ -25,6 +27,8 @@ import lombok.Data;
  * @version v0.1.0
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class BaseResponse<T> {
 
     /**

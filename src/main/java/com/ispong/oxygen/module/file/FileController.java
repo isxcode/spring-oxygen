@@ -2,6 +2,7 @@ package com.ispong.oxygen.module.file;
 
 import com.ispong.oxygen.flysql.common.BaseController;
 import com.ispong.oxygen.flysql.common.BaseResponse;
+import com.ispong.oxygen.module.log.Logs;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -18,8 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
  * @since 0.0.1
  */
 @Api(tags = "文件模块")
+@Logs
 @RestController
-@RequestMapping("file")
+@RequestMapping("/file")
 public class FileController extends BaseController {
 
     private final FileService fileService;

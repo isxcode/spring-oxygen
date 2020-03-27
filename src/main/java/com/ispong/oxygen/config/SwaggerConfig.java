@@ -132,8 +132,9 @@ public class SwaggerConfig{
         List<String> excludeUrlPaths = Arrays.asList(
                 "(/user/userSignIn)",
                 "(/user/userSignUp)",
-                "(/file/show)",
-                "(/file/download)");
+                "(/file/show/)",
+                "(/file/download/)",
+                "(/freecode)");
 
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())

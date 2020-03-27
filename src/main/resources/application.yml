@@ -1,4 +1,5 @@
 spring:
+
   # profile
   profiles:
     active: dev # java -jar app.jar --spring.profiles.active=dev
@@ -29,7 +30,7 @@ spring:
       mail.smtp.timeout: 10000 # 设置超时
       mail.smtp.writetimeout: 10000 # 设置写入超时
 
-  # 数据库配置
+  # spring-dataSource
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:~/h2
@@ -54,12 +55,34 @@ spring:
       settings:
         trace: false
         web-allow-others: true
-  # 生成spring-security默认角色
+
+  # spring-security
   security:
     user:
       name: admin
       password: admin
       roles: OXYGEN_ADMIN
+
+  # spring-quartz
+  quartz:
+    scheduler-name: quartzScheduler # 定时器名称
+    auto-startup: true # 初始化后是否自动启动
+    job-store-type: jdbc # job存储方式
+    jdbc:
+      schema: classpath:db/quartz_h2.sql # sql执行脚本
+      comment-prefix: '#, --' # sql语句中的注释
+      initialize-schema: embedded # 初始化数据库方式
+    startup-delay: 0s # 启动延迟时间
+    overwrite-existing-jobs: false # 是否覆盖已存在job
+    wait-for-jobs-to-complete-on-shutdown: false # 是否在关闭时等待job执行完毕
+    properties:
+      org:
+        quartz:
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 10
+            threadPriority: 5
+            threadsInheritContextClassLoaderOfInitializingThread: false
 
 # 服务器配置
 server:
@@ -73,6 +96,7 @@ logging:
     root: info
     com.isxcode.oxygen.wechatgo: debug
     com.ispong.oxygen.flysql: debug
+    com.ispong.oxygen.freecode: debug
   file:
     name: ./logs/spring.log
     max-size: 10MB
@@ -103,7 +127,6 @@ oxygen:
         username: pluto
         password: welcome1
 
-
 # jasypt
 jasypt:
   encryptor:
@@ -125,3 +148,5 @@ management:
       show-details: always
     metrics:
       enabled: true
+
+

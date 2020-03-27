@@ -17,6 +17,7 @@ dependencies {
 	compile(project(":spring-oxygen"))
 	compile(project(":spring-oxygen-utils"))
 	compile(project(":spring-oxygen-flysql"))
+	compile(project(":spring-oxygen-freecode"))
 
 	// spring boot start
 	implementation 'org.springframework.boot:spring-boot-starter'
@@ -48,6 +49,9 @@ dependencies {
 
 	// h2
 	compile 'com.h2database:h2:latest.integration'
+
+    // spring-quartz
+	compile 'org.springframework.boot:spring-boot-starter-quartz'
 
 //	implementation 'org.junit.jupiter:junit-jupiter'
 

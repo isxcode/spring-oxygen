@@ -37,7 +37,6 @@ create table log
 (
     log_uuid           varchar(50) primary key,-- comment '日志uuid',
     api_name           varchar(100) not null,-- comment '接口名称',
-    module_name        varchar(100),           --comment '模块名称',
     request_body       longtext,               --comment '请求体',
     response_body      longtext,               --comment '响应体',
     execute_date       datetime,               --comment '执行日期',

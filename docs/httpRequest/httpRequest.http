@@ -40,10 +40,12 @@ Content-Disposition: form-data; name="file"; filename="img.png"
 
 ### 用户登录接口 post
 
-POST {}/user/api
+POST http://localhost:8888/spring-oxygen/freecode
 Content-Type: application/json
 
-{}
+{
+  "tableName1": ""
+}
 
 ###
 

@@ -1,7 +1,8 @@
 package com.ispong.oxygen.module.log;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ispong.oxygen.module.file.FileEntity;
+import com.ispong.oxygen.module.file.FileService;
 import lombok.SneakyThrows;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -9,14 +10,18 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.UUID;
 
 @Aspect
@@ -27,9 +32,12 @@ public class LogsAdvice {
 
     private final LogEntity logEntity;
 
-    @Autowired
-    public LogsAdvice(LogService logService, LogEntity logEntity) {
+    private final FileService fileService;
 
+    @Autowired
+    public LogsAdvice(LogService logService, LogEntity logEntity, FileService fileService) {
+
+        this.fileService = fileService;
         this.logEntity = logEntity;
         this.logService = logService;
     }
@@ -39,16 +47,23 @@ public class LogsAdvice {
 
     }
 
-    private void writeRequestLog(JoinPoint joinPoint, Logs logs, RequestMapping requestMapping, String postMapping) throws JsonProcessingException {
+    private void writeRequestLog(JoinPoint joinPoint, Logs logs, RequestMapping requestMapping, String postMapping) throws IOException {
 
         String apiName = joinPoint.getSignature().getName();
         if (!Arrays.asList(logs.excludes()).contains(apiName)) {
             logEntity.setLogId(UUID.randomUUID().toString());
-            logEntity.setModuleName(requestMapping.value()[0]);
-            logEntity.setApiName(postMapping);
+            logEntity.setApiName(requestMapping.value()[0] + postMapping);
             logEntity.setExecuteDate(LocalDateTime.now());
             logEntity.setExecuteTime(System.currentTimeMillis());
-            logEntity.setRequestBody(new ObjectMapper().writeValueAsString(joinPoint.getArgs()[0]));
+
+            if ("StandardMultipartFile".equals(joinPoint.getArgs()[0].getClass().getSimpleName())) {
+
+                logEntity.setRequestBody(((MultipartFile) joinPoint.getArgs()[0]).getOriginalFilename());
+                // base64文件加密
+                // logEntity.setRequestBody(Base64.getEncoder().encodeToString(((MultipartFile) joinPoint.getArgs()[0]).getBytes()));
+            } else {
+                logEntity.setRequestBody(new ObjectMapper().writeValueAsString(joinPoint.getArgs()[0]));
+            }
         }
     }
 
@@ -72,7 +87,16 @@ public class LogsAdvice {
 
         String apiName = joinPoint.getSignature().getName();
         if (!Arrays.asList(logs.excludes()).contains(apiName)) {
-            logEntity.setResponseBody(new ObjectMapper().writeValueAsString(response.getBody()));
+            if ("UrlResource".equals(Objects.requireNonNull(response.getBody()).getClass().getSimpleName())) {
+                FileEntity fileEntity = fileService.getFileEntity(((UrlResource) response.getBody()).getFilename());
+                if (fileEntity != null) {
+                    logEntity.setResponseBody(fileEntity.getFileName() + "." + fileEntity.getFileSuffix());
+                }
+                // base64加密文件
+                // logEntity.setResponseBody(Base64.getEncoder().encodeToString(((UrlResource) response.getBody()).getInputStream().readAllBytes()));
+            } else {
+                logEntity.setResponseBody(new ObjectMapper().writeValueAsString(response.getBody()));
+            }
             logEntity.setExecuteTime(System.currentTimeMillis() - logEntity.getExecuteTime());
             logService.saveLog(logEntity);
         }

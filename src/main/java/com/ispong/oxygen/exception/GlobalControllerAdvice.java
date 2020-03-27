@@ -1,13 +1,17 @@
 package com.ispong.oxygen.exception;
 
+import com.ispong.oxygen.flysql.common.BaseResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
@@ -18,11 +22,16 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  */
 @Slf4j
 @ControllerAdvice
+@ResponseBody
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
 
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        return new ResponseEntity<>(new BaseResponse<>("400", ex.getBindingResult().getAllErrors().get(0).getDefaultMessage(), ""), HttpStatus.OK);
+    }
+
     @ExceptionHandler(AuthException.class)
-    @ResponseBody
     public ResponseEntity<String> authException(AuthException e) {
 
         return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
