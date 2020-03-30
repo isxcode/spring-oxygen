@@ -2,7 +2,7 @@ spring:
 
   # profile
   profiles:
-    active: dev # java -jar app.jar --spring.profiles.active=dev
+    active: dev,default # java -jar app.jar --spring.profiles.active=dev
   application:
     name: ispong-oxygen
   jackson:
@@ -39,14 +39,6 @@ spring:
 #    schema: classpath:db/schema.sql
 #    data: db/data.sql
 
-  # freemarker 设置
-  freemarker:
-    enabled: false # 使用启动springMvc
-    cache: false # 关闭缓存
-    charset: UTF-8 # 设置字符集
-    template-loader-path: /templates/ # 设置模板地址
-    check-template-location: false # 检查模板地址是否存在
-
   # h2-config
   h2:
     console:
@@ -62,6 +54,15 @@ spring:
       name: admin
       password: admin
       roles: OXYGEN_ADMIN
+
+  # spring-freemarker
+  freemarker:
+    cache: false # 是否开启模板缓存
+    charset: UTF-8 # 字符集
+    check-template-location: true # 检查模板路径
+    enabled: false # 是否启动springMVC
+    suffix: .ftlh # 模板后缀
+    template-loader-path: classpath:/templates1/ # 模板地址
 
   # spring-quartz
   quartz:

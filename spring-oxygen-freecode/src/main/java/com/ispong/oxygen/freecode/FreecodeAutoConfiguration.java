@@ -1,7 +1,6 @@
 package com.ispong.oxygen.freecode;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -17,12 +16,12 @@ public class FreecodeAutoConfiguration {
         return new FreecodeService();
     }
 
-    @Bean
-    @ConditionalOnBean(FreecodeService.class)
-    public FreecodeController initWechatgoController(FreecodeService freecodeService) {
-
-        log.debug("init freecode controller");
-        return new FreecodeController(freecodeService);
-    }
+//    @Bean
+//    @ConditionalOnBean(FreecodeService.class)
+//    public FreecodeController initWechatgoController(FreecodeService freecodeService) {
+//
+//        log.debug("init freecode controller");
+//        return new FreecodeController(freecodeService);
+//    }
 
 }

@@ -1,9 +1,0 @@
-dependencies {
-
-    // lombok
-    compileOnly 'org.projectlombok:lombok:latest.integration'
-    annotationProcessor 'org.projectlombok:lombok:latest.integration'
-
-    // https://mvnrepository.com/artifact/org.bidib.jbidib.org.qbang.rxtx/rxtxcomm
-    compile group: 'org.bidib.jbidib.org.qbang.rxtx', name: 'rxtxcomm', version: '2.2'
-}
