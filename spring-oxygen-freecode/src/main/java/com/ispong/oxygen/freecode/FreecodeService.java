@@ -15,6 +15,8 @@
  */
 package com.ispong.oxygen.freecode;
 
+import java.util.ArrayList;
+
 /**
  * 负责直接生成代码
  *
@@ -23,17 +25,44 @@ package com.ispong.oxygen.freecode;
  */
 public class FreecodeService {
 
-    public void startFreecode(){
+    private final FreecodeRepository freecodeRepository;
 
-        // 尝试使用freecode生成文件
+    public FreecodeService(FreecodeRepository freecodeRepository) {
+
+        this.freecodeRepository = freecodeRepository;
     }
 
-    public void generateFile(){
+    public void startFreecode(String tableName) {
 
+        generateFile(generateFreecodeInfo(tableName));
     }
 
-    public void generateCodeInfo(){
+    /**
+     * 生成freecodeInfo对象,用于传递对象
+     *
+     * @param tableName 表名
+     * @return FreecodeInfo
+     * @since 0.0.1
+     */
+    public FreecodeInfo generateFreecodeInfo(String tableName) {
 
+        FreecodeInfo freecodeInfo = new FreecodeInfo();
+
+        freecodeRepository.getTableColumns("primary","log", new ArrayList<>());
+        freecodeRepository.getTableInfo("log");
+        return null;
+    }
+
+    /**
+     * 生成文件
+     *
+     * @param freecodeInfo freemarker的对象
+     * @since 0.0.1
+     */
+    public void generateFile(FreecodeInfo freecodeInfo) {
+
+        // 解析文件对象
+//        FreecodeUtils.generateFile();
     }
 
 }

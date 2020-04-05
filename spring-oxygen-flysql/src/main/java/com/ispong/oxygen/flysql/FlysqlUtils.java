@@ -66,7 +66,10 @@ public class FlysqlUtils {
      */
     public static String getTableName(Class<?> genericType) {
 
-        return genericType.getAnnotation(TableName.class).value();
+        if (genericType.isAnnotationPresent(TableName.class)) {
+            return genericType.getAnnotation(TableName.class).value();
+        }
+        return null;
     }
 
     /**

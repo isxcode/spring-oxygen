@@ -119,6 +119,8 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
                     break;
                 case UPDATE:
                     break;
+                case SQL:
+                    return sqlConditionMeta.getColumnName();
                 default:
                     FlysqlUtils.addWhere(sqlConditionTemp, sqlStringBuilder);
                     sqlStringBuilder.append(sqlConditionMeta.getColumnName()).append(sqlConditionMeta.getOperateType().getCode()).append(sqlConditionMeta.getValue());
@@ -137,7 +139,7 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
         return sqlStringBuilder.toString();
     }
 
-    public String initSelectSql(){
+    public String initSelectSql() {
 
         if (sqlType.equals(SqlType.VIEW)) {
             if (getGenericType().isAnnotationPresent(FlysqlViews.class)) {
@@ -154,9 +156,12 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
             }
             throw new FlysqlException("视图不存在");
         } else {
-            return "select " + FlysqlConstants.SELECT_REPLACE_CONTENT + " from " + FlysqlUtils.getTableName(getGenericType());
+            String tableName = FlysqlUtils.getTableName(getGenericType());
+            if (tableName == null) {
+                return "";
+            }
+            return "select " + FlysqlConstants.SELECT_REPLACE_CONTENT + " from " + tableName;
         }
-
     }
 
     @Override

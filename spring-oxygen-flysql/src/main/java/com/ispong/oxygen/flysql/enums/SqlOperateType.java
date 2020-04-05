@@ -131,7 +131,12 @@ public enum SqlOperateType {
     /**
      * notLike()
      */
-    NOT_LIKE(" not like "),;
+    NOT_LIKE(" not like "),
+
+    /**
+     * sql()
+     */
+    SQL(""),;
 
     @Setter
     @Getter

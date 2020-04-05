@@ -22,6 +22,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,6 +70,22 @@ public class FlysqlAutoConfiguration {
 
         jdbcTemplateMap.put(FlysqlConstants.PRIMARY_DATASOURCE_NAME, jdbcTemplate);
         return new Flysql(jdbcTemplateMap);
+    }
+
+    @Bean("oxygenDataSourceMap")
+    @ConditionalOnClass(FlysqlAutoConfiguration.class)
+    private Map<String, DataSource> initDataSourceMap(FlysqlDataSourceProperties flysqlDataSourceProperties, JdbcTemplate jdbcTemplate) {
+
+        Map<String, DataSource> dataSourceMap;
+        Map<String, DataSourceProperties> dataSourcePropertiesMap = flysqlDataSourceProperties.getDatasource();
+        if (dataSourcePropertiesMap == null) {
+            dataSourceMap = new HashMap<>(1);
+        } else {
+            dataSourceMap = new HashMap<>(dataSourcePropertiesMap.size() + 1);
+            dataSourcePropertiesMap.forEach((k, v) -> dataSourceMap.put(k, v.initializeDataSourceBuilder().build()));
+        }
+        dataSourceMap.put(FlysqlConstants.PRIMARY_DATASOURCE_NAME, jdbcTemplate.getDataSource());
+        return dataSourceMap;
     }
 
 }

@@ -7,7 +7,16 @@ import javax.validation.constraints.NotNull;
 @Data
 public class FreecodeReq {
 
+    /**
+     * 数据源名称
+     */
+    @NotNull
+    private String dataSourceName;
 
-    @NotNull(message = "tableName 不能为空")
+    /**
+     * 表名
+     */
+    @NotNull
     private String tableName;
+
 }

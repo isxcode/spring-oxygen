@@ -223,4 +223,13 @@ public interface FlysqlCondition<T> {
      */
     T isNotNull(String columnName);
 
+    /**
+     * sql()
+     *
+     * @param sqlStr sql语句
+     * @return se
+     * @since 0.0.1
+     */
+    T sql(String sqlStr);
+
 }

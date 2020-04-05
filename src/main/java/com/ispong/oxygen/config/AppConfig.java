@@ -5,6 +5,7 @@ package com.ispong.oxygen.config;
 import com.ispong.oxygen.flysql.annotation.EnableFlysql;
 import com.ispong.oxygen.freecode.annotation.EnableFreecode;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * 项目基础配置
@@ -17,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableFlysql
 @Configuration
 //@EnableConfigurationProperties
-//@EnableTransactionManagement
+@EnableTransactionManagement
 //@EnableAspectJAutoProxy
 //@EnableScheduling
 //@EnableAsync

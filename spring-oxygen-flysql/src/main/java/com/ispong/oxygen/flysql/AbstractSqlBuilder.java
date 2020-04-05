@@ -208,4 +208,11 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
         sqlConditions.add(new SqlCondition(SqlOperateType.IS_NOT_NULL, columnsMap.get(columnName), ""));
         return getSelf();
     }
+
+    @Override
+    public T sql(String sqlStr) {
+
+        sqlConditions.add(new SqlCondition(SqlOperateType.SQL, sqlStr, ""));
+        return getSelf();
+    }
 }

@@ -44,8 +44,13 @@ POST http://localhost:8888/spring-oxygen/freecode
 Content-Type: application/json
 
 {
-  "tableName": ""
+    "tableName": "log",
+    "dataSourceName": "name"
 }
 
 ###
 
+GET http://portal.definesys.com:30302/oms-sync/syncTimeSheet
+AuthorizationToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKbGVIQWlPakUxT0RVNU9UQTNOek1zSW5WelpYSmZibUZ0WlNJNklqSXhOU0lzSW1GMWRHaHZjbWwwYVdWeklqcGJJbEpQVEVWZlZWTkZVaUpkTENKcWRHa2lPaUpqWkdKa01UZ3lOUzFoTm1RMExUUXpZemN0WVRnd05TMHpaVE0yTnpSaU5HTXdOR1VpTENKamJHbGxiblJmYVdRaU9pSmtZWEJCY0hCRGJHbGxiblFpTENKelkyOXdaU0k2V3lKMWMyVnlYMmx1Wm04aVhYMC5MZjZHVTBzalh1SVU0Nm10MXBvNDhIRHB5Q1NSVEU4bHBkYnppXy15LUt3IiwidWlkIjoiMjE1IiwiZXhwIjoxNTg1OTkwNzczLCJ1c2VyTmFtZSI6IuW5s-adviIsImlhdCI6MTU4NTkwNDM3MywidXNlckNvZGUiOiIyMTUifQ.Fl-byKAHGBae1rE6ZiyhEw_BI86EeD9SFigc8axqQeQ
+
+###

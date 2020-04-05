@@ -56,13 +56,13 @@ spring:
       roles: OXYGEN_ADMIN
 
   # spring-freemarker
-  freemarker:
-    cache: false # 是否开启模板缓存
-    charset: UTF-8 # 字符集
-    check-template-location: true # 检查模板路径
-    enabled: false # 是否启动springMVC
-    suffix: .ftlh # 模板后缀
-    template-loader-path: classpath:/templates1/ # 模板地址
+#  freemarker:
+#    cache: false # 是否开启模板缓存
+#    charset: UTF-8 # 字符集
+#    check-template-location: true # 检查模板路径
+#    enabled: false # 是否启动springMVC
+#    suffix: .ftlh # 模板后缀
+#    template-loader-path: classpath:/templates1/ # 模板地址
 
   # spring-quartz
   quartz:
@@ -81,7 +81,7 @@ spring:
         quartz:
           threadPool:
             class: org.quartz.simpl.SimpleThreadPool
-            threadCount: 10
+            threadCount: 20
             threadPriority: 5
             threadsInheritContextClassLoaderOfInitializingThread: false
 
@@ -127,6 +127,7 @@ oxygen:
         url: jdbc:mysql://mysql.definesys.com:30002/pluto_dev
         username: pluto
         password: welcome1
+
 
 # jasypt
 jasypt:

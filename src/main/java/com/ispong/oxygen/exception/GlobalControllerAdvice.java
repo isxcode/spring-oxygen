@@ -7,6 +7,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -28,7 +29,9 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return new ResponseEntity<>(new BaseResponse<>("400", ex.getBindingResult().getAllErrors().get(0).getDefaultMessage(), ""), HttpStatus.OK);
+
+        ObjectError objectError = ex.getBindingResult().getAllErrors().get(0);
+        return new ResponseEntity<>(new BaseResponse<>("400", objectError.getDefaultMessage(), ""), HttpStatus.OK);
     }
 
     @ExceptionHandler(AuthException.class)
