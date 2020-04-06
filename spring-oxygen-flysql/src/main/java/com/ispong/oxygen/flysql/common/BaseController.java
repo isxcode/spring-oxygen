@@ -31,6 +31,7 @@ public abstract class BaseController {
      *
      * @param message message
      * @param data    返回数据体
+     * @param <T>     T
      * @return 返回BaseResponse
      * @since 2019/10/16
      */

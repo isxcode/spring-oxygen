@@ -22,8 +22,8 @@ public class FreecodeController extends BaseController {
     /**
      * 生成代码
      *
-     * @param
-     * @return
+     * @param freecodeReq freecodeReq
+     * @return  ResponseEntity
      * @since 0.0.1
      */
     @PostMapping("freecode")

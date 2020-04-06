@@ -237,6 +237,8 @@ public class EncryptUtils {
      * jwt解密工具
      *
      * @param jwtString jwt
+     * @param <A>       A
+     * @param claimClass claimClass
      * @return claim
      * @since 2019-12-12
      */
@@ -244,12 +246,12 @@ public class EncryptUtils {
     public static <A> A jwtDecrypt(String jwtString, @NonNull Class<A> claimClass) {
 
         return new ObjectMapper().readValue(
-                EncryptUtils.aesDecrypt(String.valueOf(
-                        Jwts.parser()
-                                .setSigningKey(jwtSecretKey)
-                                .parseClaimsJws(jwtString)
-                                .getBody()
-                                .get("claim"))), claimClass);
+            EncryptUtils.aesDecrypt(String.valueOf(
+                Jwts.parser()
+                    .setSigningKey(jwtSecretKey)
+                    .parseClaimsJws(jwtString)
+                    .getBody()
+                    .get("claim"))), claimClass);
     }
 
     /**
@@ -258,6 +260,7 @@ public class EncryptUtils {
      * @param jwtString  jwt
      * @param key        公钥
      * @param claimClass 数据对象
+     * @param <A>        A
      * @return claim
      * @since 2019-12-12
      */
@@ -265,12 +268,12 @@ public class EncryptUtils {
     public static <A> A jwtDecrypt(String key, String jwtString, @NonNull Class<A> claimClass) {
 
         return new ObjectMapper().readValue(
-                EncryptUtils.aesDecrypt(key, String.valueOf(
-                        Jwts.parser()
-                                .setSigningKey(jwtSecretKey)
-                                .parseClaimsJws(jwtString)
-                                .getBody()
-                                .get("claim"))), claimClass);
+            EncryptUtils.aesDecrypt(key, String.valueOf(
+                Jwts.parser()
+                    .setSigningKey(jwtSecretKey)
+                    .parseClaimsJws(jwtString)
+                    .getBody()
+                    .get("claim"))), claimClass);
     }
 
 }

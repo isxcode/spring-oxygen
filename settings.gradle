@@ -1,3 +1,5 @@
+rootProject.name = 'spring-oxygen-box'
+
 include 'spring-oxygen'
 include 'spring-oxygen-utils'
 include 'spring-oxygen-flysql'
@@ -5,7 +7,6 @@ include 'spring-oxygen-freecode'
 include 'spring-oxygen-wechatgo'
 include 'spring-oxygen-java'
 
-rootProject.name = 'spring-oxygen-box'
 rootProject.children.each { project ->
     project.buildFileName = "${project.name}.gradle"
 }

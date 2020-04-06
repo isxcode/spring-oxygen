@@ -184,5 +184,10 @@ subprojects {
 	jar {
 		enabled true
 	}
+
+    // 禁止子项目启动
+    bootRun {
+        enabled false
+    }
 }
 
