@@ -1,12 +1,27 @@
 package com.ispong.oxygen.freecode;
 
+import com.ispong.oxygen.freecode.model.TableColumnInfo;
 import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+import org.springframework.util.ClassUtils;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+import static java.util.regex.Pattern.compile;
 
 /**
  * freecode工具类
@@ -29,23 +44,118 @@ public class FreecodeUtils {
      * @param fileName     文件名
      * @param templateName 模板名
      * @param freecodeInfo 对象
-     * @param filePath     文件路径
+     * @param modulePath   文件路径
      * @since 0.0.1
      */
-    public static void generateFile(String filePath, String fileName, String templateName, Object freecodeInfo) {
+    public static void generateFile(String modulePath, String fileName, String templateName, Object freecodeInfo) throws IOException, TemplateException {
 
-        if (!Files.exists(Paths.get(filePath)) && !Files.isDirectory(Paths.get(filePath))) {
-            throw new FreecodeException("路径不存在");
+        // 生成文件夹
+        modulePath = ResourceUtils.getURL(modulePath).getPath().substring(1);
+        if (!Files.exists(Paths.get(modulePath)) && !Files.isDirectory(Paths.get(modulePath))) {
+            Files.createDirectory(Paths.get(modulePath));
         }
-        if (!Files.exists(Paths.get(filePath + fileName))) {
-            try {
-                Path path = Files.createFile(Paths.get(filePath));
-                Template template = freeMarkerConfigurer.getConfiguration().getTemplate(templateName);
-                String s = FreeMarkerTemplateUtils.processTemplateIntoString(template, freecodeInfo);
-                Files.writeString(path, s);
-            } catch (Exception e) {
-                throw new FreecodeException("文件生成失败");
-            }
+
+        // 生成文件
+        String filePath = modulePath + "/" + fileName;
+        if (!Files.exists(Paths.get(filePath))) {
+            Path path = Files.createFile(Paths.get(filePath));
+            Template template = freeMarkerConfigurer.getConfiguration().getTemplate(templateName);
+            Files.writeString(path, FreeMarkerTemplateUtils.processTemplateIntoString(template, freecodeInfo));
         }
     }
+
+    /**
+     * 首字母大写
+     *
+     * @param data 需要转的string
+     * @return string
+     * @since 0.0.1
+     */
+    public static String upperFirstCase(String data) {
+
+        return data.substring(0, 1).toUpperCase() + data.substring(1);
+    }
+
+    /**
+     * 下划线转小驼峰
+     *
+     * @param lineStr 包含下滑线字符串
+     * @return 下划线写法
+     * @since 2019-12-24
+     */
+    public static String lineToHump(String lineStr) {
+
+        StringBuffer humpStrBuff = new StringBuffer();
+        lineStr = lineStr.toLowerCase();
+        Matcher matcher = compile("_(\\w)").matcher(lineStr);
+        while (matcher.find()) {
+            matcher.appendReplacement(humpStrBuff, matcher.group(1).toUpperCase());
+        }
+        return matcher.appendTail(humpStrBuff).toString();
+    }
+
+    /**
+     * 将数据库类型转换成java的类型
+     *
+     * @param dataType 数据库类型
+     * @return java类型
+     * @since 2020-01-09
+     */
+    public static String parseDataType(String dataType) {
+
+        // 取消所有的括号
+        Pattern pattern = compile("\\(.*?\\)");
+        String dataStr = pattern.matcher(dataType).replaceAll("");
+
+        switch (dataStr.toLowerCase()) {
+            case "int":
+                return "Integer";
+            case "datetime":
+                return "LocalDateTime";
+            case "date":
+                return "LocalDate";
+            case "double":
+                return "Double";
+            case "timestamp":
+            case "bigint":
+                return "Long";
+            case "decimal":
+                return "BigDecimal";
+            default:
+                return "String";
+        }
+    }
+
+    /**
+     * 生成需要导入的jar包
+     *
+     * @param fieldList 数据库字段列表
+     * @return 返回需要导入的包
+     * @since 2020-01-09
+     */
+    public static List<String> parseDataPackage(List<TableColumnInfo> fieldList) {
+
+        List<String> packages = new ArrayList<>();
+        for (TableColumnInfo metaColumn : fieldList) {
+
+            switch (metaColumn.getType()) {
+                case "LocalDateTime":
+                    packages.add("java.time.LocalDateTime");
+                    break;
+                case "LocalDate":
+                    packages.add("java.time.LocalDate");
+                    break;
+                case "BigDecimal":
+                    packages.add("java.math.BigDecimal");
+                    break;
+                case "Long":
+                    packages.add("java.lang.Long");
+                    break;
+                default:
+            }
+        }
+        return packages.stream().distinct().collect(Collectors.toList());
+    }
+
 }
+

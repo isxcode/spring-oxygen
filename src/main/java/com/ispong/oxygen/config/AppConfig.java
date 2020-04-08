@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @version v0.1.0
  */
 //@EnableWechatgo
-@EnableFreecode
 @EnableFlysql
+@EnableFreecode
 @Configuration
 //@EnableConfigurationProperties
 @EnableTransactionManagement

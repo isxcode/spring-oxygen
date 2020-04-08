@@ -8,3 +8,14 @@ indent_style = space
 insert_final_newline = false
 max_line_length = off
 tab_width = 4
+
+[*.yml]
+indent_style = tab # 缩进方式
+indent_size = 2
+tab_width = 2
+
+[*.ftl]
+indent_style = tab # 缩进方式
+indent_size = 0
+
+

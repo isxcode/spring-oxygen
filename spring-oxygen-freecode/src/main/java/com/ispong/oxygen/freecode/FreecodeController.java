@@ -1,3 +1,18 @@
+/*
+ * Copyright [2020] [ispong]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.ispong.oxygen.freecode;
 
 import com.ispong.oxygen.flysql.common.BaseController;
@@ -9,6 +24,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
+/**
+ * 代码自动生成接口
+ *
+ * @author ispong
+ * @since 0.0.1
+ */
 @RequestMapping
 public class FreecodeController extends BaseController {
 
@@ -22,17 +43,16 @@ public class FreecodeController extends BaseController {
     /**
      * 生成代码
      *
-     * @param freecodeReq freecodeReq
-     * @return  ResponseEntity
+     * @param freecodeReq 请求对象
+     * @return ResponseEntity
      * @since 0.0.1
      */
-    @PostMapping("freecode")
+    @PostMapping("/freecode")
     public ResponseEntity<BaseResponse<String>> generateCode(@Valid @RequestBody FreecodeReq freecodeReq) {
 
-        freecodeService.startFreecode(freecodeReq.getTableName());
+        freecodeService.startFreecode(freecodeReq);
 
         return successResponse("自动代码生成成功", "");
     }
-
 
 }

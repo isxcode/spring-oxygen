@@ -1,49 +1,47 @@
-package ${autoCodeProperties.modulePath};
+package ${packageName};
 
-import ${autoCodeProperties.modulePath};
-
-<#--<#list autoCodeProperties.baseClassList.keySet() as key>-->
-<#--    ${autoCodeProperties.baseClassList[key]}-->
-<#--</#list>-->
-<#--<#list products as name, price>-->
-<#--<p>${name}: ${price}-->
-<#--    </#list>-->
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
+<#if (freecodeProperties.baseControllerClass)??>
+import ${freecodeProperties.baseControllerClass};
+</#if>
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * ${tableComment!} Controller
+ * ${tableName} controller
  *
- * @author ${autoCodeProperties.author}
-<#-- * @since ${autoCodeProperties.date}-->
+ * @author ${freecodeProperties.author}
+ * @since ${freecodeProperties.version}
  */
 @Slf4j
 @RestController
-@RequestMapping("${className}")
-public class ${className}Controller extends BaseController {
+@RequestMapping("${tableName}")
+<#if (freecodeProperties.baseControllerClass)??>
+public class ${tableName?cap_first}Controller extends BaseController {
+<#else>
+public class ${tableName?cap_first}Controller {
+</#if>
 
-    public final ${className}Service ${className}Service;
+    public final ${tableName?cap_first}Service ${tableName}Service;
 
-    public ${className}Controller(${className}Service ${className}Service) {
+    public ${tableName?cap_first}Controller(${tableName?cap_first}Service ${tableName}Service) {
 
-        this.${className}Service = ${className}Service;
+        this.${tableName}Service = ${tableName}Service;
     }
 
     /**
-     * 查询${tableComment!}
-     *
-<#--     * @since ${autoCodeProperties.date}-->
+     * query ${tableName?cap_first}Entity
+	 *
+     * @return String
      */
-    @PostMapping("query${className}")
-    public ResponseEntity<BaseResponse> query${className}() {
+    @GetMapping("query${tableName?cap_first}")
+    public List<${tableName?cap_first}Entity> query${tableName?cap_first}() {
 
-        return successResponse("查询${tableComment!}成功", ${className}Service.query${className}());
+        return ${tableName}Service.query${tableName?cap_first}();
     }
 
-
 }
+

@@ -1,27 +1,13 @@
 ## gradle
 
+### gradle 打包忽略某些文件
+```groovy
+jar {
+    exclude('**/application.properties')
+}
+```
+
 ### gradle 如何导入外部 jar
-
-flatDir { dirs 'lib' }
-
-### 如何将 maven 项目 gradle 项目
-
-// 添加 repo 不然会报 501
-
-```xml
-<repositories>
-    <repository>
-        <id>central</id>
-        <url>https://repo.maven.apache.org/maven2/</url>
-    </repository>
-</repositories>
-
-注释 <relativePath/>
-```
-
-```shell script
-gradle init
-```
 
 ```
 repositories {
@@ -32,11 +18,28 @@ repositories {
 sourceCompatibility = JavaVersion.VERSION_11
 ```
 
-```shell script
-gradle build
+### maven项目转gradle项目
+
+1- add repository
+> 因为默认是http协议访问不安全,现在全是https访问
+```xml
+<repositories>
+    <repository>
+        <id>central</id>
+        <url>https://repo.maven.apache.org/maven2/</url>
+    </repository>
+</repositories>
 ```
 
-### gradle环境
+2- 注释标签 <relativePath/>
+
+3- 初始化脚本执行
+```shell script
+gradle init
+```
+
+4- 添加.gitignore
+```text
 .gradle
 gradle
 gradlew
@@ -44,17 +47,25 @@ build.gradle
 gradlew.bat
 settings.gradle
 build
+libs
+```
 
-
-compileOnly 'org.projectlombok:lombok:1.18.2'
+5- 修改lombok
+```groovy
+compileOnly 'org.projectlombok:lombok:latest.integration'
 annotationProcessor 'org.projectlombok:lombok:latest.integration'
+```
 
-# gradle 使用手册
-
+6- 添加阿里镜像
+```groovy
+repositories {
+		maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+		jcenter()
+		mavenCentral()
+	}
+```
 ## 调试命令
 gradle processDebugResources --debug
-
-## 通过gradle发布jar到中央仓库
 
 DEFAULT_JVM_OPTS -Dfile.encoding=UTF-8 
     

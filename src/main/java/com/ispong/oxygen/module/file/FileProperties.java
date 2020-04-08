@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-@ConfigurationProperties("oxygen.file")
+@ConfigurationProperties("oxygen.system.file")
 public class FileProperties {
 
     private String location;

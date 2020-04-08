@@ -22,11 +22,13 @@ Start Up
 ```java
 import com.ispong.oxygen.flysql.annotation.EnableFlysql;
 import com.ispong.oxygen.wechatgo.annotation.EnableWechatgo;
+import com.ispong.oxygen.freecode.annotation.EnableFreecode;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableFlysql
 @EnableWechatgo
+@EnableFreecode
 public class AppConfig {
 
 }
@@ -95,6 +97,52 @@ public class WechatgoService implements WechatgoEventHandler {
         // do subscribe event
     }
 }
+```
+
+### [oxygen-freecode](https://ispong.gitee.io/spring-oxygen)
+
+- Fast generate java code
+
+- Example
+```yaml
+oxygen:
+  freecode:
+    module-path: com.ispong.oxygen 
+    author: ispong 
+    version: 0.0.1 
+    base-entity-class: com.ispong.oxygen.flysql.common.BaseEntity
+    base-controller-class: com.ispong.oxygen.flysql.common.BaseController 
+    ignore-columns: 
+      - uuid
+      - version
+      - created_date
+      - created_by
+      - last_modified_date
+      - last_modified_by
+    file-types: 
+      - controller
+      - entity
+      - service
+      - repository
+```
+
+```http request
+POST http://${localhost}:${port}/${context}/freecode
+Content-Type: application/json
+
+{
+    "tableName": "${tableName}"
+}
+```
+
+ generate file like below
+```text
+-- module
+   -- ${tableName}
+      -- ${tableName}Controller
+      -- ${tableName}Entity
+      -- ${tableName}Repository
+      -- ${tableName}Service
 ```
 
 ***

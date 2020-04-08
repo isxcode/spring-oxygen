@@ -3,6 +3,8 @@ package com.ispong.oxygen.freecode;
 import com.ispong.oxygen.flysql.Flysql;
 import com.ispong.oxygen.freecode.model.TableColumnInfo;
 import com.ispong.oxygen.freecode.model.TableInfo;
+import com.zaxxer.hikari.HikariDataSource;
+import com.zaxxer.hikari.util.DriverDataSource;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
@@ -21,23 +23,50 @@ public class FreecodeRepository {
     /**
      * 通过表名和忽略字段获取表的字段数据
      *
-     * @param tableName    表名
-     * @param ignoreFields 忽略的字段
+     * @param tableName      表名
+     * @param ignoreFields   忽略的字段
      * @param dataSourceName dataSourceName
      * @return 返回字段信息
      * @since 2020-01-09
      */
     public List<TableColumnInfo> getTableColumns(String dataSourceName, String tableName, List<String> ignoreFields) {
 
-        DataSource dataSource = dataSourceMap.get(dataSourceName);
+        // 区分数据库类型
+        HikariDataSource dataSource = (HikariDataSource) dataSourceMap.get(dataSourceName);
+        if (dataSource != null) {
+            String sqlStr;
+            switch (dataSource.getDriverClassName()) {
+                case "org.h2.Driver":
+                    // h2
+                    sqlStr = "show columns from " + tableName;
+                    break;
+                case "com.mysql.cj.jdbc.Driver":
+                    // mysql
+                    sqlStr = "show full columns from " + tableName;
+                    break;
+                default:
+                    throw new FreecodeException("dataSource type not support");
+            }
 
-        String sqlStr = "show full columns from " + tableName;
-        if (ignoreFields != null && !ignoreFields.isEmpty()) {
-            List<String> ignoreFieldList = new ArrayList<>(ignoreFields.size());
-            ignoreFields.forEach(field -> ignoreFieldList.add("'" + field + "'"));
-            sqlStr = sqlStr + " where Field not in (" + String.join(",", ignoreFieldList) + ")";
+            List<TableColumnInfo> tableColumnInfos = Flysql.select(TableColumnInfo.class).sql(sqlStr).query();
+
+            // 忽略字段
+            List<TableColumnInfo> tempTableColumnInfos = new ArrayList<>();
+            if (ignoreFields != null) {
+                main:
+                for (TableColumnInfo metaColumnInfo : tableColumnInfos) {
+                    for (String metaIgnoreField : ignoreFields) {
+                        if (metaColumnInfo.getField().equals(FreecodeUtils.lineToHump(metaIgnoreField))) {
+                            break main;
+                        }
+                    }
+                    tempTableColumnInfos.add(metaColumnInfo);
+                }
+            }
+            return tempTableColumnInfos;
         }
-        return Flysql.select(TableColumnInfo.class).sql(sqlStr).query();
+
+        throw new FreecodeException("dataSource is not exist");
     }
 
     /**

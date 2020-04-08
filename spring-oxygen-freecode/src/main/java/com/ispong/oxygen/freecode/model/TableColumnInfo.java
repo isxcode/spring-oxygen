@@ -1,5 +1,6 @@
 package com.ispong.oxygen.freecode.model;
 
+import com.ispong.oxygen.freecode.FreecodeUtils;
 import lombok.Data;
 
 /**
@@ -46,13 +47,14 @@ public class TableColumnInfo {
      */
     private String comment;
 
-//    public String getType() {
-//
-//        return CodeUtils.parseDataType(type);
-//    }
-//
-//    public String getField() {
-//
-//        return ReflectUtils.lineToHump(field);
-//    }
+    public String getType() {
+
+        return FreecodeUtils.parseDataType(type);
+    }
+
+    public String getField() {
+
+        return FreecodeUtils.lineToHump(field);
+    }
+
 }

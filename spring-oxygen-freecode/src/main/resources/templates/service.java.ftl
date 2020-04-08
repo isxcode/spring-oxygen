@@ -3,21 +3,34 @@ package ${packageName};
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
- * ${tableComment!} Service
+ * ${tableName} service
  *
- * @author ${author}
- * @since ${date}
+ * @author ${freecodeProperties.author}
+ * @since ${freecodeProperties.version}
  */
 @Slf4j
 @Service
-public class ${className} {
+public class ${tableName?cap_first}Service {
 
-<#--    private final ${tableHump}Dao ${tableHump}Dao;-->
+    private final ${tableName?cap_first}Repository ${tableName}Repository;
 
-<#--    public ${className}(${tableHump}Dao ${tableHump}Dao){-->
+    public ${tableName?cap_first}Service(${tableName?cap_first}Repository ${tableName}Repository){
 
-<#--        this.${tableHump}Service=${tableHump}Dao;-->
-<#--    }-->
+        this.${tableName}Repository=${tableName}Repository;
+    }
+
+	/**
+	 * query ${tableName?cap_first}Entity
+	 *
+	 * @return List[${tableName?cap_first}Entity]
+	 * @since 0.0.1
+	 */
+	public List<${tableName?cap_first}Entity> query${tableName?cap_first}(){
+
+		return ${tableName}Repository.query${tableName?cap_first}();
+	}
 
 }

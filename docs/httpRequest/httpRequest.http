@@ -44,8 +44,7 @@ POST http://localhost:8888/spring-oxygen/freecode
 Content-Type: application/json
 
 {
-    "tableName": "log",
-    "dataSourceName": "name"
+    "tableName": "log"
 }
 
 ###

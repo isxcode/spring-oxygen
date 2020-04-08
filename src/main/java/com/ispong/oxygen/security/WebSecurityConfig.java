@@ -161,7 +161,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(adminPaths.toArray(new String[0])).hasRole("OXYGEN_ADMIN");
         http.authorizeRequests().antMatchers(allPaths.toArray(new String[0])).permitAll();
         http.antMatcher("/**").addFilterBefore(new JwtAuthenticationFilter(initAuthenticationManagerBean(), excludeUrlPaths), UsernamePasswordAuthenticationFilter.class);
-
         super.configure(http);
     }
 }

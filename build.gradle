@@ -14,10 +14,9 @@ apply plugin: 'io.spring.dependency-management'
 // 声明依赖
 dependencies {
 
-	compile(project(":spring-oxygen"))
-	compile(project(":spring-oxygen-utils"))
-	compile(project(":spring-oxygen-flysql"))
-	compile(project(":spring-oxygen-freecode"))
+    compile(project(":spring-oxygen-freecode"))
+    compile(project(":spring-oxygen-flysql"))
+    compile(project(":spring-oxygen-wechatgo"))
 
 	// spring boot start
 	implementation 'org.springframework.boot:spring-boot-starter'

@@ -1,48 +1,37 @@
 package ${packageName};
 
-<#list importPackages as package>
+<#list entityPackageList as package>
 import ${package};
 </#list>
 
-<#if (baseClassList.entity)??>
-import ${baseClassList.entity};
+<#if (freecodeProperties.baseEntityClass)??>
+import ${freecodeProperties.baseEntityClass};
+import lombok.EqualsAndHashCode;
 </#if>
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
-import org.springframework.stereotype.Component;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import com.ispong.oxygen.flysql.annotation.TableName;
 import java.io.Serializable;
 
 /**
- * ${tableComment!} Entity
+ * ${tableName} entity
  *
- * @author ${author}
- * @since ${date}
+ * @author ${freecodeProperties.author}
+ * @since ${freecodeProperties.version}
  */
-@NoArgsConstructor
-@Component
 @Data
-@Accessors(chain = true)
+@TableName("${tableName}")
+<#if (freecodeProperties.baseEntityClass)??>
 @EqualsAndHashCode(callSuper = true)
-@Entity
-@Table(name = "${tableName}")
-<#if (baseClassList.entity)??>
-public class ${className} extends BaseEntity implements Serializable{
+public class ${tableName?cap_first}Entity extends BaseEntity implements Serializable{
 <#else>
-public class ${className} implements Serializable{
+public class ${tableName?cap_first}Entity implements Serializable{
 </#if>
 
     private static final long serialVersionUID = 1L;
+
 <#-- 遍历字段 -->
-<#list fieldList as field>
-
-    /**
-     * ${field.comment}
-     */
+<#list tableColumns as field>
     private ${field.type} ${field.field};
-</#list>
 
+</#list>
 }
