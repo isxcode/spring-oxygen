@@ -46,62 +46,63 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * 自定义拦截器放行路径
      */
     private List<String> excludeUrlPaths = Arrays.asList(
-            // spring-websocket
-            "/ws/**",
-            // user
-            "/user/userSignUp",
-            "/user/userSignIn",
-            // file
-            "/file/show/**",
-            "/file/download/**",
-            // spring-security
-            "/login",
-            "/logout",
-            // actuator
-            "/actuator/**",
-            // h2 嵌入式
-            "/h2-console/**",
-            // swagger
-            "/v2/api-docs",
-            "/swagger-resources/**",
-            "/swagger-ui.html**",
-            "/webjars/**",
-            "favicon.ico",
-            // spring-oxygen-freecode
-            "/freecode/**");
+        // spring-websocket
+        "/ws/**",
+        // user
+        "/user/userSignUp",
+        "/user/userSignIn",
+        // file
+        "/file/show/**",
+        "/file/download/**",
+        // spring-security
+        "/login",
+        "/logout",
+        // actuator
+        "/actuator/**",
+        // h2 嵌入式
+        "/h2-console/**",
+        // swagger
+        "/v2/api-docs",
+        "/swagger-resources/**",
+        "/swagger-ui.html**",
+        "/webjars/**",
+        "favicon.ico",
+        // spring-oxygen-freecode
+        "/freecode/**"
+    );
 
     /**
      * 任何人都可以访问
      */
     private List<String> allPaths = Arrays.asList(
-            // spring-oxygen-freecode
-            "/freecode/**",
-            // spring-websocket
-            "/ws/**",
-            // h2
-            "/h2-console/**",
-            // file
-            "/file/show/**",
-            "/file/download/**",
-            // user
-            "/user/userSignUp",
-            "/user/userSignIn",
-            // spring-security
-            "/login",
-            "/logout");
+        // spring-oxygen-freecode
+        "/freecode/**",
+        // spring-websocket
+        "/ws/**",
+        // h2
+        "/h2-console/**",
+        // file
+        "/file/show/**",
+        "/file/download/**",
+        // user
+        "/user/userSignUp",
+        "/user/userSignIn",
+        // spring-security
+        "/login",
+        "/logout");
 
     /**
      * 管理员控制权限
      */
     private List<String> adminPaths = Arrays.asList(
-            // actuator
-            "/actuator/**",
-            // swagger
-            "/v2/api-docs",
-            "/swagger-resources/**",
-            "/swagger-ui.html**",
-            "/webjars/**",
-            "favicon.ico");
+        // actuator
+        "/actuator/**",
+        // swagger
+        "/v2/api-docs",
+        "/swagger-resources/**",
+        "/swagger-ui.html**",
+        "/webjars/**",
+        "favicon.ico");
 
     @Resource
     private UserService userService;

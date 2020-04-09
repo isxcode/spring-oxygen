@@ -36,8 +36,9 @@ spring:
     url: jdbc:h2:~/h2
     username: root
     password: root
-#    schema: classpath:db/schema.sql
-#    data: db/data.sql
+    initialization-mode: embedded
+    schema: classpath:db/schema.sql
+    data: db/data.sql
 
   # h2-config
   # http://localhost:8888/spring-oxygen/h2-console
@@ -56,15 +57,6 @@ spring:
       password: admin
       roles: OXYGEN_ADMIN
 
-  # spring-freemarker
-#  freemarker:
-#    cache: false # 是否开启模板缓存
-#    charset: UTF-8 # 字符集
-#    check-template-location: true # 检查模板路径
-#    enabled: false # 是否启动springMVC
-#    suffix: .ftlh # 模板后缀
-#    template-loader-path: classpath:/templates1/ # 模板地址
-
   # spring-quartz
   quartz:
     scheduler-name: quartzScheduler # 定时器名称
@@ -73,7 +65,7 @@ spring:
     jdbc:
       schema: classpath:db/quartz_h2.sql # sql执行脚本
       comment-prefix: '#, --' # sql语句中的注释
-      initialize-schema: embedded # 初始化数据库方式
+      initialize-schema: embedded # 初始化数据库方式 embedded(不会重复初始化) always(每次都会初始化)
     startup-delay: 0s # 启动延迟时间
     overwrite-existing-jobs: false # 是否覆盖已存在job
     wait-for-jobs-to-complete-on-shutdown: false # 是否在关闭时等待job执行完毕
@@ -116,7 +108,7 @@ logging:
 # spring-oxygen
 oxygen:
   freecode:
-    module-path: com.ispong.oxygen # 模块包的位置
+    module-path: com.ispong.oxygen.scheduler # 模块包的位置
     author: ispong # 作者
     version: 0.0.1 # 版本号
     base-entity-class: com.ispong.oxygen.flysql.common.BaseEntity # Entity基础类
@@ -148,6 +140,12 @@ oxygen:
   system:
     file:
       location: D://
+    quartz:
+      datasource:
+        driver-class-name: org.h2.Driver
+        url: jdbc:h2:~/h2
+        username: root
+        password: root
 
 # jasypt
 jasypt:

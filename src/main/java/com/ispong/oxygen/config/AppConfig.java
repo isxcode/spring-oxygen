@@ -4,7 +4,11 @@ package com.ispong.oxygen.config;
 
 import com.ispong.oxygen.flysql.annotation.EnableFlysql;
 import com.ispong.oxygen.freecode.annotation.EnableFreecode;
+import com.ispong.oxygen.module.file.FileProperties;
+import com.ispong.oxygen.scheduler.QuartzProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -17,10 +21,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableFlysql
 @EnableFreecode
 @Configuration
-//@EnableConfigurationProperties
+@EnableConfigurationProperties
 @EnableTransactionManagement
+@EnableScheduling
 //@EnableAspectJAutoProxy
-//@EnableScheduling
 //@EnableAsync
 //@ImportResource(locations = {"classpath:schema/**"})
 public class AppConfig {
