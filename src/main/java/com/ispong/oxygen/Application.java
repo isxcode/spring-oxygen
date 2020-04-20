@@ -1,10 +1,14 @@
 package com.ispong.oxygen;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 /**
@@ -23,27 +27,15 @@ public class Application {
 	}
 
 	/**
-	 * 测试项目启动接口
+	 * 命令行
 	 *
-	 * @return 当前时间
+	 * @param appContext app上下文
 	 * @since 0.0.1
 	 */
-	@GetMapping("/test")
-	public String test() {
+	@Bean
+	public CommandLineRunner run(ApplicationContext appContext) {
 
-		return Calendar.getInstance().getTime().toString();
+		return args -> Arrays.stream(appContext.getBeanDefinitionNames()).sorted().forEach(System.out::println);
 	}
-
-//	/**
-//	 * 命令行
-//	 *
-//	 * @param appContext app上下文
-//	 * @since 0.0.1
-//	 */
-//	@Bean
-//	public CommandLineRunner run(ApplicationContext appContext) {
-//
-//		return args -> Arrays.stream(appContext.getBeanDefinitionNames()).sorted().forEach(System.out::println);
-//	}
 }
 

@@ -55,7 +55,7 @@ public class FreecodeAutoConfiguration {
 
     @Bean
     @ConditionalOnBean(FreecodeService.class)
-    public FreecodeController initWechatgoController(FreecodeService freecodeService) {
+    public FreecodeController initFreecodeController(FreecodeService freecodeService) {
 
         log.debug("init freecode controller");
         return new FreecodeController(freecodeService);

@@ -23,6 +23,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.BeanUtils;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -169,7 +170,11 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
 
         String sqlString = parseSqlConditions(initSelectSql(), sqlConditions);
         log.debug("[oxygen-flysql-sql]:" + sqlString);
-        return jdbcTemplate.queryForObject(sqlString, new BeanPropertyRowMapper<>(getGenericType()));
+        try {
+            return jdbcTemplate.queryForObject(sqlString, new BeanPropertyRowMapper<>(getGenericType()));
+        }catch (EmptyResultDataAccessException e){
+            return null;
+        }
     }
 
     @Override

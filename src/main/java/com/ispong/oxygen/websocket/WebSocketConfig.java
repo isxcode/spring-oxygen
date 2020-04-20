@@ -17,9 +17,8 @@ package com.ispong.oxygen.websocket;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
-import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
-import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.web.socket.config.annotation.*;
 import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean;
 
 /**
@@ -33,7 +32,8 @@ import org.springframework.web.socket.server.standard.ServletServerContainerFact
  */
 @Configuration
 @EnableWebSocket
-public class WebSocketConfig implements WebSocketConfigurer {
+@EnableWebSocketMessageBroker
+public class WebSocketConfig implements WebSocketConfigurer, WebSocketMessageBrokerConfigurer {
 
     /**
      * 注册websocket
@@ -44,14 +44,14 @@ public class WebSocketConfig implements WebSocketConfigurer {
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 
         registry.addHandler(myHandler(), "/ws/websocketHandler")
-                .addInterceptors(new HandShakeHandler())
-                .setAllowedOrigins("*");
+            .addInterceptors(new HandShakeHandler())
+            .setAllowedOrigins("*");
 
         registry.addHandler(myHandler(), "/ws/myHandler")
-                .addInterceptors(new HandShakeHandler())
-                .setAllowedOrigins("*")
-                .withSockJS()
-                .setHeartbeatTime(30000);
+            .addInterceptors(new HandShakeHandler())
+            .setAllowedOrigins("*")
+            .withSockJS()
+            .setHeartbeatTime(30000);
 
     }
 
@@ -73,5 +73,16 @@ public class WebSocketConfig implements WebSocketConfigurer {
     public WebSocketHandler myHandler() {
 
         return new WebSocketHandler();
+    }
+
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry config) {
+        config.enableSimpleBroker("/topic");
+        config.setApplicationDestinationPrefixes("/app");
+    }
+
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/gs-guide-websocket").withSockJS();
     }
 }

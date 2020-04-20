@@ -36,9 +36,9 @@ spring:
     url: jdbc:h2:~/h2
     username: root
     password: root
-    initialization-mode: embedded
-    schema: classpath:db/schema.sql
-    data: db/data.sql
+  #    schema: classpath:db/schema.sql
+  #    initialization-mode: embedded
+  #    data: db/data.sql
 
   # h2-config
   # http://localhost:8888/spring-oxygen/h2-console

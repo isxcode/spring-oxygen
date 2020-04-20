@@ -20,3 +20,18 @@ git checkout -b prod
 git checkout -b dev
 ```
 
+# 删除远程分支
+```shell script
+git push origin --delete add-code-of-conduct-1
+```
+
+# 撤销commit内容 soft只回退commit信息
+```shell script
+git reset --soft 97a58928febe82d5b7eceee1a9b92dfa54272c1c
+```
+
+## git log 中文乱码
+```shell script
+set LESSCHARSET=utf-8
+git log
+```

@@ -1,5 +1,25 @@
 ## gradle
 
+### 如何使用gradle初始化 多module的mvn项目
+
+1- 手动修改 settings.gradle
+2- 进入每个module 执行gradle init
+3- 删除发布文件
+```groovy
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
+```
+
+4- 将内部依赖使用
+```groovy
+compile project(":ddmp-metrics") 
+```
+
 ### gradle 打包忽略某些文件
 ```groovy
 jar {
@@ -40,14 +60,14 @@ gradle init
 
 4- 添加.gitignore
 ```text
-.gradle
-gradle
-gradlew
-build.gradle
-gradlew.bat
-settings.gradle
-build
-libs
+**/.gradle
+**/gradle
+**/gradlew
+**/build.gradle
+**/gradlew.bat
+**/settings.gradle
+**/build
+**/libs
 ```
 
 5- 修改lombok
@@ -96,4 +116,9 @@ gpg --keyserver http://pool.sks-keyservers.net:11371/ --send-keys B794F8D1
 signing.keyId=B794F8D1
 signing.password=song151617
 signing.secretKeyRingFile=C:/Users/ispon/.gnupg/secring.gpg
+```
+
+### 撤销add操作
+```shell script
+git rm --cached gradlew
 ```

@@ -16,19 +16,24 @@
 package com.ispong.oxygen.security;
 
 import com.ispong.oxygen.module.user.UserService;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -68,7 +73,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         "/webjars/**",
         "favicon.ico",
         // spring-oxygen-freecode
-        "/freecode/**"
+        "/freecode/**",
+        "/user/test/**"
     );
 
     /**
@@ -89,7 +95,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         "/user/userSignIn",
         // spring-security
         "/login",
-        "/logout");
+        "/logout",
+        "/user/test/**");
 
     /**
      * 管理员控制权限
@@ -145,7 +152,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.cors();
+        http.cors(Customizer.withDefaults());
         http.csrf().disable();
         // 不能禁用session 会影响原有的spring-security使用 http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.headers().cacheControl();
@@ -153,15 +160,34 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
 
         // 放行全部
-//        http.authorizeRequests().antMatchers("/**").permitAll();
+        http.authorizeRequests().antMatchers("/**").permitAll();
 
 //        http.logout().logoutSuccessHandler(new LogoutSuccessHandlerImpl());
 //        http.exceptionHandling().accessDeniedHandler(new AccessDeniedHandlerImpl());
 
         // 系统登录控制
-        http.authorizeRequests().antMatchers(adminPaths.toArray(new String[0])).hasRole("OXYGEN_ADMIN");
-        http.authorizeRequests().antMatchers(allPaths.toArray(new String[0])).permitAll();
-        http.antMatcher("/**").addFilterBefore(new JwtAuthenticationFilter(initAuthenticationManagerBean(), excludeUrlPaths), UsernamePasswordAuthenticationFilter.class);
+//        http.authorizeRequests().antMatchers(adminPaths.toArray(new String[0])).hasRole("OXYGEN_ADMIN");
+//        http.authorizeRequests().antMatchers(allPaths.toArray(new String[0])).permitAll();
+//        http.antMatcher("/**").addFilterBefore(new JwtAuthenticationFilter(initAuthenticationManagerBean(), excludeUrlPaths), UsernamePasswordAuthenticationFilter.class);
         super.configure(http);
+    }
+
+    /**
+     * 启用spring-security后需要使用特别的跨域配置
+     *
+     * @since 0.0.1
+     */
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Collections.singletonList("*"));
+        configuration.setAllowedMethods(Collections.singletonList("*"));
+        configuration.setAllowedHeaders(Collections.singletonList("*"));
+        configuration.setExposedHeaders(Collections.singletonList("Content-Disposition"));
+        configuration.setAllowCredentials(true);
+        configuration.setMaxAge(3600L);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }

@@ -8,10 +8,10 @@ import com.ispong.oxygen.module.user.request.UserSignUpReq;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.websocket.server.PathParam;
+import java.util.Calendar;
 
 /**
  * 用户模块
@@ -57,6 +57,19 @@ public class UserController extends BaseController {
 
         userService.userSignUp(userSignUpReq);
         return successResponse("用户注册成功", "");
+    }
+
+    /**
+     * 测试项目启动接口
+     *
+     * @return 当前时间
+     * @since 0.0.1
+     */
+    @GetMapping("/test/{param}")
+    public ResponseEntity<BaseResponse<String>> test(@PathVariable String param) {
+
+        System.out.println("请求" + param);
+        return successResponse("成功返回", Calendar.getInstance().getTime().toString());
     }
 
 }

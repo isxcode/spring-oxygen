@@ -6,8 +6,10 @@ import com.ispong.oxygen.flysql.annotation.EnableFlysql;
 import com.ispong.oxygen.freecode.annotation.EnableFreecode;
 import com.ispong.oxygen.module.file.FileProperties;
 import com.ispong.oxygen.scheduler.QuartzProperties;
+import com.ispong.oxygen.wechatgo.annotation.EnableWechatgo;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -17,7 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author ispong
  * @version v0.1.0
  */
-//@EnableWechatgo
+@EnableWechatgo
 @EnableFlysql
 @EnableFreecode
 @Configuration
@@ -26,7 +28,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableScheduling
 //@EnableAspectJAutoProxy
 //@EnableAsync
-//@ImportResource(locations = {"classpath:schema/**"})
+@ImportResource(locations = {"classpath:schema/**"})
 public class AppConfig {
 
 
