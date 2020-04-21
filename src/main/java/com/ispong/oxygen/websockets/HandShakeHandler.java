@@ -1,4 +1,4 @@
-package com.ispong.oxygen.websocket;
+package com.ispong.oxygen.websockets;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.ServerHttpRequest;

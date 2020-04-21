@@ -1,4 +1,4 @@
-package com.ispong.oxygen.websocket;
+package com.ispong.oxygen.websockets;
 
 import lombok.Data;
 

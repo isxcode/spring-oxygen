@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.websocket;
+package com.ispong.oxygen.websockets;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +25,15 @@ import org.springframework.web.socket.server.standard.ServletServerContainerFact
  * websocket config
  * 要求创建webSocket连接 监听握手和断开过程
  * 如何储存用户的websocket的session
+ * ！！！ websocket配置需要加跨域设置
+ *
+ * 握手成功后定时推送
+ *
+ * demo 1 基于sock:
+ *
+ * demo 2 基于sockJs:
+ *
+ * demo 3 基于stomp:
  *
  * @author ispong
  * @version v0.1.0
@@ -81,8 +90,15 @@ public class WebSocketConfig implements WebSocketConfigurer, WebSocketMessageBro
         config.setApplicationDestinationPrefixes("/app");
     }
 
+    /**
+     * 声明stomp
+     * 
+     * @param
+     * @return
+     * @since 0.0.1
+     */
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/gs-guide-websocket").withSockJS();
+        registry.addEndpoint("/stomp/gs-guide-websocket").setAllowedOrigins("*").withSockJS();
     }
 }

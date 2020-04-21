@@ -27,6 +27,7 @@
 
         function connect() {
             let socket = new SockJS('http://localhost:8888/spring-oxygen/gs-guide-websocket');
+
             stompClient = Stomp.over(socket);
             stompClient.connect({}, function (frame) {
                 setConnected(true);
