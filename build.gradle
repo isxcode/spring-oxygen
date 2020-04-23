@@ -56,6 +56,10 @@ dependencies {
     // properties
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
+    // http client
+    implementation 'org.apache.httpcomponents:httpclient:4.5.9'
+    implementation 'org.apache.httpcomponents:httpmime:4.5.9'
+
 //	implementation 'org.junit.jupiter:junit-jupiter'
 
 //	compile 'org.springframework.boot:spring-boot-starter-data-jpa'

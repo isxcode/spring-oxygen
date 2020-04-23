@@ -23,3 +23,11 @@ docker run \
 
 > jdbc:mysql://106.15.189.6:3306/isxcode
 
+
+## 隐藏部分的手机号码
+```sql
+select insert(PHONE, 5, 11, '********')
+from USERS
+limit 1;
+```
+

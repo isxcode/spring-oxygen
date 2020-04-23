@@ -5,6 +5,7 @@
 1- import starter jar
 
 maven
+
 ```xml
 <dependency>
     <groupId>com.github.ispong</groupId>
@@ -12,12 +13,15 @@ maven
     <version>0.0.2</version>
 </dependency>
 ```
+
 gradle
+
 ```groovy
 compile group: 'com.github.ispong', name: 'spring-oxygen-wechatgo', version: '0.0.2'
 ```
 
 2- add @EnableWechatgo
+
 ```java
 @Configuration
 @EnableWechatgo
@@ -27,6 +31,7 @@ public class AppConfig {
 ```
 
 3- config yaml
+
 ```yaml
 oxygen:
   wechatgo:
@@ -36,6 +41,7 @@ oxygen:
 ```
 
 4- config wechat server
+
 ```text
 服务器地址(URL) -- http://${localhost}:8080/wechatgo/wechatServer
 令牌(Token) -- yaml配置的custom server token
@@ -44,6 +50,7 @@ oxygen:
 ```
 
 5- start application
+
 ```text
                                                              __          __            
   ____  _  ____  ______ ____  ____       _      _____  _____/ /_  ____ _/ /_____ _____ 
@@ -56,6 +63,7 @@ oxygen:
 ### Advance Use
 
 实现WechatgoEventHandler可自定义实现各种提供好的接口,比如关注接口,取消关注接口。还可以结合WechatgoTemplate实例去直接实现模板发送之类的方法。请结合官网文档进行使用！
+
 ```java
 @Service
 public class WechatService implements WechatgoEventHandler {
