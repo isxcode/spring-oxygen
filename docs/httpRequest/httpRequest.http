@@ -1,3 +1,21 @@
+POST http://10.1.113.32:31570/MTSService/authority/elevator
+Content-Type: application/json
+
+{
+    "eleContractNo": "18N4V13-666-6",
+    "employeeCode": "u3584"
+}
+
+###
+POST http://localhost:9000/MTSService/authority/elevator
+Content-Type: application/json
+
+{
+    "employeeCode":"u1717",
+    "eleContractNo":"05GPM16-105-1"
+}
+
+###
 # For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection) or
 # paste cURL into the file and request will be converted to HTTP Request format.
 #
@@ -16,7 +34,6 @@ Content-Disposition: form-data; name="file"; filename="2.png"
 
 < C:\Users\ispon\Desktop\2.png
 --WebAppBoundary
-
 
 ###
 POST http://localhost:8888/spring-oxygen/file/upload
@@ -60,3 +77,4 @@ Content-Type: application/json
 }
 
 ###
+

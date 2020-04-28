@@ -9,7 +9,7 @@ Maven
 ```xml
 <dependency>
   <groupId>com.github.ispong</groupId>
-  <artifactId>spring-oxygen</artifactId>
+  <artifaectId>spring-oxygen</artifaectId>
   <version>0.0.3</version>
 </dependency>
 ```

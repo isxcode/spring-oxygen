@@ -88,6 +88,7 @@ server:
 logging:
   level:
     root: info
+    com.ispong.oxygen.websockets: debug
     com.isxcode.oxygen.wechatgo: debug
     com.ispong.oxygen.flysql: debug
     com.ispong.oxygen.freecode: debug

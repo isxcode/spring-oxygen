@@ -3,6 +3,8 @@ package com.ispong.oxygen.scheduler;
 import org.springframework.boot.autoconfigure.quartz.QuartzDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 import javax.sql.DataSource;
 
@@ -29,4 +31,18 @@ public class QuartzConfig {
         return quartzProperties.getDatasource().initializeDataSourceBuilder().build();
     }
 
+
+    /**
+     * 注入一个新的TaskScheduler 给websocket调用
+     *
+     * @since 0.0.1
+     */
+    @Bean
+    public TaskScheduler taskScheduler() {
+
+        ThreadPoolTaskScheduler scheduling = new ThreadPoolTaskScheduler();
+        scheduling.setPoolSize(10);
+        scheduling.initialize();
+        return scheduling;
+    }
 }

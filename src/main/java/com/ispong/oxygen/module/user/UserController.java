@@ -65,8 +65,8 @@ public class UserController extends BaseController {
      * @return 当前时间
      * @since 0.0.1
      */
-    @GetMapping("/test/{param}")
-    public ResponseEntity<BaseResponse<String>> test(@PathVariable String param) {
+    @GetMapping("/test")
+    public ResponseEntity<BaseResponse<String>> test(@RequestParam("param") String param) {
 
         System.out.println("请求" + param);
         return successResponse("成功返回", Calendar.getInstance().getTime().toString());
