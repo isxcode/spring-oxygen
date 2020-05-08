@@ -1,4 +1,7 @@
-POST http://10.1.113.32:31570/MTSService/authority/elevator
+GET http://localhost:8888/spring-oxygen//ws/greet?greeting=99
+
+###
+POST http://wcpublic.smec-cn.com:7777/simp/simp-uat/mts/MTSService/authority/elevator
 Content-Type: application/json
 
 {
@@ -11,7 +14,7 @@ POST http://localhost:9000/MTSService/authority/elevator
 Content-Type: application/json
 
 {
-    "employeeCode":"u1717",
+    "employeeCode":"f370316",
     "eleContractNo":"05GPM16-105-1"
 }
 

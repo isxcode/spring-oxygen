@@ -1,43 +1,52 @@
-package com.ispong.oxygen.websockets;
+package com.ispong.oxygen.websockets.sockjs;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
 import java.util.Map;
 
 /**
- * websocket handshake拦截器
+ * websocket 握手拦截处理器
  *
  * @author ispong
- * @version v0.1.0
+ * @since 0.0.1
  */
 @Slf4j
-public class HandShakeHandler implements HandshakeInterceptor {
+public class WebSocketInterceptor implements HandshakeInterceptor {
 
     /**
-     * 握手之前
+     * 握手之前处理
      *
-     * @since 2019-10-28
+     * @since 0.0.1
      */
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
 
-        log.info("握手前操作");
+        log.debug("握手前处理");
 
-        // 返回true确认握手 返回false拒绝握手
-        return true;
+        // 获取请求参数
+        String userId = ((ServletServerHttpRequest) request).getServletRequest().getParameter("userId");
+
+        // 放入所有请求数据
+        attributes.put("userId", userId);
+
+        // 可以判断是否给予握手 true可以握手/false不可以握手
+        return "ispong".equals(userId);
     }
 
     /**
-     * 握手之后
+     * 握手之后处理
      *
-     * @since 2019-10-28
+     * @since 0.0.1
      */
     @Override
     public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Exception exception) {
+
+        log.debug("握手后处理");
 
     }
 }

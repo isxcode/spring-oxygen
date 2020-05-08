@@ -30,16 +30,16 @@ public class WebSocketService {
      *
      * @since 0.0.1
      */
-    @SneakyThrows
-    @Scheduled(cron = "0/1 * * * * ?")
-    public void schedulePushMessage() {
-
-        log.debug("每秒推送");
-        if (SOCKET_MAP.containsKey("ispong")) {
-
-            WebSocketBean webSocketBean = SOCKET_MAP.get("ispong");
-            String message = new ObjectMapper().writeValueAsString("hello girl");
-            webSocketBean.getWebSocketSession().sendMessage(new TextMessage(message));
-        }
-    }
+//    @SneakyThrows
+//    @Scheduled(cron = "0/1 * * * * ?")
+//    public void schedulePushMessage() {
+//
+//        log.debug("每秒推送");
+//        if (SOCKET_MAP.containsKey("ispong")) {
+//
+//            WebSocketBean webSocketBean = SOCKET_MAP.get("ispong");
+//            String message = new ObjectMapper().writeValueAsString("hello girl");
+//            webSocketBean.getWebSocketSession().sendMessage(new TextMessage(message));
+//        }
+//    }
 }
