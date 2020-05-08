@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello WebSocket</title>
+    <meta charset="utf-8">
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script type="text/javascript">
+
+        let stompClient = null;
+
+        // webSocket也是可以的
+        // let socket = new WebSocket("/spring-websocket-portfolio/portfolio");
+
+        // 创建stomp对象
+        function connect() {
+            let socket = new SockJS("http://localhost:8888/spring-oxygen/ws/testStomp");
+            stompClient = Stomp.over(socket);
+
+            stompClient.connect({}, function (frame) {
+                console.log('连接成功 Connected: ' + frame);
+                stompClient.subscribe('/topic/greetings', function (subscribe) {
+                    console.log("执行订阅" + JSON.parse(subscribe.body).content);
+                });
+            });
+        }
+
+        let headers={
+            "content-type": "application/json",
+        }
+
+        let body = {
+            "name": "alice"
+        };
+
+        function sendName() {
+            // stompClient.send("/app/hello", {}, JSON.stringify({'name': $("#name").val()}));
+            // function(destination, headers, body)
+            stompClient.send("/app/hello", headers, JSON.stringify(body));
+        }
+    </script>
+</head>
+<body>
+    <a href="javascript:connect()">运行 Stomp</a>
+    <br>
+    <a href="javascript:sendName()">发送消息 Stomp</a>
+</body>
+</html>
