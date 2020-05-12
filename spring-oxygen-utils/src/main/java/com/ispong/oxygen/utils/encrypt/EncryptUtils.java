@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.core.encrypt;
+package com.ispong.oxygen.utils.encrypt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ispong.oxygen.core.exception.CoreException;
+import com.ispong.oxygen.utils.exception.CoreException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;

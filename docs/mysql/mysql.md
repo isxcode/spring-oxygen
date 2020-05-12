@@ -1,5 +1,7 @@
 # docker 初始化mysql
 
+mysql -h localhost -u root -p 123
+
 > git clone https://github.com/ispong/isxcode-spring.git
 > mkdir -p /root/mysql-data
 
@@ -29,5 +31,10 @@ docker run \
 select insert(PHONE, 5, 11, '********')
 from USERS
 limit 1;
+```
+
+### string 转 date
+```sql
+select str_d from dual
 ```
 

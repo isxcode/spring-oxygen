@@ -1,10 +1,16 @@
 dependencies {
 
+    compileOnly 'org.springframework.boot:spring-boot-starter-web'
+
     // jsonwebtoken
     compile 'io.jsonwebtoken:jjwt-api:0.10.7'
     compile 'io.jsonwebtoken:jjwt-jackson:0.10.7'
     runtime 'io.jsonwebtoken:jjwt-impl:0.10.7',
             'io.jsonwebtoken:jjwt-jackson:0.10.7'
+
+    // poi || office文件导出
+    implementation 'org.apache.poi:poi:4.1.1'
+    implementation 'org.apache.poi:poi-ooxml:4.1.1'
 
     // lombok
     compileOnly 'org.projectlombok:lombok:latest.integration'

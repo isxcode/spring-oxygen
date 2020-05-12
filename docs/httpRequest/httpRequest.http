@@ -81,3 +81,11 @@ Content-Type: application/json
 
 ###
 
+POST http://localhost:8888/spring-oxygen/test/parseExcel
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="dog.xlsx"
+
+< C:\Users\ispon\Desktop\周计划模版.xlsx
+--WebAppBoundary

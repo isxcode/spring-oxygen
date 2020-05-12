@@ -7,6 +7,7 @@ import com.ispong.oxygen.freecode.annotation.EnableFreecode;
 import com.ispong.oxygen.module.file.FileProperties;
 import com.ispong.oxygen.scheduler.QuartzProperties;
 import com.ispong.oxygen.wechatgo.annotation.EnableWechatgo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
@@ -31,7 +32,6 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 //@EnableAsync
 @ImportResource(locations = {"classpath:schema/**"})
 public class AppConfig {
-
 
 }
 

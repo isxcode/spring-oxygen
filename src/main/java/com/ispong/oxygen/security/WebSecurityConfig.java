@@ -161,15 +161,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
 
         // 放行全部
-//        http.authorizeRequests().antMatchers("/**").permitAll();
+        http.authorizeRequests().antMatchers("/**").permitAll();
 
 //        http.logout().logoutSuccessHandler(new LogoutSuccessHandlerImpl());
 //        http.exceptionHandling().accessDeniedHandler(new AccessDeniedHandlerImpl());
 
         // 系统登录控制
-        http.authorizeRequests().antMatchers(adminPaths.toArray(new String[0])).hasRole("OXYGEN_ADMIN");
-        http.authorizeRequests().antMatchers(allPaths.toArray(new String[0])).permitAll();
-        http.antMatcher("/**").addFilterBefore(new JwtAuthenticationFilter(initAuthenticationManagerBean(), excludeUrlPaths), UsernamePasswordAuthenticationFilter.class);
+//        http.authorizeRequests().antMatchers(adminPaths.toArray(new String[0])).hasRole("OXYGEN_ADMIN");
+//        http.authorizeRequests().antMatchers(allPaths.toArray(new String[0])).permitAll();
+//        http.antMatcher("/**").addFilterBefore(new JwtAuthenticationFilter(initAuthenticationManagerBean(), excludeUrlPaths), UsernamePasswordAuthenticationFilter.class);
         super.configure(http);
     }
 

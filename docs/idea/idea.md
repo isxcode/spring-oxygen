@@ -76,5 +76,6 @@ alt+u
 alt+d - open database Tool
 ctrl+shift+d - open database console
 
+- evaluate
 
 

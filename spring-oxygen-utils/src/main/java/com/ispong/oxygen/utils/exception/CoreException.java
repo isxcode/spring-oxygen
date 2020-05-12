@@ -1,4 +1,4 @@
-package com.ispong.oxygen.core.exception;
+package com.ispong.oxygen.utils.exception;
 
 public class CoreException extends RuntimeException {
 

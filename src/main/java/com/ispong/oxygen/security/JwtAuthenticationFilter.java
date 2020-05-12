@@ -1,7 +1,7 @@
 package com.ispong.oxygen.security;
 
 import com.ispong.oxygen.constants.OxygenConstants;
-import com.ispong.oxygen.core.encrypt.EncryptUtils;
+import com.ispong.oxygen.utils.encrypt.EncryptUtils;
 import com.ispong.oxygen.module.user.entity.UserEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.util.AntPathMatcher;
