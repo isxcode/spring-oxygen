@@ -17,23 +17,31 @@ package com.ispong.oxygen.utils.excel;
 
 import com.ispong.oxygen.utils.exception.CoreException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbookFactory;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.*;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpHeaders;
 
+import javax.servlet.http.HttpServletResponse;
 import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.awt.Color;
+
+import static org.apache.poi.xssf.usermodel.XSSFWorkbookType.XLSX;
 
 /**
  * excel文件 解析工具类
@@ -138,4 +146,99 @@ public class ExcelUtils {
         }
     }
 
+    /**
+     * 通过传入的数据生成excel文件
+     *
+     * @param <A>      泛型
+     * @param data     数据
+     * @param fileName 文件名
+     * @param objClass 对象
+     * @since 0.0.1
+     */
+    public static <A> void generateExcel(Class<A> objClass, List<A> data, String fileName, HttpServletResponse response) {
+
+        try {
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            XSSFSheet sheet = workbook.createSheet();
+
+            // 画表头
+            PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(objClass);
+            XSSFRow row = sheet.createRow(0);
+            for (int i = 0; i < propertyDescriptors.length; i++) {
+                if (!"class".equals(propertyDescriptors[i].getName())) {
+                    Field metaField = propertyDescriptors[i].getReadMethod().getDeclaringClass().getDeclaredField(propertyDescriptors[i].getName());
+                    if (metaField.isAnnotationPresent(ExcelType.class)) {
+                        ExcelType annotation = metaField.getAnnotation(ExcelType.class);
+                        int cellIndex = annotation.cellIndex() == -1 ? i : annotation.cellIndex();
+                        sheet.setColumnWidth(cellIndex, annotation.cellWidth());
+                        XSSFCell cell = row.createCell(cellIndex, CellType.STRING);
+                        cell.setCellValue(annotation.cellName());
+                        // 加颜色背景
+                        XSSFCellStyle colorStyle = workbook.createCellStyle();
+                        colorStyle.setFillForegroundColor(new XSSFColor(new Color(annotation.cellColorR(), annotation.cellColorG(), annotation.cellColorB()), new DefaultIndexedColorMap()));
+                        colorStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+                        cell.setCellStyle(colorStyle);
+                    }
+                }
+            }
+
+            // 装载数据
+            for (A metaData : data) {
+                XSSFRow metaRow = sheet.createRow(data.indexOf(metaData) + 1);
+                for (int i = 0; i < propertyDescriptors.length; i++) {
+                    if (!"class".equals(propertyDescriptors[i].getName())) {
+                        Field metaField = propertyDescriptors[i].getReadMethod().getDeclaringClass().getDeclaredField(propertyDescriptors[i].getName());
+                        if (metaField.isAnnotationPresent(ExcelType.class)) {
+                            ExcelType annotation = metaField.getAnnotation(ExcelType.class);
+                            int cellIndex = annotation.cellIndex() == -1 ? i : annotation.cellIndex();
+                            Method readMethod = propertyDescriptors[i].getReadMethod();
+                            // 读取数据填入
+                            if (readMethod.invoke(metaData) == null) {
+                                continue;
+                            }
+                            // 时间格式
+                            XSSFCell cell = metaRow.createCell(cellIndex);
+                            XSSFCellStyle dateStyle = workbook.createCellStyle();
+                            dateStyle.setDataFormat(workbook.getCreationHelper().createDataFormat().getFormat(annotation.cellDateFormat()));
+                            switch (propertyDescriptors[i].getPropertyType().getName()) {
+                                case "java.util.Date":
+                                    SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+                                    cell.setCellValue(dateFormat.parse(String.valueOf(readMethod.invoke(metaData))));
+                                    cell.setCellStyle(dateStyle);
+                                    break;
+                                case "java.time.LocalDateTime":
+                                    cell.setCellValue(LocalDateTime.parse(String.valueOf(readMethod.invoke(metaData)), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS")));
+                                    cell.setCellStyle(dateStyle);
+                                    break;
+                                case "java.time.LocalDate":
+                                    cell.setCellValue(LocalDate.parse(String.valueOf(readMethod.invoke(metaData)), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                                    cell.setCellStyle(dateStyle);
+                                    break;
+                                case "java.lang.String":
+                                    cell.setCellValue(String.valueOf(readMethod.invoke(metaData)));
+                                    break;
+                                case "java.lang.Double":
+                                    cell.setCellValue(Double.parseDouble(String.valueOf(readMethod.invoke(metaData))));
+                                    break;
+                                default:
+                                    throw new CoreException("[excelUtils]: 不支持此类型转换");
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 下载文件
+            response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + java.net.URLEncoder.encode(fileName, StandardCharsets.UTF_8) + "." + XLSX.getExtension());
+            response.setHeader(HttpHeaders.CONTENT_TYPE, XLSX.getContentType());
+            try (OutputStream fileOut = response.getOutputStream()) {
+                workbook.write(fileOut);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CoreException("excel文件生成异常");
+        }
+
+    }
 }

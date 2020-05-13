@@ -1,3 +1,4 @@
+###
 GET http://localhost:8888/spring-oxygen//ws/greet?greeting=99
 
 ###
@@ -89,3 +90,7 @@ Content-Disposition: form-data; name="file"; filename="dog.xlsx"
 
 < C:\Users\ispon\Desktop\周计划模版.xlsx
 --WebAppBoundary
+###
+
+GET  http://localhost:8888/spring-oxygen/test/generateExcel
+
