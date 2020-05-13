@@ -18,7 +18,7 @@ public @interface ExcelType {
     /**
      * 表头
      */
-    String cellName();
+    String cellName() default "";
 
     /**
      * 表长
@@ -26,15 +26,22 @@ public @interface ExcelType {
     int cellWidth() default 10000;
 
     /**
-     * 排序
+     * 字段排序
      */
     int cellIndex() default -1;
 
-    int cellColorR() default 245;
+    /**
+     * 表头背景颜色
+     */
+    int[] cellColor() default {245, 247, 250};
 
-    int cellColorG() default 247;
+    /**
+     * 日期格式
+     */
+    String cellDateFormat() default "yyyy/mm/dd";
 
-    int cellColorB() default 250;
-
-    String cellDateFormat() default "m/d/yy";
+    /**
+     * 数字类型格式
+     */
+    String cellDoubleFormat() default "0.00";
 }

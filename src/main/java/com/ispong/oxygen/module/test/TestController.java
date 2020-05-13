@@ -64,6 +64,7 @@ public class TestController {
             BeanUtils.copyProperties(metaLog, log);
             logs.add(log);
         }
+
         ExcelUtils.generateExcel(Log.class, logs, "测试文件", response);
     }
 

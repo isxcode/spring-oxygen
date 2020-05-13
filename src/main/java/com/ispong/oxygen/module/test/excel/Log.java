@@ -11,15 +11,19 @@ import java.util.Date;
 @Data
 public class Log {
 
-    @ExcelType(cellName = "接口名称", cellWidth = 4000, cellIndex = 1, cellColorR = 230, cellColorG = 10, cellColorB = 10)
+    @ExcelType(cellName = "接口名称", cellWidth = 4000, cellIndex = 1, cellColor={230,10,10})
     private String apiName;
 
     @ExcelType(cellName = "请求体", cellWidth = 10001, cellIndex = 2)
     private String requestBody;
 
-    @ExcelType(cellName = "响应体", cellWidth = 10001, cellIndex = 3)
-    private String responseBody;
+    @ExcelType(cellName = "响应体", cellWidth = 10001, cellIndex = 3,cellDoubleFormat = "0.0000")
+    private Double responseBody;
 
-    @ExcelType(cellName = "执行日期", cellWidth = 4000, cellIndex = 4, cellDateFormat = "yy/mm/d")
+    @ExcelType(cellName = "执行日期", cellWidth = 4000, cellIndex = 4, cellDateFormat = "yy/mm/dd")
     private LocalDateTime executeDate;
+
+    public Double getResponseBody() {
+        return 12.00;
+    }
 }

@@ -15,6 +15,6 @@ public class LogRepository {
 
     public List<LogEntity> queryLog() {
 
-        return Flysql.insert(LogEntity.class).query();
+        return Flysql.select(LogEntity.class).query();
     }
 }

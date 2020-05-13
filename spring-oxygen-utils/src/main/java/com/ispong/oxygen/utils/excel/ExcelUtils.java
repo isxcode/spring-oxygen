@@ -175,7 +175,7 @@ public class ExcelUtils {
                         cell.setCellValue(annotation.cellName());
                         // 加颜色背景
                         XSSFCellStyle colorStyle = workbook.createCellStyle();
-                        colorStyle.setFillForegroundColor(new XSSFColor(new Color(annotation.cellColorR(), annotation.cellColorG(), annotation.cellColorB()), new DefaultIndexedColorMap()));
+                        colorStyle.setFillForegroundColor(new XSSFColor(new Color(annotation.cellColor()[0], annotation.cellColor()[1], annotation.cellColor()[2]), new DefaultIndexedColorMap()));
                         colorStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                         cell.setCellStyle(colorStyle);
                     }
@@ -219,6 +219,11 @@ public class ExcelUtils {
                                     break;
                                 case "java.lang.Double":
                                     cell.setCellValue(Double.parseDouble(String.valueOf(readMethod.invoke(metaData))));
+
+                                    XSSFCellStyle formatStyle = workbook.createCellStyle();
+                                    DataFormat format = workbook.createDataFormat();
+                                    formatStyle.setDataFormat((format.getFormat(annotation.cellDoubleFormat())));
+                                    cell.setCellStyle(formatStyle);
                                     break;
                                 default:
                                     throw new CoreException("[excelUtils]: 不支持此类型转换");
