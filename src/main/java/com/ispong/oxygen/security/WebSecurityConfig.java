@@ -26,7 +26,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -52,6 +51,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * 自定义拦截器放行路径
      */
     private List<String> excludeUrlPaths = Arrays.asList(
+        // druid
+        "/druid/**",
         // spring-websocket
         "/ws/**",
         // user
@@ -103,6 +104,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * 管理员控制权限
      */
     private List<String> adminPaths = Arrays.asList(
+        // druid
+        "/druid/**",
         // actuator
         "/actuator/**",
         // swagger

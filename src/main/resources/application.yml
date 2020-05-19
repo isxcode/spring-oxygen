@@ -1,17 +1,37 @@
+# 服务器配置
+server:
+  servlet:
+    context-path: /spring-oxygen # context
+  port: 8888
+
+# spring-config
 spring:
 
-  # profile
+  # 使用配置文件 java -jar app.jar --spring.profiles.active=dev
   profiles:
-    active: dev,default # java -jar app.jar --spring.profiles.active=dev
+    active: dev
+    include:
+      - default
+      - oxygen
+
+  # 应用信息
   application:
     name: ispong-oxygen
-  jackson:
-    time-zone: GMT+8
-    date-format: yyyy-MM-dd HH:mm:ss
 
-  # 请求管理
+  # jackson解析工具配置  jackson使用对象一定要有无参构造函数
+  jackson:
+    locale: zh_CN # 设置本地时区
+    time-zone: GMT+10 # 时区设置
+    date-format: yyyy-MM-dd HH:mm:ss # data转string的时间格式设置,读取时的时间格式 yyyy-MM-dd'T'HH:mm:ss.SSSZ
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: true
+    serialization:
+      USE_EQUALITY_FOR_OBJECT_ID: true
+
+  # servlet
   servlet:
     multipart:
+      enabled: true # 开启文件上传
       max-file-size: 3MB # 上传最大文件大小
       max-request-size: 3MB # 上传最大请求体大小
 
@@ -36,19 +56,49 @@ spring:
     url: jdbc:h2:~/h2
     username: root
     password: root
-  #    schema: classpath:db/schema.sql
-  #    initialization-mode: embedded
-  #    data: db/data.sql
+    initialization-mode: never # 初始化数据库方式
+    schema: classpath:db/schema.sql # 初始化数据库表结构
+    data: db/data.sql # 初始化数据库原始数据
+    # ali druid
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: org.h2.Driver
+      url: jdbc:h2:~/h2
+      username: root
+      password: root
+      filters: stat,wall # 监控统计:stat 日志:log4j 防御sql注入:wall
+      initial-size: 5 # 初始化连接池数量
+      min-idle: 5 # 最小连接池数量
+      max-active: 20 # 最大连接池数量
+      max-wait: 10000 # 等待超时的时间
+      time-between-eviction-runs-millis: 60000 # 间隔多久执行一次检测
+      min-evictable-idle-time-millis: 300000 # 连接保持空闲而不被驱逐的最小时间
+      max-evictable-idle-time-millis: 900000 # 连接保持空闲而不被驱逐的最大时间
+      validation-query: SELECT 1 # 用来检测连接是否有效的sql
+      validation-query-timeout: 10000 # 测试超时时间设置
+      test-while-idle: true # 建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效
+      test-on-borrow: false # 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+      test-on-return: false # 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+      pool-prepared-statements: false # 是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。
+      max-pool-prepared-statement-per-connection-size: 100 # 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。在Druid中，不会存在Oracle下PSCache占用内存过多的问题，可以把这个数值配置大一些，比如说100
+      keep-alive: true # 连接池中的minIdle数量以内的连接，空闲时间超过minEvictableIdleTimeMillis，则会执行keepAlive操作。
+      # 配置druid监控页面 http://localhost:8888/spring-oxygen/druid/index.html
+      stat-view-servlet:
+        enabled: true # 是否开始监控界面
+        url-pattern: /druid/* # 设置页面访问地址
+        reset-enable: true # 是否允许重置druid的统计信息
+        allow: 127.0.0.1 # ip白名单
+        deny: 127.0.0.2 # ip黑名单
 
   # h2-config
   # http://localhost:8888/spring-oxygen/h2-console
   h2:
     console:
-      enabled: true
-      path: /h2-console
+      enabled: true # 是否开启h2
+      path: /h2-console # 访问地址
       settings:
-        trace: false
-        web-allow-others: true
+        trace: false # 是否打印详细trace
+        web-allow-others: true # 允许页面访问
 
   # spring-security
   security:
@@ -78,12 +128,6 @@ spring:
             threadPriority: 5
             threadsInheritContextClassLoaderOfInitializingThread: false
 
-# 服务器配置
-server:
-  servlet:
-    context-path: /spring-oxygen # context
-  port: 8888
-
 # spring-logging
 logging:
   level:
@@ -105,48 +149,6 @@ logging:
     console: '%clr(%d{${LOG_DATEFORMAT_PATTERN}}){faint} %clr(${LOG_LEVEL_PATTERN}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD}'
     file: '%d{${LOG_DATEFORMAT_PATTERN}} ${LOG_LEVEL_PATTERN} %-5(${PID:- }) --- [%15.15t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD}}'
     rolling-file-name: '${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz'
-
-# spring-oxygen
-oxygen:
-  freecode:
-    module-path: com.ispong.oxygen.scheduler # 模块包的位置
-    author: ispong # 作者
-    version: 0.0.1 # 版本号
-    base-entity-class: com.ispong.oxygen.flysql.common.BaseEntity # Entity基础类
-    base-controller-class: com.ispong.oxygen.flysql.common.BaseController # Controller基础类
-    ignore-columns: # 忽略字段
-      - uuid
-      - version
-      - created_date
-      - created_by
-      - last_modified_date
-      - last_modified_by
-    file-types: # 需要生成哪些文件
-      - controller
-      - entity
-      - service
-      - repository
-
-  wechatgo:
-    app-id: wx5ada926e5489824f # appId
-    app-secret: d49e9eaac5633e661ff207353a9c86b1 # appSecret
-    token: test # custom server token
-  flysql:
-    datasource:
-      pluto: # 第二数据源
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://mysql.definesys.com:30002/pluto_dev
-        username: pluto
-        password: welcome1
-  system:
-    file:
-      location: D://
-    quartz:
-      datasource:
-        driver-class-name: org.h2.Driver
-        url: jdbc:h2:~/h2
-        username: root
-        password: root
 
 # jasypt
 jasypt:

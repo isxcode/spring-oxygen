@@ -57,8 +57,11 @@ dependencies {
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
     // http client
-    implementation 'org.apache.httpcomponents:httpclient:4.5.9'
-    implementation 'org.apache.httpcomponents:httpmime:4.5.9'
+    implementation 'org.apache.httpcomponents:httpclient:latest.integration'
+    implementation 'org.apache.httpcomponents:httpmime:latest.integration'
+
+    // druid
+	compile 'com.alibaba:druid-spring-boot-starter:latest.integration'
 
 //	implementation 'org.junit.jupiter:junit-jupiter'
 
@@ -72,7 +75,6 @@ dependencies {
 //	testCompile 'org.junit.jupiter:junit-jupiter-api:latest.integration'
 //	compile 'mysql:mysql-connector-java:latest.integration'
 //	compile 'com.alibaba:fastjson:latest.integration'
-//	compile 'com.alibaba:druid:latest.integration'
 }
 allprojects {
 

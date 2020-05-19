@@ -40,8 +40,8 @@ public class LogEntity extends BaseEntity {
     @ColumnName("execute_time")
     private Long executeTime;
 
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
+//    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+//    @JsonSerialize(using = LocalDateTimeSerializer.class)
     @ColumnName("execute_date")
     private LocalDateTime executeDate;
 }
