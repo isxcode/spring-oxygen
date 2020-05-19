@@ -56,7 +56,6 @@ public class FlysqlUtils {
         return "'" + value + "'";
     }
 
-
     /**
      * get table name
      *
@@ -129,6 +128,9 @@ public class FlysqlUtils {
      * @since 2019-12-24
      */
     private static String humpToLine(String humpStr) {
+
+        // 有可能出现UId这样的字符串,所有先将首字母小写
+        humpStr = humpStr.substring(0, 1).toLowerCase() + humpStr.substring(1);
 
         Matcher matcher = compile("[A-Z]").matcher(humpStr);
         StringBuffer lineStrBuff = new StringBuffer();

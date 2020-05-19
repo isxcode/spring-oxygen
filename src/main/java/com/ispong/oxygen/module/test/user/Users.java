@@ -9,6 +9,8 @@ import java.util.Date;
 @TableName("USERS")
 public class Users {
 
+    private Date birthday;
+
     private Integer objectVersionNumber;
 
     private String createdBy;
@@ -27,7 +29,7 @@ public class Users {
 
     private String uemail;
 
-//    private String uAccountId;
+    private String uAccountId;
 
     private String sex;
 
@@ -41,7 +43,7 @@ public class Users {
 
     private String sysRole;
 
-//    private String uId;
+    private String uId;
 
     private String deptCode;
 }
