@@ -13,3 +13,13 @@ logs
 
 # 配置文件不能提交
 gradle.properties
+
+# hexo博客
+docs/.DS_Store
+docs/Thumbs.db
+docs/db.json
+docs/*.log
+docs/node_modules/
+docs/public/
+docs/deploy*/
+docs/.deploy_git
