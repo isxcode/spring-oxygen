@@ -1,3 +1,8 @@
+---
+hide: true
+---
+
+
 ##### vim
 - mode
 esc - choose mode

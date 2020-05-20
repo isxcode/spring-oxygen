@@ -50,7 +50,7 @@ color:  # 主题颜色配置，不一定能每一处都生效，可能会被局�
   post_text_color: "#2c3e50"        # 文章正文字体色
   post_heading_color: "#1a202c"     # 文章标题标签字体色（h1 h2 h3...）
   link_color: "#3c4858"             # 超链接字体色
-  link_hover_color: "#61dafb"       # 超链接悬浮时字体色
+  link_hover_color: "#6db33f"       # 超链接悬浮时字体色
   link_hover_bg_color: "#ebedef"    # 超链接悬浮背景色
   board_color: "#fff"               # 主面板背景色
 
@@ -85,12 +85,11 @@ daovoice:  # 在线客服 Daovoice 参考：http://dashboard.daovoice.io
 aplayer:  # 音乐播放器，注意不能与 hexo-tag-aplayer 插件共用
   enable: false
   autoplay: false  # 音频自动播放
-  loop: 'all'  # 音频循环播放, 可选值: 'all', 'one', 'none'
+  loop: 'one'  # 音频循环播放, 可选值: 'all', 'one', 'none'
   order: 'random'  # 播放顺序，可选值: 'list', 'random'
-  theme: '#b7daff'  # 主题色
+  theme: '#6db33f'  # 主题色
   songs:  # 歌曲列表，必须传入下列各参数，其中 url 与 cover 在本地需存于 source 目录，更多参数见文档：https://aplayer.js.org/#/zh-Hans/?id=%E5%8F%82%E6%95%B0
-    - { name: 'name', artist: 'artist', url: '/songs/test.mp3', cover: '/img/cover.jpg' }
-    - { name: 'name', artist: 'artist', url: 'https://...url.mp3', cover: 'https://...cover.jpg' }
+    - { name: '千年泪', artist: 'Tank', url: 'https://gitee.com/ispong/my-images/raw/master/blog-react/%E5%8D%83%E5%B9%B4%E6%B3%AA.mp3', cover: 'https://gitee.com/ispong/my-images/raw/master/blog-react/music.png'}
 
 version:  # 版本相关
   check: false  # 每次生成检测是否为最新版本
@@ -107,7 +106,7 @@ navbar:
     - { key: 'category', link: '/categories/', icon: 'iconfont icon-category-fill' }
     - { key: 'tag', link: '/tags/', icon: 'iconfont icon-tags-fill' }
     - { key: 'about', link: '/about/', icon: 'iconfont icon-user-fill' }
-    #- { key: 'links', link: '/links/', icon: 'iconfont icon-link-fill' }  # 友链页，把前面#去掉即可展示
+    - { key: 'links', link: '/links/', icon: 'iconfont icon-link-fill' }  # 友链页，把前面#去掉即可展示
 
 search: # 搜索栏
   enable: true
@@ -216,13 +215,12 @@ post:  # 部分配置同时控制自定义页面，注意备注
     specific: false  # 开启后，只有在文章 Front-matter 里指定 `math: true` 才会在文章页启动公式转换，以便在页面不包含公式时提高加载速度
     engine: mathjax  # 公式引擎  available: mathjax | katex
   mermaid:  # 流程图，基于 mermaid-js，文档：http://mermaid-js.github.io/mermaid/
-    enable: false  # 开启后文章默认可用，自定义页面如需使用，需在 Front-matter 中指定 `mermaid: true`
-    specific: false  # 开启后，只有在文章 Front-matter 里指定 `mermaid: true` 才会在文章页启动公式转换，以便在页面不包含公式时提高加载速度
+    enable: true  # 开启后文章默认可用，自定义页面如需使用，需在 Front-matter 中指定 `mermaid: true`
+    specific: true  # 开启后，只有在文章 Front-matter 里指定 `mermaid: true` 才会在文章页启动公式转换，以便在页面不包含公式时提高加载速度
     options: { theme: 'default' }  # 接口选项，具体可见：http://mermaid-js.github.io/mermaid/#/mermaidAPI
   comments:  # 评论
-    enable: false  # 开启评论
-    type: disqus  # 指定使用的评论模块  available: disqus | valine | gitalk | utterances | changyan | livere  推荐 utterances
-
+    enable: true  # 开启评论
+    type: utterances  # 指定使用的评论模块  available: disqus | valine | gitalk | utterances | changyan | livere  推荐 utterances
 
 #---------------------------
 # 评论
@@ -234,9 +232,9 @@ post:  # 部分配置同时控制自定义页面，注意备注
 # utterances
 # You can install utterances with https://utteranc.es/ and generate your configuration
 utterances:
-  repo:
-  issue_term:
-  label: utterances
+  repo: ispong/blog-utterances-comment
+  issue_term: pathname
+  label: Comment
   theme: github-light
   crossorigin: anonymous
 
@@ -249,11 +247,11 @@ disqus:
 # You can get yout ClientID and ClientSecret from https://github.com/settings/applications/new
 # More info available at https://github.com/gitalk/gitalk#options
 gitalk:
-  clientID:                     # GitHub Application Client ID
-  clientSecret:                 # GitHub Application Client Secret
-  repo:                         # The repo to store comments
-  owner:                        # GitHub repository owner. Can be personal user or organization.
-  admin:                        # GitHub repo owner and collaborators, only these guys can initialize github issues, should be like "['admin']" or "['admin1','admin2']"
+  clientID: 70dd934f599117a08e1b                     # GitHub Application Client ID
+  clientSecret: c86c7b18e2e7e593cef82d5a8763a6491882b16f                # GitHub Application Client Secret
+  repo: spring-oxygen                        # The repo to store comments
+  owner: ispong                        # GitHub repository owner. Can be personal user or organization.
+  admin: ispong                        # GitHub repo owner and collaborators, only these guys can initialize github issues, should be like "['admin']" or "['admin1','admin2']"
   id: location.pathname         # The unique id of the page. Length must less than 50.
   language: zh-CN               # Localization language key, en, zh-CN and zh-TW are currently available.
   labels: "['Gitalk']"          # GitHub issue labels.
@@ -341,8 +339,7 @@ about:  # 关于页需要手动创建，具体请见：https://hexo.fluid-dev.co
   icons: # 更多图标可从 https://github.com/fluid-dev/static/blob/master/hexo-theme-fluid/iconfont.png 查找，class 代表图标的 css class
     - { class: 'iconfont icon-github-fill', link: 'https://github.com/ispong' }
     - { class: 'iconfont icon-wechat-fill', qrcode: 'https://gitee.com/ispong/my-images/raw/master/blog-react/wechat.jpg' }  # 添加 qrcode 后，点击不再跳转，而是悬浮二维码，需要指定 image
-#    - { class: 'iconfont icon-mail', text: 'https://douban.com' }
-
+#    - { class: 'iconfont icon-mail', link: 'ispong@outlook.com' }
 
 #---------------------------
 # 404页
@@ -359,26 +356,20 @@ page404:
 # Links Page
 #---------------------------
 links:
-  banner_img: https://gitee.com/ispong/my_images/raw/master/ispong-react/background.png
+  banner_img: https://gitee.com/ispong/my-images/raw/master/blog-react/link.png
   banner_img_height: 60  # available: 0 - 100
   banner_mask_alpha: 0.3  # available: 0 - 1.0
   subtitle:  # 打字机内容
   items:  # intro 与 image 可省略
     - {
-      title: 'Fluid Docs',
-      intro: '主题使用指南',
-      link: 'https://hexo.fluid-dev.com/docs/',
-      image: 'https://gitee.com/ispong/my_images/raw/master/ispong-react/favicon.png'
+      title: 'Spring-Oxygen',
+      intro: '基于Spring的快速开发框架',
+      link: 'https://github.com/ispong/spring-oxygen',
+      image: 'https://gitee.com/ispong/my-images/raw/master/blog-react/sao-spring.jpg'
     }
     - {
-      title: 'Fluid Repo',
-      intro: '主题 GitHub 仓库',
-      link: 'https://github.com/fluid-dev/hexo-theme-fluid',
-      image: 'https://gitee.com/ispong/my_images/raw/master/ispong-react/favicon.png'
-    }
-    - {
-      title: 'Fluid Example',
-      intro: '主题操作示例',
-      link: 'https://hexo.fluid-dev.com/docs/example/',
-      image: 'https://gitee.com/ispong/my_images/raw/master/ispong-react/favicon.png'
+      title: 'React-Keycap',
+      intro: '基于React的可自定义组件库',
+      link: 'https://github.com/ispong/react-keycap',
+      image: 'https://gitee.com/ispong/my-images/raw/master/blog-react/sao-react.png'
     }

@@ -1,3 +1,8 @@
+---
+hide: true
+---
+
+
 # docker 初始化mysql
 
 mysql -h localhost -u root -p 123

@@ -1,3 +1,7 @@
+---
+hide: true
+---
+
 ### spring-oxygen
 
 ## 项目初衷

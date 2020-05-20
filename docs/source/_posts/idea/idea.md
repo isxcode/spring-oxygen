@@ -1,3 +1,8 @@
+---
+hide: true
+---
+
+
 #### how to use idea for spring framework
 
 ##### shortcut

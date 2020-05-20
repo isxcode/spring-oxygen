@@ -1,3 +1,8 @@
+---
+hide: true
+---
+
+
 ## gradle
 
 ### 如何使用gradle初始化 多module的mvn项目
