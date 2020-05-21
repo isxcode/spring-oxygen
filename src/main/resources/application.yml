@@ -31,6 +31,31 @@ spring:
       max-file-size: 3MB # 上传最大文件大小
       max-request-size: 3MB # 上传最大请求体大小
 
+  # spring-devtools
+  devtools:
+    add-properties: false
+    restart:
+      enabled: true
+      log-condition-evaluation-delta: false
+      additional-paths: src
+      additional-exclude: spring-oxygen
+      exclude: docs/**,**/*Test.class
+      poll-interval: 1s
+      quiet-period: 100ms
+      trigger-file: .reloadtrigger
+    livereload:
+      enabled: true
+      port: 35729
+    remote:
+        restart:
+          enabled: true
+        proxy:
+          host: localhost
+          port: 8888
+        context-path: /.~~spring-boot!~
+        secret: secrectKey
+        secret-header-name: X-AUTH-TOKEN
+
   # spring-mail
   mail:
     host: smtp.qq.com # 邮箱服务器地址
@@ -126,18 +151,21 @@ spring:
 
 # spring-logging
 logging:
+  group:
+    ispong:
+      - com.ispong.oxygen.websockets
+      - com.ispong.oxygen.wechatgo
+      - com.ispong.oxygen.flysql
+      - com.ispong.oxygen.freecode
   level:
     root: info
-    com.ispong.oxygen.websockets: debug
-    com.isxcode.oxygen.wechatgo: debug
-    com.ispong.oxygen.flysql: debug
-    com.ispong.oxygen.freecode: debug
+#    ispong : debug
   file:
-    name: ./logs/spring.log
+    name: logs/spring.log
     max-size: 10MB
     max-history: 30
-    total-size-cap: 100MB
-    clean-history-on-start: true
+    total-size-cap: 100MB #
+    clean-history-on-start: false
   exception-conversion-word: '%wEx'
   pattern:
     level: '%5p'
@@ -145,6 +173,7 @@ logging:
     console: '%clr(%d{${LOG_DATEFORMAT_PATTERN}}){faint} %clr(${LOG_LEVEL_PATTERN}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD}'
     file: '%d{${LOG_DATEFORMAT_PATTERN}} ${LOG_LEVEL_PATTERN} %-5(${PID:- }) --- [%15.15t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD}}'
     rolling-file-name: '${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz'
+  register-shutdown-hook: false
 
 # jasypt
 jasypt:
@@ -167,5 +196,3 @@ management:
       show-details: always
     metrics:
       enabled: true
-
-

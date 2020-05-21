@@ -57,7 +57,7 @@ color:  # 主题颜色配置，不一定能每一处都生效，可能会被局�
 font:  # 主题字体配置
   font_size: 16px                   # 全局字号
   font_family:                      # 全局字体
-  code_font_size: 85%               # 代码的字号
+  code_font_size: 100%               # 代码的字号
 
 custom_js:   # 指定自定义 js 文件路径，路径是相对 source 目录，如 /js/custom.js 对应存放目录 source/js/custom.js，支持列表
 custom_css:   # 指定自定义 css 文件路径，路径是相对 source 目录，如 /css/custom.css 同上，支持列表
@@ -116,7 +116,7 @@ search: # 搜索栏
   content: true
 
 scroll_down_arrow:  # 向下滚动的箭头
-  enable: false
+  enable: true
   banner_height_limit: 90  # 头图高度不小于指定比例，才显示箭头
   scroll_after_turning_page: true  # 翻页后自动滚动
 
@@ -148,7 +148,7 @@ scroll_top_arrow:  # 向顶部滚动的箭头
 # Index Page
 #---------------------------
 index:
-  banner_img: https://gitee.com/ispong/my-images/raw/master/blog-react/index.png  # 首页 Banner 头图，以下相同
+  banner_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/index.png  # 首页 Banner 头图，以下相同
   banner_img_height: 100  # 头图高度，屏幕百分比，available: 0 - 100
   banner_mask_alpha: 0.3  # 头图黑色蒙版的透明度，available: 0 - 1.0， 0 是完全透明（无蒙版），1 是完全不透明
   post_default_img: '' # 默认的文章封面图，当没有指定 index_img 时会使用该图片，若都为空则不显示任何图片
@@ -166,7 +166,7 @@ index:
 # 通过 hexo new page 命令创建的页面
 # Custom Page
 page:
-  banner_img: https://gitee.com/ispong/my-images/raw/master/blog-react/page.png
+  banner_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/page.png
   banner_img_height: 60  # available: 0 - 100
   banner_mask_alpha: 0.3  # available: 0 - 1.0
 
@@ -175,18 +175,18 @@ page:
 # Post Page
 #---------------------------
 post:  # 部分配置同时控制自定义页面，注意备注
-  banner_img: https://gitee.com/ispong/my-images/raw/master/blog-react/page.png
+  banner_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/page.png
   banner_img_height: 70  # available: 0 - 100
   banner_mask_alpha: 0.3  # available: 0 - 1.0
   meta:  # 文章标题下方的信息
     date:  # 文章日期
       enable: true
-      format: "LL h:m:s"  # 格式参照 ISO-8601 日期格式化，可参照 http://momentjs.cn/docs/#/parsing/string-format/
+      format: "LL"  # 格式参照 ISO-8601 日期格式化，可参照 http://momentjs.cn/docs/#/parsing/string-format/
     wordcount:  # 字数统计
-      enable: true
+      enable: false
       format: "{} 字"  # 显示的文本，{}是数字的占位符（必须包含)，下同
     min2read:  # 阅读时间
-      enable: true
+      enable: false
       format: "{} 分钟"
       words: 100  # 每分钟阅读多少字，如果是技术文章，建议降低
     views:  # 阅读次数，统计基于不蒜子  *不蒜子近期连接不稳定，谨慎开启
@@ -293,7 +293,7 @@ livere:
 # Archive Page
 #---------------------------
 archive:
-  banner_img: https://gitee.com/ispong/my-images/raw/master/blog-react/archive.png
+  banner_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/archive.png
   banner_img_height: 60  # available: 0 - 100
   banner_mask_alpha: 0.3  # available: 0 - 1.0
   subtitle:  # 打字机内容
@@ -329,7 +329,7 @@ tag:
 # About Page
 #---------------------------
 about:  # 关于页需要手动创建，具体请见：https://hexo.fluid-dev.com/docs/guide/#%E5%85%B3%E4%BA%8E%E9%A1%B5
-  banner_img: https://gitee.com/ispong/my-images/raw/master/blog-react/about.png
+  banner_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/about.png
   banner_img_height: 60  # available: 0 - 100
   banner_mask_alpha: 0.3  # available: 0 - 1.0
   subtitle:  # 打字机内容
@@ -356,7 +356,7 @@ page404:
 # Links Page
 #---------------------------
 links:
-  banner_img: https://gitee.com/ispong/my-images/raw/master/blog-react/link.png
+  banner_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/link.png
   banner_img_height: 60  # available: 0 - 100
   banner_mask_alpha: 0.3  # available: 0 - 1.0
   subtitle:  # 打字机内容

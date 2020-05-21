@@ -11,24 +11,22 @@ date: 2020-05-20 14:18:12
 ---
 
 ## 🙋 问题
-
+    
 1. 如何用最少的命令提交代码
 2. 总是不知道写什么内容
 3. 查看git历史记录不够直观 
 
 ## 💡 方法
 
-- 将emoji图标放进提交命令中
+- [gitmoji](https://gitmoji.carloscuesta.me/) 以下举例常用的emoji
 
 | emoji | 对应命令 | 代表的含义 | 提交内容示例 |
 | --- | --- | --- |--- |
-| ✨ | Add | 新增文件 | 新增:xxx |
-| 📝 | Update | 修改文件 | 更新: xxx |
-| 🐛 | Fix | 修复bug | 修复: xxx (#12345 issue编码) |
-| 🔥 | Delete | 移除文件 | 移除:xxx  |
-| ⚡ | Test | 添加测试 | 测试: xxx |
-| 🎨 | Better | 优化代码 | 优化: xxx | 
-| 🗍 | Init | 初始化项目 | 初始化: xxx | 
+| 🎉 | Initial commit. | 初始化项目 | :tada: xxx | 
+| 🎨 | Improving structure / format of the code. | 优化代码 | :art: xxx | 
+| 🔥 | Removing code or files. | 移除文件 | :fire: xxx  |
+| 🐛 | Fixing a bug. | 修复bug | :bug: xxx (#12345 issue编码) |
+| 📝 | Writing docs. | 新增文档 | :pencil: xxx | 
 
 - 提交代码建议
 

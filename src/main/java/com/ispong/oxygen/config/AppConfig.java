@@ -30,7 +30,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 @EnableScheduling
 //@EnableAspectJAutoProxy
 //@EnableAsync
-@ImportResource(locations = {"classpath:schema/**"})
+//@ImportResource(locations = {"classpath:schema/**"})
 public class AppConfig {
 
 }
