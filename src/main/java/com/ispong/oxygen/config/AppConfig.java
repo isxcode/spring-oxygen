@@ -4,16 +4,13 @@ package com.ispong.oxygen.config;
 
 import com.ispong.oxygen.flysql.annotation.EnableFlysql;
 import com.ispong.oxygen.freecode.annotation.EnableFreecode;
-import com.ispong.oxygen.module.file.FileProperties;
-import com.ispong.oxygen.scheduler.QuartzProperties;
 import com.ispong.oxygen.wechatgo.annotation.EnableWechatgo;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
+
+//import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * 项目基础配置
@@ -28,6 +25,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 @EnableConfigurationProperties
 @EnableTransactionManagement
 @EnableScheduling
+//@EnableDiscoveryClient
 //@EnableAspectJAutoProxy
 //@EnableAsync
 //@ImportResource(locations = {"classpath:schema/**"})

@@ -16,8 +16,6 @@ public class Application {
 
 	public static void main(String[] args) {
 
-        int i = 0;
-        i = i + 26;
 		SpringApplication.run(Application.class, args);
 	}
 }

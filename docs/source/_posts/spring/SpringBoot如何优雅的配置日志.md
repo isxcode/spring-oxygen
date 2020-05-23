@@ -4,7 +4,6 @@ subtitle: SpringBoot如何优雅的配置日志
 tags:
   - spring
 categories: Spring
-banner_img: 'https://gitee.com/ispong/my-images/raw/master/blog-react/page.png'
 index_img: 'https://gitee.com/ispong/my-images/raw/master/blog-spring/spring/spring.png'
 excerpt: SpringBoot如何优雅的配置日志
 date: 2020-05-21 10:10:05

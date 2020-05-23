@@ -19,12 +19,6 @@ date: 2020-05-21 14:15:24
 
 1. gradle导入依赖
 ```groovy
-configurations {
-    developmentOnly
-    runtimeClasspath {
-        extendsFrom developmentOnly
-    }
-}
 dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 }
@@ -34,32 +28,48 @@ dependencies {
 ```yaml
   # spring-devtools  idea需要配置
   devtools:
-    add-properties: false # 使用false会出现 部署无法立即生效
-    restart: # 配置重新启动
+    add-properties: false # 禁用默认配置
+    restart: # 配置自动部署
       enabled: true # 开启自动重启
-      log-condition-evaluation-delta: false # 是否重启日志
-      additional-paths: src # 监控重启的文件夹
-      additional-exclude: spring-oxygen # 不监控文件夹
-      exclude: docs/**,**/*Test.class # 不监控文件
+      log-condition-evaluation-delta: false # 不启用重启日志
+      additional-paths: src # 指定监控的文件夹
+      additional-exclude: spring-oxygen # 指定不监控的文件夹
+      exclude: docs/**,**/*Test.class # 指定不监控文件
       poll-interval: 1s # 轮询间隔
-      quiet-period: 100ms # 触发重启等待时间 不能比PollInterval大
-      trigger-file: .reloadtrigger #触发器文件,只有修改触发器文件才会触发
-    livereload: # 触发chrome浏览器自动加载 需要下载插件livereload
+      quiet-period: 100ms # 触发重启等待时间 一定要比PollInterval小
+      trigger-file: .reloadtrigger # 触发器文件,只有修改触发器文件才会触发重启
+    livereload: # 触发chrome浏览器自动刷新 需要下载插件livereload (基于websocket实现)
       enabled: true # 启用livereload
       port: 35729 # 端口写死
     remote: # 远程部署
         restart:
           enabled: true # 开启远程热部署
         proxy:
-          host: localhost # ip地址
-          port: 8888 # 端口号
-        context-path: /.~~spring-boot!~  # 远程访问上下文
-        secret: secrectKey # 密钥
+          host: localhost # 远程ip地址
+          port: 8888 # 远程端口号
+        context-path: /.~~spring-boot!~  # 远程访问上下文 可自定义
+        secret: secrectKey # 密钥 必要参数 可自定义
         secret-header-name: X-AUTH-TOKEN # 请求头标识
 ```
 
+3. 创建触发器文件,内容自定义 `spring-oxygen\src\main\resources\.reloadtrigger`
+
+4. 配置idea
+
+组合键 `ctrl+alt+s` 搜索 `compiler` 勾选`Build project automatically`
+
+![img](https://gitee.com/ispong/my-images/raw/master/blog-spring/spring/174016.png)
+
+组合键 `ctrl+shift+alt+/` 选择 `Registry` 勾选 `compiler.automake.allow.when.app.running` 
+
+![img](https://gitee.com/ispong/my-images/raw/master/blog-spring/spring/173637.png)
+
+5. 体验自动加载
+
+修改项目内容,再修改触发器文件. **Note**: 使用触发器时,需要触发两次,才可能生效。
+
 ## 📝 总结
-🎈🎈 xxx  🎉🎉🎉
+🎈🎈 个人觉得这个没啥用,Spring项目本地重新跑也是很快的,远程热部署的话,有点不安全,万一手抖一下,远程就重新部署了,感觉与公司的缘分也就到头了,哈哈哈  🎉🎉🎉
 
 ## 🔍 参考
 

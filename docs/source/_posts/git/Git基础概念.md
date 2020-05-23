@@ -4,7 +4,6 @@ subtitle: Git基础概念
 tags:
   - git
 categories: Git
-banner_img: 'https://gitee.com/ispong/my-images/raw/master/blog-react/page.png'
 index_img: 'https://gitee.com/ispong/my-images/raw/master/blog-spring/git/git.png'
 excerpt: Git基础概念
 date: 2020-05-20 16:58:29

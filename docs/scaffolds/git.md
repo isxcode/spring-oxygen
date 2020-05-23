@@ -4,7 +4,6 @@ subtitle: {{ title }}
 tags:
   - git
 categories: Git
-banner_img: https://gitee.com/ispong/my-images/raw/master/blog-react/page.png
 index_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/git/git.png
 date: {{ date }}
 excerpt: {{ title }} 

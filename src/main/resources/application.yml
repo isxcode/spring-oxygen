@@ -13,6 +13,7 @@ spring:
     include:
       - default
       - oxygen
+      - cloud
 
   # 应用信息
   application:
@@ -35,7 +36,7 @@ spring:
   devtools:
     add-properties: false
     restart:
-      enabled: true
+      enabled: false
       log-condition-evaluation-delta: false
       additional-paths: src
       additional-exclude: spring-oxygen
@@ -44,15 +45,15 @@ spring:
       quiet-period: 100ms
       trigger-file: .reloadtrigger
     livereload:
-      enabled: true
+      enabled: false
       port: 35729
     remote:
         restart:
-          enabled: true
+          enabled: false
         proxy:
           host: localhost
           port: 8888
-        context-path: /.~~spring-boot!~
+        context-path: /ispong-deploy
         secret: secrectKey
         secret-header-name: X-AUTH-TOKEN
 
@@ -188,7 +189,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: logfile,health,beans,metrics
+        include: '*'
   endpoint:
     logfile:
       enabled: true

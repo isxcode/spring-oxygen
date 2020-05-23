@@ -99,7 +99,7 @@ version:  # 版本相关
 # Header
 #---------------------------
 navbar:
-  blog_title: blog-spring # 导航栏左侧的标题，为空则按 hexo config.title 显示
+  blog_title: Blog-Spring # 导航栏左侧的标题，为空则按 hexo config.title 显示
   menu:  # 可自行增减，key 用来关联 languages/*.yml，如不存在关联则显示 key 本身的值；icon 是 css class，可以省略；增加 name 可以强制显示指定名称
     - { key: 'home', link: '/', icon: 'iconfont icon-home-fill' }
     - { key: 'archive', link: '/archives/', icon: 'iconfont icon-archive-fill' }
@@ -303,7 +303,7 @@ archive:
 # Categories Page
 #---------------------------
 category:
-  banner_img: https://gitee.com/ispong/my-images/raw/master/blog-react/category.png
+  banner_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/category.png
   banner_img_height: 60  # available: 0 - 100
   banner_mask_alpha: 0.3  # available: 0 - 1.0
   subtitle:  # 打字机内容
@@ -313,7 +313,7 @@ category:
 # Tags Page
 #---------------------------
 tag:
-  banner_img: https://gitee.com/ispong/my-images/raw/master/blog-react/tag.png
+  banner_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/tag.png
   banner_img_height: 80  # available: 0 - 100
   banner_mask_alpha: 0.3  # available: 0 - 1.0
   subtitle:  # 打字机内容
@@ -346,7 +346,7 @@ about:  # 关于页需要手动创建，具体请见：https://hexo.fluid-dev.co
 # 404 Page
 #---------------------------
 page404:
-  banner_img: https://gitee.com/ispong/my-images/raw/master/blog-react/about.png
+  banner_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/about.png
   banner_img_height: 85  # available: 0 - 100
   banner_mask_alpha: 0.3  # available: 0 - 1.0
   subtitle: 'Page not found'  # 打字机内容
@@ -362,14 +362,33 @@ links:
   subtitle:  # 打字机内容
   items:  # intro 与 image 可省略
     - {
+      title: 'IntelliJ IDEA',
+      intro: 'The most intelligent JVM IDE',
+      link: 'https://www.jetbrains.com/?from=spring-oxygen',
+      image: 'https://gitee.com/ispong/my-images/raw/master/idea-small.png'
+    }
+    - {
+      title: 'Fluid',
+      intro: 'An elegant Material-Design theme for Hexo',
+      link: 'https://hexo.fluid-dev.com/docs/en/',
+      image: 'https://gitee.com/ispong/my-images/raw/master/fluid-small.png'
+    }
+    - {
+      title: 'Spring',
+      intro: 'Spring makes Java simple.modern.productive.reactive.cloud-rea',
+      link: 'https://spring.io/',
+      image: 'https://gitee.com/ispong/my-images/raw/master/spring-small.png'
+    }
+    - {
       title: 'Spring-Oxygen',
-      intro: '基于Spring的快速开发框架',
+      intro: 'Spring rapid development integration framework',
       link: 'https://github.com/ispong/spring-oxygen',
-      image: 'https://gitee.com/ispong/my-images/raw/master/blog-react/sao-spring.jpg'
+      image: 'https://gitee.com/ispong/my-images/raw/master/github-small.png'
     }
     - {
       title: 'React-Keycap',
-      intro: '基于React的可自定义组件库',
+      intro: 'React rapid development component library',
       link: 'https://github.com/ispong/react-keycap',
-      image: 'https://gitee.com/ispong/my-images/raw/master/blog-react/sao-react.png'
+      image: 'https://gitee.com/ispong/my-images/raw/master/github-small.png'
     }
+

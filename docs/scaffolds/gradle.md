@@ -2,9 +2,9 @@
 title: {{ title }}
 subtitle: {{ title }}
 tags:
-  - spring
-categories: Spring
-index_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/spring/spring.png
+  - gradle
+categories: Gradle
+index_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/gradle/gradle.png
 date: {{ date }}
 excerpt: {{ title }} 
 ---

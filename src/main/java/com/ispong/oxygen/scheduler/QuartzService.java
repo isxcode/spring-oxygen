@@ -38,6 +38,7 @@ public class QuartzService {
      * @param quartzReq 定时器请求对象
      * @since 0.0.1
      */
+    @SuppressWarnings("unchecked")
     public void settingQuartzJob(QuartzReq quartzReq) {
 
         try {

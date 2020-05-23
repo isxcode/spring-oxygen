@@ -4,7 +4,6 @@ subtitle: Git命令使用大全
 tags:
   - git
 categories: Git
-banner_img: 'https://gitee.com/ispong/my-images/raw/master/blog-react/page.png'
 index_img: 'https://gitee.com/ispong/my-images/raw/master/blog-spring/git/git.png'
 excerpt: Git命令使用大全
 date: 2020-05-20 16:22:32
@@ -32,6 +31,12 @@ git remote add origin https://github.com/ispong/spring-oxygen
 git add .
 git commit -m "🗍 初始化: spring-oxygen项目"
 git push origin master
+```
+
+- 删除本地缓存文件
+
+```shell script
+git rm -rf --cached xxx
 ```
 
 - 储存用户登录密码

@@ -2,8 +2,8 @@
 title: {{ title }}
 subtitle: {{ title }}
 tags:
-  - spring
-categories: Spring
+  - design
+categories: Design
 index_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/spring/spring.png
 date: {{ date }}
 excerpt: {{ title }} 

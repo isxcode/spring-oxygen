@@ -4,7 +4,6 @@ subtitle: Git提交小技巧
 tags:
   - git
 categories: Git
-banner_img: 'https://gitee.com/ispong/my-images/raw/master/blog-react/page.png'
 index_img: 'https://gitee.com/ispong/my-images/raw/master/blog-spring/git/git.png'
 excerpt: Git提交小技巧
 date: 2020-05-20 14:18:12
