@@ -36,7 +36,7 @@ spring:
   devtools:
     add-properties: false
     restart:
-      enabled: false
+      enabled: true
       log-condition-evaluation-delta: false
       additional-paths: src
       additional-exclude: spring-oxygen
@@ -45,11 +45,11 @@ spring:
       quiet-period: 100ms
       trigger-file: .reloadtrigger
     livereload:
-      enabled: false
+      enabled: true
       port: 35729
     remote:
         restart:
-          enabled: false
+          enabled: true
         proxy:
           host: localhost
           port: 8888
@@ -160,7 +160,7 @@ logging:
       - com.ispong.oxygen.freecode
   level:
     root: info
-#    ispong : debug
+    ispong : debug
   file:
     name: logs/spring.log
     max-size: 10MB

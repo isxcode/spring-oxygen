@@ -12,8 +12,13 @@ import com.ispong.oxygen.module.test.excel.Dog;
 import com.ispong.oxygen.module.test.excel.Log;
 import com.ispong.oxygen.module.test.jackson.People;
 import com.ispong.oxygen.module.test.user.Users;
+import com.ispong.oxygen.utils.email.EmailUtils;
 import com.ispong.oxygen.utils.excel.ExcelUtils;
+import com.ispong.oxygen.utils.validation.PhoneCodeReq;
+import com.ispong.oxygen.utils.validation.PhoneCodeRes;
+import com.ispong.oxygen.utils.validation.ValidationUtils;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +38,7 @@ import java.util.List;
  * @author ispong
  * @since 0.0.1
  */
+@Slf4j
 @RestController
 @RequestMapping("test")
 public class TestController extends BaseController {
@@ -116,5 +122,32 @@ public class TestController extends BaseController {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
         return objectMapper.readValue(value, People.class);
+    }
+
+    /**
+     * 发送短信接口测试接口
+     *
+     * @since 0.0.1
+     */
+    @GetMapping("sendPhoneCode")
+    public void sendPhoneCode() {
+
+        PhoneCodeReq phoneCodeReq = new PhoneCodeReq();
+        phoneCodeReq.setPhone("15161739808");
+        phoneCodeReq.setMsg("测试发送短信接口");
+        PhoneCodeRes phoneCodeRes = ValidationUtils.sendPhoneCode(phoneCodeReq);
+        log.info("发送成功" + phoneCodeRes.toString());
+
+    }
+
+    /**
+     * 发送邮件接口测试接口
+     *
+     * @since 0.0.1
+     */
+    @GetMapping("sendEmail")
+    public void sendEmail() {
+
+        EmailUtils.sendNormalEmail("ispong@outlook.com", "邮件内容", "邮件主题");
     }
 }

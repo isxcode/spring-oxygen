@@ -18,12 +18,17 @@ dependencyManagement {
     }
 }
 
+bootJar {
+    excludeDevtools false
+}
+
 // 声明依赖
 dependencies {
 
     compile(project(":spring-oxygen-freecode"))
     compile(project(":spring-oxygen-flysql"))
     compile(project(":spring-oxygen-wechatgo"))
+    compile(project(":spring-oxygen-utils"))
 
     // alibaba-nacos-discovery
 //    compile 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
@@ -86,15 +91,19 @@ dependencies {
 //	compile 'io.lettuce:lettuce-core:latest.integration'
 //	compile 'org.dom4j:dom4j:latest.integration'
 //	compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
-//	compile 'org.springframework.boot:spring-boot-starter-mail'
 //	testCompile 'org.junit.jupiter:junit-jupiter-api:latest.integration'
 //	compile 'mysql:mysql-connector-java:latest.integration'
 //	compile 'com.alibaba:fastjson:latest.integration'
 }
+
 allprojects {
 
     version = '0.0.3'
     group = 'com.github.ispong'
+
+    // 控制编译版本
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 
     repositories {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }

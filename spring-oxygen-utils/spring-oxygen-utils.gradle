@@ -15,4 +15,10 @@ dependencies {
     // lombok
     compileOnly 'org.projectlombok:lombok:latest.integration'
     annotationProcessor 'org.projectlombok:lombok:latest.integration'
+
+    // spring-mail
+    compile 'org.springframework.boot:spring-boot-starter-mail'
+
+    // configuration-processor
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 }

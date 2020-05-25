@@ -29,14 +29,15 @@ date: 2020-05-23 18:41:33
 ```shell script
 gpg --full-generate-key # 初始化一对密钥
 gpg --list-key # 查看已生成key 后8位为keyId
-gpg --export-secret-keys B794F8D1 > secret.gpg  
-gpg --keyring secret.gpg --export-secret-keys > secring.gpg
+cd C:\Users\ispon\.gnupg
+# gpg --export-secret-keys 56CDC653 > secret.gpg  
+gpg --keyring secring.gpg --export-secret-keys > ~/.gnupg/secring.gpg
 ```
 
 上传到GPG密钥仓库
 ```shell script
-gpg --keyserver http://keys.openpgp.org:11371/ --send-keys B794F8D1
-gpg --keyserver http://keyserver.ubuntu.com:11371/ --send-keys B794F8D1
+gpg --keyserver http://keys.openpgp.org:11371/ --send-keys 2F8ABAB7
+gpg --keyserver http://keyserver.ubuntu.com:11371/ --send-keys 56CDC653
 gpg --keyserver http://pool.sks-keyservers.net:11371/ --send-keys B794F8D1
 ```
 

@@ -30,6 +30,11 @@ oxygen:
         username: pluto
         password: welcome1
   system:
+    Validation:
+      url: http://smssh1.253.com/msg/send/json
+      account: N166444_N9542865
+      password: ytSgwCK2Ro3963
+      report: true
     file:
       location: D://
     quartz:
@@ -38,5 +43,4 @@ oxygen:
         url: jdbc:h2:~/h2
         username: root
         password: root
-
 
