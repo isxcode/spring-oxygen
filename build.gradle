@@ -83,6 +83,9 @@ dependencies {
     // druid-starter
     compile 'com.alibaba:druid-spring-boot-starter:latest.integration'
 
+    // freemarker
+    compile 'org.springframework.boot:spring-boot-starter-freemarker'
+
 //	implementation 'org.junit.jupiter:junit-jupiter'
 
 //	compile 'org.springframework.boot:spring-boot-starter-data-jpa'

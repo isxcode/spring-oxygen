@@ -17,10 +17,14 @@ import com.ispong.oxygen.utils.excel.ExcelUtils;
 import com.ispong.oxygen.utils.validation.PhoneCodeReq;
 import com.ispong.oxygen.utils.validation.PhoneCodeRes;
 import com.ispong.oxygen.utils.validation.ValidationUtils;
+import freemarker.cache.StringTemplateLoader;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,9 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * 测试类中心
@@ -150,4 +152,23 @@ public class TestController extends BaseController {
 
         EmailUtils.sendNormalEmail("ispong@outlook.com", "邮件内容", "邮件主题");
     }
+
+    @SneakyThrows
+    @GetMapping("freemarker")
+    public String freemarker() {
+
+        Configuration configuration = new Configuration(Configuration.VERSION_2_3_27);
+        configuration.setTemplateLoader(new StringTemplateLoader());
+
+        configuration.setDefaultEncoding("UTF-8");
+        String templateName = "messageTemplate";
+        String templateValue = "hello,${name},我今年,${age}岁.";
+        Template template = new Template("", templateValue, configuration);
+        Map<String, Object> root = new HashMap<>(4);
+        root.put("name", "你好");
+        root.put("age", 25);
+
+        return FreeMarkerTemplateUtils.processTemplateIntoString(template, root);
+    }
+
 }
