@@ -7,30 +7,30 @@ categories: Gradle
 index_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/gradle/gradle.png
 date: {{ date }}
 ---
+## 🙋 Question
 
-## 🙋 问题
+- Question-1
+- Question-2
 
-1. 问题1
-2. 问题2
+## 💡 Idea
 
-## 💡 方法
+#### Idea-1
 
-#### 方法一
+1. Do-1
+2. Do-2
+3. Do-3
 
-1. 步骤一
-2. 步骤二
-3. 步骤三
+#### Idea-2
 
-#### 方法二
+1. Do-1
+2. Do-2
+3. Do-3
 
-1. 步骤一
-2. 步骤二
-3. 步骤三
+## 📝 Solution
 
-## 📝 结论
+🏳️‍🌈🏳️‍🌈🏳️‍🌈 xxxx
 
-🎉🎉🎉 xxx  
+## 🔍 Reference
 
-## 🔍 参考
-
-- [docs]()
+- [Reference1](http://localhost:8080)
+- [Reference2](http://localhost:8080)

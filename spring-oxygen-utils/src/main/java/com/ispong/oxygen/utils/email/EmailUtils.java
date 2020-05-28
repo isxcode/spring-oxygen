@@ -105,7 +105,7 @@ public class EmailUtils {
             helper.setTo(toEmail);
             helper.setSubject(subject);
             helper.setText(normalContext);
-            helper.addAttachment(attachmentResource.getFilename(), attachmentResource);
+            helper.addAttachment(Objects.requireNonNull(attachmentResource.getFilename()), attachmentResource);
             mailSender.send(message);
         } catch (MessagingException ex) {
             log.info("邮件发送异常,请做补救处理");

@@ -1,12 +1,14 @@
 ---
-title: {{ title }}
-subtitle: {{ title }}
+title: Java-线程
+subtitle: Java-线程
 tags:
   - design
 categories: Design
-index_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/design/design.png
-date: {{ date }}
+index_img: 'https://gitee.com/ispong/my-images/raw/master/blog-spring/java/java.png'
+excerpt: Java-线程
+date: 2020-05-28 09:36:01
 ---
+
 ## 🙋 Question
 
 - Question-1

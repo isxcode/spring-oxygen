@@ -6,21 +6,31 @@ tags:
 categories: Git
 index_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/git/git.png
 date: {{ date }}
-excerpt: {{ title }} 
 ---
+## 🙋 Question
 
-## 🙋 问题
+- Question-1
+- Question-2
 
-1. xxx
+## 💡 Idea
 
-## 💡 方法
+#### Idea-1
 
-- xxx
+1. Do-1
+2. Do-2
+3. Do-3
 
-## 📝 总结
+#### Idea-2
 
-🎈🎈 xxx  🎉🎉🎉
+1. Do-1
+2. Do-2
+3. Do-3
 
-## 🔍 参考
+## 📝 Solution
 
-- 无
+🏳️‍🌈🏳️‍🌈🏳️‍🌈 xxxx
+
+## 🔍 Reference
+
+- [Reference1](http://localhost:8080)
+- [Reference2](http://localhost:8080)

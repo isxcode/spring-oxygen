@@ -1,11 +1,11 @@
 ---
-title: {{ title }}
-subtitle: {{ title }}
+title: Java-Map之Stream使用
+subtitle: Java-Map之Stream使用
 tags:
-  - design
-categories: Design
-index_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/design/design.png
-date: {{ date }}
+  - java
+categories: Java
+index_img: 'https://gitee.com/ispong/my-images/raw/master/blog-spring/java/java.png'
+date: 2020-05-28 19:12:02
 ---
 ## 🙋 Question
 

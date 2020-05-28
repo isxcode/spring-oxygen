@@ -2,9 +2,9 @@
 title: {{ title }}
 subtitle: {{ title }}
 tags:
-  - design
-categories: Design
-index_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/design/design.png
+  - maven
+categories: Maven
+index_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/maven/maven.png
 date: {{ date }}
 ---
 ## 🙋 Question

@@ -1,11 +1,11 @@
 ---
-title: {{ title }}
-subtitle: {{ title }}
+title: Docker-常规使用
+subtitle: Docker-常规使用
 tags:
-  - design
-categories: Design
-index_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/design/design.png
-date: {{ date }}
+  - docker
+categories: Docker
+index_img: 'https://gitee.com/ispong/my-images/raw/master/blog-spring/docker/docker.png'
+date: 2020-05-28 14:02:58
 ---
 ## 🙋 Question
 

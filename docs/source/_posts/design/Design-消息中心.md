@@ -1,11 +1,11 @@
 ---
-title: {{ title }}
-subtitle: {{ title }}
+title: Design-消息中心
+subtitle: Design-消息中心
 tags:
   - design
 categories: Design
-index_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/design/design.png
-date: {{ date }}
+index_img: 'https://gitee.com/ispong/my-images/raw/master/blog-spring/design/design.png'
+date: 2020-05-28 10:53:52
 ---
 ## 🙋 Question
 

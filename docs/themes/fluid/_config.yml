@@ -181,7 +181,7 @@ post:  # 部分配置同时控制自定义页面，注意备注
   meta:  # 文章标题下方的信息
     date:  # 文章日期
       enable: true
-      format: "LL"  # 格式参照 ISO-8601 日期格式化，可参照 http://momentjs.cn/docs/#/parsing/string-format/
+      format: "LL HH:mm:ss"  # 格式参照 ISO-8601 日期格式化，可参照 http://momentjs.cn/docs/#/parsing/string-format/
     wordcount:  # 字数统计
       enable: false
       format: "{} 字"  # 显示的文本，{}是数字的占位符（必须包含)，下同
@@ -193,7 +193,7 @@ post:  # 部分配置同时控制自定义页面，注意备注
       enable: false
       format: "{} 次"
   updated:  # 在文章开头显示文章更新时间，该时间默认是 md 文件更新时间，可通过 front-matter 中 `updated` 手动指定（和 date 一样格式）
-    enable: true
+    enable: false
     content: 本文最后更新于：  # 描述文字
     relative: ture  # 是否使用相对时间表示，比如："3 天前"
   toc:  # 文章右侧目录

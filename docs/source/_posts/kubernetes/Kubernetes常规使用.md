@@ -1,11 +1,11 @@
 ---
-title: {{ title }}
-subtitle: {{ title }}
+title: Kubernetes常规使用
+subtitle: Kubernetes常规使用
 tags:
-  - design
-categories: Design
-index_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/design/design.png
-date: {{ date }}
+  - kubernetes
+categories: Kubernetes
+index_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/kubernetes/kubernetes.png
+date: 2020-05-28 14:04:04
 ---
 ## 🙋 Question
 

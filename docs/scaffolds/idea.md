@@ -2,9 +2,9 @@
 title: {{ title }}
 subtitle: {{ title }}
 tags:
-  - design
-categories: Design
-index_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/design/design.png
+  - git
+categories: Git
+index_img: https://gitee.com/ispong/my-images/raw/master/blog-spring/idea/idea.png
 date: {{ date }}
 ---
 ## 🙋 Question
