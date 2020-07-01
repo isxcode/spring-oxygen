@@ -46,9 +46,7 @@ implementation 'com.github.ispong:spring-oxygen-boot-starter:0.0.3'
 ## 🔨 Start Up
 
 ```java
-import com.ispong.oxygen.flysql.annotation.EnableFlysql;
-import com.ispong.oxygen.wechatgo.annotation.EnableWechatgo;
-import com.ispong.oxygen.freecode.annotation.EnableFreecode;
+import com.ispong.oxygen.annotation.EnableOxygen;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -140,12 +138,11 @@ oxygen:
 ```
 
 ```http 
-
-POST http://${localhost}:${port}/${context}/freecode
+POST http://localhost:port/context/freecode
 Content-Type: application/json
 
 {
-    "tableName": "${tableName}"
+    "tableName": "user_table_name"
 }
 ```
 
@@ -153,4 +150,4 @@ Content-Type: application/json
 
 #### Thanks for free JetBrains Open Source license
 
-<a href="https://www.jetbrains.com/?from=spring-oxygen" target="_blank"><img src="https://gitee.com/ispong/blog-images/raw/master/idea/idea-logo.png" height="150" alt="jetbrains"/></a>
+<a href="https://www.jetbrains.com/?from=spring-oxygen" target="_blank"><img src="https://gitee.com/ispong/blog-images/raw/master/idea/idea-logo.png" height="80" alt="jetbrains"/></a>
