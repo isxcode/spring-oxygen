@@ -1,6 +1,26 @@
-# [spring-oxygen](https://github.com/ispong/spring-oxygen) · [![Status](https://img.shields.io/badge/status-developing-ff69b4?style=flat-square)](https://github.com/ispong/spring-oxygen) [![Spring](https://img.shields.io/badge/spring-2.2.x-blue?style=flat-square)](https://spring.io/) [![Maven Central](https://img.shields.io/maven-central/v/com.github.ispong/spring-oxygen-flysql?style=flat-square)](https://search.maven.org/search?q=g:com.github.ispong) [![GitHub last commit](https://img.shields.io/github/last-commit/ispong/spring-oxygen?style=flat-square)](https://github.com/ispong/spring-oxygen) [![GitHub](https://img.shields.io/github/license/ispong/spring-oxygen?style=flat-square)](https://github.com/ispong/spring-oxygen/blob/master/LICENSE)
+<p align="center">
+  <a href="https://github.com/ispong/spring-oxygen">
+    <img alt="spring-oxygen" width="200" src="https://gitee.com/ispong/blog-images/raw/master/design/design.png">
+  </a>
+</p>
 
-Spring rapid development integration framework
+<h1 align="center">Spring Oxygen</h1>
+
+<div align="center">
+
+Spring rapid development integration framework.
+
+[![Status](https://img.shields.io/badge/status-developing-ff69b4?style=flat-square)](https://github.com/ispong/spring-oxygen) 
+
+[![Spring](https://img.shields.io/badge/spring-2.2.x-blue?style=flat-square)](https://spring.io/) 
+
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.ispong/spring-oxygen-flysql?style=flat-square)](https://search.maven.org/search?q=g:com.github.ispong) 
+
+[![GitHub last commit](https://img.shields.io/github/last-commit/ispong/spring-oxygen?style=flat-square)](https://github.com/ispong/spring-oxygen) 
+
+[![GitHub](https://img.shields.io/github/license/ispong/spring-oxygen?style=flat-square)](https://github.com/ispong/spring-oxygen/blob/master/LICENSE)
+
+</div>
 
 ## Installation
 
@@ -9,7 +29,7 @@ Maven
 ```xml
 <dependency>
   <groupId>com.github.ispong</groupId>
-  <artifaectId>spring-oxygen</artifaectId>
+  <artifaectId>spring-oxygen-boot-starter</artifaectId>
   <version>0.0.3</version>
 </dependency>
 ```
@@ -17,7 +37,7 @@ Maven
 Gradle
 
 ```groovy
-implementation 'com.github.ispong:spring-oxygen:0.0.3'
+implementation 'com.github.ispong:spring-oxygen-boot-starter:0.0.3'
 ```
 
 Start Up
@@ -157,4 +177,4 @@ Content-Type: application/json
 
 #### Thanks for free JetBrains Open Source license
 
-<a href="https://www.jetbrains.com/?from=spring-oxygen" target="_blank"><img src="https://github.com/ispong/spring-oxygen/blob/master/docs/idea/jetbrains.png?raw=true" height="150" alt="jetbrains"/></a>
+<a href="https://www.jetbrains.com/?from=spring-oxygen" target="_blank"><img src="https://gitee.com/ispong/blog-images/raw/master/idea/idea-logo.png" height="150" alt="jetbrains"/></a>
