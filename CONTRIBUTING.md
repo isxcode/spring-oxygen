@@ -1,6 +1,6 @@
-# Contributing  to the Spring Framework
+# Contributing to the Spring Oxygen
 
-First off, thank you for taking the time to contribute! :+1: :tada: 
+First off, thank you for taking the time to contribute! 
 
 ### Table of Contents
 
@@ -16,20 +16,20 @@ First off, thank you for taking the time to contribute! :+1: :tada:
 
 ### Code of Conduct
 
-This project is governed by the [Spring Code of Conduct](CODE_OF_CONDUCT.adoc).
+This project is governed by the [Spring Code of Conduct](CODE_OF_CONDUCT.md).
 By participating you are expected to uphold this code.
-Please report unacceptable behavior to spring-code-of-conduct@pivotal.io.
+Please report unacceptable behavior to ispong@outlook.com.
 
 ### How to Contribute
 
 #### Discuss
 
 If you have a question, check Stack Overflow using
-[this list of tags](https://stackoverflow.com/questions/tagged/spring+or+spring-mvc+or+spring-aop+or+spring-jdbc+or+spring-transactions+or+spring-annotations+or+spring-jms+or+spring-el+or+spring-test+or+spring+or+spring-remoting+or+spring-orm+or+spring-jmx+or+spring-cache+or+spring-webflux?tab=Newest).
+[this list of tags](https://stackoverflow.com/questions/tagged/spring-oxygen?tab=Newest).
 Find an existing discussion, or start a new one if necessary.
 
 If you believe there is an issue, search through
-[existing issues](https://github.com/spring-projects/spring-framework/issues) trying a
+[existing issues](https://github.com/ispong/spring-oxygen/issues) trying a
 few different ways to find discussions, past or current, that are related to the issue.
 Reading those discussions helps you to learn about the issue, and helps us to make a
 decision.
@@ -46,7 +46,7 @@ in the issue instead of simply referring to Stack Overflow. The issue tracker is
 important place of record for design discussions and should be self-sufficient.
 
 Once you're ready, create an issue on
-[GitHub](https://github.com/spring-projects/spring-framework/issues).
+[GitHub](https://github.com/ispong/spring-oxygen/issues).
 
 #### Issue Lifecycle
 
