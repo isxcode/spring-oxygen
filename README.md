@@ -1,10 +1,10 @@
 <p align="center">
   <a href="https://github.com/ispong/spring-oxygen">
-    <img alt="spring-oxygen" width="300" src="https://gitee.com/ispong/blog-images/raw/master/design/design.png">
+    <img alt="spring-oxygen" width="250" src="https://gitee.com/ispong/blog-images/raw/master/design/0ef04e6dc18553c88d8ae4815b4fc93.png">
   </a>
 </p>
 
-<h2 align="center">Spring Oxygen</h2>
+<h1 align="center">Spring Oxygen</h1>
 
 <div align="center">
 
@@ -25,7 +25,7 @@ Spring rapid development integration framework.
 
 </div>
 
-## Installation
+## 📦 Installation
 
 Maven
 
@@ -43,7 +43,7 @@ Gradle
 implementation 'com.github.ispong:spring-oxygen-boot-starter:0.0.3'
 ```
 
-Start Up
+## 🔨 Start Up
 
 ```java
 import com.ispong.oxygen.flysql.annotation.EnableFlysql;
@@ -52,15 +52,13 @@ import com.ispong.oxygen.freecode.annotation.EnableFreecode;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableFlysql
-@EnableWechatgo
-@EnableFreecode
+@EnableOxygen
 public class AppConfig {
 
 }
 ```
 
-## Documentation
+## 📄 Documentation
 
 You can find the spring-oxygen documentation [on the website](https://ispong.gitee.io/spring-oxygen).  
 
@@ -68,7 +66,7 @@ You can find the spring-oxygen documentation [on the website](https://ispong.git
 
 There are a number of modules in spring-oxygen, here is a quick overview:
 
-### [oxygen-flysql](https://ispong.gitee.io/spring-oxygen)
+### ✅ [oxygen-flysql](https://ispong.gitee.io/spring-oxygen)
 
 - Integrate spring jdbc rapid development
 
@@ -97,7 +95,7 @@ public class UserDao {
 }
 ```
 
-### [oxygen-wechatgo](https://ispong.gitee.io/spring-oxygen)
+### ✅ [oxygen-wechatgo](https://ispong.gitee.io/spring-oxygen)
 
 - Integrate WeChat platform rapid development
 
@@ -127,7 +125,7 @@ public class WechatgoService implements WechatgoEventHandler {
 }
 ```
 
-### [oxygen-freecode](https://ispong.gitee.io/spring-oxygen)
+### ✅ [oxygen-freecode](https://ispong.gitee.io/spring-oxygen)
 
 - Fast generate java code
 
@@ -139,20 +137,6 @@ oxygen:
     module-path: com.ispong.oxygen 
     author: ispong 
     version: 0.0.1 
-    base-entity-class: com.ispong.oxygen.flysql.common.BaseEntity
-    base-controller-class: com.ispong.oxygen.flysql.common.BaseController 
-    ignore-columns: 
-      - uuid
-      - version
-      - created_date
-      - created_by
-      - last_modified_date
-      - last_modified_by
-    file-types: 
-      - controller
-      - entity
-      - service
-      - repository
 ```
 
 ```http 
@@ -163,17 +147,6 @@ Content-Type: application/json
 {
     "tableName": "${tableName}"
 }
-```
-
- generate file like below
- 
-```text
--- module
-   -- ${tableName}
-      -- ${tableName}Controller
-      -- ${tableName}Entity
-      -- ${tableName}Repository
-      -- ${tableName}Service
 ```
 
 ***
