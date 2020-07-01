@@ -1,7 +1,7 @@
 dependencies {
 
     compile(project(':spring-oxygen-flysql'))
-    compile(project(':spring-oxygen-utils'))
+    compile(project(':spring-oxygen-core'))
 
     compileOnly 'org.springframework.boot:spring-boot-starter-web'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

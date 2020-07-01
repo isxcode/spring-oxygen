@@ -2,13 +2,16 @@
 rootProject.name = 'spring-oxygen'
 
 // 导入子项目
-include 'spring-oxygen-common'
+include 'spring-oxygen-boot-starter'
+include 'spring-oxygen-core'
 include 'spring-oxygen-flysql'
 include 'spring-oxygen-freecode'
 include 'spring-oxygen-wechatgo'
+include 'integration-tests'
 
 // 配置子项目gradle命名规则
 rootProject.children.each { project ->
     project.buildFileName = "${project.name}.gradle"
 }
+include 'spring-oxygen-boot-starter'
 
