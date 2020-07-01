@@ -1,7 +1,6 @@
 package com.ispong.oxygen.module.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationConfig;
 import com.ispong.oxygen.exception.OxygenException;
 import com.ispong.oxygen.flysql.Flysql;
 import com.ispong.oxygen.flysql.common.BaseController;
@@ -12,11 +11,11 @@ import com.ispong.oxygen.module.test.excel.Dog;
 import com.ispong.oxygen.module.test.excel.Log;
 import com.ispong.oxygen.module.test.jackson.People;
 import com.ispong.oxygen.module.test.user.Users;
-import com.ispong.oxygen.utils.email.EmailUtils;
-import com.ispong.oxygen.utils.excel.ExcelUtils;
-import com.ispong.oxygen.utils.validation.PhoneCodeReq;
-import com.ispong.oxygen.utils.validation.PhoneCodeRes;
-import com.ispong.oxygen.utils.validation.ValidationUtils;
+import com.ispong.oxygen.common.email.EmailUtils;
+import com.ispong.oxygen.common.excel.ExcelUtils;
+import com.ispong.oxygen.common.validation.PhoneCodeReq;
+import com.ispong.oxygen.common.validation.PhoneCodeRes;
+import com.ispong.oxygen.common.validation.ValidationUtils;
 import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -31,7 +30,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -169,6 +167,13 @@ public class TestController extends BaseController {
         root.put("age", 25);
 
         return FreeMarkerTemplateUtils.processTemplateIntoString(template, root);
+    }
+
+    @GetMapping("i18n")
+    public String i18nTest() {
+
+        // 我想直接转换
+        return "TEST_HELLO";
     }
 
 }

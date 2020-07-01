@@ -1,6 +1,6 @@
 package com.ispong.oxygen.module.user;
 
-import com.ispong.oxygen.utils.encrypt.EncryptUtils;
+import com.ispong.oxygen.common.encrypt.EncryptUtils;
 import com.ispong.oxygen.exception.AuthException;
 import com.ispong.oxygen.module.user.entity.UserEntity;
 import com.ispong.oxygen.module.user.request.UserSignInReq;

@@ -19,6 +19,15 @@ spring:
   application:
     name: ispong-oxygen
 
+  # 国际化配置
+  messages:
+    always-use-message-format: true # 是否一直使用消息模板
+    basename: messages,config.i18n.messages # 名字
+    cache-duration:   # 国际化文件路径
+    encoding: UTF-8 # 编码
+    fallback-to-system-locale: false # 如果调用失败是否使用本地默认
+    use-code-as-default-message: true # 是否使用默认消息
+
   # jackson解析工具配置  jackson使用对象一定要有无参构造函数
   jackson:
     locale: zh_CN # 设置本地时区

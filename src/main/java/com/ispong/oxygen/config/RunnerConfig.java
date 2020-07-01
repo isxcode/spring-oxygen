@@ -2,6 +2,7 @@ package com.ispong.oxygen.config;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
@@ -9,9 +10,9 @@ import java.util.Arrays;
  * 项目启动运行配置文件
  *
  * @author ispong
- * @since 0.0.1
+ * @since 0.0.1-
  */
-//@Component
+@Component
 public class RunnerConfig implements CommandLineRunner {
 
     private final ApplicationContext applicationContext;
@@ -22,7 +23,8 @@ public class RunnerConfig implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
+
         Arrays.stream(applicationContext.getBeanDefinitionNames()).sorted().forEach(System.out::println);
     }
 }

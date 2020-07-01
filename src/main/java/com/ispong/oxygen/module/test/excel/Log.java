@@ -1,12 +1,9 @@
 package com.ispong.oxygen.module.test.excel;
 
-import com.ispong.oxygen.utils.excel.ExcelType;
+import com.ispong.oxygen.common.excel.ExcelType;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
 
 @Data
 public class Log {

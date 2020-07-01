@@ -53,6 +53,8 @@ public class FreecodeAutoConfiguration {
         return new FreecodeService(freecodeRepository, freecodeProperties);
     }
 
+
+
     @Bean
     @ConditionalOnBean(FreecodeService.class)
     public FreecodeController initFreecodeController(FreecodeService freecodeService) {

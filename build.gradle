@@ -28,13 +28,6 @@ dependencies {
     compile(project(":spring-oxygen-freecode"))
     compile(project(":spring-oxygen-flysql"))
     compile(project(":spring-oxygen-wechatgo"))
-    compile(project(":spring-oxygen-utils"))
-
-    // alibaba-nacos-discovery
-//    compile 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
-
-    // alibaba-nacos-config
-//    compile 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'
 
     // spring boot start
     implementation 'org.springframework.boot:spring-boot-starter'

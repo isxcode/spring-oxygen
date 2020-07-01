@@ -1,5 +1,7 @@
+# 声明这是主类
 root = true
 
+# 配置所有文件格式
 [*]
 charset = utf-8
 end_of_line = crlf
@@ -9,16 +11,10 @@ insert_final_newline = false
 max_line_length = off
 tab_width = 4
 
-[*.md]
-max_line_length = off
-
+# 配置yml文件格式
 [*.yml]
-indent_style = tab # 缩进方式
+indent_style = tab
 indent_size = 2
 tab_width = 2
-
-[*.ftl]
-indent_style = tab # 缩进方式
-indent_size = 0
 
 

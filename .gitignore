@@ -1,25 +1,19 @@
-# gradle缓存文件不提交
-.gradle
+# github配置文件
+.github
 
-# idea缓存文件不提交
+# idea配置文件
 .idea
 
-# 所有的build文件夹都不提交
-**/build
-**/out
-
-# 日志文件夹不提交
-logs
-
-# 配置文件不能提交
+# gradle配置文件
+.gradle
+gradle
+gradlew
+gradlew.bat
 gradle.properties
 
-# hexo博客
-docs/.DS_Store
-docs/Thumbs.db
-docs/db.json
-docs/*.log
-docs/node_modules/
-docs/public/
-docs/deploy*/
-docs/.deploy_git
+# 所有项目的打包文件夹
+**/build
+
+# 所有项目的日志文件夹
+**/logs
+
