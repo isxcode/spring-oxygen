@@ -1,25 +1,12 @@
 <p align="center">
   <a href="https://github.com/ispong/spring-oxygen">
-    <img alt="spring-oxygen" width="200" src="https://gitee.com/ispong/blog-images/raw/master/design/design.png">
+    <img alt="spring-oxygen" width="300" src="https://gitee.com/ispong/blog-images/raw/master/design/design.png">
   </a>
 </p>
-
 <h1 align="center">Spring Oxygen</h1>
-
 <div align="center">
-
 Spring rapid development integration framework.
-
-[![Status](https://img.shields.io/badge/status-developing-ff69b4?style=flat-square)](https://github.com/ispong/spring-oxygen) 
-
-[![Spring](https://img.shields.io/badge/spring-2.2.x-blue?style=flat-square)](https://spring.io/) 
-
-[![Maven Central](https://img.shields.io/maven-central/v/com.github.ispong/spring-oxygen-flysql?style=flat-square)](https://search.maven.org/search?q=g:com.github.ispong) 
-
-[![GitHub last commit](https://img.shields.io/github/last-commit/ispong/spring-oxygen?style=flat-square)](https://github.com/ispong/spring-oxygen) 
-
-[![GitHub](https://img.shields.io/github/license/ispong/spring-oxygen?style=flat-square)](https://github.com/ispong/spring-oxygen/blob/master/LICENSE)
-
+[![Status](https://img.shields.io/badge/status-developing-ff69b4?style=flat-square)](https://github.com/ispong/spring-oxygen) [![Spring](https://img.shields.io/badge/spring-2.2.x-blue?style=flat-square)](https://spring.io/) [![Maven Central](https://img.shields.io/maven-central/v/com.github.ispong/spring-oxygen-flysql?style=flat-square)](https://search.maven.org/search?q=g:com.github.ispong) [![GitHub last commit](https://img.shields.io/github/last-commit/ispong/spring-oxygen?style=flat-square)](https://github.com/ispong/spring-oxygen) [![GitHub](https://img.shields.io/github/license/ispong/spring-oxygen?style=flat-square)](https://github.com/ispong/spring-oxygen/blob/master/LICENSE)
 </div>
 
 ## Installation
