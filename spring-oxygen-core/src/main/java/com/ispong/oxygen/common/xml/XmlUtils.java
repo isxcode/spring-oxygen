@@ -41,6 +41,7 @@ public class XmlUtils {
      *
      * @param inputStream inputStream
      * @param targetClass 目标class
+     * @param <T>         T
      * @return target
      * @since 0.0.1
      */

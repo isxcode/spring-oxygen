@@ -49,15 +49,14 @@ oxygen:
 消息加解密方式 -- 明文模式
 ```
 
-5- start application
+5- Note: 关闭接口安全拦截
+
+6- start application console
 
 ```text
-                                                             __          __            
-  ____  _  ____  ______ ____  ____       _      _____  _____/ /_  ____ _/ /_____ _____ 
- / __ \| |/_/ / / / __ `/ _ \/ __ \_____| | /| / / _ \/ ___/ __ \/ __ `/ __/ __ `/ __ \
-/ /_/ />  </ /_/ / /_/ /  __/ / / /_____/ |/ |/ /  __/ /__/ / / / /_/ / /_/ /_/ / /_/ /
-\____/_/|_|\__, /\__, /\___/_/ /_/      |__/|__/\___/\___/_/ /_/\__,_/\__/\__, /\____/ 
-          /____//____/                                                   /____/        
+
+2020-07-02 18:40:21.978  INFO 3376 --- [  restartedMain] c.i.o.w.c.WechatgoAutoConfiguration      : welcome to use oxygen-wechatgo
+
 ```
 
 ### Advance Use
@@ -67,9 +66,9 @@ oxygen:
 ```java
 package com.isxcode.leoserver.service;
 
-import com.ispong.oxygen.wechatgo.WechatgoEventHandler;
-import com.ispong.oxygen.wechatgo.WechatgoTemplate;
-import com.ispong.oxygen.wechatgo.model.WeChatEventBody;
+import com.ispong.oxygen.wechatgo.handler.WechatgoEventHandler;
+import com.ispong.oxygen.wechatgo.pojo.entity.WeChatEventBody;
+import com.ispong.oxygen.wechatgo.template.WechatgoTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -81,7 +80,7 @@ public class WechatService implements WechatgoEventHandler {
 
     @Resource
     private WechatgoTemplate wechatgoTemplate;
-
+    
     @Override
     public void subscribeEvent(WeChatEventBody weChatEventBody) {
 
@@ -97,45 +96,39 @@ public class WechatService implements WechatgoEventHandler {
     @Override
     public void sendMsgTemplateResponse(WeChatEventBody weChatEventBody) {
 
-        log.info(weChatEventBody.getMsgId() + "此消息模板发送成功");
+        log.info(weChatEventBody.getStatus() + "此消息模板发送成功");
     }
 
-    public void sendMsgTemplate(String openId) {
+    public void sendMsgTemplate() {
 
-        String data = "{\n" +
-                "           \"touser\":\"+openId+\",\n" +
-                "           \"template_id\":\"ngqIpbwh8bUfcSsECmogfXcV14J0tQlEpBO27izEYtY\",\n" +
-                "           \"url\":\"http://weixin.qq.com/download\",  \n" +
-                "           \"miniprogram\":{\n" +
-                "             \"appid\":\"xiaochengxuappid12345\",\n" +
-                "             \"pagepath\":\"index?foo=bar\"\n" +
-                "           },          \n" +
+        String openId = "oLRflwyj79FUS7O7zARJsLq16k5k";
+        String requestParam = "{\n" +
+                "           \"touser\":\"" + openId + "\",\n" +
+                "           \"template_id\":\"" + "KQwJbCIjdJ9wvktUBVxx2fVm44QdSsqNNyqU7kqnsHg" + "\",\n" +
                 "           \"data\":{\n" +
                 "                   \"first\": {\n" +
-                "                       \"value\":\"恭喜你购买成功！\",\n" +
-                "                       \"color\":\"#173177\"\n" +
+                "                       \"value\":\"你好！\",\n" +
+                "                       \"color\":\"#000000\"\n" +
                 "                   },\n" +
                 "                   \"keyword1\":{\n" +
-                "                       \"value\":\"巧克力\",\n" +
-                "                       \"color\":\"#173177\"\n" +
+                "                       \"value\":\"新任务包发布\",\n" +
+                "                       \"color\":\"#027AFF\"\n" +
                 "                   },\n" +
                 "                   \"keyword2\": {\n" +
-                "                       \"value\":\"39.8元\",\n" +
-                "                       \"color\":\"#173177\"\n" +
-                "                   },\n" +
-                "                   \"keyword3\": {\n" +
-                "                       \"value\":\"2014年9月22日\",\n" +
-                "                       \"color\":\"#173177\"\n" +
+                "                       \"value\":\"待你查看。\",\n" +
+                "                       \"color\":\"#000000\"\n" +
                 "                   },\n" +
                 "                   \"remark\":{\n" +
-                "                       \"value\":\"欢迎再次购买！\",\n" +
-                "                       \"color\":\"#173177\"\n" +
+                "                       \"value\":\"请登录pluto.definesys.com操作。\",\n" +
+                "                       \"color\":\"#000000\"\n" +
                 "                   }\n" +
                 "           }\n" +
                 "       }";
-        wechatgoTemplate.sendMsgTemplate(data);
+
+        wechatgoTemplate.sendMsgTemplate(requestParam);
     }
 }
+
 ```
 
 

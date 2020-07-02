@@ -41,6 +41,6 @@ public class WechatgoTokenThread implements Runnable {
     @Override
     public void run() {
         log.debug("generate wechatgo token");
-        wechatgoTokenCache.putToken(WechatgoConstants.ENV, wechatgoService.getAccessToken().getAccessToken());
+        wechatgoTokenCache.cacheToken(WechatgoConstants.ENV, wechatgoService.getAccessToken().getAccessToken());
     }
 }

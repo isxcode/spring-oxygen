@@ -67,15 +67,16 @@ public class HttpClientUtils {
      *
      * @param url           url
      * @param requestParams requestParams
+     * @return post body str
      * @throws IOException 访问失败
      * @since 0.0.1
      */
-    public static void doPost(String url, String requestParams) throws IOException {
+    public static String doPost(String url, String requestParams) throws IOException {
 
         HttpClient httpClient = HttpClientBuilder.create().build();
         HttpPost httpPost = new HttpPost(url);
         httpPost.setEntity(new StringEntity(requestParams, StandardCharsets.UTF_8));
-        httpClient.execute(httpPost);
+        return EntityUtils.toString(httpClient.execute(httpPost).getEntity());
     }
 
 }

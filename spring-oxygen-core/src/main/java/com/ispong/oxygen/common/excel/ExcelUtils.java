@@ -149,10 +149,11 @@ public class ExcelUtils {
     /**
      * 通过传入的数据生成excel文件
      *
-     * @param <A>      泛型
+     * @param <A>      A
      * @param data     数据
      * @param fileName 文件名
      * @param objClass 对象
+     * @param response 返回
      * @since 0.0.1
      */
     public static <A> void generateExcel(Class<A> objClass, List<A> data, String fileName, HttpServletResponse response) {

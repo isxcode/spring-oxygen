@@ -26,6 +26,8 @@ import org.springframework.cache.annotation.Cacheable;
  */
 public class WechatgoTokenCache {
 
+    private String token;
+
     /**
      * cache token
      *
@@ -34,9 +36,9 @@ public class WechatgoTokenCache {
      * @since 2020-02-14
      */
     @Cacheable(value = "token_cache", key = "#env")
-    public String cacheToken(String env) {
+    public String getToken(String env) {
 
-        return "";
+        return token;
     }
 
     /**
@@ -44,11 +46,11 @@ public class WechatgoTokenCache {
      *
      * @param env         env
      * @param accessToken accessToken
-     * @return accessToken
      * @since 2020-02-14
      */
     @CachePut(value = "token_cache", key = "#env")
-    public String putToken(String env, String accessToken) {
-        return accessToken;
+    public void cacheToken(String env, String accessToken) {
+
+        token = accessToken;
     }
 }
