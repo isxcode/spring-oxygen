@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.wechatgo;
+package com.ispong.oxygen.wechatgo.handler;
 
-import com.ispong.oxygen.wechatgo.model.WeChatEventBody;
+import com.ispong.oxygen.wechatgo.pojo.entity.WeChatEventBody;
 
 /**
  * provide method

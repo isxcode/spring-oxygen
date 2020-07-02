@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.wechatgo.model;
+package com.ispong.oxygen.wechatgo.pojo.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
-import static com.ispong.oxygen.wechatgo.WechatgoConstants.SLOPE_N;
+import static com.ispong.oxygen.wechatgo.pojo.constant.WechatgoConstants.SLOPE_N;
 
 /**
- * model- event_body
+ * 微信事件体
  *
  * @author ispong
  * @since  0.0.1
@@ -74,6 +74,9 @@ public class WeChatEventBody extends DefaultHandler {
 
     private String localName;
 
+    /**
+     * xml解析工具
+     */
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
 

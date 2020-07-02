@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.wechatgo.utils;
+package com.ispong.oxygen.common.xml;
 
-import com.ispong.oxygen.wechatgo.WechatgoException;
-import com.ispong.oxygen.wechatgo.model.WeChatEventBody;
+import com.ispong.oxygen.common.exception.CoreException;
+import com.ispong.oxygen.common.reflect.ReflectUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -36,22 +37,27 @@ import java.io.InputStream;
 public class XmlUtils {
 
     /**
-     * parse wechat xml
+     * 根据inputStream解析xml内容
      *
      * @param inputStream inputStream
-     * @return WeChat Event Body
+     * @param targetClass 目标class
+     * @return target
      * @since 0.0.1
      */
-    public static WeChatEventBody parseWechatXml(InputStream inputStream) {
+    public static <T extends DefaultHandler> T parseInputStreamXml(InputStream inputStream, Class<T> targetClass) {
 
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+
         try {
             SAXParser saxParser = saxParserFactory.newSAXParser();
-            WeChatEventBody weChatEventBody = new WeChatEventBody();
-            saxParser.parse(inputStream, weChatEventBody);
-            return weChatEventBody;
+
+            // 反射实例化
+            T target = ReflectUtils.newInstance(targetClass);
+            saxParser.parse(inputStream, target);
+            return target;
         } catch (ParserConfigurationException | SAXException | IOException e) {
-            throw new WechatgoException("parse wechat xml fail");
+
+            throw new CoreException("parse inputStream xml fail");
         }
     }
 

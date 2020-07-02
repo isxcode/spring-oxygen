@@ -13,38 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.wechatgo;
-
-import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+package com.ispong.oxygen.wechatgo.pojo.constant;
 
 /**
- * wechatgo properties
+ * wechatgo constants
  *
  * @author ispong
- * @since 0.0.1
+ * @since  0.0.1
  */
-@Data
-@ConfigurationProperties(WechatgoConstants.STARTER_PREFIX)
-public class WechatgoProperties {
+public interface WechatgoConstants {
 
     /**
-     * appId
+     * starter prefix
      */
-    private String appId;
+    String STARTER_PREFIX = "oxygen.wechatgo";
 
     /**
-     * appSecret
+     * \n
      */
-    private String appSecret;
+    String SLOPE_N = "\n";
 
     /**
-     * wechat server token
+     * prod
      */
-    private String token;
-
-    /**
-     * wechat server
-     */
-    private String url = "https://api.weixin.qq.com";
+    String ENV = "prod";
 }

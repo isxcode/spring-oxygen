@@ -13,12 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.wechatgo;
+package com.ispong.oxygen.wechatgo.template;
 
-import com.ispong.oxygen.wechatgo.utils.HttpClientUtils;
+import com.ispong.oxygen.common.http.HttpClientUtils;
+import com.ispong.oxygen.wechatgo.cache.WechatgoTokenCache;
+import com.ispong.oxygen.wechatgo.exception.WechatgoException;
+import com.ispong.oxygen.wechatgo.pojo.constant.WechatgoConstants;
+import com.ispong.oxygen.wechatgo.pojo.properties.WechatgoProperties;
 
 import javax.annotation.Resource;
-
+import java.io.IOException;
 
 /**
  * wechatgo template
@@ -35,7 +39,7 @@ public class WechatgoTemplate {
     private WechatgoTokenCache wechatgoTokenCache;
 
     /**
-     * send Msg Template
+     * 发送消息模板
      *
      * @param data data
      * @since 2020-02-04
@@ -43,8 +47,8 @@ public class WechatgoTemplate {
     public void sendMsgTemplate(String data) {
 
         try {
-            HttpClientUtils.doPost(wechatgoProperties.getUrl() + "/cgi-bin/message/template/send" + "?access_token=" + wechatgoTokenCache.cacheToken(WechatgoConstants.ENV), data);
-        } catch (Exception e) {
+            HttpClientUtils.doPost(wechatgoProperties.getUrl() + "/cgi-bin/message/template/send?access_token=" + wechatgoTokenCache.cacheToken(WechatgoConstants.ENV), data);
+        } catch (IOException e) {
             throw new WechatgoException("send template fail");
         }
 

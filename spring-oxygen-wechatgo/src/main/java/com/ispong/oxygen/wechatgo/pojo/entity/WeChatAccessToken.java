@@ -14,13 +14,13 @@
  * limitations under the License.
  *
  */
-package com.ispong.oxygen.wechatgo.model;
+package com.ispong.oxygen.wechatgo.pojo.entity;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.Data;
 
 /**
- * model- access_token
+ * 微信的token对象
  *
  * @author ispong
  * @since  0.0.1

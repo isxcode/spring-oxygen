@@ -1,11 +1,16 @@
 dependencies {
 
-    compile(project(':spring-oxygen-flysql'))
     compile(project(':spring-oxygen-core'))
 
     compileOnly 'org.springframework.boot:spring-boot-starter-web'
+
+    // validation
+    compile 'org.springframework.boot:spring-boot-starter-validation'
+
+    // configuration-processor
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
+    // lombok
     compileOnly 'org.projectlombok:lombok:latest.integration'
     annotationProcessor 'org.projectlombok:lombok:latest.integration'
 

@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.wechatgo;
+package com.ispong.oxygen.wechatgo.controller;
 
-import com.ispong.oxygen.wechatgo.model.WeChatEventBody;
-import com.ispong.oxygen.wechatgo.utils.XmlUtils;
+import com.ispong.oxygen.common.xml.XmlUtils;
+import com.ispong.oxygen.wechatgo.exception.WechatgoException;
+import com.ispong.oxygen.wechatgo.pojo.entity.WeChatEventBody;
+import com.ispong.oxygen.wechatgo.service.WechatgoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,10 +27,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
- * wechat server api
+ * 微信服务器调用接口
  *
  * @author ispong
- * @since  0.0.1
+ * @since 0.0.1
  */
 @Slf4j
 @ResponseBody
@@ -39,7 +41,7 @@ public class WechatgoController {
     private WechatgoService wechatgoService;
 
     /**
-     * get
+     * 微信服务器认证接口
      *
      * @param echostr   echostr
      * @param timestamp timestamp
@@ -50,30 +52,35 @@ public class WechatgoController {
      */
     @GetMapping("/wechatServer")
     public String weChatAuthentication(
-            @RequestParam("echostr") String echostr,
-            @RequestParam("timestamp") String timestamp,
-            @RequestParam("nonce") String nonce,
-            @RequestParam("signature") String signature) {
+        @RequestParam("echostr") String echostr,
+        @RequestParam("timestamp") String timestamp,
+        @RequestParam("nonce") String nonce,
+        @RequestParam("signature") String signature) {
 
         log.debug("wechat go to auth");
         if (wechatgoService.checkWeChat(nonce, timestamp, signature)) {
             return echostr;
         }
+
         throw new WechatgoException("not wechat request");
     }
 
     /**
-     * post
+     * 接受微信回调函数接口
      *
-     * @param httpServletRequest httpServletRequest
-     * @throws IOException getInputStream
+     * @param httpServletRequest 请求体,为了获取微信推送的xml内容
      * @since 0.0.1
      */
     @PostMapping("/wechatServer")
-    public void weChatListen(HttpServletRequest httpServletRequest) throws IOException {
+    public void weChatListen(HttpServletRequest httpServletRequest) {
 
         log.debug("receive wechat event");
-        WeChatEventBody weChatEventBody = XmlUtils.parseWechatXml(httpServletRequest.getInputStream());
-        wechatgoService.handlerWechatEvent(weChatEventBody);
+        try {
+            WeChatEventBody weChatEventBody = XmlUtils.parseInputStreamXml(httpServletRequest.getInputStream(), WeChatEventBody.class);
+            wechatgoService.handlerWechatEvent(weChatEventBody);
+        } catch (IOException e) {
+            throw new WechatgoException("has no inputStream");
+        }
+
     }
 }

@@ -45,6 +45,8 @@ public class FreecodeUtils {
      * @param templateName 模板名
      * @param freecodeInfo 对象
      * @param modulePath   文件路径
+     * @throws IOException       生成文件异常
+     * @throws TemplateException 生成文件异常
      * @since 0.0.1
      */
     public static void generateFile(String modulePath, String fileName, String templateName, Object freecodeInfo) throws IOException, TemplateException {

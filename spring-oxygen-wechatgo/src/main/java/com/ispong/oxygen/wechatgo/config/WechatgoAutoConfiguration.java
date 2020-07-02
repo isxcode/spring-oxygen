@@ -13,8 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.wechatgo;
+package com.ispong.oxygen.wechatgo.config;
 
+import com.ispong.oxygen.wechatgo.cache.WeChatTokenGenerator;
+import com.ispong.oxygen.wechatgo.cache.WechatgoTokenCache;
+import com.ispong.oxygen.wechatgo.controller.WechatgoController;
+import com.ispong.oxygen.wechatgo.template.WechatgoTemplate;
+import com.ispong.oxygen.wechatgo.handler.WechatgoEventHandler;
+import com.ispong.oxygen.wechatgo.pojo.properties.WechatgoProperties;
+import com.ispong.oxygen.wechatgo.service.WechatgoService;
+import com.ispong.oxygen.wechatgo.service.impl.WechatgoServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;

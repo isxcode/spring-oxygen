@@ -108,8 +108,8 @@ oxygen:
 ```
 
 ```java
-import com.ispong.oxygen.wechatgo.WechatgoEventHandler;
-import com.ispong.oxygen.wechatgo.model.WeChatEventBody;
+import com.ispong.oxygen.wechatgo.handler.WechatgoEventHandler;
+import com.ispong.oxygen.wechatgo.pojo.entity.WeChatEventBody;
 import org.springframework.stereotype.Service;
 
 @Service

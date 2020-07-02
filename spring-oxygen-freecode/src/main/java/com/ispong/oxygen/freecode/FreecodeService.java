@@ -84,7 +84,8 @@ public class FreecodeService {
     /**
      * 生成freecodeInfo对象,用于传递对象
      *
-     * @param tableName 表名
+     * @param dataSourceName 数据源名称
+     * @param tableName      表名
      * @return FreecodeInfo
      * @since 0.0.1
      */

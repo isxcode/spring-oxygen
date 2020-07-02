@@ -13,13 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.wechatgo;
+package com.ispong.oxygen.wechatgo.service.impl;
 
-import com.ispong.oxygen.wechatgo.model.WeChatAccessToken;
-import com.ispong.oxygen.wechatgo.model.WeChatEventBody;
-import com.ispong.oxygen.wechatgo.utils.HttpClientUtils;
+import com.ispong.oxygen.common.http.HttpClientUtils;
+import com.ispong.oxygen.wechatgo.exception.WechatgoException;
+import com.ispong.oxygen.wechatgo.handler.WechatgoEventHandler;
+import com.ispong.oxygen.wechatgo.pojo.entity.WeChatAccessToken;
+import com.ispong.oxygen.wechatgo.pojo.entity.WeChatEventBody;
+import com.ispong.oxygen.wechatgo.pojo.properties.WechatgoProperties;
+import com.ispong.oxygen.wechatgo.service.WechatgoService;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -27,7 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * wechatgo WechatgoServiceImpl
+ * wechatgo 业务实现层
  *
  * @author ispong
  * @version v0.1.0
@@ -39,7 +44,8 @@ public class WechatgoServiceImpl implements WechatgoService {
 
     private final WechatgoProperties wechatgoProperties;
 
-    public WechatgoServiceImpl(WechatgoProperties wechatgoProperties, WechatgoEventHandler wechatgoEventHandler) {
+    public WechatgoServiceImpl(WechatgoProperties wechatgoProperties,
+                               WechatgoEventHandler wechatgoEventHandler) {
 
         this.wechatgoEventHandler = wechatgoEventHandler;
         this.wechatgoProperties = wechatgoProperties;
@@ -54,17 +60,22 @@ public class WechatgoServiceImpl implements WechatgoService {
         requestMap.put("appid", wechatgoProperties.getAppId());
         requestMap.put("secret", wechatgoProperties.getAppSecret());
 
-        // 获取返回体
-        WeChatAccessToken weChatAccessToken = HttpClientUtils.doGet(wechatgoProperties.getUrl() + "/cgi-bin/token", requestMap, WeChatAccessToken.class);
+        // 获取微信的Token
+        WeChatAccessToken weChatAccessToken;
+        try {
+            weChatAccessToken = HttpClientUtils.doGet(wechatgoProperties.getUrl() + "/cgi-bin/token", requestMap, WeChatAccessToken.class);
+        } catch (IOException e) {
+            throw new WechatgoException("get wechat server token fail");
+        }
 
         // 返回体处理
         switch (weChatAccessToken.getErrCode()) {
             case -1:
-                // 系统繁忙，此时请开发者稍候再试(5秒)
+                // 请求失败
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException ignored) {
-
+                    // do nothing
                 }
                 return getAccessToken();
             case 0:
@@ -115,6 +126,7 @@ public class WechatgoServiceImpl implements WechatgoService {
     public void handlerWechatEvent(WeChatEventBody weChatEventBody) {
 
         switch (String.valueOf(weChatEventBody.getEvent())) {
+
             case "subscribe":
                 log.debug("event subscribe");
                 wechatgoEventHandler.subscribeEvent(weChatEventBody);
@@ -129,6 +141,7 @@ public class WechatgoServiceImpl implements WechatgoService {
                 break;
             default:
                 log.debug("event nothing");
+
         }
     }
 

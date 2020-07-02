@@ -1,103 +1,19 @@
-// 设置插件版本
 plugins {
-    id 'org.springframework.boot' version '2.2.4.RELEASE' apply false
-    id 'io.spring.dependency-management' version '1.0.9.RELEASE' apply false
-}
-
-// 声明插件
-apply plugin: 'java'
-apply plugin: 'maven-publish'
-apply plugin: 'signing'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-
-dependencyManagement {
-    imports {
-        mavenBom 'com.alibaba.cloud:spring-cloud-alibaba-dependencies:2.1.0.RELEASE'
-        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR4'
-    }
-}
-
-bootJar {
-    excludeDevtools false
-}
-
-// 声明依赖
-dependencies {
-
-    compile(project(":spring-oxygen-freecode"))
-    compile(project(":spring-oxygen-flysql"))
-    compile(project(":spring-oxygen-wechatgo"))
-
-    // spring boot start
-    implementation 'org.springframework.boot:spring-boot-starter'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    compile 'org.springframework.boot:spring-boot-starter-web'
-
-    // lombok
-    compileOnly 'org.projectlombok:lombok:latest.integration'
-    annotationProcessor 'org.projectlombok:lombok:latest.integration'
-
-    // jasypt
-    compile 'com.github.ulisesbocchio:jasypt-spring-boot-starter:latest.integration'
-
-    // spring-security
-    compile 'org.springframework.boot:spring-boot-starter-security'
-
-    // spring-actuator
-    compile 'org.springframework.boot:spring-boot-starter-actuator'
-
-    // spring-devtools
-    implementation 'org.springframework.boot:spring-boot-devtools'
-
-    // spring-websocket
-    compile 'org.springframework.boot:spring-boot-starter-websocket'
-
-    // swagger
-    compile 'io.springfox:springfox-swagger2:latest.integration'
-    compile 'io.springfox:springfox-swagger-ui:latest.integration'
-
-    // spring-aop
-    compile 'org.springframework.boot:spring-boot-starter-aop'
-
-    // h2
-    compile 'com.h2database:h2:latest.integration'
-
-    // spring-quartz
-    compile 'org.springframework.boot:spring-boot-starter-quartz'
-
-    // properties
-    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-
-    // http client
-    implementation 'org.apache.httpcomponents:httpclient:latest.integration'
-    implementation 'org.apache.httpcomponents:httpmime:latest.integration'
-
-    // druid-starter
-    compile 'com.alibaba:druid-spring-boot-starter:latest.integration'
-
-    // freemarker
-    compile 'org.springframework.boot:spring-boot-starter-freemarker'
-
-//	implementation 'org.junit.jupiter:junit-jupiter'
-
-//	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-//	compile 'org.springframework.data:spring-data-redis'
-//	compile 'org.springframework.boot:spring-boot-starter-amqp'
-//	compile 'io.lettuce:lettuce-core:latest.integration'
-//	compile 'org.dom4j:dom4j:latest.integration'
-//	compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
-//	testCompile 'org.junit.jupiter:junit-jupiter-api:latest.integration'
-//	compile 'mysql:mysql-connector-java:latest.integration'
-//	compile 'com.alibaba:fastjson:latest.integration'
+    id "org.springframework.boot" version "2.3.1.RELEASE"
+    id "io.spring.dependency-management" version "1.0.9.RELEASE"
 }
 
 allprojects {
 
-    version = '0.0.3'
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
+    apply plugin: 'signing'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    version = '1.0.0'
     group = 'com.github.ispong'
 
-    // 控制编译版本
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
 
@@ -110,14 +26,6 @@ allprojects {
 
 subprojects {
 
-    // 声明插件
-    apply plugin: 'java'
-    apply plugin: 'maven-publish'
-    apply plugin: 'signing'
-    apply plugin: 'org.springframework.boot'
-    apply plugin: 'io.spring.dependency-management'
-
-    // 发布版本
     publishing {
         publications {
             mavenJava(MavenPublication) {
@@ -125,40 +33,32 @@ subprojects {
                 artifactId = project.getName()
                 from components.java
 
-                // 控制版本号
                 versionMapping {
-                    usage('java-api') {
-                        fromResolutionOf('runtimeClasspath')
-                    }
-                    usage('java-runtime') {
-                        fromResolutionResult()
-                    }
+                    usage('java-api') { fromResolutionOf('runtimeClasspath') }
+                    usage('java-runtime') { fromResolutionResult() }
                 }
 
                 pom {
 
-                    // 基础信息
                     name = project.getName()
                     description = project.getName() + ' integration for Spring boot'
                     url = 'https://github.com/ispong/spring-oxygen/tree/master/' + project.getName() + '/src/main/java/com/ispong/oxygen/' + project.getName().split('-').last()
 
-                    // 开源证书
                     licenses {
                         license {
                             name = 'The Apache License, Version 2.0'
-                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                            url = 'https://github.com/ispong/spring-oxygen/blob/master/LICENSE'
                         }
                     }
 
-                    // 开发者信息
                     developers {
                         developer {
+                            id = 'ispong'
                             name = 'ispong'
                             email = 'ispong@outlook.com'
                         }
                     }
 
-                    // 源码地址
                     scm {
                         connection = 'scm:git:git://github.com/ispong/spring-oxygen.git'
                         developerConnection = 'scm:git:ssh://github.com/ispong/spring-oxygen.git'
@@ -168,13 +68,12 @@ subprojects {
             }
         }
 
-        // 发布的仓库配置
         repositories {
             maven {
-                def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-                def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+                def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+                def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
                 url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-                // 账号密码
+
                 credentials {
                     username = sonatypeUsername
                     password = sonatypePassword
@@ -183,38 +82,26 @@ subprojects {
         }
     }
 
-    // 启动登录插件
     signing {
         sign publishing.publications.mavenJava
     }
 
-    // 生成上传文件
     java {
         withJavadocJar()
         withSourcesJar()
     }
 
-    // 配置javadoc
     javadoc {
         options.encoding("UTF-8")
-        if (JavaVersion.current().isJava9Compatible()) {
+        if(JavaVersion.current().isJava9Compatible()) {
             options.addBooleanOption('html5', true)
         }
     }
 
-    // 禁用bootJar
-    bootJar {
-        enabled false
-    }
+    bootJar { enabled false }
 
-    // 启用jar
-    jar {
-        enabled true
-    }
+    jar { enabled true }
 
-    // 禁止子项目启动
-    bootRun {
-        enabled false
-    }
+    bootRun { enabled false }
 }
 

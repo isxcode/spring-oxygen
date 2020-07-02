@@ -15,16 +15,16 @@
  */
 package com.ispong.oxygen.wechatgo.annotation;
 
-import com.ispong.oxygen.wechatgo.WechatgoAutoConfiguration;
+import com.ispong.oxygen.wechatgo.config.WechatgoAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
 
 /**
- * annotation- @EnableWechatgo
+ * 自定义注解 @EnableWechatgo
  *
  * @author ispong
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
