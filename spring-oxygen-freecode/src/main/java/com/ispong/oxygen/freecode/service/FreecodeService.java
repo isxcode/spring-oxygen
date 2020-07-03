@@ -13,9 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.freecode;
+package com.ispong.oxygen.freecode.service;
 
-import com.ispong.oxygen.freecode.model.TableColumnInfo;
+import com.ispong.oxygen.freecode.exception.FreecodeException;
+import com.ispong.oxygen.freecode.pojo.entity.FreecodeReq;
+import com.ispong.oxygen.freecode.pojo.entity.TableColumnInfo;
+import com.ispong.oxygen.freecode.pojo.constant.FreecodeConstants;
+import com.ispong.oxygen.freecode.pojo.entity.FreecodeInfo;
+import com.ispong.oxygen.freecode.pojo.properties.FreecodeProperties;
+import com.ispong.oxygen.freecode.repository.FreecodeRepository;
+import com.ispong.oxygen.freecode.utils.FreecodeUtils;
 
 import java.util.List;
 
@@ -94,7 +101,7 @@ public class FreecodeService {
         FreecodeInfo freecodeInfo = new FreecodeInfo();
 
         // 查询表的所有字段
-        List<TableColumnInfo> tableColumns = freecodeRepository.getTableColumns(dataSourceName, tableName, freecodeProperties.getIgnoreColumns());
+        List<TableColumnInfo> tableColumns = freecodeRepository.getTableColumns(tableName, freecodeProperties.getIgnoreColumns());
         freecodeInfo.setTableColumns(tableColumns);
 
         // 封装EntityClassPackageList

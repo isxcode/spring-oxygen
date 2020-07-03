@@ -13,23 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.freecode.annotation;
+package com.ispong.oxygen.starter.annotation;
 
+import com.ispong.oxygen.flysql.config.FlysqlAutoConfiguration;
 import com.ispong.oxygen.freecode.config.FreecodeAutoConfiguration;
+import com.ispong.oxygen.starter.config.OxygenAutoConfiguration;
+import com.ispong.oxygen.wechatgo.config.WechatgoAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
 
 /**
- * 注解-@EnableFreecode
+ * 启动oxygen
  *
  * @author ispong
  * @since 0.0.1
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import(FreecodeAutoConfiguration.class)
+@Import({OxygenAutoConfiguration.class, FlysqlAutoConfiguration.class, WechatgoAutoConfiguration.class, FreecodeAutoConfiguration.class})
 @Documented
-public @interface EnableFreecode {
+public @interface EnableOxygen {
 
 }

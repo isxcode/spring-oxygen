@@ -1,9 +1,8 @@
-package com.ispong.oxygen.freecode;
+package com.ispong.oxygen.freecode.pojo.entity;
 
-import com.ispong.oxygen.freecode.model.TableColumnInfo;
+import com.ispong.oxygen.freecode.pojo.properties.FreecodeProperties;
 import lombok.Data;
 
-import java.util.Date;
 import java.util.List;
 
 /**

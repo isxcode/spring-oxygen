@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.freecode;
+package com.ispong.oxygen.freecode.controller;
 
-import com.ispong.oxygen.flysql.common.BaseController;
-import com.ispong.oxygen.flysql.common.BaseResponse;
-import org.springframework.http.ResponseEntity;
+import com.ispong.oxygen.freecode.pojo.entity.FreecodeReq;
+import com.ispong.oxygen.freecode.service.FreecodeService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +30,7 @@ import javax.validation.Valid;
  * @since 0.0.1
  */
 @RequestMapping
-public class FreecodeController extends BaseController {
+public class FreecodeController {
 
     private final FreecodeService freecodeService;
 
@@ -48,11 +47,10 @@ public class FreecodeController extends BaseController {
      * @since 0.0.1
      */
     @PostMapping("/freecode")
-    public ResponseEntity<BaseResponse<String>> generateCode(@Valid @RequestBody FreecodeReq freecodeReq) {
+    public String generateCode(@Valid @RequestBody FreecodeReq freecodeReq) {
 
         freecodeService.startFreecode(freecodeReq);
 
-        return successResponse("自动代码生成成功", "");
+        return "自动代码生成成功";
     }
-
 }

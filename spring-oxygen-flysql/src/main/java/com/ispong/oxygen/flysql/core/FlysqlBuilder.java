@@ -25,7 +25,6 @@ import com.ispong.oxygen.flysql.pojo.entity.SqlCondition;
 import com.ispong.oxygen.flysql.pojo.enums.SqlOperateType;
 import com.ispong.oxygen.flysql.pojo.enums.SqlType;
 import com.ispong.oxygen.flysql.utils.FlysqlUtils;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.BeanUtils;

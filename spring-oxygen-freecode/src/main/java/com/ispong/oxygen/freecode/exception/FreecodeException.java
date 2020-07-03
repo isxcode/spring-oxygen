@@ -1,4 +1,4 @@
-package com.ispong.oxygen.freecode;
+package com.ispong.oxygen.freecode.exception;
 
 public class FreecodeException extends RuntimeException {
 

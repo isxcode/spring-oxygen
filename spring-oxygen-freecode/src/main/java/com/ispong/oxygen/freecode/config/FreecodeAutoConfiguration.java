@@ -1,11 +1,32 @@
-package com.ispong.oxygen.freecode;
+/*
+ * Copyright [2020] [ispong]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.ispong.oxygen.freecode.config;
 
+import com.ispong.oxygen.freecode.controller.FreecodeController;
+import com.ispong.oxygen.freecode.pojo.properties.FreecodeProperties;
+import com.ispong.oxygen.freecode.repository.FreecodeRepository;
+import com.ispong.oxygen.freecode.service.FreecodeService;
+import com.ispong.oxygen.freecode.utils.FreecodeUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import javax.annotation.Resource;
@@ -22,10 +43,14 @@ import java.util.Map;
 @EnableConfigurationProperties(FreecodeProperties.class)
 public class FreecodeAutoConfiguration {
 
-    @Resource
-    @Qualifier("oxygenDataSourceMap")
-    private Map<String, DataSource> oxygenDataSourceMap;
+    @Bean
+    @ConditionalOnClass(FreecodeAutoConfiguration.class)
+    public void initFreecodeBanner() {
 
+        log.info("welcome to use oxygen-freecode");
+    }
+
+    
     @Bean
     @ConditionalOnClass(FreecodeAutoConfiguration.class)
     public FreecodeUtils initFreemarkerUtil(FreeMarkerConfigurer freeMarkerConfigurer) {
@@ -34,12 +59,12 @@ public class FreecodeAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnBean(name = "oxygenDataSourceMap")
-    public FreecodeRepository initFreecodeRepository() {
+    @ConditionalOnClass(FreecodeAutoConfiguration.class)
+    public FreecodeRepository initFreecodeRepository(JdbcTemplate jdbcTemplate) {
 
         log.debug("init freecode repository");
 
-        return new FreecodeRepository(oxygenDataSourceMap);
+        return new FreecodeRepository(jdbcTemplate);
     }
 
     @Bean
@@ -48,8 +73,6 @@ public class FreecodeAutoConfiguration {
 
         return new FreecodeService(freecodeRepository, freecodeProperties);
     }
-
-
 
     @Bean
     @ConditionalOnBean(FreecodeService.class)

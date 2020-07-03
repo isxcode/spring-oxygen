@@ -1,6 +1,6 @@
-package com.ispong.oxygen.freecode.model;
+package com.ispong.oxygen.freecode.pojo.entity;
 
-import com.ispong.oxygen.freecode.FreecodeUtils;
+import com.ispong.oxygen.freecode.utils.FreecodeUtils;
 import lombok.Data;
 
 /**

@@ -1,23 +1,22 @@
-package com.ispong.oxygen.freecode;
+package com.ispong.oxygen.freecode.repository;
 
-import com.ispong.oxygen.flysql.Flysql;
-import com.ispong.oxygen.freecode.model.TableColumnInfo;
-import com.ispong.oxygen.freecode.model.TableInfo;
+import com.ispong.oxygen.freecode.exception.FreecodeException;
+import com.ispong.oxygen.freecode.pojo.entity.TableColumnInfo;
+import com.ispong.oxygen.freecode.pojo.entity.TableInfo;
+import com.ispong.oxygen.freecode.utils.FreecodeUtils;
 import com.zaxxer.hikari.HikariDataSource;
-import com.zaxxer.hikari.util.DriverDataSource;
+import org.springframework.jdbc.core.JdbcTemplate;
 
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class FreecodeRepository {
 
-    private final Map<String, DataSource> dataSourceMap;
+    private final JdbcTemplate jdbcTemplate;
 
-    public FreecodeRepository(Map<String, DataSource> dataSourceMap) {
+    public FreecodeRepository(JdbcTemplate jdbcTemplate) {
 
-        this.dataSourceMap = dataSourceMap;
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     /**
@@ -25,14 +24,13 @@ public class FreecodeRepository {
      *
      * @param tableName      表名
      * @param ignoreFields   忽略的字段
-     * @param dataSourceName dataSourceName
      * @return 返回字段信息
      * @since 2020-01-09
      */
-    public List<TableColumnInfo> getTableColumns(String dataSourceName, String tableName, List<String> ignoreFields) {
+    public List<TableColumnInfo> getTableColumns(String tableName, List<String> ignoreFields) {
 
         // 区分数据库类型
-        HikariDataSource dataSource = (HikariDataSource) dataSourceMap.get(dataSourceName);
+        HikariDataSource dataSource = (HikariDataSource) jdbcTemplate.getDataSource();
         if (dataSource != null) {
             String sqlStr;
             switch (dataSource.getDriverClassName()) {
@@ -48,7 +46,7 @@ public class FreecodeRepository {
                     throw new FreecodeException("dataSource type not support");
             }
 
-            List<TableColumnInfo> tableColumnInfos = Flysql.select(TableColumnInfo.class).sql(sqlStr).query();
+            List<TableColumnInfo> tableColumnInfos = jdbcTemplate.queryForList(sqlStr, TableColumnInfo.class);
 
             // 忽略字段
             List<TableColumnInfo> tempTableColumnInfos = new ArrayList<>();
@@ -79,6 +77,6 @@ public class FreecodeRepository {
     public TableInfo getTableInfo(String tableName) {
 
         String sqlStr = "select TABLE_COMMENT from information_schema.TABLES where TABLE_NAME = '" + tableName + "'";
-        return Flysql.select(TableInfo.class).sql(sqlStr).getOne();
+        return jdbcTemplate.queryForObject(sqlStr, TableInfo.class);
     }
 }

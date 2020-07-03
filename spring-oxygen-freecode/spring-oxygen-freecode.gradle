@@ -4,6 +4,9 @@ dependencies {
 
     compileOnly 'org.springframework.boot:spring-boot-starter-web'
 
+    // jdbc api
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+
     // validation
     compile 'org.springframework.boot:spring-boot-starter-validation'
 

@@ -1,4 +1,4 @@
-package com.ispong.oxygen.freecode.model;
+package com.ispong.oxygen.freecode.pojo.entity;
 
 import lombok.Data;
 

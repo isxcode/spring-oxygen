@@ -1,17 +1,13 @@
-package com.ispong.oxygen.freecode;
+package com.ispong.oxygen.freecode.utils;
 
-import com.ispong.oxygen.freecode.model.TableColumnInfo;
+import com.ispong.oxygen.freecode.pojo.entity.TableColumnInfo;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
-import org.springframework.util.ClassUtils;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
