@@ -32,15 +32,15 @@ Maven
 ```xml
 <dependency>
   <groupId>com.github.ispong</groupId>
-  <artifaectId>spring-oxygen-boot-starter</artifaectId>
-  <version>0.0.3</version>
+  <artifactId>spring-oxygen-boot-starter</artifactId>
+  <version>1.0.0</version>
 </dependency>
 ```
 
 Gradle
 
 ```groovy
-implementation 'com.github.ispong:spring-oxygen-boot-starter:0.0.3'
+implementation 'com.github.ispong:spring-oxygen-boot-starter:1.0.0'
 ```
 
 ## 🔨 Start Up
@@ -93,7 +93,7 @@ public class UserDao {
 }
 ```
 
-### ✅ [oxygen-wechatgo](https://ispong.gitee.io/spring-oxygen)
+### ✅ [oxygen-wechatgo](https://github.com/ispong/spring-oxygen/blob/master/spring-oxygen-wechatgo/src/main/java/com/ispong/oxygen/wechatgo/README.md)
 
 - Integrate WeChat platform rapid development
 
@@ -123,7 +123,7 @@ public class WechatgoService implements WechatgoEventHandler {
 }
 ```
 
-### ✅ [oxygen-freecode](https://ispong.gitee.io/spring-oxygen)
+### ✅ [oxygen-freecode](https://github.com/ispong/spring-oxygen/blob/master/spring-oxygen-flysql/src/main/java/com/ispong/oxygen/flysql/README.md)
 
 - Fast generate java code
 
