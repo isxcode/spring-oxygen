@@ -64,7 +64,7 @@ You can find the spring-oxygen documentation [on the website](https://ispong.git
 
 There are a number of modules in spring-oxygen, here is a quick overview:
 
-### ✅ [oxygen-flysql](https://ispong.gitee.io/spring-oxygen)
+### ✅ [oxygen-flysql](https://github.com/ispong/spring-oxygen/blob/master/spring-oxygen-flysql/src/main/java/com/ispong/oxygen/flysql/README.md)
 
 - Integrate spring jdbc rapid development
 
