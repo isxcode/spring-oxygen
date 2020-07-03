@@ -13,23 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.flysql.annotation;
-
-import com.ispong.oxygen.flysql.config.FlysqlAutoConfiguration;
-import org.springframework.context.annotation.Import;
-
-import java.lang.annotation.*;
+package com.ispong.oxygen.flysql.pojo.enums;
 
 /**
- * 启动flysql
+ * sql type
  *
  * @author ispong
  * @since 0.0.1
  */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Import(FlysqlAutoConfiguration.class)
-@Documented
-public @interface EnableFlysql {
+public enum SqlType {
 
+    /**
+     * insert sql
+     */
+    INSERT,
+
+    /**
+     * delete sql
+     */
+    DELETE,
+
+    /**
+     * update sql
+     */
+    UPDATE,
+
+    /**
+     * sql view select
+     */
+    VIEW,
+
+    /**
+     * select sql
+     */
+    SELECT,
 }

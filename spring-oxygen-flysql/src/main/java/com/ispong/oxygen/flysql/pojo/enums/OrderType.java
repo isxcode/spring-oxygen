@@ -13,23 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.flysql.annotation;
+package com.ispong.oxygen.flysql.pojo.enums;
 
-import com.ispong.oxygen.flysql.config.FlysqlAutoConfiguration;
-import org.springframework.context.annotation.Import;
-
-import java.lang.annotation.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 /**
- * 启动flysql
+ * 排序
  *
  * @author ispong
  * @since 0.0.1
  */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Import(FlysqlAutoConfiguration.class)
-@Documented
-public @interface EnableFlysql {
+@AllArgsConstructor
+public enum OrderType {
 
+    /**
+     * 降序
+     */
+    DESC("desc"),
+
+    /**
+     * 升序
+     */
+    ASC("asc"),;
+
+    @Getter
+    private String orderType;
 }

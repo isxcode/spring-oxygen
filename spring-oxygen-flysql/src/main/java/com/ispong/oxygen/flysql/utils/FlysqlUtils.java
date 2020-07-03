@@ -1,8 +1,25 @@
-package com.ispong.oxygen.flysql;
+/*
+ * Copyright [2020] [ispong]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.ispong.oxygen.flysql.utils;
 
 import com.ispong.oxygen.flysql.annotation.ColumnName;
 import com.ispong.oxygen.flysql.annotation.TableName;
-import com.ispong.oxygen.flysql.enums.SqlOperateType;
+import com.ispong.oxygen.flysql.pojo.constant.FlysqlConstants;
+import com.ispong.oxygen.flysql.pojo.entity.SqlCondition;
+import com.ispong.oxygen.flysql.pojo.enums.SqlOperateType;
 import org.springframework.beans.BeanUtils;
 
 import java.beans.PropertyDescriptor;
@@ -13,6 +30,12 @@ import java.util.regex.Matcher;
 
 import static java.util.regex.Pattern.compile;
 
+/**
+ * flysql 查用工具类
+ *
+ * @author ispong
+ * @since 0.0.1
+ */
 public class FlysqlUtils {
 
     /**
@@ -59,14 +82,14 @@ public class FlysqlUtils {
     /**
      * get table name
      *
-     * @param genericType 数据对象
+     * @param targetClass 目标class
      * @return tableName
      * @since 0.0.1
      */
-    public static String getTableName(Class<?> genericType) {
+    public static String getTableName(Class<?> targetClass) {
 
-        if (genericType.isAnnotationPresent(TableName.class)) {
-            return genericType.getAnnotation(TableName.class).value();
+        if (targetClass.isAnnotationPresent(TableName.class)) {
+            return targetClass.getAnnotation(TableName.class).value();
         }
         return null;
     }

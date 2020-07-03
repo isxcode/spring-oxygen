@@ -13,28 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.flysql.enums;
+package com.ispong.oxygen.flysql.pojo.constant;
 
 /**
- * dataBase type enum
+ * flysql constants
  *
  * @author ispong
  * @since 0.0.1
  */
-public enum DateBaseType {
+public interface FlysqlConstants {
+
+    String CLASS = "class";
 
     /**
-     * Mysql
+     * 默认数据源名称
      */
-    MYSQL,
+    String PRIMARY_DATASOURCE_NAME = "primary";
 
     /**
-     * Oracle
+     * 默认视图名称
      */
-    ORACLE,
+    String PRIMARY_VIEW_NAME = "primary";
 
     /**
-     * nothing
+     * select *  替换字段
      */
-    DEFAULT,
+    String SELECT_REPLACE_CONTENT = "spring-oxygen-flysql-select";
 }
+

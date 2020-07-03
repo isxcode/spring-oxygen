@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.flysql;
+package com.ispong.oxygen.flysql.core;
 
-import com.ispong.oxygen.flysql.enums.OrderType;
-import com.ispong.oxygen.flysql.enums.SqlOperateType;
+import com.ispong.oxygen.flysql.pojo.entity.SqlCondition;
+import com.ispong.oxygen.flysql.pojo.enums.OrderType;
+import com.ispong.oxygen.flysql.pojo.enums.SqlOperateType;
+import com.ispong.oxygen.flysql.utils.FlysqlUtils;
 import org.apache.logging.log4j.util.Strings;
 
 import java.util.ArrayList;
@@ -32,9 +34,15 @@ import java.util.Map;
  */
 public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
 
-    public final List<SqlCondition> sqlConditions = new ArrayList<>();
+    /**
+     * 临时储存拼接条件
+     */
+    public List<SqlCondition> sqlConditions = new ArrayList<>();
 
-    public final Map<String, String> columnsMap;
+    /**
+     * 对象的各个属性的字段
+     */
+    public Map<String, String> columnsMap;
 
     public AbstractSqlBuilder(Class<?> genericType) {
         this.columnsMap = FlysqlUtils.parseBeanName(genericType);

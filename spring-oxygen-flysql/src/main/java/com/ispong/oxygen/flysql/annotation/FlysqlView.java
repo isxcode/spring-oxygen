@@ -15,8 +15,8 @@
  */
 package com.ispong.oxygen.flysql.annotation;
 
-import com.ispong.oxygen.flysql.FlysqlConstants;
-import com.ispong.oxygen.flysql.enums.DateBaseType;
+import com.ispong.oxygen.flysql.pojo.constant.FlysqlConstants;
+import com.ispong.oxygen.flysql.pojo.enums.DateBaseType;
 
 import java.lang.annotation.*;
 

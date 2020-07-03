@@ -13,23 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.flysql.annotation;
+package com.ispong.oxygen.flysql.pojo.entity;
 
-import com.ispong.oxygen.flysql.config.FlysqlAutoConfiguration;
-import org.springframework.context.annotation.Import;
-
-import java.lang.annotation.*;
+import com.ispong.oxygen.flysql.pojo.enums.SqlOperateType;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 /**
- * 启动flysql
+ * sql条件对象
  *
  * @author ispong
  * @since 0.0.1
  */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Import(FlysqlAutoConfiguration.class)
-@Documented
-public @interface EnableFlysql {
+@Data
+@AllArgsConstructor
+public class SqlCondition {
 
+    /**
+     * 条件类型
+     */
+    private SqlOperateType operateType;
+
+    /**
+     * 字段名
+     */
+    private String columnName;
+
+    /**
+     * 字段内容
+     */
+    private Object value;
 }

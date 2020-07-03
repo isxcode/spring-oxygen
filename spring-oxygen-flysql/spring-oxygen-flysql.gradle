@@ -1,12 +1,31 @@
 dependencies {
 
-    compile 'org.springframework.security:spring-security-core'
-    compile 'mysql:mysql-connector-java:latest.integration'
-    compile 'org.springframework.boot:spring-boot-starter-jdbc'
+    compile(project(':spring-oxygen-core'))
 
     compileOnly 'org.springframework.boot:spring-boot-starter-web'
+
+    // 为了可以使用spring的SecurityContextHolder
+    compile 'org.springframework.security:spring-security-core'
+
+    // jdbc api
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+
+    // driver h2
+    runtimeOnly 'com.h2database:h2'
+
+    // driver oracle
+    runtimeOnly 'com.oracle.ojdbc:ojdbc8'
+
+    // driver mysql
+    runtimeOnly 'mysql:mysql-connector-java'
+
+    // driver postgres
+    runtimeOnly 'org.postgresql:postgresql'
+
+    // configuration-processor
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
+    // lombok
     compileOnly 'org.projectlombok:lombok:latest.integration'
     annotationProcessor 'org.projectlombok:lombok:latest.integration'
 }

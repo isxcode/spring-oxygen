@@ -13,20 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.flysql;
-
-import lombok.extern.slf4j.Slf4j;
+package com.ispong.oxygen.flysql.pojo.enums;
 
 /**
- * FlysqlException
+ * dataBase type enum
  *
  * @author ispong
  * @since 0.0.1
  */
-@Slf4j
-public class FlysqlException extends RuntimeException {
+public enum DateBaseType {
 
-    public FlysqlException(String message) {
-        super("[oxygen-flysql-exception]:" + message);
-    }
+    /**
+     * Mysql
+     */
+    MYSQL,
+
+    /**
+     * Oracle
+     */
+    ORACLE,
+
+    /**
+     * nothing
+     */
+    DEFAULT,
 }

@@ -18,7 +18,7 @@ package com.ispong.oxygen.flysql.annotation;
 import java.lang.annotation.*;
 
 /**
- * 识别数据库表
+ * 注解-数据库名称映射
  *
  * @author ispong
  * @since 0.0.1

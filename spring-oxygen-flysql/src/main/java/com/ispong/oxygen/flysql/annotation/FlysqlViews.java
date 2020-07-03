@@ -18,7 +18,7 @@ package com.ispong.oxygen.flysql.annotation;
 import java.lang.annotation.*;
 
 /**
- * 包含所有的子视图
+ * 视图的父级
  *
  * @author ispong
  * @since 0.0.1

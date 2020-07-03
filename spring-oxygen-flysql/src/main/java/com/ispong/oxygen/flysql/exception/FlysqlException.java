@@ -13,38 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.flysql.enums;
+package com.ispong.oxygen.flysql.exception;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * sql type
+ * FlysqlException
  *
  * @author ispong
  * @since 0.0.1
  */
-public enum SqlType {
+@Slf4j
+public class FlysqlException extends RuntimeException {
 
-    /**
-     * insert sql
-     */
-    INSERT,
-
-    /**
-     * delete sql
-     */
-    DELETE,
-
-    /**
-     * update sql
-     */
-    UPDATE,
-
-    /**
-     * sql view select
-     */
-    VIEW,
-
-    /**
-     * select sql
-     */
-    SELECT,
+    public FlysqlException(String message) {
+        super("[oxygen-flysql-exception]:" + message);
+    }
 }

@@ -13,31 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.flysql;
+package com.ispong.oxygen.flysql.pojo.constant;
 
 /**
- * flysql constants
+ * java 常用字段类型
  *
  * @author ispong
  * @since 0.0.1
  */
-public interface FlysqlConstants {
-
-    String CLASS = "class";
+public interface JavaTypeConstants {
 
     /**
-     * 默认数据源名称
+     * Boolean
      */
-    String PRIMARY_DATASOURCE_NAME = "primary";
-
-    /**
-     * 默认视图名称
-     */
-    String PRIMARY_VIEW_NAME = "primary";
-
-    /**
-     * select *  替换字段
-     */
-    String SELECT_REPLACE_CONTENT = "spring-oxygen-flysql-select";
+    String Boolean = "java.lang.Boolean";
 }
-

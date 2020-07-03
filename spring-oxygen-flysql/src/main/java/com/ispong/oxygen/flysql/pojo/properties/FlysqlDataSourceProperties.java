@@ -13,34 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.flysql;
+package com.ispong.oxygen.flysql.pojo.properties;
 
-import com.ispong.oxygen.flysql.enums.SqlOperateType;
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import java.util.Map;
 
 /**
- * sql条件对象
+ * 配置文件
  *
  * @author ispong
  * @since 0.0.1
  */
 @Data
-@AllArgsConstructor
-public class SqlCondition {
+@ConfigurationProperties("oxygen.flysql")
+public class FlysqlDataSourceProperties {
 
     /**
-     * 条件类型
+     * spring 自带的数据源属性
      */
-    private SqlOperateType operateType;
-
-    /**
-     * 字段名
-     */
-    private String columnName;
-
-    /**
-     * 字段内容
-     */
-    private Object value;
+    private Map<String, DataSourceProperties> datasource;
 }

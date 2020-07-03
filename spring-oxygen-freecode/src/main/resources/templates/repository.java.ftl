@@ -2,7 +2,7 @@ package ${packageName};
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
-import com.ispong.oxygen.flysql.Flysql;
+import com.ispong.oxygen.flysql.core.Flysql;
 
 import java.util.List;
 

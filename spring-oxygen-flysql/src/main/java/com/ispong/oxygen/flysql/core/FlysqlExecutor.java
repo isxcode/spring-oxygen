@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.flysql;
+package com.ispong.oxygen.flysql.core;
 
 import java.util.List;
 
@@ -61,10 +61,10 @@ public interface FlysqlExecutor<A> {
     /**
      * save 保存一条数据
      *
-     * @param obj model object
+     * @param entity model object
      * @since 2019-12-26
      */
-    void save(Object obj);
+    void save(Object entity);
 
     /**
      * delete 删除数据

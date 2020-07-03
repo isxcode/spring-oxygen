@@ -72,8 +72,8 @@ There are a number of modules in spring-oxygen, here is a quick overview:
 
 ```java
 import org.springframework.stereotype.Repository;
-import com.ispong.oxygen.flysql.Flysql;
-import com.ispong.oxygen.flysql.enums.OrderType;
+import com.ispong.oxygen.flysql.core.Flysql;
+import com.ispong.oxygen.flysql.pojo.enums.OrderType;
 
 @Repository
 public class UserDao {
