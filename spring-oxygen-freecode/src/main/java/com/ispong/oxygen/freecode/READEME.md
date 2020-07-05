@@ -32,6 +32,13 @@ public class AppConfig {
 ```
 
 ```yaml
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql.xxx.com:3306/databaseName
+    username: root
+    password: root
+
 oxygen:
   freecode:
     author: ispong
