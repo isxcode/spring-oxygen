@@ -1,3 +1,18 @@
+/*
+ * Copyright [2020] [ispong]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.ispong.oxygen.freecode.repository;
 
 import com.ispong.oxygen.freecode.exception.FreecodeException;
@@ -5,11 +20,18 @@ import com.ispong.oxygen.freecode.pojo.entity.TableColumnInfo;
 import com.ispong.oxygen.freecode.pojo.entity.TableInfo;
 import com.ispong.oxygen.freecode.utils.FreecodeUtils;
 import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 数据库交互层
+ *
+ * @author ispong
+ * @since 0.0.1
+ */
 public class FreecodeRepository {
 
     private final JdbcTemplate jdbcTemplate;
@@ -46,7 +68,7 @@ public class FreecodeRepository {
                     throw new FreecodeException("dataSource type not support");
             }
 
-            List<TableColumnInfo> tableColumnInfos = jdbcTemplate.queryForList(sqlStr, TableColumnInfo.class);
+            List<TableColumnInfo> tableColumnInfos = jdbcTemplate.query(sqlStr, new BeanPropertyRowMapper<>(TableColumnInfo.class));
 
             // 忽略字段
             List<TableColumnInfo> tempTableColumnInfos = new ArrayList<>();
@@ -60,8 +82,11 @@ public class FreecodeRepository {
                     }
                     tempTableColumnInfos.add(metaColumnInfo);
                 }
+                return tempTableColumnInfos;
+            } else {
+
+                return tableColumnInfos;
             }
-            return tempTableColumnInfos;
         }
 
         throw new FreecodeException("dataSource is not exist");

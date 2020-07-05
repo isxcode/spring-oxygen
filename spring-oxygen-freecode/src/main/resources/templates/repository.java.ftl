@@ -20,7 +20,7 @@ public class ${tableName?cap_first}Repository {
 	 * query ${tableName?cap_first}Entity
 	 *
 	 * @return List[${tableName?cap_first}Entity]
-	 * @since 0.0.1
+	 * @since ${freecodeProperties.version}
 	 */
 	public List<${tableName?cap_first}Entity> query${tableName?cap_first}(){
 

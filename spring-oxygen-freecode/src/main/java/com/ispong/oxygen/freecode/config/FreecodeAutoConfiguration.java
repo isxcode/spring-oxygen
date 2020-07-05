@@ -21,7 +21,6 @@ import com.ispong.oxygen.freecode.repository.FreecodeRepository;
 import com.ispong.oxygen.freecode.service.FreecodeService;
 import com.ispong.oxygen.freecode.utils.FreecodeUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -29,12 +28,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
-import javax.annotation.Resource;
-import javax.sql.DataSource;
-import java.util.Map;
-
 /**
- * freecode 自动配置中心
+ * freecode 配置中心/bean实例中心
  *
  * @author ispong
  * @since 0.0.1
@@ -43,6 +38,11 @@ import java.util.Map;
 @EnableConfigurationProperties(FreecodeProperties.class)
 public class FreecodeAutoConfiguration {
 
+    /**
+     * banner 打印
+     *
+     * @since 0.0.1
+     */
     @Bean
     @ConditionalOnClass(FreecodeAutoConfiguration.class)
     public void initFreecodeBanner() {
@@ -50,7 +50,13 @@ public class FreecodeAutoConfiguration {
         log.info("welcome to use oxygen-freecode");
     }
 
-    
+    /**
+     * 将freeMarker配置导入工具类
+     *
+     * @param freeMarkerConfigurer freemarker配置
+     * @return 工具类实体
+     * @since 0.0.1
+     */
     @Bean
     @ConditionalOnClass(FreecodeAutoConfiguration.class)
     public FreecodeUtils initFreemarkerUtil(FreeMarkerConfigurer freeMarkerConfigurer) {
@@ -58,6 +64,13 @@ public class FreecodeAutoConfiguration {
         return new FreecodeUtils(freeMarkerConfigurer);
     }
 
+    /**
+     * 将jdbcTemplate导入到Freecode的Repository中
+     *
+     * @param jdbcTemplate 数据源
+     * @return FreecodeRepository
+     * @since 0.0.1
+     */
     @Bean
     @ConditionalOnClass(FreecodeAutoConfiguration.class)
     public FreecodeRepository initFreecodeRepository(JdbcTemplate jdbcTemplate) {
@@ -67,13 +80,29 @@ public class FreecodeAutoConfiguration {
         return new FreecodeRepository(jdbcTemplate);
     }
 
+    /**
+     * 初始化service
+     *
+     * @param freecodeProperties 配置数据
+     * @param freecodeRepository 数据层
+     * @return FreecodeService
+     * @since 0.0.1
+     */
     @Bean
     @ConditionalOnClass(FreecodeRepository.class)
-    public FreecodeService initFreecodeService(FreecodeRepository freecodeRepository, FreecodeProperties freecodeProperties) {
+    public FreecodeService initFreecodeService(FreecodeRepository freecodeRepository,
+                                               FreecodeProperties freecodeProperties) {
 
         return new FreecodeService(freecodeRepository, freecodeProperties);
     }
 
+    /**
+     * 初始化controller
+     *
+     * @param freecodeService 服务层
+     * @return FreecodeController
+     * @since 0.0.1
+     */
     @Bean
     @ConditionalOnBean(FreecodeService.class)
     public FreecodeController initFreecodeController(FreecodeService freecodeService) {

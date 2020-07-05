@@ -123,7 +123,7 @@ public class WechatgoService implements WechatgoEventHandler {
 }
 ```
 
-### ✅ [oxygen-freecode](https://github.com/ispong/spring-oxygen/blob/master/spring-oxygen-flysql/src/main/java/com/ispong/oxygen/flysql/README.md)
+### ✅ [oxygen-freecode](https://github.com/ispong/spring-oxygen/blob/master/spring-oxygen-freecode/src/main/java/com/ispong/oxygen/freecode/READEME.md)
 
 - Fast generate java code
 

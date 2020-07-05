@@ -19,7 +19,7 @@ import java.io.Serializable;
  * @since ${freecodeProperties.version}
  */
 @Data
-@TableName("${tableName}")
+@TableName("${primaryTableName}")
 <#if (freecodeProperties.baseEntityClass)??>
 @EqualsAndHashCode(callSuper = true)
 public class ${tableName?cap_first}Entity extends BaseEntity implements Serializable{

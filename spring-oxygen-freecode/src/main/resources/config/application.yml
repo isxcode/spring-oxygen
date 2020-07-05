@@ -1,0 +1,3 @@
+spring:
+  freemarker:
+    prefer-file-system-access: false

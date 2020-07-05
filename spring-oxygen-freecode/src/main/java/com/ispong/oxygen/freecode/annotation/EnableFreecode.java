@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
- * 注解-@EnableFreecode
+ * 启动注解-@EnableFreecode
  *
  * @author ispong
  * @since 0.0.1

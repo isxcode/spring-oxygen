@@ -47,41 +47,36 @@ public class FreecodeService {
     /**
      * 开始生成代码
      *
-     * @param freecodeReq 请求对象
+     * @param tableName 请求对象
      * @since 0.0.1
      */
-    public void startFreecode(FreecodeReq freecodeReq) {
+    public void startFreecode(String tableName) {
 
-        String tableNames = freecodeReq.getTableName();
+        // 表名
+        String[] tableNameList = tableName.split(",");
 
-        // 获取对应的数据源
-        String dataSourceName = freecodeReq.getDataSourceName();
-        if (dataSourceName == null) {
-            dataSourceName = FreecodeConstants.PRIMARY_DATASOURCE_NAME;
-        }
-
-        String[] tableNameList = tableNames.split(",");
-        for (String tableName : tableNameList) {
+        // 遍历表名生成对应的模块文件
+        for (String metaTableName : tableNameList) {
 
             // 去除空
-            tableName = tableName.trim();
+            metaTableName = metaTableName.trim();
 
             // 封装freeMarker的参数对象
-            FreecodeInfo freecodeInfo = generateFreecodeInfo(dataSourceName, tableName);
+            FreecodeInfo freecodeInfo = generateFreecodeInfo(metaTableName);
 
             // 遍历生成文件生成文件
             for (String fileType : freecodeProperties.getFileTypes()) {
 
                 // 使用哪个模板文件
-                String modulePath = FreecodeConstants.MAIN_PATH + freecodeProperties.getModulePath() + "." + FreecodeUtils.lineToHump(tableName).toLowerCase();
+                String modulePath = FreecodeConstants.MAIN_PATH + freecodeProperties.getModulePath() + "." + FreecodeUtils.lineToHump(metaTableName).toLowerCase();
                 String templateName = fileType + FreecodeConstants.FREEMARKER_FILE_SUFFIX;
-                String fileName = FreecodeUtils.upperFirstCase(FreecodeUtils.lineToHump(tableName)) + FreecodeUtils.upperFirstCase(fileType) + FreecodeConstants.JAVA_FILE_SUFFIX;
+                String fileName = FreecodeUtils.upperFirstCase(FreecodeUtils.lineToHump(metaTableName)) + FreecodeUtils.upperFirstCase(fileType) + FreecodeConstants.JAVA_FILE_SUFFIX;
 
                 // 生成文件
                 try {
                     FreecodeUtils.generateFile(modulePath.replace(".", "/"), fileName, templateName, freecodeInfo);
                 } catch (Exception e) {
-                    throw new FreecodeException("文件生成异常");
+                    throw new FreecodeException("create file exception");
                 }
 
             }
@@ -91,12 +86,11 @@ public class FreecodeService {
     /**
      * 生成freecodeInfo对象,用于传递对象
      *
-     * @param dataSourceName 数据源名称
      * @param tableName      表名
      * @return FreecodeInfo
      * @since 0.0.1
      */
-    public FreecodeInfo generateFreecodeInfo(String dataSourceName, String tableName) {
+    public FreecodeInfo generateFreecodeInfo(String tableName) {
 
         FreecodeInfo freecodeInfo = new FreecodeInfo();
 
@@ -115,6 +109,7 @@ public class FreecodeService {
 
         // 储存数据库名称
         freecodeInfo.setTableName(FreecodeUtils.lineToHump(tableName));
+        freecodeInfo.setPrimaryTableName(tableName);
 
         return freecodeInfo;
     }

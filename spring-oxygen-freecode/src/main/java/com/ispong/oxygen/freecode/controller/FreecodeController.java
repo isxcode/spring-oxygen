@@ -15,13 +15,12 @@
  */
 package com.ispong.oxygen.freecode.controller;
 
-import com.ispong.oxygen.freecode.pojo.entity.FreecodeReq;
 import com.ispong.oxygen.freecode.service.FreecodeService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.validation.Valid;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 代码自动生成接口
@@ -29,7 +28,7 @@ import javax.validation.Valid;
  * @author ispong
  * @since 0.0.1
  */
-@RequestMapping
+@RequestMapping("/freecode")
 public class FreecodeController {
 
     private final FreecodeService freecodeService;
@@ -40,17 +39,18 @@ public class FreecodeController {
     }
 
     /**
-     * 生成代码
+     * 代码生成接口
      *
-     * @param freecodeReq 请求对象
+     * @param tableName 表名包括逗号
      * @return ResponseEntity
      * @since 0.0.1
      */
-    @PostMapping("/freecode")
-    public String generateCode(@Valid @RequestBody FreecodeReq freecodeReq) {
+    @GetMapping("/generate")
+    public ResponseEntity<String> generateCode(@RequestParam String tableName) {
 
-        freecodeService.startFreecode(freecodeReq);
+        freecodeService.startFreecode(tableName);
 
-        return "自动代码生成成功";
+        return new ResponseEntity<>("welcome to use oxygen-freecode! generate code success", HttpStatus.OK);
     }
+
 }
