@@ -58,7 +58,7 @@ public class AppConfig {
 
 ## 📄 Documentation
 
-You can find the spring-oxygen documentation [on the website](https://ispong.gitee.io/spring-oxygen).  
+You can find the spring-oxygen documentation [on the website](https://ispong.gitee.io).  
 
 ## Modules
 
@@ -151,8 +151,6 @@ GET http://localhost:8080/freecode/generate?tableName=user_table
                 📄 userTableRepository
                 📄 userTableService
 ```
-
-***
 
 #### Thanks for free JetBrains Open Source license
 
