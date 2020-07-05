@@ -132,18 +132,24 @@ public class WechatgoService implements WechatgoEventHandler {
 ```yaml
 oxygen:
   freecode:
-    module-path: com.ispong.oxygen 
-    author: ispong 
-    version: 0.0.1 
+    author: ispong
+    version: 0.0.2
+    module-path: com.ispong.app.module
 ```
 
 ```http 
-POST http://localhost:port/context/freecode
-Content-Type: application/json
+GET http://localhost:8080/freecode/generate?tableName=user_table
+```
 
-{
-    "tableName": "user_table_name"
-}
+```test
+📂 com
+    📂 ispong
+        📂 app
+            📂 moudle
+                📄 userTableController
+                📄 userTableEntity
+                📄 userTableRepository
+                📄 userTableService
 ```
 
 ***
