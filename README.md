@@ -137,11 +137,11 @@ oxygen:
     module-path: com.ispong.app.module
 ```
 
-```http 
+```http request 
 GET http://localhost:8080/freecode/generate?tableName=user_table
 ```
 
-```test
+```text
 📂 com
     📂 ispong
         📂 app
@@ -151,6 +151,8 @@ GET http://localhost:8080/freecode/generate?tableName=user_table
                 📄 userTableRepository
                 📄 userTableService
 ```
+
+***
 
 #### Thanks for free JetBrains Open Source license
 

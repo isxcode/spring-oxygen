@@ -1,36 +1,35 @@
-# oxygen-wechatgo
+<h1 align="center">Oxygen Wechatgo</h1>
 
-### Quickly Start
+## 📦 Installation
 
-1- import starter jar
+gradle
+
+```groovy
+implementation 'com.github.ispong:spring-oxygen-wechatgo:1.0.0'
+```
 
 maven
 
 ```xml
 <dependency>
-    <groupId>com.github.ispong</groupId>
-    <artifactId>spring-oxygen-wechatgo</artifactId>
-    <version>1.0.0</version>
+  <groupId>com.github.ispong</groupId>
+  <artifactId>spring-oxygen-wechatgo</artifactId>
+  <version>1.0.0</version>
 </dependency>
 ```
 
-gradle
-
-```groovy
-compile group: 'com.github.ispong', name: 'spring-oxygen-wechatgo', version: '1.0.0'
-```
-
-2- add @EnableWechatgo
+## 🔨 Start Up
 
 ```java
+import com.ispong.oxygen.wechatgo.annotation.EnableWechatgo;
+import org.springframework.context.annotation.Configuration;
+
 @Configuration
 @EnableWechatgo
 public class AppConfig {
 
 }
 ```
-
-3- config yaml
 
 ```yaml
 oxygen:
@@ -40,8 +39,7 @@ oxygen:
     token: xxx # custom server token
 ```
 
-4- config wechat server
-
+🚨 Note:  配置微信公众号的属性,且要放行端口权限 
 ```text
 服务器地址(URL) -- http://localhost:port/context/wechatgo/wechatServer
 令牌(Token) -- yaml配置的custom server token
@@ -49,23 +47,12 @@ oxygen:
 消息加解密方式 -- 明文模式
 ```
 
-5- Note: 关闭接口安全拦截
-
-6- start application console
-
 ```text
-
 2020-07-02 18:40:21.978  INFO 3376 --- [  restartedMain] c.i.o.w.c.WechatgoAutoConfiguration      : welcome to use oxygen-wechatgo
-
 ```
 
-### Advance Use
-
-实现WechatgoEventHandler可自定义实现各种提供好的接口,比如关注接口,取消关注接口。还可以结合WechatgoTemplate实例去直接实现模板发送之类的方法。请结合官网文档进行使用！
-
+## ✏️usage
 ```java
-package com.isxcode.leoserver.service;
-
 import com.ispong.oxygen.wechatgo.handler.WechatgoEventHandler;
 import com.ispong.oxygen.wechatgo.pojo.entity.WeChatEventBody;
 import com.ispong.oxygen.wechatgo.template.WechatgoTemplate;
@@ -130,5 +117,3 @@ public class WechatService implements WechatgoEventHandler {
 }
 
 ```
-
-

@@ -1,6 +1,6 @@
-## Oxygen Flysql
+<h1 align="center">Oxygen Flysql</h1>
 
-### install
+## 📦 Installation
 
 gradle
 
@@ -18,20 +18,9 @@ maven
 </dependency>
 ```
 
-### start up
+## ✅ Init
 
-1. 配置spring的`application.yml`配置文件
-
-```yml
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql.xxx.com:3306/databaseName
-    username: root
-    password: root
-```
-
-- mysql script 初始化测试数据表脚本
+#### 创建数据库表
 
 ```mysql
 create table test_table
@@ -50,11 +39,9 @@ create table test_table
 );
 ```
 
-- 启动flysql脚本
+## 🔨 Start Up
 
 ```java
-package com.isxcode.leoserver.config;
-
 import com.ispong.oxygen.flysql.annotation.EnableFlysql;
 import org.springframework.context.annotation.Configuration;
 
@@ -65,19 +52,24 @@ public class AppConfig {
 }
 ```
 
-- 启动成功标识 `console`
+```yml
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql.xxx.com:3306/databaseName
+    username: root
+    password: root
+```
 
 ```text
 2020-07-03 15:18:28.352  INFO 11060 --- [  restartedMain] c.i.o.f.config.FlysqlAutoConfiguration   : welcome to use oxygen-flysql
 ```
 
-### usage
+## ✏️usage
 
-- entity 类对象
+-  创建Entity类
 
 ```java
-package com.isxcode.leoserver.pojo;
-
 import com.ispong.oxygen.flysql.annotation.ColumnName;
 import com.ispong.oxygen.flysql.annotation.TableName;
 import lombok.Data;
@@ -115,11 +107,9 @@ public class People{
 }
 ```
 
-- controller 测试类
+- 创建controller测试类
 
 ```java
-package com.isxcode.leoserver.controller;
-
 import com.ispong.oxygen.flysql.core.Flysql;
 import com.isxcode.leoserver.pojo.People;
 import org.springframework.web.bind.annotation.GetMapping;
