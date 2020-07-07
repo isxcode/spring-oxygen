@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/ispong/spring-oxygen">
-    <img alt="spring-oxygen" width="250" src="https://gitee.com/ispong/blog-images/raw/master/design/0ef04e6dc18553c88d8ae4815b4fc93.png">
+    <img alt="spring-oxygen" width="500" src="https://gitee.com/ispong/blog-images/raw/master/design/oxygen.png">
   </a>
 </p>
 
