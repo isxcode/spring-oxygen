@@ -235,7 +235,7 @@ public class ExcelUtils {
             }
 
             // 下载文件
-            response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + java.net.URLEncoder.encode(fileName, StandardCharsets.UTF_8) + "." + XLSX.getExtension());
+            response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + java.net.URLEncoder.encode(fileName, String.valueOf(StandardCharsets.UTF_8)) + "." + XLSX.getExtension());
             response.setHeader(HttpHeaders.CONTENT_TYPE, XLSX.getContentType());
             try (OutputStream fileOut = response.getOutputStream()) {
                 workbook.write(fileOut);

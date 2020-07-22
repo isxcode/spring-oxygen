@@ -19,12 +19,13 @@ import com.ispong.oxygen.freecode.exception.FreecodeException;
 import com.ispong.oxygen.freecode.pojo.entity.TableColumnInfo;
 import com.ispong.oxygen.freecode.pojo.entity.TableInfo;
 import com.ispong.oxygen.freecode.utils.FreecodeUtils;
-import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 数据库交互层
@@ -44,52 +45,55 @@ public class FreecodeRepository {
     /**
      * 通过表名和忽略字段获取表的字段数据
      *
-     * @param tableName      表名
-     * @param ignoreFields   忽略的字段
+     * @param tableName    表名
+     * @param ignoreFields 忽略的字段
      * @return 返回字段信息
      * @since 2020-01-09
      */
     public List<TableColumnInfo> getTableColumns(String tableName, List<String> ignoreFields) {
 
         // 区分数据库类型
-        HikariDataSource dataSource = (HikariDataSource) jdbcTemplate.getDataSource();
-        if (dataSource != null) {
-            String sqlStr;
-            switch (dataSource.getDriverClassName()) {
-                case "org.h2.Driver":
-                    // h2
-                    sqlStr = "show columns from " + tableName;
-                    break;
-                case "com.mysql.cj.jdbc.Driver":
-                    // mysql
-                    sqlStr = "show full columns from " + tableName;
-                    break;
-                default:
-                    throw new FreecodeException("dataSource type not support");
-            }
-
-            List<TableColumnInfo> tableColumnInfos = jdbcTemplate.query(sqlStr, new BeanPropertyRowMapper<>(TableColumnInfo.class));
-
-            // 忽略字段
-            List<TableColumnInfo> tempTableColumnInfos = new ArrayList<>();
-            if (ignoreFields != null) {
-                main:
-                for (TableColumnInfo metaColumnInfo : tableColumnInfos) {
-                    for (String metaIgnoreField : ignoreFields) {
-                        if (metaColumnInfo.getField().equals(FreecodeUtils.lineToHump(metaIgnoreField))) {
-                            break main;
-                        }
-                    }
-                    tempTableColumnInfos.add(metaColumnInfo);
-                }
-                return tempTableColumnInfos;
-            } else {
-
-                return tableColumnInfos;
-            }
+        String databaseType;
+        try {
+            databaseType = Objects.requireNonNull(jdbcTemplate.getDataSource()).getConnection().getCatalog();
+        } catch (SQLException e) {
+            databaseType = "H2";
         }
 
-        throw new FreecodeException("dataSource is not exist");
+        String sqlStr;
+        switch (databaseType) {
+            case "H2":
+                // h2
+                sqlStr = "show columns from " + tableName;
+                break;
+            case "com.mysql.cj.jdbc.Driver":
+                // mysql
+                sqlStr = "show full columns from " + tableName;
+                break;
+            default:
+                throw new FreecodeException("dataSource type not support");
+        }
+
+        List<TableColumnInfo> tableColumnInfos = jdbcTemplate.query(sqlStr, new BeanPropertyRowMapper<>(TableColumnInfo.class));
+
+        // 忽略字段
+        List<TableColumnInfo> tempTableColumnInfos = new ArrayList<>();
+        if (ignoreFields != null) {
+            main:
+            for (TableColumnInfo metaColumnInfo : tableColumnInfos) {
+                for (String metaIgnoreField : ignoreFields) {
+                    if (metaColumnInfo.getField().equals(FreecodeUtils.lineToHump(metaIgnoreField))) {
+                        break main;
+                    }
+                }
+                tempTableColumnInfos.add(metaColumnInfo);
+            }
+            return tempTableColumnInfos;
+        } else {
+
+            return tableColumnInfos;
+        }
+
     }
 
     /**

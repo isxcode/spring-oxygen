@@ -116,22 +116,25 @@ public class FreecodeUtils {
      */
     public static String parseDataType(String dataType) {
 
-        // 取消所有的括号
+        // 去掉括号，包括括号内的值
+        // Example: varchar(200) --> varchar
         Pattern pattern = compile("\\(.*?\\)");
         String dataStr = pattern.matcher(dataType).replaceAll("");
 
+        // 匹配全小写的数据库字段
         switch (dataStr.toLowerCase()) {
             case "int":
+            case "integer":
                 return "Integer";
+            case "bigint":
+                return "Long";
             case "datetime":
+            case "timestamp":
                 return "LocalDateTime";
             case "date":
                 return "LocalDate";
             case "double":
                 return "Double";
-            case "timestamp":
-            case "bigint":
-                return "Long";
             case "decimal":
                 return "BigDecimal";
             default:

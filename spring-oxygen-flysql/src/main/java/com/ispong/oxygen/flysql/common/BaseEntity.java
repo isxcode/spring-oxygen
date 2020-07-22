@@ -49,4 +49,7 @@ public class BaseEntity {
 
     @Version
     private Integer version;
+
+    @IsDelete
+    private Integer isDelete;
 }

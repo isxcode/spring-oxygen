@@ -23,6 +23,7 @@ import com.ispong.oxygen.freecode.pojo.entity.FreecodeInfo;
 import com.ispong.oxygen.freecode.pojo.properties.FreecodeProperties;
 import com.ispong.oxygen.freecode.repository.FreecodeRepository;
 import com.ispong.oxygen.freecode.utils.FreecodeUtils;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
@@ -32,6 +33,7 @@ import java.util.List;
  * @author ispong
  * @since 0.0.1
  */
+@Slf4j
 public class FreecodeService {
 
     private final FreecodeRepository freecodeRepository;
@@ -76,6 +78,7 @@ public class FreecodeService {
                 try {
                     FreecodeUtils.generateFile(modulePath.replace(".", "/"), fileName, templateName, freecodeInfo);
                 } catch (Exception e) {
+                    log.debug(e.getMessage());
                     throw new FreecodeException("create file exception");
                 }
 

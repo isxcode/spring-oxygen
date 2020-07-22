@@ -15,8 +15,7 @@
  */
 package com.ispong.oxygen.flysql.core;
 
-import com.ispong.oxygen.flysql.annotation.FlysqlView;
-import com.ispong.oxygen.flysql.annotation.FlysqlViews;
+import com.ispong.oxygen.flysql.annotation.*;
 import com.ispong.oxygen.flysql.exception.FlysqlException;
 import com.ispong.oxygen.flysql.pojo.constant.FlysqlConstants;
 import com.ispong.oxygen.flysql.pojo.constant.JavaTypeConstants;
@@ -25,14 +24,19 @@ import com.ispong.oxygen.flysql.pojo.entity.SqlCondition;
 import com.ispong.oxygen.flysql.pojo.enums.SqlOperateType;
 import com.ispong.oxygen.flysql.pojo.enums.SqlType;
 import com.ispong.oxygen.flysql.utils.FlysqlUtils;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cglib.core.Local;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -154,16 +158,34 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
     }
 
     /**
-     * 初始化save插入的sql
+     * 获取全局的用户id
+     *
+     * @since 0.0.1
+     */
+    public String getExecutorId() {
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal == null) {
+            return "anonymous";
+        }
+        return String.valueOf(principal);
+    }
+
+    /**
+     * 初始化插入sql拼接 将object反射获取数据库字段名和属性值
+     * Example: insert table ( ) values ( )
      *
      * @param entity 对象实体
      * @return sqlString
      * @since 0.0.1
      */
+    @SneakyThrows
     public String initSaveSql(Object entity) {
 
+        // 获取属性值属性
         PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(flysqlKey.getTargetClass());
 
+        // 遍历封装进数据库字段和变量值
         List<String> columnList = new ArrayList<>();
         List<String> valueList = new ArrayList<>();
 
@@ -171,14 +193,29 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
         for (PropertyDescriptor propertyMeta : propertyDescriptors) {
             if (!FlysqlConstants.CLASS.equals(propertyMeta.getName())) {
 
+                //  反射读取对象中的数据
                 Object invoke;
-                try {
-                    invoke = propertyMeta.getReadMethod().invoke(entity);
-                } catch (IllegalAccessException | InvocationTargetException e) {
-                    continue;
+
+                // 获取属性的Field,为了识别自动更新参数注解
+                Field metaField = propertyMeta.getReadMethod().getDeclaringClass().getDeclaredField(propertyMeta.getName());
+                if (metaField.isAnnotationPresent(CreatedBy.class) || metaField.isAnnotationPresent(LastModifiedBy.class)) {
+                    invoke = getExecutorId();
+                } else if (metaField.isAnnotationPresent(CreatedDate.class) || metaField.isAnnotationPresent(LastModifiedDate.class)) {
+                    invoke = LocalDateTime.now();
+                } else if (metaField.isAnnotationPresent(Version.class) || metaField.isAnnotationPresent(IsDelete.class)) {
+                    invoke = 0;
+                } else {
+                    try {
+                        invoke = propertyMeta.getReadMethod().invoke(entity);
+                    } catch (IllegalAccessException | InvocationTargetException e) {
+                        continue;
+                    }
                 }
 
+                // 添加数据库字段对应值
                 columnList.add(columnsMap.get(propertyMeta.getName()));
+
+                // 对boolean类型做特殊处理
                 if (propertyMeta.getPropertyType().getName().equals(JavaTypeConstants.Boolean)) {
                     valueList.add(invoke == null ? "''" : invoke.toString());
                 } else {
@@ -186,7 +223,11 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
                 }
             }
         }
-        return "insert into " + FlysqlUtils.getTableName(flysqlKey.getTargetClass()) + " ( " + Strings.join(columnList, ',') + " ) values ( " + Strings.join(valueList, ',') + ")";
+
+        String tableName = FlysqlUtils.getTableName(flysqlKey.getTargetClass());
+
+        // 拼接插入sql
+        return "insert into " + tableName + " ( " + Strings.join(columnList, ',') + " ) values ( " + Strings.join(valueList, ',') + ")";
     }
 
     // ---------------------------------------- 执行jdbcTemplate操作 ----------------------------------------
@@ -268,7 +309,7 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
         log.debug("[oxygen-flysql-sql]:" + sqlString);
         try {
             flysqlKey.getJdbcTemplate().update(sqlString);
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new FlysqlException(e.getMessage());
         }
     }
