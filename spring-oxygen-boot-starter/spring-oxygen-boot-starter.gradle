@@ -1,7 +1,14 @@
 dependencies {
 
-    compile(project(':spring-oxygen-core'))
-    compile(project(':spring-oxygen-flysql'))
-    compile(project(':spring-oxygen-wechatgo'))
-    compile(project(':spring-oxygen-freecode'))
+    // spring-oxygen-core
+    implementation(project(':spring-oxygen-core'))
+
+    // spring-oxygen-flysql
+    implementation(project(':spring-oxygen-flysql'))
+
+    // spring-oxygen-freecode
+    implementation(project(':spring-oxygen-freecode'))
+
+    // spring-oxygen-wechatgo
+    implementation(project(':spring-oxygen-wechatgo'))
 }

@@ -1,28 +1,22 @@
 dependencies {
 
-    compileOnly 'org.springframework.boot:spring-boot-starter-web'
-
-    // jsonwebtoken
-    compile 'io.jsonwebtoken:jjwt-api:0.10.7'
-    compile 'io.jsonwebtoken:jjwt-jackson:0.10.7'
-    runtime 'io.jsonwebtoken:jjwt-impl:0.10.7',
-        'io.jsonwebtoken:jjwt-jackson:0.10.7'
-
-    // poi || office文件导出
-    implementation 'org.apache.poi:poi:4.1.1'
-    implementation 'org.apache.poi:poi-ooxml:4.1.1'
-
-    // lombok
-    compileOnly 'org.projectlombok:lombok:latest.integration'
-    annotationProcessor 'org.projectlombok:lombok:latest.integration'
-
     // spring-mail
-    compile 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
 
-    // configuration-processor
-    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    // spring-freemarker
+    implementation 'org.springframework.boot:spring-boot-starter-freemarker'
 
-    // http client
+    // jsonwebtoken (jwt)
+    implementation 'io.jsonwebtoken:jjwt-api:latest.integration'
+    implementation 'io.jsonwebtoken:jjwt-jackson:latest.integration'
+    runtime 'io.jsonwebtoken:jjwt-impl:latest.integration',
+        'io.jsonwebtoken:jjwt-jackson:latest.integration'
+
+    // poi (office文件导出)
+    implementation 'org.apache.poi:poi:latest.integration'
+    implementation 'org.apache.poi:poi-ooxml:latest.integration'
+
+    // http-client
     implementation 'org.apache.httpcomponents:httpclient:latest.integration'
     implementation 'org.apache.httpcomponents:httpmime:latest.integration'
 }

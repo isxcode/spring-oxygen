@@ -1,22 +1,8 @@
 dependencies {
 
-    compile(project(':spring-oxygen-core'))
+    // spring-oxygen-core
+    implementation(project(':spring-oxygen-core'))
 
-    compileOnly 'org.springframework.boot:spring-boot-starter-web'
-
-    // jdbc api
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-
-    // validation
-    compile 'org.springframework.boot:spring-boot-starter-validation'
-
-    // configuration-processor
-    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-
-    // lombok
-    compileOnly 'org.projectlombok:lombok:latest.integration'
-    annotationProcessor 'org.projectlombok:lombok:latest.integration'
-
-    // freemarker
-    compile 'org.springframework.boot:spring-boot-starter-freemarker'
+    // spring-oxygen-flysql
+    implementation(project(':spring-oxygen-flysql'))
 }

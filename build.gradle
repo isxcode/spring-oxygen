@@ -22,6 +22,19 @@ allprojects {
         mavenCentral()
         jcenter()
     }
+
+    dependencies {
+
+        // spring-web
+        compileOnly 'org.springframework.boot:spring-boot-starter-web'
+
+        // configuration-processor
+        annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+        // lombok
+        compileOnly 'org.projectlombok:lombok:latest.integration'
+        annotationProcessor 'org.projectlombok:lombok:latest.integration'
+    }
 }
 
 subprojects {
