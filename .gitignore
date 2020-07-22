@@ -1,19 +1,19 @@
-# github配置文件
+# github
 .github
 
-# idea配置文件
+# idea
 .idea
 
-# gradle配置文件
-.gradle
+# gradle
 gradle
+.gradle
+gradle.properties
 gradlew
 gradlew.bat
-gradle.properties
 
-# 所有项目的打包文件夹
+# build
 **/build
 
-# 所有项目的日志文件夹
+# log
 **/logs
 

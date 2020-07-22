@@ -13,23 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.flysql.annotation;
-
-import com.ispong.oxygen.flysql.pojo.enums.IdGenerateType;
-
-import java.lang.annotation.*;
+package com.ispong.oxygen.flysql.pojo.enums;
 
 /**
- * 主键id
+ * id generate type enum
  *
  * @author ispong
  * @since 0.0.1
  */
-@Target(ElementType.FIELD)
-@Retention(RetentionPolicy.RUNTIME)
-@Inherited
-@Documented
-public @interface RowId {
+public enum IdGenerateType {
 
-    IdGenerateType generateType() default IdGenerateType.SNOW_FLACK;
+    /**
+     * SNOW_FLACK 雪花算法
+     */
+    SNOW_FLACK,
+
+    /**
+     * UUID 随机数
+     */
+    UUID,
+
+    /**
+     * INCREMENT 自增
+     */
+    INCREMENT,
 }
