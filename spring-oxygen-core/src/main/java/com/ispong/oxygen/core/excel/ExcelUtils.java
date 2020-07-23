@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.common.excel;
+package com.ispong.oxygen.core.excel;
 
-import com.ispong.oxygen.common.exception.CoreException;
+import com.ispong.oxygen.core.exception.OxygenException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
@@ -132,7 +132,7 @@ public class ExcelUtils {
                             writeMethod.invoke(newInstance, metaCell.getDateCellValue());
                             break;
                         default:
-                            throw new CoreException("[excelUtils]: 不支持此类型转换");
+                            throw new OxygenException("[excelUtils]: 不支持此类型转换");
                     }
 
                 }
@@ -142,7 +142,7 @@ public class ExcelUtils {
 
             return result;
         } catch (IOException | NoSuchFieldException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            throw new CoreException("excel文件解析异常");
+            throw new OxygenException("excel文件解析异常");
         }
     }
 
@@ -227,7 +227,7 @@ public class ExcelUtils {
                                     cell.setCellStyle(formatStyle);
                                     break;
                                 default:
-                                    throw new CoreException("[excelUtils]: 不支持此类型转换");
+                                    throw new OxygenException("[excelUtils]: 不支持此类型转换");
                             }
                         }
                     }
@@ -243,7 +243,7 @@ public class ExcelUtils {
 
         } catch (Exception e) {
             e.printStackTrace();
-            throw new CoreException("excel文件生成异常");
+            throw new OxygenException("excel文件生成异常");
         }
 
     }

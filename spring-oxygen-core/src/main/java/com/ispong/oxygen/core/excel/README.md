@@ -13,7 +13,7 @@ file -->  ExcelUtils.parseExcel -->  目标对象加注解 --> data
 ```java
 package com.ispong.oxygen.module.test.excel;
 
-import com.ispong.oxygen.common.excel.ExcelType;
+import com.ispong.oxygen.core.excel.ExcelType;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -46,15 +46,15 @@ public class Demo{
          */
         @PostMapping("/parseExcel")
         public List<Dog> parseExcel(@RequestParam("file") MultipartFile file) {
-    
+
             try {
                 return ExcelUtils.parseExcel(file.getInputStream(), Dog.class);
             } catch (IOException e) {
                 throw new OxygenException("[excelUtils] 文件读取失败");
             }
-    
+
         }
-    
+
         /**
          * 取出数据 并导出excel文件
          *
@@ -63,7 +63,7 @@ public class Demo{
          */
         @GetMapping("/generateExcel")
         public void generateExcel(HttpServletResponse response) {
-    
+
             List<LogEntity> logEntities = logRepository.queryLog();
             List<Log> logs = new ArrayList<>();
             for (LogEntity metaLog : logEntities) {

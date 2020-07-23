@@ -58,13 +58,13 @@ public class AppConfig {
 
 ## 📄 Documentation
 
-You can find the spring-oxygen documentation [on the website](https://ispong.gitee.io).  
+You can find the spring-oxygen documentation [on the website](https://ispong.gitee.io).
 
 ## Modules
 
 There are a number of modules in spring-oxygen, here is a quick overview:
 
-### ✅ [oxygen-flysql](https://github.com/ispong/spring-oxygen/blob/master/spring-oxygen-flysql/src/main/java/com/ispong/oxygen/flysql/README.md)
+### ✅ [oxygen-flysql](https://github.com/ispong/spring-oxygen/blob/master/spring-oxygen-flysql/README.md)
 
 - Integrate spring jdbc rapid development
 
@@ -93,7 +93,7 @@ public class UserDao {
 }
 ```
 
-### ✅ [oxygen-wechatgo](https://github.com/ispong/spring-oxygen/blob/master/spring-oxygen-wechatgo/src/main/java/com/ispong/oxygen/wechatgo/README.md)
+### ✅ [oxygen-wechatgo](https://github.com/ispong/spring-oxygen/blob/master/spring-oxygen-wechatgo/README.md)
 
 - Integrate WeChat platform rapid development
 
@@ -117,13 +117,13 @@ public class WechatgoService implements WechatgoEventHandler {
 
     @Override
     public void subscribeEvent(WeChatEventBody weChatEventBody) {
-        
+
         // do subscribe event
     }
 }
 ```
 
-### ✅ [oxygen-freecode](https://github.com/ispong/spring-oxygen/blob/master/spring-oxygen-freecode/src/main/java/com/ispong/oxygen/freecode/READEME.md)
+### ✅ [oxygen-freecode](https://github.com/ispong/spring-oxygen/blob/master/spring-oxygen-freecode/READEME.md)
 
 - Fast generate java code
 
@@ -137,7 +137,7 @@ oxygen:
     module-path: com.ispong.app.module
 ```
 
-```http request 
+```http request
 GET http://localhost:8080/freecode/generate?tableName=user_table
 ```
 

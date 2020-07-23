@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.common.encrypt;
+package com.ispong.oxygen.core.encrypt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ispong.oxygen.common.exception.CoreException;
+import com.ispong.oxygen.core.exception.OxygenException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -62,14 +62,14 @@ public class EncryptUtils {
      * @return 加密后的数据
      * @since 0.0.1
      */
-    public static String aesEncrypt(String key, String data) {
+    public static String aesEncrypt(String key, String data) throws OxygenException{
 
         try {
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(Arrays.copyOf(key.getBytes(), 32), "AES"));
             return Base64.getEncoder().encodeToString(cipher.doFinal(data.getBytes(StandardCharsets.UTF_8)));
         } catch (NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException | BadPaddingException | IllegalBlockSizeException e) {
-            throw new CoreException("加密失败");
+            throw new OxygenException("加密失败");
         }
     }
 
@@ -88,7 +88,7 @@ public class EncryptUtils {
             cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(Arrays.copyOf(key.getBytes(), 32), "AES"));
             return new String(cipher.doFinal(Base64.getDecoder().decode(data)), StandardCharsets.UTF_8);
         } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
-            throw new CoreException("解密失败");
+            throw new OxygenException("解密失败");
         }
     }
 
@@ -106,7 +106,7 @@ public class EncryptUtils {
             cipher.init(Cipher.ENCRYPT_MODE, aesSecretKey);
             return Base64.getEncoder().encodeToString(cipher.doFinal(data.getBytes(StandardCharsets.UTF_8)));
         } catch (NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException | BadPaddingException | IllegalBlockSizeException e) {
-            throw new CoreException("加密失败");
+            throw new OxygenException("加密失败");
         }
 
     }
@@ -125,7 +125,7 @@ public class EncryptUtils {
             cipher.init(Cipher.DECRYPT_MODE, aesSecretKey);
             return new String(cipher.doFinal(Base64.getDecoder().decode(data)), StandardCharsets.UTF_8);
         } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
-            throw new CoreException("解密失败");
+            throw new OxygenException("解密失败");
         }
 
     }
@@ -146,7 +146,7 @@ public class EncryptUtils {
             cipher.init(Cipher.ENCRYPT_MODE, key);
             return Base64.getEncoder().encodeToString(cipher.doFinal(data.getBytes(StandardCharsets.UTF_8)));
         } catch (NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
-            throw new CoreException("加密失败");
+            throw new OxygenException("加密失败");
         }
     }
 
@@ -166,7 +166,7 @@ public class EncryptUtils {
             cipher.init(Cipher.DECRYPT_MODE, key);
             return new String(cipher.doFinal(Base64.getDecoder().decode(data)), StandardCharsets.UTF_8);
         } catch (NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException | BadPaddingException | IllegalBlockSizeException | InvalidKeyException e) {
-            throw new CoreException("解密失败");
+            throw new OxygenException("解密失败");
         }
     }
 

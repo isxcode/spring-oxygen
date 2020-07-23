@@ -19,8 +19,6 @@ import com.ispong.oxygen.freecode.exception.FreecodeException;
 import com.ispong.oxygen.freecode.pojo.entity.TableColumnInfo;
 import com.ispong.oxygen.freecode.pojo.entity.TableInfo;
 import com.ispong.oxygen.freecode.utils.FreecodeUtils;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -35,13 +33,6 @@ import java.util.Objects;
  */
 public class FreecodeRepository {
 
-    private final JdbcTemplate jdbcTemplate;
-
-    public FreecodeRepository(JdbcTemplate jdbcTemplate) {
-
-        this.jdbcTemplate = jdbcTemplate;
-    }
-
     /**
      * 通过表名和忽略字段获取表的字段数据
      *
@@ -54,11 +45,8 @@ public class FreecodeRepository {
 
         // 区分数据库类型
         String databaseType;
-        try {
-            databaseType = Objects.requireNonNull(jdbcTemplate.getDataSource()).getConnection().getCatalog();
-        } catch (SQLException e) {
-            databaseType = "H2";
-        }
+        databaseType = "";
+//            databaseType = Objects.requireNonNull(jdbcTemplate.getDataSource()).getConnection().getCatalog();
 
         String sqlStr;
         switch (databaseType) {
@@ -74,8 +62,10 @@ public class FreecodeRepository {
                 throw new FreecodeException("dataSource type not support");
         }
 
-        List<TableColumnInfo> tableColumnInfos = jdbcTemplate.query(sqlStr, new BeanPropertyRowMapper<>(TableColumnInfo.class));
+//        Flysql.
+//        List<TableColumnInfo> tableColumnInfos = jdbcTemplate.query(sqlStr, new BeanPropertyRowMapper<>(TableColumnInfo.class));
 
+        List<TableColumnInfo> tableColumnInfos = new ArrayList<>();
         // 忽略字段
         List<TableColumnInfo> tempTableColumnInfos = new ArrayList<>();
         if (ignoreFields != null) {
@@ -106,6 +96,7 @@ public class FreecodeRepository {
     public TableInfo getTableInfo(String tableName) {
 
         String sqlStr = "select TABLE_COMMENT from information_schema.TABLES where TABLE_NAME = '" + tableName + "'";
-        return jdbcTemplate.queryForObject(sqlStr, TableInfo.class);
+//        return jdbcTemplate.queryForObject(sqlStr, TableInfo.class);
+        return null;
     }
 }

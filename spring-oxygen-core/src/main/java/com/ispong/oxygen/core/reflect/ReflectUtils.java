@@ -1,6 +1,6 @@
-package com.ispong.oxygen.common.reflect;
+package com.ispong.oxygen.core.reflect;
 
-import com.ispong.oxygen.common.exception.CoreException;
+import com.ispong.oxygen.core.exception.OxygenException;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -13,7 +13,7 @@ public class ReflectUtils {
 
             return targetClass.getDeclaredConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            throw new CoreException("reflect instance fail");
+            throw new OxygenException("reflect instance fail");
         }
     }
 

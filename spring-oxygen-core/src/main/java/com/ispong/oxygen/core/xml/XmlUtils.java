@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.common.xml;
+package com.ispong.oxygen.core.xml;
 
-import com.ispong.oxygen.common.exception.CoreException;
-import com.ispong.oxygen.common.reflect.ReflectUtils;
+import com.ispong.oxygen.core.exception.OxygenException;
+import com.ispong.oxygen.core.reflect.ReflectUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -58,7 +58,7 @@ public class XmlUtils {
             return target;
         } catch (ParserConfigurationException | SAXException | IOException e) {
 
-            throw new CoreException("parse inputStream xml fail");
+            throw new OxygenException("parse inputStream xml fail");
         }
     }
 

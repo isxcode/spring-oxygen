@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.common.filter;
+package com.ispong.oxygen.core.filter;
 
 import org.springframework.lang.NonNull;
 import org.springframework.util.AntPathMatcher;

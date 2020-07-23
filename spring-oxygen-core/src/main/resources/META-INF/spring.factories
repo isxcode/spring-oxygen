@@ -1,1 +1,1 @@
-#org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.ispong.oxygen.common.freemarker.FreemarkerAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.ispong.oxygen.core.config.OxygenCoreAutoConfiguration

@@ -1,0 +1,5 @@
+spring:
+  freemarker:
+    prefer-file-system-access: false
+    enabled: true
+    charset: UTF-8

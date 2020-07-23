@@ -1,4 +1,4 @@
-package com.ispong.oxygen.common.validation;
+package com.ispong.oxygen.core.validation;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

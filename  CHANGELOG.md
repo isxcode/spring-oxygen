@@ -3,6 +3,7 @@
 ### ⭐ New Features
 
 1. [freecode] 新增系统字段生成
+2. [core] 新增傻瓜式邮件发送marker和模板marker
 
 ### 🐞 Bug Fixes
 

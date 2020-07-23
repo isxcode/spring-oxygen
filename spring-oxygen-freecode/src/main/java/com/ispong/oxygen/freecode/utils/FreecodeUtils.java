@@ -15,16 +15,14 @@
  */
 package com.ispong.oxygen.freecode.utils;
 
+import com.ispong.oxygen.core.exception.OxygenException;
+import com.ispong.oxygen.core.freemarker.FreemarkerMarker;
 import com.ispong.oxygen.freecode.pojo.entity.TableColumnInfo;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
-import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,13 +38,14 @@ import static java.util.regex.Pattern.compile;
  * @author ispong
  * @since 0.0.1
  */
+@Component
 public class FreecodeUtils {
 
-    private static FreeMarkerConfigurer freeMarkerConfigurer;
+    private static FreemarkerMarker freemarkerMarker;
 
-    public FreecodeUtils(FreeMarkerConfigurer freeMarkerConfigurer) {
+    public FreecodeUtils(FreemarkerMarker freemarkerMarker) {
 
-        FreecodeUtils.freeMarkerConfigurer = freeMarkerConfigurer;
+        FreecodeUtils.freemarkerMarker = freemarkerMarker;
     }
 
     /**
@@ -56,11 +55,10 @@ public class FreecodeUtils {
      * @param templateName 模板名
      * @param freecodeInfo 对象
      * @param modulePath   文件路径
-     * @throws IOException       生成文件异常
-     * @throws TemplateException 生成文件异常
+     * @throws IOException 生成文件异常
      * @since 0.0.1
      */
-    public static void generateFile(String modulePath, String fileName, String templateName, Object freecodeInfo) throws IOException, TemplateException {
+    public static void generateFile(String modulePath, String fileName, String templateName, Object freecodeInfo) throws IOException {
 
         // 生成文件夹
         modulePath = ResourceUtils.getURL(modulePath).getPath().substring(1);
@@ -71,9 +69,11 @@ public class FreecodeUtils {
         // 生成文件
         String filePath = modulePath + "/" + fileName;
         if (!Files.exists(Paths.get(filePath))) {
-            Path path = Files.createFile(Paths.get(filePath));
-            Template template = freeMarkerConfigurer.getConfiguration().getTemplate(templateName);
-            Files.write(path, FreeMarkerTemplateUtils.processTemplateIntoString(template, freecodeInfo).getBytes());
+            try {
+                freemarkerMarker.generateToFile(templateName, freecodeInfo, filePath);
+            } catch (OxygenException e) {
+                e.printStackTrace();
+            }
         }
     }
 

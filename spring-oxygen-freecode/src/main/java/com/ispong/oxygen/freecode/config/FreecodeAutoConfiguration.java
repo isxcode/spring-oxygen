@@ -19,14 +19,11 @@ import com.ispong.oxygen.freecode.controller.FreecodeController;
 import com.ispong.oxygen.freecode.pojo.properties.FreecodeProperties;
 import com.ispong.oxygen.freecode.repository.FreecodeRepository;
 import com.ispong.oxygen.freecode.service.FreecodeService;
-import com.ispong.oxygen.freecode.utils.FreecodeUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 /**
  * freecode 配置中心/bean实例中心
@@ -51,33 +48,18 @@ public class FreecodeAutoConfiguration {
     }
 
     /**
-     * 将freeMarker配置导入工具类
-     *
-     * @param freeMarkerConfigurer freemarker配置
-     * @return 工具类实体
-     * @since 0.0.1
-     */
-    @Bean
-    @ConditionalOnClass(FreecodeAutoConfiguration.class)
-    public FreecodeUtils initFreemarkerUtil(FreeMarkerConfigurer freeMarkerConfigurer) {
-
-        return new FreecodeUtils(freeMarkerConfigurer);
-    }
-
-    /**
      * 将jdbcTemplate导入到Freecode的Repository中
      *
-     * @param jdbcTemplate 数据源
      * @return FreecodeRepository
      * @since 0.0.1
      */
     @Bean
     @ConditionalOnClass(FreecodeAutoConfiguration.class)
-    public FreecodeRepository initFreecodeRepository(JdbcTemplate jdbcTemplate) {
+    public FreecodeRepository initFreecodeRepository() {
 
         log.debug("init freecode repository");
 
-        return new FreecodeRepository(jdbcTemplate);
+        return new FreecodeRepository();
     }
 
     /**

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.common.exception;
+package com.ispong.oxygen.core.exception;
 
 /**
  * 异常处理
@@ -21,9 +21,9 @@ package com.ispong.oxygen.common.exception;
  * @author ispong
  * @since 0.0.1
  */
-public class CoreException extends RuntimeException {
+public class OxygenException extends RuntimeException {
 
-    public CoreException(String message) {
-        super(message);
+    public OxygenException(String message) {
+        super("[oxygen-core]" + message);
     }
 }

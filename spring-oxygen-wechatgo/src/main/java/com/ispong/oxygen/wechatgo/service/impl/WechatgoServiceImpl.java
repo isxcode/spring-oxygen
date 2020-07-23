@@ -15,7 +15,7 @@
  */
 package com.ispong.oxygen.wechatgo.service.impl;
 
-import com.ispong.oxygen.common.http.HttpClientUtils;
+import com.ispong.oxygen.core.http.HttpClientUtils;
 import com.ispong.oxygen.wechatgo.exception.WechatgoException;
 import com.ispong.oxygen.wechatgo.handler.WechatgoEventHandler;
 import com.ispong.oxygen.wechatgo.pojo.entity.WeChatAccessToken;

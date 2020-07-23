@@ -1,4 +1,4 @@
-package com.ispong.oxygen.common.excel;
+package com.ispong.oxygen.core.excel;
 
 import java.lang.annotation.*;
 

@@ -17,10 +17,6 @@ package com.ispong.oxygen.freecode.pojo.entity;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.List;
-
 /**
  * freecode请求对象
  *
@@ -38,7 +34,6 @@ public class FreecodeReq {
     /**
      * 表名
      */
-    @NotBlank
     private String tableName;
 
 }

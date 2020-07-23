@@ -1,6 +1,6 @@
-package com.ispong.oxygen.common.validation;
+package com.ispong.oxygen.core.validation;
 
-import com.ispong.oxygen.common.exception.CoreException;
+import com.ispong.oxygen.core.exception.OxygenException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Component;
@@ -30,16 +30,16 @@ public class ValidationUtils {
      *
      * @param phoneCodeReq 手机号请求对象
      * @return PhoneCodeRes
-     * @throws CoreException 手机发送异常
+     * @throws OxygenException 手机发送异常
      * @since 0.0.1
      */
-    public static PhoneCodeRes sendPhoneCode(PhoneCodeReq phoneCodeReq) throws CoreException {
+    public static PhoneCodeRes sendPhoneCode(PhoneCodeReq phoneCodeReq) throws OxygenException {
 
         try {
             BeanUtils.copyProperties(validationProperties, phoneCodeReq);
             return restTemplate.postForObject(phoneCodeReq.getUrl(), phoneCodeReq, PhoneCodeRes.class);
         } catch (Exception e) {
-            throw new CoreException("发送手机号异常");
+            throw new OxygenException("发送手机号异常");
         }
 
     }
