@@ -40,6 +40,11 @@ public class FreemarkerMarker {
 
     private static FreeMarkerConfigurer freeMarkerConfigurer;
 
+    private void init(FreeMarkerConfigurer freeMarkerConfigurer) {
+
+        FreemarkerMarker.freeMarkerConfigurer = freeMarkerConfigurer;
+    }
+
     public FreemarkerMarker(FreeMarkerConfigurer freeMarkerConfigurer) {
 
         FreemarkerMarker.freeMarkerConfigurer = freeMarkerConfigurer;
@@ -90,4 +95,5 @@ public class FreemarkerMarker {
             throw new OxygenException("freemarker parse template file to string is wrong");
         }
     }
+
 }

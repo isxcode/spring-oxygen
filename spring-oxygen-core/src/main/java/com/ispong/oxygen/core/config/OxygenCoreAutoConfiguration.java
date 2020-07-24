@@ -18,12 +18,14 @@ package com.ispong.oxygen.core.config;
 import com.ispong.oxygen.core.email.EmailMaker;
 import com.ispong.oxygen.core.freemarker.FreemarkerMarker;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.mail.MailSender;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 /**
- * 核心的控制器
+ * spring-core marker初始化生成器
  *
  * @author ispong
  * @since 0.0.1
@@ -39,9 +41,10 @@ public class OxygenCoreAutoConfiguration {
      */
     @Bean
     @ConditionalOnBean(OxygenCoreAutoConfiguration.class)
-    public EmailMaker initEmailService(MailSender mailSender) {
+    @ConditionalOnProperty(prefix = "spring.mail", name = "username", matchIfMissing = false)
+    public EmailMaker initEmailService(MailSender mailSender, MailProperties mailProperties) {
 
-        return new EmailMaker(mailSender);
+        return new EmailMaker(mailSender, mailProperties);
     }
 
     /**
