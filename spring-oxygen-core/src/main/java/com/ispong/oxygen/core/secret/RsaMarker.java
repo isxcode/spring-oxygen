@@ -16,7 +16,6 @@
 package com.ispong.oxygen.core.secret;
 
 import com.ispong.oxygen.core.exception.OxygenException;
-import lombok.SneakyThrows;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -30,7 +29,7 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
 /**
- * rsa 加密静态算法
+ * RSA Marker
  *
  * @author ispong
  * @since 0.0.1
@@ -38,14 +37,14 @@ import java.util.Base64;
 public class RsaMarker {
 
     /**
-     * RSA加密
+     * 加密
      *
      * @param publicKey 公钥
      * @param data      加密数据
      * @return 加密后的数据
      * @since 0.0.1
      */
-    public static String rsaEncrypt(String publicKey, String data) {
+    public static String encrypt(String publicKey, String data) {
 
         try {
             PublicKey key = KeyFactory.getInstance(SecretConstants.RSA).generatePublic(new X509EncodedKeySpec(Base64.getDecoder().decode(publicKey)));
@@ -53,19 +52,19 @@ public class RsaMarker {
             cipher.init(Cipher.ENCRYPT_MODE, key);
             return Base64.getEncoder().encodeToString(cipher.doFinal(data.getBytes(StandardCharsets.UTF_8)));
         } catch (NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
-            throw new OxygenException("RAS Encrypt error");
+            throw new OxygenException("RAS encrypt is wrong");
         }
     }
 
     /**
-     * RSA解密工具
+     * 解密
      *
      * @param privateKey 私钥
      * @param data       解密数据
      * @return 解密后的数据
      * @since 0.0.1
      */
-    public static String rsaDecrypt(String privateKey, String data) {
+    public static String decrypt(String privateKey, String data) {
 
         try {
             PrivateKey key = KeyFactory.getInstance(SecretConstants.RSA).generatePrivate(new PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateKey)));
@@ -73,23 +72,25 @@ public class RsaMarker {
             cipher.init(Cipher.DECRYPT_MODE, key);
             return new String(cipher.doFinal(Base64.getDecoder().decode(data)), StandardCharsets.UTF_8);
         } catch (NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException | BadPaddingException | IllegalBlockSizeException | InvalidKeyException e) {
-            throw new OxygenException("RAS Decrypt error");
+            throw new OxygenException("RAS decrypt is wrong");
         }
     }
 
     /**
      * 钥匙对生成方法
      */
-    @SneakyThrows
-    public static void generateRsaPair() {
+    public static void generateKeyPair() throws OxygenException {
 
-        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(SecretConstants.RSA);
-        keyPairGenerator.initialize(2048);
-        KeyPair keyPair = keyPairGenerator.generateKeyPair();
-        System.out.println("publicKey:");
-        System.out.println(Base64.getEncoder().encodeToString(keyPair.getPublic().getEncoded()));
-        System.out.println("privateKey:");
-        System.out.println(Base64.getEncoder().encodeToString(keyPair.getPrivate().getEncoded()));
+        try {
+            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(SecretConstants.RSA);
+            keyPairGenerator.initialize(2048);
+            KeyPair keyPair = keyPairGenerator.generateKeyPair();
+            System.out.println("publicKey:");
+            System.out.println(Base64.getEncoder().encodeToString(keyPair.getPublic().getEncoded()));
+            System.out.println("privateKey:");
+            System.out.println(Base64.getEncoder().encodeToString(keyPair.getPrivate().getEncoded()));
+        } catch (NoSuchAlgorithmException e) {
+            throw new OxygenException("RAS generate key pair is wrong");
+        }
     }
-
 }

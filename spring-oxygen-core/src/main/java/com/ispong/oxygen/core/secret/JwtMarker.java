@@ -15,23 +15,32 @@
  */
 package com.ispong.oxygen.core.secret;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ispong.oxygen.core.exception.OxygenException;
 import io.jsonwebtoken.Jwts;
-import lombok.NonNull;
-import lombok.SneakyThrows;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 
+import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 /**
- * jwt加密算法
+ * JWT Marker
  *
  * @author ispong
  * @since 0.0.1
  */
 public class JwtMarker {
+
+    private static Key key;
+
+    public void init() {
+        JwtMarker.key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    }
 
     /**
      * jwt默认加密工具
@@ -40,40 +49,35 @@ public class JwtMarker {
      * @return jwt String
      * @since 2019-12-12
      */
-    @SneakyThrows
-    public static String jwtEncrypt(Object obj) {
+    public static String encrypt(Object obj, String aesKey) throws OxygenException {
 
         Map<String, Object> claims = new HashMap<>(1);
-        claims.put("claim", aesEncrypt(new ObjectMapper().writeValueAsString(obj)));
 
-        return Jwts.builder()
-            .signWith(JWT_SECRET_KEY)
-            .setId(UUID.randomUUID().toString())
-            .setClaims(claims)
-            .setIssuedAt(new Date())
-            .compact();
+        try {
+            String encrypt = AesMarker.encrypt(aesKey, new ObjectMapper().writeValueAsString(obj));
+            claims.put(SecretConstants.CLAIM_KEY, encrypt);
+
+            return Jwts.builder()
+                .signWith(key)
+                .setClaims(claims)
+                .setIssuedAt(new Date())
+                .setId(String.valueOf(UUID.randomUUID()))
+                .compact();
+        } catch (JsonProcessingException e) {
+            throw new OxygenException("jwt encrypt is wrong");
+        }
     }
 
     /**
      * jwt加密工具
      *
-     * @param key 密钥
      * @param obj 传输对象
      * @return jwt String
      * @since 2019-12-12
      */
-    @SneakyThrows
-    public static String jwtEncrypt(String key, Object obj) {
+    public static String encrypt(Object obj) throws OxygenException {
 
-        Map<String, Object> claims = new HashMap<>(1);
-        claims.put("claim", aesEncrypt(key, new ObjectMapper().writeValueAsString(obj)));
-
-        return Jwts.builder()
-            .signWith(JWT_SECRET_KEY)
-            .setId(UUID.randomUUID().toString())
-            .setClaims(claims)
-            .setIssuedAt(new Date())
-            .compact();
+        return encrypt(obj, SecretConstants.AES_KEY);
     }
 
     /**
@@ -85,37 +89,34 @@ public class JwtMarker {
      * @return claim
      * @since 2019-12-12
      */
-    @SneakyThrows
-    public static <A> A jwtDecrypt(String jwtString, @NonNull Class<A> claimClass) {
+    public static <A> A decrypt(String jwtString, Class<A> claimClass) {
 
-        return new ObjectMapper().readValue(
-            EncryptMarker.aesDecrypt(String.valueOf(
-                Jwts.parser()
-                    .setSigningKey(JWT_SECRET_KEY)
-                    .parseClaimsJws(jwtString)
-                    .getBody()
-                    .get("claim"))), claimClass);
+        return decrypt(SecretConstants.AES_KEY, jwtString, claimClass);
     }
 
     /**
      * jwt解密工具
      *
-     * @param jwtString  jwt
-     * @param key        公钥
-     * @param claimClass 数据对象
-     * @param <A>        A
+     * @param jwtString jwt
+     * @param <A>       A
      * @return claim
      * @since 2019-12-12
      */
-    public static <A> A jwtDecrypt(String key, String jwtString, @NonNull Class<A> claimClass) {
+    public static <A> A decrypt(String aesKey, String jwtString, Class<A> targetClass) {
 
-        return new ObjectMapper().readValue(
-            EncryptMarker.aesDecrypt(key, String.valueOf(
-                Jwts.parserBuilder()
-                    .setSigningKey(JWT_SECRET_KEY)
-                    .parseClaimsJws(jwtString)
-                    .getBody()
-                    .get("claim"))), claimClass);
+        String claimStr = Jwts.parserBuilder()
+            .setSigningKey(key)
+            .build()
+            .parseClaimsJws(jwtString)
+            .getBody()
+            .get(SecretConstants.CLAIM_KEY, String.class);
+
+        String targetJsonStr = AesMarker.decrypt(aesKey, claimStr);
+
+        try {
+            return new ObjectMapper().readValue(targetJsonStr, targetClass);
+        } catch (JsonProcessingException e) {
+            throw new OxygenException("Jwt decrypt is wrong");
+        }
     }
-
 }

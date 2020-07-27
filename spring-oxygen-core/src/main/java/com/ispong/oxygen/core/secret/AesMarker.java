@@ -16,6 +16,7 @@
 package com.ispong.oxygen.core.secret;
 
 import com.ispong.oxygen.core.exception.OxygenException;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -29,48 +30,74 @@ import java.util.Arrays;
 import java.util.Base64;
 
 /**
- * aes加密Marker
+ * AES Marker
  *
  * @author ispong
  * @since 0.0.1
  */
+@Slf4j
 public class AesMarker {
 
     /**
-     * AES 加密工具
+     * AES 加密
      *
      * @param key  密钥
-     * @param data 机密数据
-     * @return 加密后的数据
+     * @param data 加密数据
+     * @return 加密后的Base64加密的数据
      * @since 0.0.1
      */
-    public static String aesEncrypt(String key, String data) throws OxygenException{
+    public static String encrypt(String key, String data) throws OxygenException {
 
         try {
             Cipher cipher = Cipher.getInstance(SecretConstants.AES);
-            cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(Arrays.copyOf(key.getBytes(), 32), SecretConstants.AES));
+            cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(Arrays.copyOf(key.getBytes(), 1 << 5), SecretConstants.AES));
             return Base64.getEncoder().encodeToString(cipher.doFinal(data.getBytes(StandardCharsets.UTF_8)));
         } catch (NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException | BadPaddingException | IllegalBlockSizeException e) {
-            throw new OxygenException("AES Encrypt is wrong");
+            log.debug(e.getMessage());
+            throw new OxygenException("AES encrypt is wrong");
         }
     }
 
     /**
-     * AES解密工具
+     * AES 加密
+     *
+     * @param data 加密数据
+     * @return 加密后的Base64加密的数据
+     * @since 0.0.1
+     */
+    public static String encrypt(String data) throws OxygenException {
+
+        return encrypt(SecretConstants.AES_KEY, data);
+    }
+
+    /**
+     * AES 解密
      *
      * @param key  密钥
      * @param data 解密数据
      * @return 解密后的数据
      * @since 0.0.1
      */
-    public static String aesDecrypt(String key, String data) {
+    public static String decrypt(String key, String data) {
 
         try {
             Cipher cipher = Cipher.getInstance(SecretConstants.AES);
-            cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(Arrays.copyOf(key.getBytes(), 32), SecretConstants.AES));
+            cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(Arrays.copyOf(key.getBytes(), 1 << 5), SecretConstants.AES));
             return new String(cipher.doFinal(Base64.getDecoder().decode(data)), StandardCharsets.UTF_8);
         } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
-            throw new OxygenException("AES Decrypt is wrong");
+            throw new OxygenException("AES decrypt is wrong");
         }
+    }
+
+    /**
+     * AES 解密
+     *
+     * @param data 解密数据
+     * @return 解密后的数据
+     * @since 0.0.1
+     */
+    public static String decrypt(String data) {
+
+        return decrypt(SecretConstants.AES_KEY, data);
     }
 }
