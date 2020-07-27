@@ -21,6 +21,7 @@ import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -30,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * spring-mail 发送邮件服务
+ * 发送电子邮件marker
  *
  * @author ispong
  * @since 0.0.1
@@ -42,19 +43,25 @@ public class EmailMaker {
 
     private static MailProperties mailProperties;
 
-    public EmailMaker(MailSender mailSender, MailProperties mailProperties) {
+    private static ThreadPoolTaskExecutor emailThread;
 
+    public EmailMaker(MailSender mailSender, MailProperties mailProperties, ThreadPoolTaskExecutor emailThread) {
+
+        EmailMaker.emailThread = emailThread;
         EmailMaker.mailProperties = mailProperties;
         EmailMaker.javaMailSender = (JavaMailSenderImpl) mailSender;
     }
 
     /**
-     * 发送html类型的邮件
+     * 发送电子邮件核心方法
      *
-     * @param toEmails     目标邮箱地址
-     * @param emailContent 邮件内容
-     * @param subject      邮件主题
-     * @since 2019-11-28
+     * @param toEmails      目标邮箱地址
+     * @param emailContent  邮件内容
+     * @param subject       邮件主题
+     * @param isHtmlContent 是否将邮件内容转成网页
+     * @param files         附件列表
+     * @param inlineFiles   嵌入式附件
+     * @since 0.0.1
      */
     public static void sendEmailMain(List<String> toEmails,
                                      String emailContent,
@@ -68,7 +75,7 @@ public class EmailMaker {
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message);
 
-            // 可以上传附件
+            // 是否支持附件操作
             if (files != null || inlineFiles != null) {
                 helper = new MimeMessageHelper(message, true);
             }
@@ -87,20 +94,20 @@ public class EmailMaker {
             // 遍历加入嵌入图片
             if (inlineFiles != null) {
                 for (Map.Entry<String, File> entry : inlineFiles.entrySet()) {
-                    String inlineName = entry.getKey();
-                    File inlineFile = entry.getValue();
-                    helper.addInline(inlineName, inlineFile);
+                    helper.addInline(entry.getKey(), entry.getValue());
                 }
             }
 
-            // 遍历发送
+            // 多线程发送邮件
             for (String toEmail : toEmails) {
+                log.debug("sending to " + toEmail + " content:" + message.getContent());
+
                 helper.setTo(toEmail);
-                log.debug("sending to " + toEmail + "  content:" + message.getContent());
-                javaMailSender.send(message);
+                emailThread.execute(() -> javaMailSender.send(message));
             }
         } catch (MessagingException | IOException ex) {
             throw new OxygenException(ex.toString());
         }
     }
+
 }

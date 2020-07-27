@@ -15,7 +15,7 @@
  */
 package com.ispong.oxygen.wechatgo.template;
 
-import com.ispong.oxygen.core.http.HttpClientUtils;
+import com.ispong.oxygen.core.http.HttpMarker;
 import com.ispong.oxygen.wechatgo.cache.WechatgoTokenCache;
 import com.ispong.oxygen.wechatgo.exception.WechatgoException;
 import com.ispong.oxygen.wechatgo.pojo.constant.WechatgoConstants;
@@ -49,7 +49,7 @@ public class WechatgoTemplate {
     public void sendMsgTemplate(String data) {
 
         try {
-            String responseStr = HttpClientUtils.doPost(wechatgoProperties.getUrl() + "/cgi-bin/message/template/send?access_token=" + wechatgoTokenCache.getToken(WechatgoConstants.ENV), data);
+            String responseStr = HttpMarker.doPost(wechatgoProperties.getUrl() + "/cgi-bin/message/template/send?access_token=" + wechatgoTokenCache.getToken(WechatgoConstants.ENV), data);
             log.debug("send template response string:" + responseStr);
         } catch (IOException e) {
             throw new WechatgoException("send template fail");

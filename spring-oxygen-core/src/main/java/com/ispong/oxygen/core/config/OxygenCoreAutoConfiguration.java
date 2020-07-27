@@ -18,15 +18,17 @@ package com.ispong.oxygen.core.config;
 import com.ispong.oxygen.core.email.EmailMaker;
 import com.ispong.oxygen.core.freemarker.FreemarkerMarker;
 import com.ispong.oxygen.core.secret.JwtMarker;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.mail.MailSender;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 /**
- * spring-core marker初始化生成器
+ * spring-core marker 初始化生成器
  *
  * @author ispong
  * @since 0.0.1
@@ -34,25 +36,47 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 public class OxygenCoreAutoConfiguration {
 
     /**
-     * 初始化邮件静态对象
+     * 初始化EmailThread
      *
-     * @param mailSender mailSender
-     * @return EmailUtils
+     * @return EmailThread
+     * @since 0.0.1
+     */
+    @Bean(name = "emailThread")
+    @ConditionalOnBean(OxygenCoreAutoConfiguration.class)
+    public ThreadPoolTaskExecutor initEmailThread() {
+
+        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
+        taskExecutor.setCorePoolSize(10);
+        taskExecutor.setMaxPoolSize(50);
+        taskExecutor.setQueueCapacity(200);
+        taskExecutor.setKeepAliveSeconds(60);
+        taskExecutor.setWaitForTasksToCompleteOnShutdown(true);
+        taskExecutor.setAwaitTerminationSeconds(60);
+
+        return taskExecutor;
+    }
+
+    /**
+     * 初始化EmailMarker
+     *
+     * @param mailSender     mailSender
+     * @param mailProperties mailProperties
+     * @return EmailMaker
      * @since 0.0.1
      */
     @Bean
     @ConditionalOnBean(OxygenCoreAutoConfiguration.class)
     @ConditionalOnProperty(prefix = "spring.mail", name = "username", matchIfMissing = false)
-    public EmailMaker initEmailMarker(MailSender mailSender, MailProperties mailProperties) {
+    public EmailMaker initEmailMarker(MailSender mailSender, MailProperties mailProperties, @Qualifier("emailThread") ThreadPoolTaskExecutor emailThread) {
 
-        return new EmailMaker(mailSender, mailProperties);
+        return new EmailMaker(mailSender, mailProperties, emailThread);
     }
 
     /**
-     * 初始化freemarker工具类
+     * 初始化FreemarkerMarker
      *
      * @param freeMarkerConfigurer freeMarkerConfigurer
-     * @return FreemarkerService
+     * @return FreemarkerMarker
      * @since 0.0.1
      */
     @Bean
@@ -63,8 +87,9 @@ public class OxygenCoreAutoConfiguration {
     }
 
     /**
-     * 初始化 JwtMarker
+     * 初始化JwtMarker
      *
+     * @return JwtMarker
      * @since 0.0.1
      */
     @Bean(initMethod = "init")

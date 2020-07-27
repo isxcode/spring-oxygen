@@ -30,13 +30,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 /**
- * httpClient utils
+ * http Marker
  *
  * @author ispong
- * @since  0.0.1
+ * @since 0.0.1
  */
 @Slf4j
-public class HttpClientUtils {
+public class HttpMarker {
 
     /**
      * get请求

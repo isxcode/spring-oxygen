@@ -15,7 +15,7 @@
  */
 package com.ispong.oxygen.wechatgo.service.impl;
 
-import com.ispong.oxygen.core.http.HttpClientUtils;
+import com.ispong.oxygen.core.http.HttpMarker;
 import com.ispong.oxygen.wechatgo.exception.WechatgoException;
 import com.ispong.oxygen.wechatgo.handler.WechatgoEventHandler;
 import com.ispong.oxygen.wechatgo.pojo.entity.WeChatAccessToken;
@@ -63,7 +63,7 @@ public class WechatgoServiceImpl implements WechatgoService {
         // 获取微信的Token
         WeChatAccessToken weChatAccessToken;
         try {
-            weChatAccessToken = HttpClientUtils.doGet(wechatgoProperties.getUrl() + "/cgi-bin/token", requestMap, WeChatAccessToken.class);
+            weChatAccessToken = HttpMarker.doGet(wechatgoProperties.getUrl() + "/cgi-bin/token", requestMap, WeChatAccessToken.class);
         } catch (IOException e) {
             throw new WechatgoException("get wechat server token fail");
         }

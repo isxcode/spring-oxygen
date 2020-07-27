@@ -16,8 +16,13 @@
 package com.ispong.oxygen.core.reflect;
 
 import com.ispong.oxygen.core.exception.OxygenException;
+import org.springframework.beans.BeanUtils;
 
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 反射工具marker
@@ -36,4 +41,27 @@ public class ReflectMarker {
         }
     }
 
+    public static List<FieldBody> queryFields(Class<?> targetClass) {
+
+        ArrayList<FieldBody> fieldList = new ArrayList<>();
+        PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(targetClass);
+
+        for (PropertyDescriptor propertyMeta : propertyDescriptors) {
+            if ("class".equals(propertyMeta.getName())) {
+                continue;
+            }
+            try {
+                FieldBody tempFieldBody = new FieldBody();
+                Field metaField = propertyMeta.getReadMethod().getDeclaringClass().getDeclaredField(propertyMeta.getName());
+                tempFieldBody.setField(metaField);
+                tempFieldBody.setReadMethod(propertyMeta.getReadMethod());
+                tempFieldBody.setWriteMethod(propertyMeta.getWriteMethod());
+                tempFieldBody.setClassName(propertyMeta.getPropertyType().getName());
+                fieldList.add(tempFieldBody);
+            } catch (NoSuchFieldException e) {
+                // do nothing
+            }
+        }
+        return fieldList;
+    }
 }
