@@ -1,4 +1,5 @@
 dependencies {
 
+    // spring-oxygen-core
     implementation(project(':spring-oxygen-core'))
 }

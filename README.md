@@ -154,7 +154,7 @@ GET http://localhost:8080/freecode/generate?tableName=user_table
 📂 com
     📂 ispong
         📂 app
-            📂 moudle
+            📂 module
                 📄 userTableController
                 📄 userTableEntity
                 📄 userTableRepository
