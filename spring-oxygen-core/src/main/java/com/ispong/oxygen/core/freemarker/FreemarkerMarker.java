@@ -40,11 +40,6 @@ public class FreemarkerMarker {
 
     private static FreeMarkerConfigurer freeMarkerConfigurer;
 
-    private void init(FreeMarkerConfigurer freeMarkerConfigurer) {
-
-        FreemarkerMarker.freeMarkerConfigurer = freeMarkerConfigurer;
-    }
-
     public FreemarkerMarker(FreeMarkerConfigurer freeMarkerConfigurer) {
 
         FreemarkerMarker.freeMarkerConfigurer = freeMarkerConfigurer;
@@ -84,12 +79,12 @@ public class FreemarkerMarker {
      * @throws OxygenException 总异常
      * @since 0.0.1
      */
-    public static String generateToString(String templateContentName, Object params) throws OxygenException{
+    public static String generateToString(String templateContent, Object params) throws OxygenException {
 
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_27);
         configuration.setTemplateLoader(new StringTemplateLoader());
         try {
-            Template template = new Template("", templateContentName, configuration);
+            Template template = new Template("", templateContent, configuration);
             return FreeMarkerTemplateUtils.processTemplateIntoString(template, params);
         } catch (TemplateException | IOException e) {
             throw new OxygenException("freemarker parse template file to string is wrong");
