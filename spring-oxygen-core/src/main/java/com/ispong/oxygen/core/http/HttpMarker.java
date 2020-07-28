@@ -39,7 +39,7 @@ import java.util.Map;
 public class HttpMarker {
 
     /**
-     * get请求
+     * 执行get请求
      *
      * @param url           get请求地址
      * @param requestParams 请求参数
@@ -63,7 +63,7 @@ public class HttpMarker {
     }
 
     /**
-     * post请求
+     * 执行post请求
      *
      * @param url           url
      * @param requestParams requestParams
@@ -71,13 +71,20 @@ public class HttpMarker {
      * @throws IOException 访问失败
      * @since 0.0.1
      */
-    public static String doPost(String url, String requestParams) throws IOException {
+    public static String doPost(String url, Map<String, String> headParams, Object requestParams) throws IOException {
 
         HttpClient httpClient = HttpClientBuilder.create().build();
         HttpPost httpPost = new HttpPost(url);
-        httpPost.setEntity(new StringEntity(requestParams, StandardCharsets.UTF_8));
+
+        // 添加请求头
+        if (headParams != null) {
+            headParams.forEach(httpPost::setHeader);
+        }
+
+        // 添加请求体
+        httpPost.setEntity(new StringEntity(new ObjectMapper().writeValueAsString(requestParams), StandardCharsets.UTF_8));
+
         return EntityUtils.toString(httpClient.execute(httpPost).getEntity());
     }
-
 }
 

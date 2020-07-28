@@ -19,41 +19,55 @@ import com.ispong.oxygen.core.exception.OxygenException;
 import org.springframework.beans.BeanUtils;
 
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 反射工具marker
+ * 反射Marker
  *
  * @author ispong
  * @since 0.0.1
  */
 public class ReflectMarker {
 
+    /**
+     * 反射生成实例
+     *
+     * @param targetClass 目标class
+     * @param <T>         T
+     * @return T
+     * @since 0.0.1
+     */
     public static <T> T newInstance(Class<T> targetClass) {
 
         try {
             return targetClass.getDeclaredConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            throw new OxygenException("reflect instance fail");
+            throw new OxygenException(e.getMessage());
         }
     }
 
+    /**
+     * 获取对象各个属性
+     *
+     * @param targetClass 目标class
+     * @return List[FieldBody]
+     * @since 0.0.1
+     */
     public static List<FieldBody> queryFields(Class<?> targetClass) {
 
         ArrayList<FieldBody> fieldList = new ArrayList<>();
-        PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(targetClass);
 
+        PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(targetClass);
         for (PropertyDescriptor propertyMeta : propertyDescriptors) {
-            if ("class".equals(propertyMeta.getName())) {
+            if (ClassNameConstants.CLASS.equals(propertyMeta.getName())) {
                 continue;
             }
+
             try {
                 FieldBody tempFieldBody = new FieldBody();
-                Field metaField = propertyMeta.getReadMethod().getDeclaringClass().getDeclaredField(propertyMeta.getName());
-                tempFieldBody.setField(metaField);
+                tempFieldBody.setField(propertyMeta.getReadMethod().getDeclaringClass().getDeclaredField(propertyMeta.getName()));
                 tempFieldBody.setReadMethod(propertyMeta.getReadMethod());
                 tempFieldBody.setWriteMethod(propertyMeta.getWriteMethod());
                 tempFieldBody.setClassName(propertyMeta.getPropertyType().getName());
@@ -62,6 +76,7 @@ public class ReflectMarker {
                 // do nothing
             }
         }
+
         return fieldList;
     }
 }

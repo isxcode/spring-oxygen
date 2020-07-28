@@ -24,14 +24,18 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
- * 启动oxygen
+ * 通过注解启动模块
  *
  * @author ispong
  * @since 0.0.1
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import({OxygenAutoConfiguration.class, FlysqlAutoConfiguration.class, WechatgoAutoConfiguration.class, FreecodeAutoConfiguration.class})
+@Import({
+    OxygenAutoConfiguration.class,
+    FlysqlAutoConfiguration.class,
+    WechatgoAutoConfiguration.class,
+    FreecodeAutoConfiguration.class})
 @Documented
 public @interface EnableOxygen {
 

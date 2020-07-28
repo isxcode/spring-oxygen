@@ -67,7 +67,9 @@ public class OxygenCoreAutoConfiguration {
     @Bean
     @ConditionalOnBean(OxygenCoreAutoConfiguration.class)
     @ConditionalOnProperty(prefix = "spring.mail", name = "username", matchIfMissing = false)
-    public EmailMaker initEmailMarker(MailSender mailSender, MailProperties mailProperties, @Qualifier("emailThread") ThreadPoolTaskExecutor emailThread) {
+    public EmailMaker initEmailMarker(MailSender mailSender,
+                                      MailProperties mailProperties,
+                                      @Qualifier("emailThread") ThreadPoolTaskExecutor emailThread) {
 
         return new EmailMaker(mailSender, mailProperties, emailThread);
     }

@@ -10,20 +10,21 @@
 
 Spring rapid development integration framework.
 
-[![Status][Status-image]][Status-url] [![Spring][Spring-image]][Spring-url] [![Maven Central][Maven-image]][Maven-url] [![GitHub last commit][commit-image]][commit-url] [![GitHub][license-image]][license-url]
+[![Status][Status-image]][Status-url] [![Version][Version-image]][Version-url] [![Maven Central][Maven-image]][Maven-url] [![GitHub last commit][commit-image]][commit-url] [![GitHub][license-image]][license-url]
 
 [![Github watch][Github-watch-image]][Github-watch-url] [![Github star][Github-star-image]][Github-star-url] [![Github follow][Github-fork-image]][Github-fork-url]
 
 [Status-image]: https://img.shields.io/badge/status-developing-ff69b4?style=flat-square
 [Status-url]: https://github.com/ispong/spring-oxygen
-[Spring-image]: https://img.shields.io/badge/spring-2.2.x-blue?style=flat-square
-[Spring-url]: https://spring.io/
+[Version-image]: https://img.shields.io/github/v/release/ispong/spring-oxygen?style=flat-square
+[Version-url]: https://github.com/ispong/spring-oxygen
 [Maven-image]: https://img.shields.io/maven-central/v/com.github.ispong/spring-oxygen-flysql?style=flat-square
 [Maven-url]: https://search.maven.org/search?q=g:com.github.ispong
 [commit-image]: https://img.shields.io/github/last-commit/ispong/spring-oxygen?style=flat-square
 [commit-url]: https://github.com/ispong/spring-oxygen
 [license-image]: https://img.shields.io/github/license/ispong/spring-oxygen?style=flat-square
 [license-url]: https://github.com/ispong/spring-oxygen/blob/master/LICENSE
+
 
 [Github-watch-image]: https://img.shields.io/github/watchers/ispong/spring-oxygen?style=social
 [Github-watch-url]: https://github.com/ispong/spring-oxygen/watchers

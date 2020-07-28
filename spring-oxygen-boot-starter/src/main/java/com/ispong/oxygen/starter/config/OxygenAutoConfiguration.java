@@ -19,13 +19,18 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 
 /**
- * 自动配置
+ * 启动oxygen 打印logo
  *
  * @author ispong
  * @since 0.0.1
  */
 public class OxygenAutoConfiguration {
 
+    /**
+     * 打印启动logo
+     *
+     * @since 0.0.1
+     */
     @Bean
     @ConditionalOnClass(OxygenAutoConfiguration.class)
     private void initOxygenBanner() {
