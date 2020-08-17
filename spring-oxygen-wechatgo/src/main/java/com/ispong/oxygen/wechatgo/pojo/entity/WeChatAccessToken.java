@@ -49,6 +49,6 @@ public class WeChatAccessToken {
     /**
      * 错误说明
      */
-    @JsonSetter("errMsg")
+    @JsonSetter("errmsg")
     private String errMsg;
 }

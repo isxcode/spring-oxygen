@@ -49,7 +49,7 @@ public class WechatgoTemplate {
     public void sendMsgTemplate(String data) {
 
         try {
-            String responseStr = HttpMarker.doPost(wechatgoProperties.getUrl() + "/cgi-bin/message/template/send?access_token=" + wechatgoTokenCache.getToken(WechatgoConstants.ENV), data);
+            String responseStr = HttpMarker.doPost(wechatgoProperties.getUrl() + "/cgi-bin/message/template/send?access_token=" + wechatgoTokenCache.getToken(WechatgoConstants.ENV), null, data);
             log.debug("send template response string:" + responseStr);
         } catch (IOException e) {
             throw new WechatgoException("send template fail");

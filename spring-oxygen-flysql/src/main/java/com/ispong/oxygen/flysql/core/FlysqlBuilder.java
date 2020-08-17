@@ -160,6 +160,7 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
     /**
      * 获取全局的用户id
      *
+     * @return  获取执行者id
      * @since 0.0.1
      */
     public String getExecutorId() {
