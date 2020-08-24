@@ -46,6 +46,7 @@ public class JwtMarker {
      * jwt默认加密工具
      *
      * @param obj 传输对象
+     * @param aesKey 自定义密钥
      * @return jwt String
      * @since 2019-12-12
      */
@@ -99,6 +100,8 @@ public class JwtMarker {
      *
      * @param jwtString jwt
      * @param <A>       A
+     * @param targetClass 目标class
+     * @param aesKey 自定义密钥
      * @return claim
      * @since 2019-12-12
      */

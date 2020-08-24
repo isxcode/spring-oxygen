@@ -35,6 +35,8 @@ allprojects {
         compileOnly 'org.projectlombok:lombok:latest.integration'
         annotationProcessor 'org.projectlombok:lombok:latest.integration'
     }
+
+    bootJar { enabled false }
 }
 
 subprojects {
@@ -110,8 +112,6 @@ subprojects {
             options.addBooleanOption('html5', true)
         }
     }
-
-    bootJar { enabled false }
 
     jar { enabled true }
 

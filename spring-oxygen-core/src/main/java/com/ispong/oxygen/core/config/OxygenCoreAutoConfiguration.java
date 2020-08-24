@@ -61,6 +61,7 @@ public class OxygenCoreAutoConfiguration {
      *
      * @param mailSender     mailSender
      * @param mailProperties mailProperties
+     * @param emailThread    邮箱线程
      * @return EmailMaker
      * @since 0.0.1
      */

@@ -76,6 +76,8 @@ public class FreemarkerMarker {
      * freemarker 通过模板内容生成String的模板内容
      *
      * @param params freemarker需要解析的对象数据
+     * @param templateContent  模板内容
+     * @return 解析返回的字符串
      * @throws OxygenException 总异常
      * @since 0.0.1
      */

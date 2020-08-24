@@ -67,6 +67,7 @@ public class HttpMarker {
      *
      * @param url           url
      * @param requestParams requestParams
+     * @param headParams    请求头
      * @return post body str
      * @throws IOException 访问失败
      * @since 0.0.1
