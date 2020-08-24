@@ -41,11 +41,51 @@ allprojects {
 
 subprojects {
 
-    apply plugin: "maven-publish"
     publishing {
+        publications {
+            mavenJava(MavenPublication) {
+
+                artifactId = project.getName()
+                from components.java
+
+                versionMapping {
+                    usage('java-api') { fromResolutionOf('runtimeClasspath') }
+                    usage('java-runtime') { fromResolutionResult() }
+                }
+
+                pom {
+
+                    name = project.getName()
+                    description = project.getName() + ' integration for Spring boot'
+                    url = 'https://github.com/ispong/spring-oxygen/tree/master/' + project.getName() + '/src/main/java/com/ispong/oxygen/' + project.getName().split('-').last()
+
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'https://github.com/ispong/spring-oxygen/blob/master/LICENSE'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id = 'ispong'
+                            name = 'ispong'
+                            email = 'ispong@outlook.com'
+                        }
+                    }
+
+                    scm {
+                        connection = 'scm:git:git://github.com/ispong/spring-oxygen.git'
+                        developerConnection = 'scm:git:ssh://github.com/ispong/spring-oxygen.git'
+                        url = 'https://github.com/ispong/spring-oxygen/tree/master/' + project.getName() + '/src/main/java/com/ispong/oxygen/' + project.getName().split('-').last()
+                    }
+                }
+            }
+        }
+
         repositories {
             maven {
-                name = "ispong-spring-oxygen"
+                name = "GitHubPackages"
                 url = uri("https://maven.pkg.github.com/ispong/spring-oxygen")
                 credentials {
                     username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
@@ -53,55 +93,7 @@ subprojects {
                 }
             }
         }
-        publications {
-            gpr(MavenPublication) {
-                from(components.java)
-            }
-        }
-    }
 
-//    publishing {
-//        publications {
-//            mavenJava(MavenPublication) {
-//
-//                artifactId = project.getName()
-//                from components.java
-//
-//                versionMapping {
-//                    usage('java-api') { fromResolutionOf('runtimeClasspath') }
-//                    usage('java-runtime') { fromResolutionResult() }
-//                }
-//
-//                pom {
-//
-//                    name = project.getName()
-//                    description = project.getName() + ' integration for Spring boot'
-//                    url = 'https://github.com/ispong/spring-oxygen/tree/master/' + project.getName() + '/src/main/java/com/ispong/oxygen/' + project.getName().split('-').last()
-//
-//                    licenses {
-//                        license {
-//                            name = 'The Apache License, Version 2.0'
-//                            url = 'https://github.com/ispong/spring-oxygen/blob/master/LICENSE'
-//                        }
-//                    }
-//
-//                    developers {
-//                        developer {
-//                            id = 'ispong'
-//                            name = 'ispong'
-//                            email = 'ispong@outlook.com'
-//                        }
-//                    }
-//
-//                    scm {
-//                        connection = 'scm:git:git://github.com/ispong/spring-oxygen.git'
-//                        developerConnection = 'scm:git:ssh://github.com/ispong/spring-oxygen.git'
-//                        url = 'https://github.com/ispong/spring-oxygen/tree/master/' + project.getName() + '/src/main/java/com/ispong/oxygen/' + project.getName().split('-').last()
-//                    }
-//                }
-//            }
-//        }
-//
 //        repositories {
 //            maven {
 //                def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
@@ -114,8 +106,8 @@ subprojects {
 //                }
 //            }
 //        }
-//    }
-//
+    }
+
 //    signing {
 //        sign publishing.publications.mavenJava
 //    }
@@ -131,6 +123,8 @@ subprojects {
             options.addBooleanOption('html5', true)
         }
     }
+
+    bootJar { enabled false }
 
     jar { enabled true }
 
