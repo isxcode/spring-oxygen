@@ -1,13 +1,8 @@
 name: spring-oxygen publish ci
 
-#on:
-#  release:
-#    types: [created]
-
 on:
-  push:
-    branches:
-      - master
+  release:
+    types: [created]
 
 jobs:
   build:

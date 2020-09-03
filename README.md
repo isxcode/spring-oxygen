@@ -37,6 +37,20 @@ Spring rapid development integration framework.
 
 ## 📦 Installation
 
+Note: version > 1.0.0,please add Github package repository
+```
+repositories {
+    maven {
+        name = "GitHubPackages"
+        url = uri("https://maven.pkg.github.com/ispong/spring-oxygen")
+        credentials {
+            username = ispong ?: System.getenv("USERNAME")
+            password = f4bf5205a7526d316ebb17617bd1c67aa9fe25e6 ?: System.getenv("TOKEN")
+        }
+    }
+}
+```
+
 Maven
 
 ```xml
