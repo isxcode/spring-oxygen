@@ -25,7 +25,6 @@ Spring rapid development integration framework.
 [license-image]: https://img.shields.io/github/license/ispong/spring-oxygen?style=flat-square
 [license-url]: https://github.com/ispong/spring-oxygen/blob/master/LICENSE
 
-
 [Github-watch-image]: https://img.shields.io/github/watchers/ispong/spring-oxygen?style=social
 [Github-watch-url]: https://github.com/ispong/spring-oxygen/watchers
 [Github-star-image]: https://img.shields.io/github/stars/ispong/spring-oxygen?style=social
