@@ -1,16 +1,16 @@
-name: spring-oxygen publish ci
+name: release ci
 
 on:
   release:
     types: [created]
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
 
     steps:
 
-    - name: checkout code
+    - name: checkout repository
       uses: actions/checkout@v2
 
     - name: cache gradle

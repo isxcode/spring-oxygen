@@ -1,17 +1,14 @@
-# 说明文档 https://editorconfig.org/
-root = true # 设置为主配置文件
+root = true
 
-# 配置所有文件格式
 [*]
-indent_style = space # 使用空格缩进
-indent_size = 4 # 缩进长度两个空格
-end_of_line = lf # 使用/n换行
-charset = utf-8 # 使用uft-8 字符集
-trim_trailing_whitespace = true # 删除结尾无用的空格
-insert_final_newline = false # 结尾插入一行
-max_line_length = off # 最大行输入无限制
+indent_style = space
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = false
+max_line_length = off
 
-# yml文件格式
 [*.yml]
 indent_size = 2
 
