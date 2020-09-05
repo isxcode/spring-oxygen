@@ -1,88 +1,44 @@
 plugins {
-    id "org.springframework.boot" version "2.3.1.RELEASE"
-    id "io.spring.dependency-management" version "1.0.9.RELEASE"
+    id 'org.springframework.boot' version '2.3.3.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
+    id 'maven'
+    id 'maven-publish'
+    id 'jacoco'
 }
 
-allprojects {
+subprojects {
 
-    apply plugin: 'java'
-    apply plugin: 'maven-publish'
-    apply plugin: 'signing'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java'
+    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
+    apply plugin: 'jacoco'
 
-    version = '1.0.2'
+    version = '10.0.0'
     group = 'com.github.ispong'
 
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 
     repositories {
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         mavenCentral()
-        jcenter()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
     }
 
     dependencies {
-
-        // spring-web
         compileOnly 'org.springframework.boot:spring-boot-starter-web'
-
-        // configuration-processor
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-
         // lombok
         compileOnly 'org.projectlombok:lombok:latest.integration'
         annotationProcessor 'org.projectlombok:lombok:latest.integration'
+        // junit
+        implementation 'org.junit.jupiter:junit-jupiter'
+        testCompile 'org.junit.jupiter:junit-jupiter-api:latest.integration'
     }
 
-    bootJar { enabled false }
-}
-
-subprojects {
-
     publishing {
-        publications {
-            mavenJava(MavenPublication) {
-
-                artifactId = project.getName()
-                from components.java
-
-                versionMapping {
-                    usage('java-api') { fromResolutionOf('runtimeClasspath') }
-                    usage('java-runtime') { fromResolutionResult() }
-                }
-
-                pom {
-
-                    name = project.getName()
-                    description = project.getName() + ' integration for Spring boot'
-                    url = 'https://github.com/ispong/spring-oxygen/tree/master/' + project.getName() + '/src/main/java/com/ispong/oxygen/' + project.getName().split('-').last()
-
-                    licenses {
-                        license {
-                            name = 'The Apache License, Version 2.0'
-                            url = 'https://github.com/ispong/spring-oxygen/blob/master/LICENSE'
-                        }
-                    }
-
-                    developers {
-                        developer {
-                            id = 'ispong'
-                            name = 'ispong'
-                            email = 'ispong@outlook.com'
-                        }
-                    }
-
-                    scm {
-                        connection = 'scm:git:git://github.com/ispong/spring-oxygen.git'
-                        developerConnection = 'scm:git:ssh://github.com/ispong/spring-oxygen.git'
-                        url = 'https://github.com/ispong/spring-oxygen/tree/master/' + project.getName() + '/src/main/java/com/ispong/oxygen/' + project.getName().split('-').last()
-                    }
-                }
-            }
-        }
-
         repositories {
             maven {
                 name = "GitHubPackages"
@@ -93,24 +49,12 @@ subprojects {
                 }
             }
         }
-
-//        repositories {
-//            maven {
-//                def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
-//                def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
-//                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-//
-//                credentials {
-//                    username = sonatypeUsername
-//                    password = sonatypePassword
-//                }
-//            }
-//        }
+        publications {
+            gpr(MavenPublication) {
+                from(components.java)
+            }
+        }
     }
-
-//    signing {
-//        sign publishing.publications.mavenJava
-//    }
 
     java {
         withJavadocJar()
@@ -123,6 +67,27 @@ subprojects {
             options.addBooleanOption('html5', true)
         }
     }
+
+    test {
+        useJUnitPlatform()
+        finalizedBy jacocoTestReport
+    }
+
+    jacocoTestReport {
+        dependsOn test
+        reports {
+            xml.enabled true
+            html.destination file("${buildDir}/jacocoHtml")
+        }
+    }
+
+    jacoco {
+        toolVersion = "0.8.5"
+        reportsDir = file("$buildDir/jacocoReport")
+    }
+}
+
+allprojects {
 
     bootJar { enabled false }
 
