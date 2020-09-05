@@ -1,71 +1,71 @@
-## 所有提交到latest分支的代码 都需要经过代码质量检测
-#name: analysis ci
-#
-#on:
-#  push:
-#    branches:
-#      - latest
-#
-#jobs:
-#  analysis:
-#
-#    runs-on: ubuntu-latest
-#
-#    strategy:
-#      fail-fast: false
-#      matrix:
-#        language: ['java']
-#
-#    steps:
-#
-#    - name: checkout repository
-#      uses: actions/checkout@v2.3.2
-#
-#    - name: cache gradle
-#      uses: actions/cache@v2
-#      with:
-#        path: |
-#          ~/.gradle/caches
-#          ~/.gradle/wrapper
-#        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-#        restore-keys: |
-#           ${{ runner.os }}-gradle-
-#
-#    - name: inititalize codeql
-#      uses: github/codeql-action/init@v1
-#      with:
-#        languages: ${{ matrix.language }}
-#        config-file: ./.github/codeql/codeql-config.yml
-#
-#    - name: setup jdk env
-#      uses: actions/setup-java@v1
-#      with:
-#        java-version: 1.8
-#
-#    - name: grant execute permission for gradlew
-#      run: chmod +x gradlew
-#
-#    - name: build gradle jar
-#      run: ./gradlew build test
-#
-#    - name: codeql analysis
-#      uses: github/codeql-action/analyze@v1
-#
-#    - name: setup .net env
-#      uses: actions/setup-dotnet@v1
-#      with:
-#        dotnet-version: 3.1.401
-#
-#    - name: report generator
-#      uses: danielpalme/ReportGenerator-GitHub-Action@4.6.5
-#      with:
-#        reports: ./build/jacocoReport/test/jacocoTestReport.xml
-#        targetdir: ./coverage/
-#        reporttypes: lcov
-#        sourcedirs: ./src/main/java/
-#
-#    - name: coveralls analysis
-#      uses: coverallsapp/github-action@v1.1.1
-#      with:
-#        github-token: ${{ secrets.GITHUB_TOKEN }}
-#        path-to-lcov: ./coverage/lcov.info
+# 所有提交到latest分支的代码 都需要经过代码质量检测
+name: analysis ci
+
+on:
+  push:
+    branches:
+      - latest
+
+jobs:
+  analysis:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ['java']
+
+    steps:
+
+    - name: checkout repository
+      uses: actions/checkout@v2.3.2
+
+    - name: cache gradle
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+        restore-keys: |
+           ${{ runner.os }}-gradle-
+
+    - name: inititalize codeql
+      uses: github/codeql-action/init@v1
+      with:
+        languages: ${{ matrix.language }}
+        config-file: ./.github/codeql/codeql-config.yml
+
+    - name: setup jdk env
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+
+    - name: grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: build gradle jar
+      run: ./gradlew build test
+
+    - name: codeql analysis
+      uses: github/codeql-action/analyze@v1
+
+    - name: setup .net env
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.401
+
+    - name: report generator
+      uses: danielpalme/ReportGenerator-GitHub-Action@4.6.5
+      with:
+        reports: ./build/jacocoReport/test/jacocoTestReport.xml
+        targetdir: ./coverage/
+        reporttypes: lcov
+        sourcedirs: ./src/main/java/
+
+    - name: coveralls analysis
+      uses: coverallsapp/github-action@v1.1.1
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: ./coverage/lcov.info
