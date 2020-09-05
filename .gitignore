@@ -1,16 +1,6 @@
-# idea
+### IntelliJ IDEA ###
 .idea
 
-# gradle
-gradle
+### Gradle ###
 .gradle
-gradle.properties
-gradlew
-gradlew.bat
-
-# build
 **/build
-
-# log
-**/logs
-
