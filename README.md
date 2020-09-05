@@ -34,6 +34,11 @@ Spring rapid development integration framework.
 
 </div>
 
+## Not
+
+After 1.0.0 , will be not publish in center mvn,will only publish in github repository
+and after only publish oxygen-spring-boot-starter ,will not publish any jar,we will use simply
+
 ## 📦 Installation
 
 Note: version > 1.0.0,please add Github package repository

@@ -1,20 +1,14 @@
 dependencies {
 
-    // spring-oxygen-core
     implementation(project(':spring-oxygen-core'))
 
-    //  spring-jdbc-starter
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
-    // h2 (driver)
     runtimeOnly 'com.h2database:h2'
 
-    // mysql (driver)
     runtimeOnly 'mysql:mysql-connector-java'
 
-    // oracle (driver)
     runtimeOnly 'com.oracle.ojdbc:ojdbc8'
 
-    // 为了使用spring的SecurityContextHolder
     implementation 'org.springframework.security:spring-security-core'
 }
