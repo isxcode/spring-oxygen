@@ -17,13 +17,10 @@ package com.ispong.oxygen.core.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.HttpEntity;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -55,11 +52,11 @@ public class HttpMarker {
         StringBuilder requestBody = new StringBuilder("?");
         requestParams.forEach((k, v) -> requestBody.append(k).append("=").append(v).append("&"));
 
-        // 发起请求
-        HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpGet httpGet = new HttpGet(url + requestBody.toString());
-        HttpEntity responseBody = httpClient.execute(httpGet).getEntity();
-        return new ObjectMapper().readValue(EntityUtils.toString(responseBody), targetClass);
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<String> requestEntity = new HttpEntity<>("", headers);
+        String result = new RestTemplate().exchange(url + requestBody.toString(), HttpMethod.GET, requestEntity, String.class).getBody();
+
+        return new ObjectMapper().readValue(result, targetClass);
     }
 
     /**
@@ -74,18 +71,13 @@ public class HttpMarker {
      */
     public static String doPost(String url, Map<String, String> headParams, Object requestParams) throws IOException {
 
-        HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost httpPost = new HttpPost(url);
-
-        // 添加请求头
+        HttpHeaders headers = new HttpHeaders();
         if (headParams != null) {
-            headParams.forEach(httpPost::setHeader);
+            headParams.forEach(headers::add);
         }
 
-        // 添加请求体
-        httpPost.setEntity(new StringEntity(new ObjectMapper().writeValueAsString(requestParams), StandardCharsets.UTF_8));
-
-        return EntityUtils.toString(httpClient.execute(httpPost).getEntity());
+        HttpEntity<String> requestEntity = new HttpEntity<>(new ObjectMapper().writeValueAsString(requestParams), headers);
+        return new RestTemplate().exchange(url, HttpMethod.POST, requestEntity, String.class).getBody();
     }
 }
 

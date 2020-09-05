@@ -3,18 +3,20 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
     id 'maven'
+    id 'maven-publish'
     id 'jacoco'
 }
 
 subprojects {
 
-    apply plugin: 'java'
-    apply plugin: 'maven-publish'
-    apply plugin: 'signing'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java'
+    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
+    apply plugin: 'jacoco'
 
-    version = '1.0.2'
+    version = '10.0.0'
     group = 'com.github.ispong'
 
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -22,30 +24,20 @@ subprojects {
 
     repositories {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-        mavenCentral()
-        jcenter()
     }
 
     dependencies {
-
-        // spring-web
         compileOnly 'org.springframework.boot:spring-boot-starter-web'
-
-        // configuration-processor
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-
-        // lombok
         compileOnly 'org.projectlombok:lombok:latest.integration'
         annotationProcessor 'org.projectlombok:lombok:latest.integration'
     }
-
-    bootJar { enabled false }
 
     publishing {
         repositories {
             maven {
                 name = "GitHubPackages"
-                url = uri("https://maven.pkg.github.com/OWNER/REPOSITORY")
+                url = uri("https://maven.pkg.github.com/ispong/spring-oxygen")
                 credentials {
                     username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
                     password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
