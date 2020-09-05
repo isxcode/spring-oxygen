@@ -9,22 +9,24 @@
 </h1>
 
 <h4 align="center">
-Spring rapid development integration framework
+    Spring rapid development integration framework.
 </h4>
 
 <div align="center">
 
-[![github commit][commit-image]][commit-url] [![github license][license-image]][license-url] [![github workflow][workflow-image]][workflow-url] [![Language grade: Java][lgtm-image]][lgtm-url] [![Coverage Status][coveralls-image]][coveralls-url]
+[![github commit][commit-image]][commit-url] [![github release][release-image]][release-url] [![github license][license-image]][license-url] [![github workflow][workflow-image]][workflow-url] [![Language grade: Java][lgtm-image]][lgtm-url] [![Coverage Status][coveralls-image]][coveralls-url]
 
-[commit-image]: https://img.shields.io/github/last-commit/ispong/spring-oxygen?style=flat
+[commit-image]: https://img.shields.io/github/last-commit/ispong/spring-oxygen?style=flat-square
 [commit-url]: https://github.com/ispong/spring-oxygen/graphs/commit-activity
-[license-image]: https://img.shields.io/github/license/ispong/spring-oxygen?style=flat
+[release-image]: https://img.shields.io/github/v/release/ispong/spring-oxygen?style=flat-square
+[release-url]: https://github.com/ispong/spring-oxygen/releases
+[license-image]: https://img.shields.io/github/license/ispong/spring-oxygen??style=flat-square
 [license-url]: https://github.com/ispong/spring-oxygen/blob/master/LICENSE
-[workflow-image]: https://img.shields.io/github/workflow/status/ispong/spring-oxygen/release%20ci?style=flat
+[workflow-image]: https://img.shields.io/github/workflow/status/ispong/spring-oxygen/release%20ci??style=flat-square
 [workflow-url]: https://github.com/ispong/spring-oxygen/actions?query=workflow%3A%22release+ci%22
-[lgtm-image]: https://img.shields.io/lgtm/grade/java/g/ispong/spring-oxygen.svg?logo=lgtm&logoWidth=18
-[lgtm-url]: https://lgtm.com/projects/g/ispong/spring-oxygen/context:java
-[coveralls-image]: https://coveralls.io/repos/github/ispong/spring-oxygen/badge.svg?branch=latest
+[lgtm-image]: https://img.shields.io/lgtm/grade/java/github/ispong/spring-oxygen?style=flat-square
+[lgtm-url]: https://lgtm.com/projects/g/ispong/spring-oxygen/latest/files/?sort=name&dir=ASC&mode=heatmap
+[coveralls-image]: https://img.shields.io/coveralls/github/ispong/spring-oxygen?style=flat-square
 [coveralls-url]: https://coveralls.io/github/ispong/spring-oxygen?branch=latest
 </div>
 
@@ -32,11 +34,11 @@ Spring rapid development integration framework
 
 [![github watch][github-watch-image]][github-watch-url] [![github star][github-star-image]][github-star-url] [![github fork][github-fork-image]][github-fork-url]
 
-[github-watch-image]: https://img.shields.io/github/watchers/ispong/spring-oxygen?style=flat
+[github-watch-image]: https://img.shields.io/github/watchers/ispong/spring-oxygen?style=social
 [github-watch-url]: https://github.com/ispong/spring-oxygen/watchers
-[github-star-image]: https://img.shields.io/github/stars/ispong/spring-oxygen?style=flat
+[github-star-image]: https://img.shields.io/github/stars/ispong/spring-oxygen?style=social
 [github-star-url]: https://github.com/ispong/spring-oxygen/stargazers
-[github-fork-image]: https://img.shields.io/github/forks/ispong/spring-oxygen?style=flat
+[github-fork-image]: https://img.shields.io/github/forks/ispong/spring-oxygen?style=social
 [github-fork-url]: https://github.com/ispong/spring-oxygen/network/members
 </div>
 
