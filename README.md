@@ -8,9 +8,9 @@
     Spring Oxygen
 </h1>
 
-<h3 align="center">
+<h4 align="center">
     Spring rapid development integration framework.
-</h3>
+</h4>
 
 <div align="center">
 
