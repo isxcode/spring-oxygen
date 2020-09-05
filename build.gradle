@@ -85,6 +85,9 @@ subprojects {
         toolVersion = "0.8.5"
         reportsDir = file("$buildDir/jacocoReport")
     }
+}
+
+allprojects {
 
     bootJar { enabled false }
 
