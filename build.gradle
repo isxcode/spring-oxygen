@@ -23,14 +23,19 @@ subprojects {
     targetCompatibility = JavaVersion.VERSION_1_8
 
     repositories {
+        mavenCentral()
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
     }
 
     dependencies {
         compileOnly 'org.springframework.boot:spring-boot-starter-web'
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+        // lombok
         compileOnly 'org.projectlombok:lombok:latest.integration'
         annotationProcessor 'org.projectlombok:lombok:latest.integration'
+        // junit
+        implementation 'org.junit.jupiter:junit-jupiter'
+        testCompile 'org.junit.jupiter:junit-jupiter-api:latest.integration'
     }
 
     publishing {
@@ -61,6 +66,24 @@ subprojects {
         if (JavaVersion.current().isJava9Compatible()) {
             options.addBooleanOption('html5', true)
         }
+    }
+
+    test {
+        useJUnitPlatform()
+        finalizedBy jacocoTestReport
+    }
+
+    jacocoTestReport {
+        dependsOn test
+        reports {
+            xml.enabled true
+            html.destination file("${buildDir}/jacocoHtml")
+        }
+    }
+
+    jacoco {
+        toolVersion = "0.8.5"
+        reportsDir = file("$buildDir/jacocoReport")
     }
 
     bootJar { enabled false }

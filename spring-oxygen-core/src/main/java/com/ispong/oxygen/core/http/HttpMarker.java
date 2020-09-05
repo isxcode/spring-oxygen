@@ -23,7 +23,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 /**
