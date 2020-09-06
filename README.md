@@ -14,15 +14,15 @@
 
 <div align="center">
 
-[![github commit][commit-image]][commit-url] [![github release][release-image]][release-url] [![github license][license-image]][license-url] [![github workflow][workflow-image]][workflow-url] [![Language grade: Java][lgtm-image]][lgtm-url] [![Coverage Status][coveralls-image]][coveralls-url]
+[![github commit][commit-image]][commit-url] [![github release][release-image]][release-url] [![github license][license-image]][license-url] [![github workflow][workflow-image]][workflow-url] [![lgtm][lgtm-image]][lgtm-url] [![coveralls][coveralls-image]][coveralls-url]
 
 [commit-image]: https://img.shields.io/github/last-commit/ispong/spring-oxygen?style=flat-square
 [commit-url]: https://github.com/ispong/spring-oxygen/graphs/commit-activity
 [release-image]: https://img.shields.io/github/v/release/ispong/spring-oxygen?style=flat-square
 [release-url]: https://github.com/ispong/spring-oxygen/releases
-[license-image]: https://img.shields.io/github/license/ispong/spring-oxygen??style=flat-square
+[license-image]: https://img.shields.io/github/license/ispong/spring-oxygen?style=flat-square
 [license-url]: https://github.com/ispong/spring-oxygen/blob/master/LICENSE
-[workflow-image]: https://img.shields.io/github/workflow/status/ispong/spring-oxygen/release%20ci??style=flat-square
+[workflow-image]: https://img.shields.io/github/workflow/status/ispong/spring-oxygen/release%20ci?style=flat-square
 [workflow-url]: https://github.com/ispong/spring-oxygen/actions?query=workflow%3A%22release+ci%22
 [lgtm-image]: https://img.shields.io/lgtm/grade/java/github/ispong/spring-oxygen?style=flat-square
 [lgtm-url]: https://lgtm.com/projects/g/ispong/spring-oxygen/latest/files/?sort=name&dir=ASC&mode=heatmap
@@ -32,134 +32,82 @@
 
 <div align="center">
 
-[![github watch][github-watch-image]][github-watch-url] [![github star][github-star-image]][github-star-url] [![github fork][github-fork-image]][github-fork-url]
+[![github watch][watch-image]][watch-url] [![github star][star-image]][star-url] [![github fork][fork-image]][fork-url]
 
-[github-watch-image]: https://img.shields.io/github/watchers/ispong/spring-oxygen?style=social
-[github-watch-url]: https://github.com/ispong/spring-oxygen/watchers
-[github-star-image]: https://img.shields.io/github/stars/ispong/spring-oxygen?style=social
-[github-star-url]: https://github.com/ispong/spring-oxygen/stargazers
-[github-fork-image]: https://img.shields.io/github/forks/ispong/spring-oxygen?style=social
-[github-fork-url]: https://github.com/ispong/spring-oxygen/network/members
+[watch-image]: https://img.shields.io/github/watchers/ispong/spring-oxygen?style=social
+[watch-url]: https://github.com/ispong/spring-oxygen/watchers
+[star-image]: https://img.shields.io/github/stars/ispong/spring-oxygen?style=social
+[star-url]: https://github.com/ispong/spring-oxygen/stargazers
+[fork-image]: https://img.shields.io/github/forks/ispong/spring-oxygen?style=social
+[fork-url]: https://github.com/ispong/spring-oxygen/network/members
 </div>
 
-## Not
+## 🚨 Note
 
-After 1.0.0 , will be not publish in center mvn,will only publish in github repository
-and after only publish oxygen-spring-boot-starter ,will not publish any jar,we will use simply
+Since release `v.1.1.0` , Package will not update in mvn center repository.We will only publish package in [github package repository](https://github.com/ispong/spring-oxygen/packages).
 
 ## 📦 Installation
 
-Note: version > 1.0.0,please add Github package repository
-```
+#### For Gradle
+
+- edit `build.gradle` file
+```groovy
 repositories {
     maven {
         name = "GitHubPackages"
         url = uri("https://maven.pkg.github.com/ispong/spring-oxygen")
         credentials {
-            username = ispong ?: System.getenv("USERNAME")
-            password = f4bf5205a7526d316ebb17617bd1c67aa9fe25e6 ?: System.getenv("TOKEN")
+            username = 'ispong'
+            password = '135ea292b89b891ac9d155ad2e87f1abdf1db1fa'
         }
     }
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.github.ispong:spring-oxygen-boot-starter:1.1.0'
 }
 ```
 
-Maven
+#### For Maven
 
 ```xml
 <dependency>
   <groupId>com.github.ispong</groupId>
   <artifactId>spring-oxygen-boot-starter</artifactId>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
 </dependency>
-```
-
-Gradle
-
-```groovy
-implementation 'com.github.ispong:spring-oxygen-boot-starter:1.0.0'
 ```
 
 ## 🔨 Start Up
 
-```java
-import com.ispong.oxygen.annotation.EnableOxygen;
-import org.springframework.context.annotation.Configuration;
+- You can try demo from [leo-day-spring](https://github.com/ispong/leo-day-spring).
+```text
+git clone -b template https://github.com/ispong/leo-day-spring
+cd leo-day-spring
+gradle bootRun
+```
 
-@Configuration
-@EnableOxygen
-public class AppConfig {
-
-}
+- you can see console to make sure spring-oxygen status.
+```text
+2020-09-06 10:20:25.896  INFO 17284 --- [           main] c.i.o.s.config.OxygenAutoConfiguration   : welcome to use spring-oxygen
+   _____            _                   ____
+  / ___/____  _____(_)___  ____ _      / __ \_  ____  ______ ____  ____
+  \__ \/ __ \/ ___/ / __ \/ __ `/_____/ / / / |/_/ / / / __ `/ _ \/ __ \
+ ___/ / /_/ / /  / / / / / /_/ /_____/ /_/ />  </ /_/ / /_/ /  __/ / / /
+/____/ .___/_/  /_/_/ /_/\__, /      \____/_/|_|\__, /\__, /\___/_/ /_/
+    /_/                 /____/                 /____//____/
 ```
 
 ## 📄 Documentation
 
-You can find the spring-oxygen documentation [on the website](https://ispong.gitee.io).
+You can find the spring-oxygen documentation [on the website](https://ispong.gitee.io/tags/spring-oxygen/).
 
 ## Modules
 
 There are a number of modules in spring-oxygen, here is a quick overview:
 
-### ✅ [oxygen-flysql](https://github.com/ispong/spring-oxygen/blob/master/spring-oxygen-flysql/README.md)
-
-- Integrate spring jdbc rapid development
-
-- Example
-
-```java
-import org.springframework.stereotype.Repository;
-import com.ispong.oxygen.flysql.core.Flysql;
-import com.ispong.oxygen.flysql.pojo.enums.OrderType;
-
-@Repository
-public class UserDao {
-
-    public List<UserEntity> queryUser() {
-
-        return Flysql.select(UserEntity.class)
-                .select("userName", "sex", "account", "age")
-                .eq("userName", "ispong")
-                .between("point", 100, 200)
-                .gt("age", "18")
-                .like("sex", "M")
-                .in("userPower", "ADMIN", "USER", "MANAGER")
-                .orderBy("userIndex", OrderType.DESC)
-                .query();
-    }
-}
-```
-
-### ✅ [oxygen-wechatgo](https://github.com/ispong/spring-oxygen/blob/master/spring-oxygen-wechatgo/README.md)
-
-- Integrate WeChat platform rapid development
-
-- Example
-
-```yaml
-oxygen:
-  wechatgo:
-    app-id: xxxxx # appId
-    app-secret: xxxxx # appSecret
-    token: xxxxx # custom server token
-```
-
-```java
-import com.ispong.oxygen.wechatgo.handler.WechatgoEventHandler;
-import com.ispong.oxygen.wechatgo.pojo.entity.WeChatEventBody;
-import org.springframework.stereotype.Service;
-
-@Service
-public class WechatgoService implements WechatgoEventHandler {
-
-    @Override
-    public void subscribeEvent(WeChatEventBody weChatEventBody) {
-
-        // do subscribe event
-    }
-}
-```
-
-### ✅ [oxygen-freecode](https://github.com/ispong/spring-oxygen/blob/master/spring-oxygen-freecode/READEME.md)
+### ✅ [oxygen-freecode]()
 
 - Fast generate java code
 
@@ -169,23 +117,90 @@ public class WechatgoService implements WechatgoEventHandler {
 oxygen:
   freecode:
     author: ispong
-    version: 0.0.2
-    module-path: com.ispong.app.module
+    version: 0.0.1
+    table-prefix: leo_
+    module-path: com.isxcode.leoday.module
 ```
 
 ```http request
-GET http://localhost:8080/freecode/generate?tableName=user_table
+GET http://localhost:8080/freecode/generate?tableName=leo_dogs
 ```
 
 ```text
 📂 com
-    📂 ispong
-        📂 app
+    📂 isxcode
+        📂 leoday
             📂 module
-                📄 userTableController
-                📄 userTableEntity
-                📄 userTableRepository
-                📄 userTableService
+                📂 dogs
+                    📄 LeoDogsController
+                    📄 LeoDogsEntity
+                    📄 LeoDogsRepository
+                    📄 LeoDogsService
+```
+
+### ✅ [oxygen-flysql]()
+
+- Integrate spring jdbc rapid development
+
+- Example
+
+```java
+import com.ispong.oxygen.flysql.pojo.enums.OrderType;
+import org.springframework.stereotype.Repository;
+import com.ispong.oxygen.flysql.core.Flysql;
+
+import java.util.List;
+
+@Repository
+public class LeoDogsRepository {
+
+    public List<LeoDogsEntity> customQuery() {
+
+        return Flysql.select(LeoDogsEntity.class)
+            .select("name", "age", "color")
+            .eq("name", "alen")
+            .between("age", 12, 20)
+            .like("color", "red")
+            .orderBy("userIndex", OrderType.DESC)
+            .query();
+    }
+}
+```
+
+### ✅ [oxygen-wechatgo]()
+
+- Integrate WeChat platform rapid development
+
+- Example
+
+- wechat callback url: `https://108516f880de.ngrok.io/wechatgo/wechatServer`
+
+```yaml
+oxygen:
+  wechatgo:
+    app-id: wx5ada926e5489824f
+    app-secret: d49e9eaac5633e661ff207353a9c86b1
+    token: custom_token
+```
+
+```java
+import com.ispong.oxygen.wechatgo.handler.WechatgoEventHandler;
+import com.ispong.oxygen.wechatgo.pojo.entity.WeChatEventBody;
+import org.springframework.stereotype.Service;
+
+@Service
+class WechatService implements WechatgoEventHandler {
+
+    @Override
+    public void subscribeEvent(WeChatEventBody weChatEventBody) {
+        // do subscribe
+    }
+
+    @Override
+    public void unsubscribeEvent(WeChatEventBody weChatEventBody) {
+        // do unsubscribe
+    }
+}
 ```
 
 ***

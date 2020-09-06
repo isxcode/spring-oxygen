@@ -15,6 +15,7 @@
  */
 package com.ispong.oxygen.starter.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 
@@ -24,6 +25,7 @@ import org.springframework.context.annotation.Bean;
  * @author ispong
  * @since 0.0.1
  */
+@Slf4j
 public class OxygenAutoConfiguration {
 
     /**
@@ -35,6 +37,7 @@ public class OxygenAutoConfiguration {
     @ConditionalOnClass(OxygenAutoConfiguration.class)
     private void initOxygenBanner() {
 
+        log.info("welcome to use spring-oxygen");
         System.out.println("   _____            _                   ____                            ");
         System.out.println("  / ___/____  _____(_)___  ____ _      / __ \\_  ____  ______ ____  ____ ");
         System.out.println("  \\__ \\/ __ \\/ ___/ / __ \\/ __ `/_____/ / / / |/_/ / / / __ `/ _ \\/ __ \\");

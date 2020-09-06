@@ -59,9 +59,13 @@ public class FreecodeProperties {
      */
     private String baseEntityClass;
 
-    /** 
+    /**
      * 基础类Controller
      */
     private String baseControllerClass;
 
+    /**
+     * 表名前缀
+     */
+    private String tablePrefix;
 }
