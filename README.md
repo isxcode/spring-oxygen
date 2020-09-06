@@ -173,6 +173,8 @@ public class LeoDogsRepository {
 
 - Example
 
+- wechat callback url: `https://108516f880de.ngrok.io/wechatgo/wechatServer`
+
 ```yaml
 oxygen:
   wechatgo:
@@ -187,7 +189,7 @@ import com.ispong.oxygen.wechatgo.pojo.entity.WeChatEventBody;
 import org.springframework.stereotype.Service;
 
 @Service
-public class WechatgoService implements WechatgoEventHandler {
+class WechatService implements WechatgoEventHandler {
 
     @Override
     public void subscribeEvent(WeChatEventBody weChatEventBody) {
