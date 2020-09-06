@@ -44,7 +44,7 @@ public class FreecodeAutoConfiguration {
     @ConditionalOnClass(FreecodeAutoConfiguration.class)
     public void initFreecodeBanner() {
 
-        log.info("welcome to use oxygen-freecode");
+        log.debug("welcome to use oxygen-freecode");
     }
 
     /**

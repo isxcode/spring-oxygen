@@ -69,8 +69,11 @@ public class FreecodeService {
             // 遍历生成文件生成文件
             for (String fileType : freecodeProperties.getFileTypes()) {
 
+                // 去除表明前缀
+                String tempFileName = metaTableName.replace(freecodeProperties.getTablePrefix(), "");
+
                 // 使用哪个模板文件
-                String modulePath = FreecodeConstants.MAIN_PATH + freecodeProperties.getModulePath() + "." + FreecodeUtils.lineToHump(metaTableName).toLowerCase();
+                String modulePath = FreecodeConstants.MAIN_PATH + freecodeProperties.getModulePath() + "." + FreecodeUtils.lineToHump(tempFileName).toLowerCase();
                 String templateName = fileType + FreecodeConstants.FREEMARKER_FILE_SUFFIX;
                 String fileName = FreecodeUtils.upperFirstCase(FreecodeUtils.lineToHump(metaTableName)) + FreecodeUtils.upperFirstCase(fileType) + FreecodeConstants.JAVA_FILE_SUFFIX;
 
@@ -105,7 +108,7 @@ public class FreecodeService {
         freecodeInfo.setEntityPackageList(FreecodeUtils.parseDataPackage(tableColumns));
 
         // module import class
-        freecodeInfo.setPackageName(freecodeProperties.getModulePath() + "." + tableName.toLowerCase().replace("_", ""));
+        freecodeInfo.setPackageName(freecodeProperties.getModulePath() + "." + tableName.replace(freecodeProperties.getTablePrefix(), "").toLowerCase().replace("_", ""));
 
         // 读取配置文件
         freecodeInfo.setFreecodeProperties(freecodeProperties);

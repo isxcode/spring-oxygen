@@ -15,15 +15,15 @@
  */
 package com.ispong.oxygen.freecode.repository;
 
+import com.ispong.oxygen.flysql.core.Flysql;
 import com.ispong.oxygen.freecode.exception.FreecodeException;
 import com.ispong.oxygen.freecode.pojo.entity.TableColumnInfo;
 import com.ispong.oxygen.freecode.pojo.entity.TableInfo;
 import com.ispong.oxygen.freecode.utils.FreecodeUtils;
+import lombok.SneakyThrows;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * 数据库交互层
@@ -41,31 +41,26 @@ public class FreecodeRepository {
      * @return 返回字段信息
      * @since 2020-01-09
      */
+    @SneakyThrows
     public List<TableColumnInfo> getTableColumns(String tableName, List<String> ignoreFields) {
 
         // 区分数据库类型
-        String databaseType;
-        databaseType = "";
-//            databaseType = Objects.requireNonNull(jdbcTemplate.getDataSource()).getConnection().getCatalog();
+        String databaseType = Flysql.getDataSource().getConnection().getCatalog();
 
         String sqlStr;
         switch (databaseType) {
             case "H2":
-                // h2
                 sqlStr = "show columns from " + tableName;
                 break;
-            case "com.mysql.cj.jdbc.Driver":
-                // mysql
+            case "MYSQL":
                 sqlStr = "show full columns from " + tableName;
                 break;
             default:
                 throw new FreecodeException("dataSource type not support");
         }
 
-//        Flysql.
-//        List<TableColumnInfo> tableColumnInfos = jdbcTemplate.query(sqlStr, new BeanPropertyRowMapper<>(TableColumnInfo.class));
+        List<TableColumnInfo> tableColumnInfos = Flysql.select(TableColumnInfo.class).sql(sqlStr).query();
 
-        List<TableColumnInfo> tableColumnInfos = new ArrayList<>();
         // 忽略字段
         List<TableColumnInfo> tempTableColumnInfos = new ArrayList<>();
         if (ignoreFields != null) {
@@ -96,7 +91,6 @@ public class FreecodeRepository {
     public TableInfo getTableInfo(String tableName) {
 
         String sqlStr = "select TABLE_COMMENT from information_schema.TABLES where TABLE_NAME = '" + tableName + "'";
-//        return jdbcTemplate.queryForObject(sqlStr, TableInfo.class);
-        return null;
+        return Flysql.select(TableInfo.class).sql(sqlStr).getOne();
     }
 }

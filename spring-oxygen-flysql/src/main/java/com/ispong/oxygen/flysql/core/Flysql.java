@@ -20,6 +20,7 @@ import com.ispong.oxygen.flysql.pojo.entity.FlysqlKey;
 import com.ispong.oxygen.flysql.pojo.enums.SqlType;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import javax.sql.DataSource;
 import java.util.Map;
 
 /**
@@ -38,6 +39,10 @@ public class Flysql {
     public Flysql(Map<String, JdbcTemplate> jdbcTemplateMap) {
 
         Flysql.jdbcTemplateMap = jdbcTemplateMap;
+    }
+
+    public static DataSource getDataSource() {
+        return jdbcTemplateMap.get(FlysqlConstants.PRIMARY_DATASOURCE_NAME).getDataSource();
     }
 
     /**
