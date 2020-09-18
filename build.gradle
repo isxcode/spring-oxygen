@@ -31,7 +31,7 @@ subprojects {
         compileOnly 'org.springframework.boot:spring-boot-starter-web'
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
         // lombok
-        compileOnly 'org.projectlombok:lombok:latest.integration'
+        compileOnly 'org.projectlombok:lombok:1.18.12'
         annotationProcessor 'org.projectlombok:lombok:latest.integration'
         // junit
         implementation 'org.junit.jupiter:junit-jupiter'
