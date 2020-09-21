@@ -24,7 +24,7 @@
 
 <div align="center">
 
-[![Wiki](https://img.shields.io/badge/Wiki-docs-ff69b4)](https://github.com/ispong/spring-oxygen/wiki)
+[![Wiki](https://img.shields.io/badge/Wiki-docs-black)](https://github.com/ispong/spring-oxygen/wiki)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/ispong/spring-oxygen/blob/main/CONTRIBUTING.md)
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/ispong/spring-oxygen)
 
