@@ -35,7 +35,7 @@ subprojects {
         annotationProcessor 'org.projectlombok:lombok:latest.integration'
         // junit
         implementation 'org.junit.jupiter:junit-jupiter'
-        testCompile 'org.junit.jupiter:junit-jupiter-api:latest.integration'
+        testCompile 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     }
 
     publishing {
