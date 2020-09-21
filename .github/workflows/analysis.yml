@@ -56,7 +56,7 @@ jobs:
         dotnet-version: 3.1.401
 
     - name: report generator
-      uses: danielpalme/ReportGenerator-GitHub-Action@4.6.5
+      uses: danielpalme/ReportGenerator-GitHub-Action@4.6.7
       with:
         reports: ./spring-oxygen-boot-starter/build/jacocoReport/test/jacocoTestReport.xml;./spring-oxygen-core/build/jacocoReport/test/jacocoTestReport.xml;./spring-oxygen-flysql/build/jacocoReport/test/jacocoTestReport.xml;./spring-oxygen-freecode/build/jacocoReport/test/jacocoTestReport.xml;./spring-oxygen-wechatgo/build/jacocoReport/test/jacocoTestReport.xml;
         targetdir: ./coverage/
