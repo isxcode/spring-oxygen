@@ -24,10 +24,10 @@ subprojects {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 
-    repositories {
+//    repositories {
 //        mavenCentral()
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-    }
+//        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+//    }
 
     dependencies {
         compileOnly 'org.springframework.boot:spring-boot-starter-web'

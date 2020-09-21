@@ -1,20 +1,13 @@
-## Welcome to contribute Spring Oxygen
+## Welcome to contribute spring-oxygen
 
-### code analysis
+Hello! Thank you for taking the time to contribute! If you want to join us, please send email to **ispong@outlook.com**.
 
-### branch
+#### [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)
 
-### how to debug in local
-
-### release
+### Start Project
 
 ```
-gradle publishToMavenLocal
-```
-
-```
-repositories {
-    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-    mavenCentral()
-}
+git clone -b latest https://github.com/ispong/spring-oxygen
+cd spring-oxygen
+gradle build -x test
 ```
