@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <!-- This module was also published with a richer model, Gradle metadata,  -->
+    <!-- which should be used instead. Do not delete the following line which  -->
+    <!-- is to indicate to Gradle or any Gradle module metadata file consumer  -->
+    <!-- that they should prefer consuming it instead. -->
+    <!-- do_not_remove: published-with-gradle-metadata -->
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.github.ispong</groupId>
+    <artifactId>spring-oxygen-boot-starter</artifactId>
+    <version>1.1.2</version>
+    <name>spring-oxygen-boot-starter</name>
+    <description>Spring rapid development integration framework.</description>
+    <url>https://github.com/ispong/spring-oxygen</url>
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>ispong</id>
+            <name>ispong</name>
+            <email>ispong@outlook.com</email>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git://github.com/ispong/spring-oxygen.git</connection>
+        <developerConnection>scm:git:ssh://github.com/ispong/spring-oxygen.git</developerConnection>
+        <url>https://github.com/ispong/spring-oxygen</url>
+    </scm>
+    <dependencies>
+        <dependency>
+            <groupId>com.github.ispong</groupId>
+            <artifactId>spring-oxygen-core</artifactId>
+            <version>1.1.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ispong</groupId>
+            <artifactId>spring-oxygen-flysql</artifactId>
+            <version>1.1.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ispong</groupId>
+            <artifactId>spring-oxygen-freecode</artifactId>
+            <version>1.1.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ispong</groupId>
+            <artifactId>spring-oxygen-wechatgo</artifactId>
+            <version>1.1.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.13.3</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.3.4.RELEASE</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
