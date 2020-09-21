@@ -15,6 +15,7 @@
 <div align="center">
 
 [![github commit][commit-image]][commit-url] [![github release][release-image]][release-url] [![github license][license-image]][license-url] [![github workflow][workflow-image]][workflow-url] [![lgtm][lgtm-image]][lgtm-url] [![coveralls][coveralls-image]][coveralls-url]
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fispong%2Fspring-oxygen.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fispong%2Fspring-oxygen?ref=badge_shield)
 
 [commit-image]: https://img.shields.io/github/last-commit/ispong/spring-oxygen?style=flat-square
 [commit-url]: https://github.com/ispong/spring-oxygen/graphs/commit-activity
@@ -208,3 +209,5 @@ class WechatService implements WechatgoEventHandler {
 #### Thanks for free JetBrains Open Source license
 
 <a href="https://www.jetbrains.com/?from=spring-oxygen" target="_blank"><img src="https://gitee.com/ispong/blog-images/raw/master/idea/jetbrains-3.png" height="100" alt="jetbrains"/></a>
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fispong%2Fspring-oxygen.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fispong%2Fspring-oxygen?ref=badge_large)
