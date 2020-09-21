@@ -14,99 +14,57 @@
 
 <div align="center">
 
-[![github commit][commit-image]][commit-url] [![github release][release-image]][release-url] [![github license][license-image]][license-url] [![github workflow][workflow-image]][workflow-url] [![lgtm][lgtm-image]][lgtm-url] [![coveralls][coveralls-image]][coveralls-url]
-
-[commit-image]: https://img.shields.io/github/last-commit/ispong/spring-oxygen?style=flat-square
-[commit-url]: https://github.com/ispong/spring-oxygen/graphs/commit-activity
-[release-image]: https://img.shields.io/github/v/release/ispong/spring-oxygen?style=flat-square
-[release-url]: https://github.com/ispong/spring-oxygen/releases
-[license-image]: https://img.shields.io/github/license/ispong/spring-oxygen?style=flat-square
-[license-url]: https://github.com/ispong/spring-oxygen/blob/master/LICENSE
-[workflow-image]: https://img.shields.io/github/workflow/status/ispong/spring-oxygen/release%20ci?style=flat-square
-[workflow-url]: https://github.com/ispong/spring-oxygen/actions?query=workflow%3A%22release+ci%22
-[lgtm-image]: https://img.shields.io/lgtm/grade/java/github/ispong/spring-oxygen?style=flat-square
-[lgtm-url]: https://lgtm.com/projects/g/ispong/spring-oxygen/latest/files/?sort=name&dir=ASC&mode=heatmap
-[coveralls-image]: https://img.shields.io/coveralls/github/ispong/spring-oxygen?style=flat-square
-[coveralls-url]: https://coveralls.io/github/ispong/spring-oxygen?branch=latest
-
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fispong%2Fspring-oxygen.svg?type=shield)]
+[![Github Build](https://github.com/ispong/spring-oxygen/workflows/build/badge.svg?branch=latest)](https://github.com/ispong/spring-oxygen/actions?query=workflow%3A%22build%22)
+[![Maven Version](https://img.shields.io/maven-central/v/com.github.ispong/spring-oxygen-boot-starter)](https://search.maven.org/artifact/com.github.ispong/spring-oxygen-boot-starter)
+[![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/ispong/spring-oxygen.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ispong/spring-oxygen/context:java)
+[![Coverage Status](https://coveralls.io/repos/github/ispong/spring-oxygen/badge.svg?branch=latest)](https://coveralls.io/github/ispong/spring-oxygen?branch=latest)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fispong%2Fspring-oxygen.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fispong%2Fspring-oxygen?ref=badge_shield)
 
 </div>
 
 <div align="center">
 
-[![github watch][watch-image]][watch-url] [![github star][star-image]][star-url] [![github fork][fork-image]][fork-url]
+[![Wiki](https://img.shields.io/badge/Wiki-docs-ff69b4)](https://github.com/ispong/spring-oxygen/wiki)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/ispong/spring-oxygen/blob/main/CONTRIBUTING.md)
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/ispong/spring-oxygen)
 
-[watch-image]: https://img.shields.io/github/watchers/ispong/spring-oxygen?style=social
-[watch-url]: https://github.com/ispong/spring-oxygen/watchers
-[star-image]: https://img.shields.io/github/stars/ispong/spring-oxygen?style=social
-[star-url]: https://github.com/ispong/spring-oxygen/stargazers
-[fork-image]: https://img.shields.io/github/forks/ispong/spring-oxygen?style=social
-[fork-url]: https://github.com/ispong/spring-oxygen/network/members
 </div>
 
-## 🚨 Note
+<div align="center">
 
-Since release `v.1.1.0` , Package will not update in mvn center repository.We will only publish package in [github package repository](https://github.com/ispong/spring-oxygen/packages).
+[![Github Watch](https://img.shields.io/github/watchers/ispong/spring-oxygen?style=social)](https://github.com/ispong/spring-oxygen/watchers)
+[![Github Star](https://img.shields.io/github/stars/ispong/spring-oxygen?style=social)](https://github.com/ispong/spring-oxygen/stargazers)
+[![Github Fork](https://img.shields.io/github/forks/ispong/spring-oxygen?style=social)](https://github.com/ispong/spring-oxygen/network/members)
+
+</div>
+
+## 🐣 Intro
+
+[Spring Oxygen](https://github.com/ispong/spring-oxygen) is integration framework for [Spring](https://spring.io/).
+It is important to state that this project is personally developed and maintained, and enterprise projects are recommended to be used with caution.
+Welcome to develop together, hope to become an enterprise-level integration framework.
 
 ## 📦 Installation
 
-#### For Gradle
+- for Gradle
 
-- edit `build.gradle` file
 ```groovy
-repositories {
-    maven {
-        name = "GitHubPackages"
-        url = uri("https://maven.pkg.github.com/ispong/spring-oxygen")
-        credentials {
-            username = 'ispong'
-            password = '135ea292b89b891ac9d155ad2e87f1abdf1db1fa'
-        }
-    }
-    mavenCentral()
-}
-
 dependencies {
-    implementation 'com.github.ispong:spring-oxygen-boot-starter:1.1.0'
+    implementation 'com.github.ispong:spring-oxygen-boot-starter:1.1.1'
 }
 ```
 
-#### For Maven
+- for Maven
 
 ```xml
 <dependency>
   <groupId>com.github.ispong</groupId>
   <artifactId>spring-oxygen-boot-starter</artifactId>
-  <version>1.1.0</version>
+  <version>1.1.1</version>
 </dependency>
 ```
 
-## 🔨 Start Up
-
-- You can try demo from [leo-day-spring](https://github.com/ispong/leo-day-spring).
-```text
-git clone -b template https://github.com/ispong/leo-day-spring
-cd leo-day-spring
-gradle bootRun
-```
-
-- you can see console to make sure spring-oxygen status.
-```text
-2020-09-06 10:20:25.896  INFO 17284 --- [           main] c.i.o.s.config.OxygenAutoConfiguration   : welcome to use spring-oxygen
-   _____            _                   ____
-  / ___/____  _____(_)___  ____ _      / __ \_  ____  ______ ____  ____
-  \__ \/ __ \/ ___/ / __ \/ __ `/_____/ / / / |/_/ / / / __ `/ _ \/ __ \
- ___/ / /_/ / /  / / / / / /_/ /_____/ /_/ />  </ /_/ / /_/ /  __/ / / /
-/____/ .___/_/  /_/_/ /_/\__, /      \____/_/|_|\__, /\__, /\___/_/ /_/
-    /_/                 /____/                 /____//____/
-```
-
-## 📄 Documentation
-
-You can find the spring-oxygen documentation [on the website](https://github.com/ispong/spring-oxygen/wiki).
-
-## Modules
+## 🔨 Usage
 
 There are a number of modules in spring-oxygen, here is a quick overview:
 
