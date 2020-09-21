@@ -64,7 +64,7 @@ jobs:
         sourcedirs: ./spring-oxygen-boot-starter/src/main/java/;./spring-oxygen-core/src/main/java/;./spring-oxygen-flysql/src/main/java/;./spring-oxygen-freecode/src/main/java/;./spring-oxygen-wechatgo/src/main/java/;
 
     - name: coveralls analysis
-      uses: coverallsapp/github-action@v1.1.1
+      uses: coverallsapp/github-action@v1.1.2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: ./coverage/lcov.info
