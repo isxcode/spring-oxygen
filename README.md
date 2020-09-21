@@ -28,6 +28,9 @@
 [lgtm-url]: https://lgtm.com/projects/g/ispong/spring-oxygen/latest/files/?sort=name&dir=ASC&mode=heatmap
 [coveralls-image]: https://img.shields.io/coveralls/github/ispong/spring-oxygen?style=flat-square
 [coveralls-url]: https://coveralls.io/github/ispong/spring-oxygen?branch=latest
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fispong%2Fspring-oxygen.svg?type=shield)]
+
 </div>
 
 <div align="center">
