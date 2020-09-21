@@ -1,4 +1,4 @@
-name: release ci
+name: 🔖 release
 
 on:
   release:
@@ -9,9 +9,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
     - name: checkout repository
       uses: actions/checkout@v2
+      with:
+        ref: main
 
     - name: cache gradle
       uses: actions/cache@v2
@@ -23,16 +24,20 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gradle-
 
-    - name: setup jdk env
+    - name: gradle build
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - run: gradle build -x test
 
-    - name: build jar
-      run: gradle build -x test
+    - name: publish to sonatype
+      run: gradle publishMavenJavaPublicationToSonatypePackagesRepository
+      env:
+        SONATYPE_NAME: ${{ github.actor }}
+        SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
 
-    - name: publish jar
-      run: gradle publish
+    - name: publish to github
+      run: gradle publishGprPublicationToGitHubPackagesRepository
       env:
         USERNAME: ${{ github.actor }}
         TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -101,7 +101,7 @@ gradle bootRun
 
 ## 📄 Documentation
 
-You can find the spring-oxygen documentation [on the website](https://ispong.gitee.io/tags/spring-oxygen/).
+You can find the spring-oxygen documentation [on the website](https://github.com/ispong/spring-oxygen/wiki).
 
 ## Modules
 

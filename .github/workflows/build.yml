@@ -1,4 +1,4 @@
-name: analysis ci
+name: build
 
 on:
   push:
@@ -7,7 +7,6 @@ on:
 
 jobs:
   analysis:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -19,6 +18,8 @@ jobs:
 
     - name: checkout repository
       uses: actions/checkout@v2.3.2
+      with:
+        ref: latest
 
     - name: cache gradle
       uses: actions/cache@v2
@@ -36,16 +37,13 @@ jobs:
         languages: ${{ matrix.language }}
         config-file: ./.github/codeql/codeql-config.yml
 
-    - name: setup jdk env
+    - name: gradle build
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-
-    - name: grant execute permission for gradlew
-      run: chmod +x gradlew
-
-    - name: build gradle jar
-      run: ./gradlew build test
+    - run: |
+        chmod +x gradlew
+        gradle build test
 
     - name: codeql analysis
       uses: github/codeql-action/analyze@v1
@@ -67,4 +65,3 @@ jobs:
       uses: coverallsapp/github-action@v1.1.1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./coverage/lcov.info

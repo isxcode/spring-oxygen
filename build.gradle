@@ -1,14 +1,16 @@
 plugins {
-    id 'org.springframework.boot' version '2.3.3.RELEASE'
+    id 'org.springframework.boot' version '2.3.4.RELEASE'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
     id 'maven'
     id 'maven-publish'
+    id 'signing'
     id 'jacoco'
 }
 
 subprojects {
 
+    apply plugin: 'signing'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'java'
@@ -16,29 +18,32 @@ subprojects {
     apply plugin: 'maven-publish'
     apply plugin: 'jacoco'
 
-    version = project.findProperty("release.number")
-    group = 'com.github.ispong'
+    version = project.findProperty("project.version")
+    group = project.findProperty("project.group")
 
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 
     repositories {
-        mavenCentral()
+//        mavenCentral()
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
     }
 
     dependencies {
         compileOnly 'org.springframework.boot:spring-boot-starter-web'
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-        // lombok
-        compileOnly 'org.projectlombok:lombok:latest.integration'
-        annotationProcessor 'org.projectlombok:lombok:latest.integration'
-        // junit
+
+        compileOnly 'org.projectlombok:lombok:1.18.12'
+        annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+        implementation 'org.apache.logging.log4j:log4j-api:2.13.3'
+
         implementation 'org.junit.jupiter:junit-jupiter'
-        testCompile 'org.junit.jupiter:junit-jupiter-api:latest.integration'
+        testCompile 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     }
 
     publishing {
+
         repositories {
             maven {
                 name = "GitHubPackages"
@@ -49,11 +54,68 @@ subprojects {
                 }
             }
         }
+
         publications {
             gpr(MavenPublication) {
                 from(components.java)
             }
         }
+
+    }
+
+    publishing {
+
+        repositories {
+            maven {
+                name = "SonatypePackages"
+                def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+                def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+                credentials {
+                    username = project.findProperty("sonatypeUsername") ?: System.getenv("SONATYPE_NAME")
+                    password = project.findProperty("sonatypePassword") ?: System.getenv("SONATYPE_PASSWORD")
+                }
+            }
+        }
+
+        publications {
+
+            mavenJava(MavenPublication) {
+                from components.java
+
+                pom {
+
+                    name = project.getName()
+                    description = 'Spring rapid development integration framework.'
+                    url = 'https://github.com/ispong/spring-oxygen'
+
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id = 'ispong'
+                            name = 'ispong'
+                            email = 'ispong@outlook.com'
+                        }
+                    }
+
+                    scm {
+                        connection = 'scm:git:git://github.com/ispong/spring-oxygen.git'
+                        developerConnection = 'scm:git:ssh://github.com/ispong/spring-oxygen.git'
+                        url = 'https://github.com/ispong/spring-oxygen'
+                    }
+                }
+            }
+        }
+    }
+
+    signing {
+        sign publishing.publications.mavenJava
     }
 
     java {
