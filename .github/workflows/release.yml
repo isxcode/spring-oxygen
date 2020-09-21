@@ -31,13 +31,13 @@ jobs:
     - run: gradle build -x test
 
     - name: publish to sonatype
-      run: gradle publishMavenJavaPublicationToSonatypePackagesRepository
-      env:
-        SONATYPE_NAME: ${{ github.actor }}
-        SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+      run: |
+        echo 'sonatypeUsername=${{ github.actor }}' >> ~/gradle.properties
+        echo 'sonatypePassword=${{ secrets.SONATYPE_PASSWORD }}' >> ~/gradle.properties
+        gradle publishMavenJavaPublicationToSonatypePackagesRepository
 
     - name: publish to github
-      run: gradle publishGprPublicationToGitHubPackagesRepository
-      env:
-        USERNAME: ${{ github.actor }}
-        TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        echo 'gpr.user=${{ github.actor }}' >> ~/gradle.properties
+        echo 'gpr.key=${{ secrets.GITHUB_TOKEN }}' >> ~/gradle.properties
+        gradle publishGprPublicationToGitHubPackagesRepository

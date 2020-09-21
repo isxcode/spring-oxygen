@@ -5,7 +5,3 @@ include 'spring-oxygen-core'
 include 'spring-oxygen-flysql'
 include 'spring-oxygen-freecode'
 include 'spring-oxygen-wechatgo'
-
-rootProject.children.each { project ->
-    project.buildFileName = "${project.name}.gradle"
-}
