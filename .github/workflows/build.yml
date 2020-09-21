@@ -54,7 +54,7 @@ jobs:
         dotnet-version: 3.1.401
 
     - name: report generator
-      uses: danielpalme/ReportGenerator-GitHub-Action@4.6.5
+      uses: danielpalme/ReportGenerator-GitHub-Action@4.6.7
       with:
         reports: ./spring-oxygen-boot-starter/build/jacocoReport/test/jacocoTestReport.xml;./spring-oxygen-core/build/jacocoReport/test/jacocoTestReport.xml;./spring-oxygen-flysql/build/jacocoReport/test/jacocoTestReport.xml;./spring-oxygen-freecode/build/jacocoReport/test/jacocoTestReport.xml;./spring-oxygen-wechatgo/build/jacocoReport/test/jacocoTestReport.xml;
         targetdir: ./coverage/
@@ -62,6 +62,6 @@ jobs:
         sourcedirs: ./spring-oxygen-boot-starter/src/main/java/;./spring-oxygen-core/src/main/java/;./spring-oxygen-flysql/src/main/java/;./spring-oxygen-freecode/src/main/java/;./spring-oxygen-wechatgo/src/main/java/;
 
     - name: coveralls analysis
-      uses: coverallsapp/github-action@v1.1.1
+      uses: coverallsapp/github-action@v1.1.2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
