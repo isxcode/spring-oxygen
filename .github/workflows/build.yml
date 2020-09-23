@@ -1,12 +1,12 @@
 name: build
 
 on:
-  push:
+  pull_request:
     branches:
-      - latest
+      - main
 
 jobs:
-  analysis:
+  build:
     runs-on: ubuntu-latest
 
     strategy:

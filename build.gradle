@@ -18,8 +18,8 @@ subprojects {
     apply plugin: 'maven-publish'
     apply plugin: 'jacoco'
 
-    version = project.findProperty("project.version")
-    group = project.findProperty("project.group")
+    version = project.findProperty('project.version')
+    group = project.findProperty('project.group')
 
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
@@ -46,11 +46,12 @@ subprojects {
 
         repositories {
             maven {
-                name = "GitHubPackages"
-                url = uri("https://maven.pkg.github.com/ispong/spring-oxygen")
+                name = 'GitHubPackages'
+                def githubRepoUrl = 'https://maven.pkg.github.com/ispong/spring-oxygen'
+                url = githubRepoUrl
                 credentials {
-                    username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-                    password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+                    username = project.findProperty('gpr.user') ?: System.getenv('USERNAME')
+                    password = project.findProperty('gpr.key') ?: System.getenv('TOKEN')
                 }
             }
         }
@@ -60,7 +61,6 @@ subprojects {
                 from(components.java)
             }
         }
-
     }
 
     publishing {
