@@ -9,6 +9,6 @@ dependencies {
     runtime 'io.jsonwebtoken:jjwt-impl:latest.integration',
         'io.jsonwebtoken:jjwt-jackson:latest.integration'
 
-    implementation 'org.apache.poi:poi:latest.integration'
+    implementation 'org.apache.poi:poi:4.1.2'
     implementation 'org.apache.poi:poi-ooxml:latest.integration'
 }
