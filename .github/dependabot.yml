@@ -11,7 +11,7 @@ updates:
       time: '09:00'
 
   - package-ecosystem: 'gradle'
-    directory: '/spring-oxygen-core'
+    directory: '/'
     target-branch: 'latest'
     schedule:
       interval: 'daily'
