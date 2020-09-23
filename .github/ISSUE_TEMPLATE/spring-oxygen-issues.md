@@ -1,6 +1,6 @@
 ---
-name: for spring-oxygen
-about: only about spring-oxygen issues
+name: Spring Oxygen Issues
+about: Only for spring oxygen issues
 title:
 labels:
 assignees:
