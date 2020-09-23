@@ -1,11 +1,14 @@
+// 指定项目名称
 rootProject.name = 'spring-oxygen'
 
+// 使用子模块开发，导入模块
 include 'spring-oxygen-boot-starter'
 include 'spring-oxygen-core'
 include 'spring-oxygen-flysql'
 include 'spring-oxygen-freecode'
 include 'spring-oxygen-wechatgo'
 
+// 子模块如果都用build.gradle会乱，指定子模块配置文件名为{项目名}.gradle
 rootProject.children.each { project ->
     project.buildFileName = "${project.name}.gradle"
 }

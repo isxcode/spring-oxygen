@@ -1,9 +1,9 @@
 ---
 name: for spring-oxygen
-about: only about spring-oxygen issues
+about: only about spring-oxygen features
 title:
 labels: spring-oxygen
-assignees: ispong
+assignees:
 ---
 
 <!--

@@ -24,7 +24,7 @@
 
 <div align="center">
 
-[![Wiki](https://img.shields.io/badge/Wiki-docs-black)](https://github.com/ispong/spring-oxygen/wiki)
+[![Wiki](https://img.shields.io/badge/Wiki-docs-important)](https://github.com/ispong/spring-oxygen/wiki)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/ispong/spring-oxygen/blob/main/CONTRIBUTING.md)
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/ispong/spring-oxygen)
 
@@ -40,9 +40,10 @@
 
 ## 🐣 Intro
 
-[Spring Oxygen](https://github.com/ispong/spring-oxygen) is integration framework for [Spring](https://spring.io/).
-It is important to state that this project is personally developed and maintained, and enterprise projects are recommended to be used with caution.
-Welcome to develop together, hope to become an enterprise-level integration framework.
+[Spring Oxygen](https://github.com/ispong/spring-oxygen) is rapid development integration framework for [Spring](https://spring.io/).
+**Important statement, enterprise-level development is recommended to be used with caution!**
+For instructions on use, please check the [Wiki](https://github.com/ispong/spring-oxygen/wiki) carefully.
+Welcome to develop and maintain together, please follow the [github development](https://github.com/ispong/spring-oxygen/blob/main/CONTRIBUTING.md) specification.
 
 ## 📦 Installation
 
@@ -50,7 +51,7 @@ Welcome to develop together, hope to become an enterprise-level integration fram
 
 ```groovy
 dependencies {
-    implementation 'com.github.ispong:spring-oxygen-boot-starter:1.1.1'
+    implementation 'com.github.ispong:spring-oxygen-boot-starter:1.1.2'
 }
 ```
 
@@ -60,107 +61,22 @@ dependencies {
 <dependency>
   <groupId>com.github.ispong</groupId>
   <artifactId>spring-oxygen-boot-starter</artifactId>
-  <version>1.1.1</version>
+  <version>1.1.2</version>
 </dependency>
 ```
 
 ## 🔨 Usage
 
-There are a number of modules in spring-oxygen, here is a quick overview:
-
-### ✅ [oxygen-freecode]()
-
-- Fast generate java code
-
-- Example
-
-```yaml
-oxygen:
-  freecode:
-    author: ispong
-    version: 0.0.1
-    table-prefix: leo_
-    module-path: com.isxcode.leoday.module
-```
-
-```http request
-GET http://localhost:8080/freecode/generate?tableName=leo_dogs
-```
-
-```text
-📂 com
-    📂 isxcode
-        📂 leoday
-            📂 module
-                📂 dogs
-                    📄 LeoDogsController
-                    📄 LeoDogsEntity
-                    📄 LeoDogsRepository
-                    📄 LeoDogsService
-```
-
-### ✅ [oxygen-flysql]()
-
-- Integrate spring jdbc rapid development
-
-- Example
-
 ```java
-import com.ispong.oxygen.flysql.pojo.enums.OrderType;
-import org.springframework.stereotype.Repository;
-import com.ispong.oxygen.flysql.core.Flysql;
+package com.isxcode.leoday.config;
 
-import java.util.List;
+import com.ispong.oxygen.starter.annotation.EnableOxygen;
+import org.springframework.context.annotation.Configuration;
 
-@Repository
-public class LeoDogsRepository {
+@EnableOxygen
+@Configuration
+public class AppConfig {
 
-    public List<LeoDogsEntity> customQuery() {
-
-        return Flysql.select(LeoDogsEntity.class)
-            .select("name", "age", "color")
-            .eq("name", "alen")
-            .between("age", 12, 20)
-            .like("color", "red")
-            .orderBy("userIndex", OrderType.DESC)
-            .query();
-    }
-}
-```
-
-### ✅ [oxygen-wechatgo]()
-
-- Integrate WeChat platform rapid development
-
-- Example
-
-- wechat callback url: `https://108516f880de.ngrok.io/wechatgo/wechatServer`
-
-```yaml
-oxygen:
-  wechatgo:
-    app-id: wx5ada926e5489824f
-    app-secret: d49e9eaac5633e661ff207353a9c86b1
-    token: custom_token
-```
-
-```java
-import com.ispong.oxygen.wechatgo.handler.WechatgoEventHandler;
-import com.ispong.oxygen.wechatgo.pojo.entity.WeChatEventBody;
-import org.springframework.stereotype.Service;
-
-@Service
-class WechatService implements WechatgoEventHandler {
-
-    @Override
-    public void subscribeEvent(WeChatEventBody weChatEventBody) {
-        // do subscribe
-    }
-
-    @Override
-    public void unsubscribeEvent(WeChatEventBody weChatEventBody) {
-        // do unsubscribe
-    }
 }
 ```
 
