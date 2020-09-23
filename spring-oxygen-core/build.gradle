@@ -5,7 +5,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-freemarker'
 
     implementation 'io.jsonwebtoken:jjwt-api:latest.integration'
-    implementation 'io.jsonwebtoken:jjwt-jackson:latest.integration'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
     runtime 'io.jsonwebtoken:jjwt-impl:latest.integration',
         'io.jsonwebtoken:jjwt-jackson:latest.integration'
 
