@@ -1,6 +1,3 @@
-<!--
-    指定版本，哪些升级是可以使用的，哪些升级是不能用的
--->
 # Security Policy
 
 ## Supported Versions
@@ -10,7 +7,7 @@ currently being supported with security updates.
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.2.x   | :white_check_mark: |
+| 1.1.3   | :white_check_mark: |
 | < 1.1   | :x:                |
 
 ## Reporting a Vulnerability

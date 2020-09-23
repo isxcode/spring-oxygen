@@ -1,8 +1,8 @@
 ---
 name: for spring-oxygen
-about: only about spring-oxygen features
+about: only about spring-oxygen issues
 title:
-labels: spring-oxygen
+labels:
 assignees:
 ---
 
