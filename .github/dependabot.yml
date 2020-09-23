@@ -1,4 +1,3 @@
-#https://docs.github.com/en/github/administering-a-repository/keeping-your-dependencies-updated-automatically
 version: 2
 updates:
 
@@ -12,38 +11,6 @@ updates:
 
   - package-ecosystem: 'gradle'
     directory: '/'
-    target-branch: 'latest'
-    schedule:
-      interval: 'daily'
-      timezone: "Asia/Shanghai"
-      time: '09:00'
-
-  - package-ecosystem: 'gradle'
-    directory: '/spring-oxygen-core'
-    target-branch: 'latest'
-    schedule:
-      interval: 'daily'
-      timezone: "Asia/Shanghai"
-      time: '09:00'
-
-  - package-ecosystem: 'gradle'
-    directory: '/spring-oxygen-flysql'
-    target-branch: 'latest'
-    schedule:
-      interval: 'daily'
-      timezone: "Asia/Shanghai"
-      time: '09:00'
-
-  - package-ecosystem: 'gradle'
-    directory: '/spring-oxygen-freecode'
-    target-branch: 'latest'
-    schedule:
-      interval: 'daily'
-      timezone: "Asia/Shanghai"
-      time: '09:00'
-
-  - package-ecosystem: 'gradle'
-    directory: '/spring-oxygen-wechatgo'
     target-branch: 'latest'
     schedule:
       interval: 'daily'
