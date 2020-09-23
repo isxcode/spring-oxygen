@@ -6,7 +6,7 @@ dependencies {
 
     implementation 'io.jsonwebtoken:jjwt-api:latest.integration'
     implementation 'io.jsonwebtoken:jjwt-jackson:latest.integration'
-    runtime 'io.jsonwebtoken:jjwt-impl:latest.integration',
+    runtime 'io.jsonwebtoken:jjwt-impl:0.11.2',
         'io.jsonwebtoken:jjwt-jackson:latest.integration'
 
     implementation 'org.apache.poi:poi:latest.integration'
