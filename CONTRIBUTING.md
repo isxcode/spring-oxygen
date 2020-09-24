@@ -8,15 +8,23 @@ Hello! Thank you for taking the time to contribute! If you want to join us, plea
 
 ### Installation Prerequisites
 
+- Git 2.22.+
 - Java 1.8.+
 - Gradle 6.5.+
-- Git 2.22.+
 
 ### Build and Package
+
+- for Gradle
 
 ```
 git clone -b latest https://github.com/ispong/spring-oxygen
 cd spring-oxygen
-gradle build
 gradle publishToMavenLocal
+```
+
+- for Maven
+```
+git clone -b latest https://github.com/ispong/spring-oxygen
+cd spring-oxygen
+mvn install
 ```
