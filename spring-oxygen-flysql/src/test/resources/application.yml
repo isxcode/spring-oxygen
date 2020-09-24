@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:~/h2
+    username: root
+    password: root
+    initialization-mode: always
+    schema: classpath:db/schema_h2.sql
+    data: classpath:db/data_h2.sql
