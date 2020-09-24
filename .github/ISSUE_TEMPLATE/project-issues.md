@@ -1,15 +1,15 @@
 ---
 name: Spring Oxygen Project
-about: For Milestones v1.1.3
-title: v1.1.3
-labels: project
-assignees: ispong
+about: For new features
+title:
+labels:
+assignees:
 ---
 
 <!--
-!!! Target  !!!
+!!! New Features  !!!
 -->
-**Describe the target**
+**Describe the features**
 
 
 ***

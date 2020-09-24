@@ -8,9 +8,9 @@ Hello! Thank you for taking the time to contribute! If you want to join us, plea
 
 ### Installation Prerequisites
 
-- Java 1.8.x
-- Gradle 6.5.x
-- Git 2.22.x
+- Java 1.8.+
+- Gradle 6.5.+
+- Git 2.22.+
 
 ### Build and Package
 

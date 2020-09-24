@@ -7,10 +7,12 @@ currently being supported with security updates.
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.1.3   | :white_check_mark: |
+| 1.2.x   | :white_check_mark: |
 | < 1.1   | :x:                |
 
 ## Reporting a Vulnerability
+
+- https://github.com/ispong/spring-oxygen/wiki
 
 Use this section to tell people how to report a vulnerability.
 

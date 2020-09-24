@@ -1,4 +1,4 @@
-name: 🔖 release
+name: 🔖 release for sonatype
 
 on:
   release:
@@ -10,9 +10,7 @@ jobs:
 
     steps:
     - name: checkout repository
-      uses: actions/checkout@v2
-      with:
-        ref: main
+      uses: actions/checkout@v2.3.3
 
     - name: cache gradle
       uses: actions/cache@v2
@@ -35,9 +33,3 @@ jobs:
         echo 'sonatypeUsername=${{ github.actor }}' >> gradle.properties
         echo 'sonatypePassword=${{ secrets.SONATYPE_PASSWORD }}' >> gradle.properties
         gradle publishMavenJavaPublicationToSonatypePackagesRepository
-
-    - name: publish to github
-      run: |
-        echo 'gpr.user=${{ github.actor }}' >> gradle.properties
-        echo 'gpr.key=${{ secrets.GITHUB_TOKEN }}' >> gradle.properties
-        gradle publishGprPublicationToGitHubPackagesRepository

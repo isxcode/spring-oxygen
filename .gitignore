@@ -3,4 +3,13 @@
 
 ### Gradle ###
 .gradle
+gradle
+gradlew
+gradlew.bat
+
+### Packages ###
 **/build
+**/target
+
+## Logs ###
+**/logs

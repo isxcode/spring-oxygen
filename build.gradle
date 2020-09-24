@@ -42,6 +42,7 @@ subprojects {
         testCompile 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     }
 
+    // https://docs.github.com/en/packages/using-github-packages-with-your-projects-ecosystem/configuring-gradle-for-use-with-github-packages
     publishing {
 
         repositories {
@@ -63,6 +64,7 @@ subprojects {
         }
     }
 
+    // https://docs.gradle.org/current/userguide/publishing_maven.html#header
     publishing {
 
         repositories {
@@ -130,6 +132,7 @@ subprojects {
         }
     }
 
+    // https://docs.gradle.org/current/userguide/jacoco_plugin.html#header
     test {
         useJUnitPlatform()
         finalizedBy jacocoTestReport
