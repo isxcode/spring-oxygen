@@ -32,7 +32,7 @@ import java.util.Map;
  * @since 0.0.1
  */
 @Slf4j
-public class HttpMarker {
+public class HttpUtils {
 
     /**
      * 执行get请求
@@ -64,6 +64,46 @@ public class HttpMarker {
      * @param url           url
      * @param requestParams requestParams
      * @param headParams    请求头
+     * @return post body str
+     * @throws IOException 访问失败
+     * @since 0.0.1
+     */
+    public static <T> T doPost(String url, Map<String, String> headParams, Object requestParams, Class<T> targetCls) throws IOException {
+
+        HttpHeaders headers = new HttpHeaders();
+        if (headParams != null) {
+            headParams.forEach(headers::add);
+        }
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(new ObjectMapper().writeValueAsString(requestParams), headers);
+        String responseBody = new RestTemplate().exchange(url, HttpMethod.POST, requestEntity, String.class).getBody();
+        try {
+            return new ObjectMapper().readValue(responseBody, targetCls);
+        } catch (Exception e) {
+            log.error("request is wrong:" + responseBody);
+            return null;
+        }
+    }
+
+    /**
+     * 执行post请求
+     *
+     * @param url           url
+     * @param requestParams requestParams
+     * @return post body str
+     * @throws IOException 访问失败
+     * @since 0.0.1
+     */
+    public static <T> T doPost(String url, Object requestParams, Class<T> targetCls) throws IOException {
+
+        return doPost(url, null, requestParams, targetCls);
+    }
+
+    /**
+     * 执行post请求
+     *
+     * @param url           url
+     * @param requestParams requestParams
      * @return post body str
      * @throws IOException 访问失败
      * @since 0.0.1
