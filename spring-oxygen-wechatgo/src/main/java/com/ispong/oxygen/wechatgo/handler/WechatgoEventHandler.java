@@ -55,4 +55,13 @@ public interface WechatgoEventHandler {
 
     }
 
+    /**
+     * send Msg Template Response
+     *
+     * @param weChatEventBody weChatEventBody
+     * @since 0.0.1
+     */
+    default void userLoginEvent(WeChatEventBody weChatEventBody) {
+
+    }
 }

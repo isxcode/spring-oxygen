@@ -17,6 +17,7 @@ package com.ispong.oxygen.wechatgo.service;
 
 import com.ispong.oxygen.wechatgo.pojo.entity.WeChatAccessToken;
 import com.ispong.oxygen.wechatgo.pojo.entity.WeChatEventBody;
+import com.ispong.oxygen.wechatgo.pojo.entity.WechatUserInfo;
 
 /**
  * wechatgo 逻辑处理
@@ -32,7 +33,15 @@ public interface WechatgoService {
      * @return WeChatAccessToken
      * @since 2020-01-14
      */
-    WeChatAccessToken getAccessToken();
+    WeChatAccessToken getAccessTokenBody();
+
+    /**
+     * 获取有效的微信token
+     *
+     * @return WeChatAccessToken
+     * @since 2020-01-14
+     */
+    String getAccessToken();
 
     /**
      * 校验是否是微信调用接口

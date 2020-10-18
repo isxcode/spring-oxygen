@@ -74,6 +74,8 @@ public class WeChatEventBody extends DefaultHandler {
 
     private String localName;
 
+    private String ticket;
+
     /**
      * xml解析工具
      */
@@ -109,6 +111,9 @@ public class WeChatEventBody extends DefaultHandler {
                     break;
                 case "Status":
                     this.status = date;
+                    break;
+                case "Ticket":
+                    this.ticket = date;
                     break;
                 default:
             }

@@ -1,8 +1,11 @@
 name: 🔖 release for github
 
 on:
-  release:
-    types: [created]
+  workflow_dispatch:
+    inputs:
+      sure:
+        description: 'are you sure release to github repository'
+        required: true
 
 jobs:
   release:

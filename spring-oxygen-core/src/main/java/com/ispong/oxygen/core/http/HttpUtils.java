@@ -32,7 +32,7 @@ import java.util.Map;
  * @since 0.0.1
  */
 @Slf4j
-public class HttpMarker {
+public class HttpUtils {
 
     /**
      * 执行get请求
@@ -47,9 +47,12 @@ public class HttpMarker {
      */
     public static <A> A doGet(String url, Map<String, String> requestParams, Class<A> targetClass) throws IOException {
 
-        // 拼接get接口请求后缀
         StringBuilder requestBody = new StringBuilder("?");
-        requestParams.forEach((k, v) -> requestBody.append(k).append("=").append(v).append("&"));
+
+        // 拼接get接口请求后缀
+        if (requestParams != null) {
+            requestParams.forEach((k, v) -> requestBody.append(k).append("=").append(v).append("&"));
+        }
 
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<String> requestEntity = new HttpEntity<>("", headers);
@@ -58,12 +61,57 @@ public class HttpMarker {
         return new ObjectMapper().readValue(result, targetClass);
     }
 
+    public static <A> A doGet(String url, Class<A> targetClass) throws IOException {
+
+        return doGet(url, null, targetClass);
+    }
+
     /**
      * 执行post请求
      *
      * @param url           url
      * @param requestParams requestParams
      * @param headParams    请求头
+     * @return post body str
+     * @throws IOException 访问失败
+     * @since 0.0.1
+     */
+    public static <T> T doPost(String url, Map<String, String> headParams, Object requestParams, Class<T> targetCls) throws IOException {
+
+        HttpHeaders headers = new HttpHeaders();
+        if (headParams != null) {
+            headParams.forEach(headers::add);
+        }
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(new ObjectMapper().writeValueAsString(requestParams), headers);
+        String responseBody = new RestTemplate().exchange(url, HttpMethod.POST, requestEntity, String.class).getBody();
+        try {
+            return new ObjectMapper().readValue(responseBody, targetCls);
+        } catch (Exception e) {
+            log.error("request is wrong:" + responseBody);
+            return null;
+        }
+    }
+
+    /**
+     * 执行post请求
+     *
+     * @param url           url
+     * @param requestParams requestParams
+     * @return post body str
+     * @throws IOException 访问失败
+     * @since 0.0.1
+     */
+    public static <T> T doPost(String url, Object requestParams, Class<T> targetCls) throws IOException {
+
+        return doPost(url, null, requestParams, targetCls);
+    }
+
+    /**
+     * 执行post请求
+     *
+     * @param url           url
+     * @param requestParams requestParams
      * @return post body str
      * @throws IOException 访问失败
      * @since 0.0.1

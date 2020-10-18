@@ -15,13 +15,15 @@
  */
 package com.ispong.oxygen.wechatgo.service.impl;
 
-import com.ispong.oxygen.core.http.HttpMarker;
+import com.ispong.oxygen.core.http.HttpUtils;
 import com.ispong.oxygen.wechatgo.exception.WechatgoException;
 import com.ispong.oxygen.wechatgo.handler.WechatgoEventHandler;
 import com.ispong.oxygen.wechatgo.pojo.entity.WeChatAccessToken;
 import com.ispong.oxygen.wechatgo.pojo.entity.WeChatEventBody;
+import com.ispong.oxygen.wechatgo.pojo.entity.WechatUserInfo;
 import com.ispong.oxygen.wechatgo.pojo.properties.WechatgoProperties;
 import com.ispong.oxygen.wechatgo.service.WechatgoService;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -52,7 +54,7 @@ public class WechatgoServiceImpl implements WechatgoService {
     }
 
     @Override
-    public WeChatAccessToken getAccessToken() {
+    public WeChatAccessToken getAccessTokenBody() {
 
         // 配置请求参数
         Map<String, String> requestMap = new HashMap<>(3);
@@ -63,7 +65,7 @@ public class WechatgoServiceImpl implements WechatgoService {
         // 获取微信的Token
         WeChatAccessToken weChatAccessToken;
         try {
-            weChatAccessToken = HttpMarker.doGet(wechatgoProperties.getUrl() + "/cgi-bin/token", requestMap, WeChatAccessToken.class);
+            weChatAccessToken = HttpUtils.doGet(wechatgoProperties.getUrl() + "/cgi-bin/token", requestMap, WeChatAccessToken.class);
         } catch (IOException e) {
             throw new WechatgoException("get wechat server token fail");
         }
@@ -77,7 +79,7 @@ public class WechatgoServiceImpl implements WechatgoService {
                 } catch (InterruptedException ignored) {
                     // do nothing
                 }
-                return getAccessToken();
+                return getAccessTokenBody();
             case 0:
                 // 请求成功
                 log.debug("wechat token" + weChatAccessToken);
@@ -85,6 +87,12 @@ public class WechatgoServiceImpl implements WechatgoService {
             default:
                 throw new WechatgoException(weChatAccessToken.getErrMsg());
         }
+    }
+
+    @Override
+    public String getAccessToken() {
+
+        return getAccessTokenBody().getAccessToken();
     }
 
     @Override
@@ -138,6 +146,10 @@ public class WechatgoServiceImpl implements WechatgoService {
             case "TEMPLATESENDJOBFINISH":
                 log.debug("event send template success");
                 wechatgoEventHandler.sendMsgTemplateResponse(weChatEventBody);
+                break;
+            case "SCAN":
+                log.debug("user login");
+                wechatgoEventHandler.userLoginEvent(weChatEventBody);
                 break;
             default:
                 log.debug("event nothing");
