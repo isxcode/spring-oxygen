@@ -20,8 +20,10 @@ import com.ispong.oxygen.wechatgo.exception.WechatgoException;
 import com.ispong.oxygen.wechatgo.handler.WechatgoEventHandler;
 import com.ispong.oxygen.wechatgo.pojo.entity.WeChatAccessToken;
 import com.ispong.oxygen.wechatgo.pojo.entity.WeChatEventBody;
+import com.ispong.oxygen.wechatgo.pojo.entity.WechatUserInfo;
 import com.ispong.oxygen.wechatgo.pojo.properties.WechatgoProperties;
 import com.ispong.oxygen.wechatgo.service.WechatgoService;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;

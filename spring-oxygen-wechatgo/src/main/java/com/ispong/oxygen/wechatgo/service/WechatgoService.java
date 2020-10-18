@@ -17,6 +17,7 @@ package com.ispong.oxygen.wechatgo.service;
 
 import com.ispong.oxygen.wechatgo.pojo.entity.WeChatAccessToken;
 import com.ispong.oxygen.wechatgo.pojo.entity.WeChatEventBody;
+import com.ispong.oxygen.wechatgo.pojo.entity.WechatUserInfo;
 
 /**
  * wechatgo 逻辑处理

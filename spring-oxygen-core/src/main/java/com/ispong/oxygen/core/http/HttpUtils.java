@@ -47,15 +47,23 @@ public class HttpUtils {
      */
     public static <A> A doGet(String url, Map<String, String> requestParams, Class<A> targetClass) throws IOException {
 
-        // 拼接get接口请求后缀
         StringBuilder requestBody = new StringBuilder("?");
-        requestParams.forEach((k, v) -> requestBody.append(k).append("=").append(v).append("&"));
+
+        // 拼接get接口请求后缀
+        if (requestParams != null) {
+            requestParams.forEach((k, v) -> requestBody.append(k).append("=").append(v).append("&"));
+        }
 
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<String> requestEntity = new HttpEntity<>("", headers);
         String result = new RestTemplate().exchange(url + requestBody.toString(), HttpMethod.GET, requestEntity, String.class).getBody();
 
         return new ObjectMapper().readValue(result, targetClass);
+    }
+
+    public static <A> A doGet(String url, Class<A> targetClass) throws IOException {
+
+        return doGet(url, null, targetClass);
     }
 
     /**

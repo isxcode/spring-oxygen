@@ -19,7 +19,10 @@ import com.ispong.oxygen.core.http.HttpUtils;
 import com.ispong.oxygen.wechatgo.cache.WechatgoTokenCache;
 import com.ispong.oxygen.wechatgo.exception.WechatgoException;
 import com.ispong.oxygen.wechatgo.pojo.constant.WechatgoConstants;
+import com.ispong.oxygen.wechatgo.pojo.entity.WechatUserInfo;
 import com.ispong.oxygen.wechatgo.pojo.properties.WechatgoProperties;
+import com.ispong.oxygen.wechatgo.service.WechatgoService;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Resource;
@@ -55,5 +58,12 @@ public class WechatgoTemplate {
             throw new WechatgoException("send template fail");
         }
 
+    }
+
+    @SneakyThrows
+    public WechatUserInfo getUserInfo(String openId) {
+
+        String url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + wechatgoTokenCache.getToken("pord") + "&openid=" + openId + "&lang=zh_CN";
+        return HttpUtils.doGet(url, WechatUserInfo.class);
     }
 }
