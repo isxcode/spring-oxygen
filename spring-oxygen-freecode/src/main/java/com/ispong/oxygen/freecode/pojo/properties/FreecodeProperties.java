@@ -37,7 +37,7 @@ public class FreecodeProperties {
     /**
      * 忽略字段
      */
-    private List<String> ignoreColumns;
+    private List<String> ignoreColumns = Arrays.asList("created_date", "created_by", "last_modified_date", "last_modified_by", "version", "is_delete");
 
     /**
      * 模块的地址
@@ -52,12 +52,12 @@ public class FreecodeProperties {
     /**
      * 版本号
      */
-    private String version = "0.0.1";
+    private String version = "v0.0.1";
 
     /**
      * 基础类Entity
      */
-    private String baseEntityClass;
+    private String baseEntityClass = "com.ispong.oxygen.flysql.common.BaseEntity";
 
     /**
      * 基础类Controller

@@ -2,6 +2,8 @@ dependencies {
 
     implementation(project(':spring-oxygen-core'))
 
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
     runtimeOnly 'com.h2database:h2'
