@@ -11,36 +11,36 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * ${tableName} controller
+ * Controller - ${tableComment}
  *
  * @author ${freecodeProperties.author}
  * @since ${freecodeProperties.version}
  */
 @Slf4j
 @RestController
-@RequestMapping("${tableName}")
+@RequestMapping("/${tableName}")
 <#if (freecodeProperties.baseControllerClass)??>
-public class ${tableName?cap_first}Controller extends BaseController {
+public class ${className?cap_first}Controller extends BaseController {
 <#else>
-public class ${tableName?cap_first}Controller {
+public class ${className?cap_first}Controller {
 </#if>
 
-    public final ${tableName?cap_first}Service ${tableName}Service;
+    public final ${className?cap_first}Service ${className?uncap_first}Service;
 
-    public ${tableName?cap_first}Controller(${tableName?cap_first}Service ${tableName}Service) {
+    public ${className?cap_first}Controller(${className?cap_first}Service ${className?uncap_first}Service) {
 
-        this.${tableName}Service = ${tableName}Service;
+        this.${className?uncap_first}Service = ${className?uncap_first}Service;
     }
 
     /**
-     * query ${tableName?cap_first}Entity
+     * query ${className?cap_first}Entity
 	 *
      * @return String
      */
-    @GetMapping("query${tableName?cap_first}")
-    public List<${tableName?cap_first}Entity> query${tableName?cap_first}() {
+    @GetMapping("/query${className?cap_first}")
+    public List<${className?cap_first}Entity> query${className?cap_first}() {
 
-        return ${tableName}Service.query${tableName?cap_first}();
+        return ${className?uncap_first}Service.query${className?cap_first}();
     }
 
 }

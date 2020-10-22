@@ -32,7 +32,7 @@ public class FreecodeProperties {
     /**
      * 文件类型
      */
-    private List<String> fileTypes = Arrays.asList("controller", "entity", "service", "repository");
+    private List<String> fileTypes = Arrays.asList("controller", "entity", "service", "repository", "innerService");
 
     /**
      * 忽略字段

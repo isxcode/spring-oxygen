@@ -4,11 +4,11 @@ import com.ispong.oxygen.flysql.common.BaseResponse;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -24,14 +24,13 @@ public class SuccessResponseAdvice {
     @After(value = "operateLog()&&@annotation(successResponse)")
     public void after(JoinPoint joinPoint, SuccessResponse successResponse) {
 
-        Signature signature = joinPoint.getSignature();
-        Class<?> declaringType = signature.getDeclaringType();
-        String returnClassName = declaringType.getMethod(signature.getName()).getReturnType().getName();
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        String returnClassName = signature.getReturnType().getName();
         if ("void".equals(returnClassName)) {
             BaseResponse<Object> baseResponse = new BaseResponse<>();
             baseResponse.setCode("200");
             baseResponse.setData("");
-            baseResponse.setMsg(successResponse.msg());
+            baseResponse.setMsg(successResponse.value().isEmpty() ? successResponse.msg() : successResponse.value());
             successResponse(baseResponse);
         }
     }
@@ -39,13 +38,11 @@ public class SuccessResponseAdvice {
     @AfterReturning(returning = "data", value = "operateLog()&&@annotation(successResponse)")
     public void afterReturning(Object data, SuccessResponse successResponse) {
 
-        if (data != null) {
-            BaseResponse<Object> baseResponse = new BaseResponse<>();
-            baseResponse.setCode("200");
-            baseResponse.setData(data);
-            baseResponse.setMsg(successResponse.msg());
-            successResponse(baseResponse);
-        }
+        BaseResponse<Object> baseResponse = new BaseResponse<>();
+        baseResponse.setCode("200");
+        baseResponse.setData(data == null ? "" : data);
+        baseResponse.setMsg(successResponse.value().isEmpty() ? successResponse.msg() : successResponse.value());
+        successResponse(baseResponse);
 
     }
 

@@ -16,7 +16,7 @@
 package com.ispong.oxygen.freecode.utils;
 
 import com.ispong.oxygen.core.exception.OxygenException;
-import com.ispong.oxygen.core.freemarker.FreemarkerMarker;
+import com.ispong.oxygen.core.freemarker.FreemarkerUtils;
 import com.ispong.oxygen.freecode.pojo.entity.TableColumnInfo;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
@@ -41,11 +41,11 @@ import static java.util.regex.Pattern.compile;
 @Component
 public class FreecodeUtils {
 
-    private static FreemarkerMarker freemarkerMarker;
+    private static FreemarkerUtils freemarkerUtils;
 
-    public FreecodeUtils(FreemarkerMarker freemarkerMarker) {
+    public FreecodeUtils(FreemarkerUtils freemarkerUtils) {
 
-        FreecodeUtils.freemarkerMarker = freemarkerMarker;
+        FreecodeUtils.freemarkerUtils = freemarkerUtils;
     }
 
     /**
@@ -70,7 +70,7 @@ public class FreecodeUtils {
         String filePath = modulePath + "/" + fileName;
         if (!Files.exists(Paths.get(filePath))) {
             try {
-                freemarkerMarker.generateToFile(templateName, freecodeInfo, filePath);
+                freemarkerUtils.generateToFile(templateName, freecodeInfo, filePath);
             } catch (OxygenException e) {
                 e.printStackTrace();
             }

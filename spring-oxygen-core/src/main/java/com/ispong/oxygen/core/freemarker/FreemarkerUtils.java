@@ -36,13 +36,13 @@ import java.nio.file.Paths;
  * @since 0.0.1
  */
 @Slf4j
-public class FreemarkerMarker {
+public class FreemarkerUtils {
 
     private static FreeMarkerConfigurer freeMarkerConfigurer;
 
-    public FreemarkerMarker(FreeMarkerConfigurer freeMarkerConfigurer) {
+    public FreemarkerUtils(FreeMarkerConfigurer freeMarkerConfigurer) {
 
-        FreemarkerMarker.freeMarkerConfigurer = freeMarkerConfigurer;
+        FreemarkerUtils.freeMarkerConfigurer = freeMarkerConfigurer;
     }
 
     /**
@@ -87,6 +87,24 @@ public class FreemarkerMarker {
         configuration.setTemplateLoader(new StringTemplateLoader());
         try {
             Template template = new Template("", templateContent, configuration);
+            return FreeMarkerTemplateUtils.processTemplateIntoString(template, params);
+        } catch (TemplateException | IOException e) {
+            throw new OxygenException("freemarker parse template file to string is wrong");
+        }
+    }
+
+    /**
+     * freemarker 通过模板内容生成String的模板内容
+     *
+     * @param params          freemarker需要解析的对象数据
+     * @return 解析返回的字符串
+     * @throws OxygenException 总异常
+     * @since 0.0.1
+     */
+    public static String templateToString(String templateName, Object params) throws OxygenException {
+
+        try {
+            Template template = freeMarkerConfigurer.getConfiguration().getTemplate(templateName);
             return FreeMarkerTemplateUtils.processTemplateIntoString(template, params);
         } catch (TemplateException | IOException e) {
             throw new OxygenException("freemarker parse template file to string is wrong");

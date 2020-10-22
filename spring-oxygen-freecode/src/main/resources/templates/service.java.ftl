@@ -6,31 +6,31 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * ${tableName} service
+ * Service - ${tableComment}
  *
  * @author ${freecodeProperties.author}
  * @since ${freecodeProperties.version}
  */
 @Slf4j
 @Service
-public class ${tableName?cap_first}Service {
+public class ${className?cap_first}Service implements ${className}InnerService{
 
-    private final ${tableName?cap_first}Repository ${tableName}Repository;
+    private final ${className?cap_first}Repository ${className}Repository;
 
-    public ${tableName?cap_first}Service(${tableName?cap_first}Repository ${tableName}Repository){
+    public ${className?cap_first}Service(${className?cap_first}Repository ${className}Repository){
 
-        this.${tableName}Repository=${tableName}Repository;
+        this.${className}Repository=${className}Repository;
     }
 
 	/**
-	 * query ${tableName?cap_first}Entity
+	 * query ${className?cap_first}Entity
 	 *
-	 * @return List[${tableName?cap_first}Entity]
+	 * @return List[${className?cap_first}Entity]
 	 * @since ${freecodeProperties.version}
 	 */
-	public List<${tableName?cap_first}Entity> query${tableName?cap_first}(){
+	public List<${className?cap_first}Entity> query${className?cap_first}(){
 
-		return ${tableName}Repository.query${tableName?cap_first}();
+		return ${className}Repository.query${className?cap_first}();
 	}
 
 }
