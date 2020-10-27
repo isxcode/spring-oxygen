@@ -34,12 +34,12 @@ import java.util.UUID;
  * @author ispong
  * @since 0.0.1
  */
-public class JwtMarker {
+public class JwtUtils {
 
     private static Key key;
 
     public void init() {
-        JwtMarker.key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        JwtUtils.key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     }
 
     /**

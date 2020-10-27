@@ -31,6 +31,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.cglib.core.Local;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.beans.PropertyDescriptor;
@@ -165,10 +166,16 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
      */
     public String getExecutorId() {
 
+        if (SecurityContextHolder.getContext() == null || SecurityContextHolder.getContext().getAuthentication() == null) {
+            return "anonymous";
+        }
+
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal == null) {
             return "anonymous";
         }
+        ;
+
         return String.valueOf(principal);
     }
 

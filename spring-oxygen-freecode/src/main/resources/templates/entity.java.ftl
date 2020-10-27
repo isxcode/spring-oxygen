@@ -7,8 +7,7 @@ import ${package};
 import ${freecodeProperties.baseEntityClass};
 import lombok.EqualsAndHashCode;
 </#if>
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import com.ispong.oxygen.flysql.annotation.ColumnName;
 import com.ispong.oxygen.flysql.annotation.TableName;
 import java.io.Serializable;
@@ -21,6 +20,8 @@ import java.io.Serializable;
  */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @TableName("${primaryTableName}")
 <#if (freecodeProperties.baseEntityClass)??>
 @EqualsAndHashCode(callSuper = true)

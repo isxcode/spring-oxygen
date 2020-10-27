@@ -17,7 +17,7 @@ package com.ispong.oxygen.core.config;
 
 import com.ispong.oxygen.core.email.EmailUtils;
 import com.ispong.oxygen.core.freemarker.FreemarkerUtils;
-import com.ispong.oxygen.core.secret.JwtMarker;
+import com.ispong.oxygen.core.secret.JwtUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -97,8 +97,8 @@ public class OxygenCoreAutoConfiguration {
      */
     @Bean(initMethod = "init")
     @ConditionalOnBean(OxygenCoreAutoConfiguration.class)
-    public JwtMarker initJwtMarker() {
+    public JwtUtils initJwtMarker() {
 
-        return new JwtMarker();
+        return new JwtUtils();
     }
 }

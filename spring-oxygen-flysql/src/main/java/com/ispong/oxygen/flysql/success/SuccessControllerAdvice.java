@@ -39,9 +39,18 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class SuccessControllerAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(SuccessException.class)
-    public ResponseEntity<BaseResponse<Object>> authException(SuccessException successException) {
+    public ResponseEntity<BaseResponse<Object>> successException(SuccessException successException) {
 
         return new ResponseEntity<>(successException.getBaseResponse(), HttpStatus.OK);
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<BaseResponse<Object>> assertException(IllegalArgumentException illegalArgumentException) {
+
+        BaseResponse<Object> baseResponse = new BaseResponse<>();
+        baseResponse.setCode("500");
+        baseResponse.setMsg(illegalArgumentException.getMessage());
+        baseResponse.setData("");
+        return new ResponseEntity<>(baseResponse, HttpStatus.BAD_REQUEST);
+    }
 }

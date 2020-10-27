@@ -11,4 +11,6 @@ public @interface SuccessResponse {
     String msg() default "";
 
     String value() default "";
+
+    boolean isNull() default false;
 }

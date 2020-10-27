@@ -15,11 +15,11 @@ import java.util.List;
 @Service
 public class ${className?cap_first}Service implements ${className}InnerService{
 
-    private final ${className?cap_first}Repository ${className}Repository;
+    private final ${className?cap_first}Repository ${className?uncap_first}Repository;
 
-    public ${className?cap_first}Service(${className?cap_first}Repository ${className}Repository){
+    public ${className?cap_first}Service(${className?cap_first}Repository ${className?uncap_first}Repository){
 
-        this.${className}Repository=${className}Repository;
+        this.${className?uncap_first}Repository=${className?uncap_first}Repository;
     }
 
 	/**
@@ -30,7 +30,7 @@ public class ${className?cap_first}Service implements ${className}InnerService{
 	 */
 	public List<${className?cap_first}Entity> query${className?cap_first}(){
 
-		return ${className}Repository.query${className?cap_first}();
+		return ${className?uncap_first}Repository.query${className?cap_first}();
 	}
 
 }
