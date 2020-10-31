@@ -31,8 +31,8 @@ public interface WechatgoEventHandler {
      * @param weChatEventBody weChatEventBody
      * @since 0.0.1
      */
-    default void subscribeEvent(WeChatEventBody weChatEventBody) {
-
+    default String subscribeEvent(WeChatEventBody weChatEventBody) {
+        return "success";
     }
 
     /**
@@ -41,8 +41,8 @@ public interface WechatgoEventHandler {
      * @param weChatEventBody weChatEventBody
      * @since 0.0.1
      */
-    default void unsubscribeEvent(WeChatEventBody weChatEventBody) {
-
+    default String unsubscribeEvent(WeChatEventBody weChatEventBody) {
+        return "success";
     }
 
     /**
@@ -51,8 +51,8 @@ public interface WechatgoEventHandler {
      * @param weChatEventBody weChatEventBody
      * @since 0.0.1
      */
-    default void sendMsgTemplateResponse(WeChatEventBody weChatEventBody) {
-
+    default String sendMsgTemplateResponse(WeChatEventBody weChatEventBody) {
+        return "success";
     }
 
     /**
@@ -61,7 +61,7 @@ public interface WechatgoEventHandler {
      * @param weChatEventBody weChatEventBody
      * @since 0.0.1
      */
-    default void userLoginEvent(WeChatEventBody weChatEventBody) {
-
+    default String scanEvent(WeChatEventBody weChatEventBody) {
+        return "success";
     }
 }

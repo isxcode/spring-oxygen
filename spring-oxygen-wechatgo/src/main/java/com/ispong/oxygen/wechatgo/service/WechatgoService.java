@@ -60,6 +60,6 @@ public interface WechatgoService {
      * @param weChatEventBody weChatEventBody
      * @since 2020-02-04
      */
-    void handlerWechatEvent(WeChatEventBody weChatEventBody);
+    String handlerWechatEvent(WeChatEventBody weChatEventBody);
 
 }

@@ -18,6 +18,7 @@ package com.ispong.oxygen.wechatgo.cache;
 import com.ispong.oxygen.wechatgo.service.WechatgoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 import javax.annotation.Resource;
 import java.util.concurrent.ScheduledExecutorService;
@@ -35,7 +36,7 @@ import static java.util.concurrent.Executors.newScheduledThreadPool;
 public class WeChatTokenGenerator implements InitializingBean {
 
     @Resource
-    private WechatgoTokenCache wechatgoTokenCache;
+    private StringRedisTemplate stringRedisTemplate;
 
     @Resource
     private WechatgoService wechatgoService;
@@ -44,6 +45,6 @@ public class WeChatTokenGenerator implements InitializingBean {
     public void afterPropertiesSet() {
 
         ScheduledExecutorService executorService = newScheduledThreadPool(1);
-        executorService.scheduleAtFixedRate(new WechatgoTokenThread(wechatgoTokenCache, wechatgoService), 0, 90, TimeUnit.MINUTES);
+        executorService.scheduleAtFixedRate(new WechatgoTokenThread(stringRedisTemplate, wechatgoService), 0, 90, TimeUnit.MINUTES);
     }
 }
