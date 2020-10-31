@@ -76,7 +76,11 @@ public class FlysqlUtils {
      */
     public static String addSingleQuote(Object value) {
 
-        return "'" + value + "'";
+        if (value == null) {
+            return null;
+        }else{
+            return "'" + value + "'";
+        }
     }
 
     /**
