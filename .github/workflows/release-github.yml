@@ -35,11 +35,12 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: ${{ matrix.java }}
-    - run: gradle build -x test
+    - run: |
+        echo 'project.version=${{ github.event.inputs.version }}' >> gradle.properties
+        gradle build -x test
 
     - name: publish to github
       run: |
-        echo 'project.version=${{ github.event.inputs.version }}' >> gradle.properties
         echo 'gpr.user=${{ github.actor }}' >> gradle.properties
         echo 'gpr.key=${{ secrets.GITHUB_TOKEN }}' >> gradle.properties
         gradle publishGprPublicationToGitHubPackagesRepository
