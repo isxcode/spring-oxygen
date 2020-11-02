@@ -69,9 +69,11 @@ public class HttpUtils {
     /**
      * 执行post请求
      *
+     * @param <T>           泛型
      * @param url           url
      * @param requestParams requestParams
      * @param headParams    请求头
+     * @param targetCls     目标class
      * @return post body str
      * @throws IOException 访问失败
      * @since 0.0.1
@@ -96,7 +98,9 @@ public class HttpUtils {
     /**
      * 执行post请求
      *
+     * @param <T>           泛型
      * @param url           url
+     * @param targetCls     目标class
      * @param requestParams requestParams
      * @return post body str
      * @throws IOException 访问失败
@@ -112,6 +116,7 @@ public class HttpUtils {
      *
      * @param url           url
      * @param requestParams requestParams
+     * @param headParams    请求头参数
      * @return post body str
      * @throws IOException 访问失败
      * @since 0.0.1
