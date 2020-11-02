@@ -72,12 +72,12 @@ public class WechatgoController {
      * @since 0.0.1
      */
     @PostMapping("/wechatServer")
-    public void weChatListen(HttpServletRequest httpServletRequest) {
+    public String weChatListen(HttpServletRequest httpServletRequest) {
 
         log.debug("receive wechat event");
         try {
             WeChatEventBody weChatEventBody = XmlMarker.parseInputStreamXml(httpServletRequest.getInputStream(), WeChatEventBody.class);
-            wechatgoService.handlerWechatEvent(weChatEventBody);
+            return wechatgoService.handlerWechatEvent(weChatEventBody);
         } catch (IOException e) {
             throw new WechatgoException("has no inputStream");
         }

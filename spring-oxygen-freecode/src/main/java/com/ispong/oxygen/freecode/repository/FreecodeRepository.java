@@ -52,11 +52,10 @@ public class FreecodeRepository {
             case "H2":
                 sqlStr = "show columns from " + tableName;
                 break;
-            case "MYSQL":
+            default:
+//                throw new FreecodeException("dataSource type not support");
                 sqlStr = "show full columns from " + tableName;
                 break;
-            default:
-                throw new FreecodeException("dataSource type not support");
         }
 
         List<TableColumnInfo> tableColumnInfos = Flysql.select(TableColumnInfo.class).sql(sqlStr).query();

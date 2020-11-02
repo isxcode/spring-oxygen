@@ -7,24 +7,24 @@ import com.ispong.oxygen.flysql.core.Flysql;
 import java.util.List;
 
 /**
- * ${tableName} repository
+ * Repository - ${tableComment}
  *
  * @author ${freecodeProperties.author}
  * @since ${freecodeProperties.version}
  */
 @Slf4j
 @Repository
-public class ${tableName?cap_first}Repository {
+public class ${className?cap_first}Repository {
 
 	/**
-	 * query ${tableName?cap_first}Entity
+	 * query ${className?cap_first}Entity
 	 *
-	 * @return List[${tableName?cap_first}Entity]
+	 * @return List[${className?cap_first}Entity]
 	 * @since ${freecodeProperties.version}
 	 */
-	public List<${tableName?cap_first}Entity> query${tableName?cap_first}(){
+	public List<${className?cap_first}Entity> query${className?cap_first}(){
 
-		return Flysql.select(${tableName?cap_first}Entity.class).query();
+		return Flysql.select(${className?cap_first}Entity.class).query();
 	}
 
 }

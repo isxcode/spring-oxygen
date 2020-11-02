@@ -40,6 +40,16 @@ public class FreecodeInfo {
     private String tableName;
 
     /**
+     * 表备注
+     */
+    private String tableComment;
+
+    /**
+     * 文件名
+     */
+    private String className;
+
+    /**
      * 原表名
      */
     private String primaryTableName;

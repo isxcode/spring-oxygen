@@ -37,4 +37,10 @@ public interface WechatgoConstants {
      * prod
      */
     String ENV = "prod";
+
+    /**
+     * 微信公众号token
+     */
+    String WX_OFFICIAL_TOKEN = "WX_OFFICIAL_TOKEN";
+
 }

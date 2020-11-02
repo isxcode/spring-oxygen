@@ -15,9 +15,9 @@
  */
 package com.ispong.oxygen.core.config;
 
-import com.ispong.oxygen.core.email.EmailMaker;
-import com.ispong.oxygen.core.freemarker.FreemarkerMarker;
-import com.ispong.oxygen.core.secret.JwtMarker;
+import com.ispong.oxygen.core.email.EmailUtils;
+import com.ispong.oxygen.core.freemarker.FreemarkerUtils;
+import com.ispong.oxygen.core.secret.JwtUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -68,11 +68,11 @@ public class OxygenCoreAutoConfiguration {
     @Bean
     @ConditionalOnBean(OxygenCoreAutoConfiguration.class)
     @ConditionalOnProperty(prefix = "spring.mail", name = "username", matchIfMissing = false)
-    public EmailMaker initEmailMarker(MailSender mailSender,
+    public EmailUtils initEmailMarker(MailSender mailSender,
                                       MailProperties mailProperties,
                                       @Qualifier("emailThread") ThreadPoolTaskExecutor emailThread) {
 
-        return new EmailMaker(mailSender, mailProperties, emailThread);
+        return new EmailUtils(mailSender, mailProperties, emailThread);
     }
 
     /**
@@ -84,9 +84,9 @@ public class OxygenCoreAutoConfiguration {
      */
     @Bean
     @ConditionalOnBean(OxygenCoreAutoConfiguration.class)
-    public FreemarkerMarker initFreemarkerMarker(FreeMarkerConfigurer freeMarkerConfigurer) {
+    public FreemarkerUtils initFreemarkerMarker(FreeMarkerConfigurer freeMarkerConfigurer) {
 
-        return new FreemarkerMarker(freeMarkerConfigurer);
+        return new FreemarkerUtils(freeMarkerConfigurer);
     }
 
     /**
@@ -97,8 +97,8 @@ public class OxygenCoreAutoConfiguration {
      */
     @Bean(initMethod = "init")
     @ConditionalOnBean(OxygenCoreAutoConfiguration.class)
-    public JwtMarker initJwtMarker() {
+    public JwtUtils initJwtMarker() {
 
-        return new JwtMarker();
+        return new JwtUtils();
     }
 }

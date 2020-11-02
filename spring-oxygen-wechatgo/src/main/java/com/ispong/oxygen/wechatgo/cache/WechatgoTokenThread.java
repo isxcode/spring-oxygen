@@ -18,6 +18,7 @@ package com.ispong.oxygen.wechatgo.cache;
 import com.ispong.oxygen.wechatgo.pojo.constant.WechatgoConstants;
 import com.ispong.oxygen.wechatgo.service.WechatgoService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 /**
  * Wechatgo Token Thread
@@ -28,19 +29,22 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class WechatgoTokenThread implements Runnable {
 
-    private final WechatgoTokenCache wechatgoTokenCache;
-
     private final WechatgoService wechatgoService;
 
-    public WechatgoTokenThread(WechatgoTokenCache wechatgoTokenCache, WechatgoService wechatgoService) {
+    private final StringRedisTemplate stringRedisTemplate;
 
-        this.wechatgoTokenCache = wechatgoTokenCache;
+    public WechatgoTokenThread(StringRedisTemplate stringRedisTemplate,
+                               WechatgoService wechatgoService) {
+
+        this.stringRedisTemplate = stringRedisTemplate;
         this.wechatgoService = wechatgoService;
     }
 
     @Override
     public void run() {
         log.debug("generate wechatgo token");
-        wechatgoTokenCache.cacheToken(WechatgoConstants.ENV, wechatgoService.getAccessTokenBody().getAccessToken());
+//        wechatgoTokenCache.cacheToken(WechatgoConstants.ENV, wechatgoService.getAccessTokenBody().getAccessToken());
+        String accessToken = wechatgoService.getAccessTokenBody().getAccessToken();
+        stringRedisTemplate.opsForValue().set(WechatgoConstants.WX_OFFICIAL_TOKEN, accessToken);
     }
 }

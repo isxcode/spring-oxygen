@@ -34,12 +34,12 @@ import java.util.UUID;
  * @author ispong
  * @since 0.0.1
  */
-public class JwtMarker {
+public class JwtUtils {
 
     private static Key key;
 
     public void init() {
-        JwtMarker.key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        JwtUtils.key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     }
 
     /**
@@ -55,8 +55,12 @@ public class JwtMarker {
         Map<String, Object> claims = new HashMap<>(1);
 
         try {
-            String encrypt = AesMarker.encrypt(aesKey, new ObjectMapper().writeValueAsString(obj));
-            claims.put(SecretConstants.CLAIM_KEY, encrypt);
+
+            String claimsStr = new ObjectMapper().writeValueAsString(obj);
+            if(aesKey!=null){
+                claimsStr = AesMarker.encrypt(aesKey, claimsStr);
+            }
+            claims.put(SecretConstants.CLAIM_KEY, claimsStr);
 
             return Jwts.builder()
                 .signWith(key)
@@ -78,7 +82,7 @@ public class JwtMarker {
      */
     public static String encrypt(Object obj) throws OxygenException {
 
-        return encrypt(obj, SecretConstants.AES_KEY);
+        return encrypt(obj, null);
     }
 
     /**
@@ -92,7 +96,7 @@ public class JwtMarker {
      */
     public static <A> A decrypt(String jwtString, Class<A> claimClass) {
 
-        return decrypt(SecretConstants.AES_KEY, jwtString, claimClass);
+        return decrypt(null, jwtString, claimClass);
     }
 
     /**
@@ -114,7 +118,10 @@ public class JwtMarker {
             .getBody()
             .get(SecretConstants.CLAIM_KEY, String.class);
 
-        String targetJsonStr = AesMarker.decrypt(aesKey, claimStr);
+        String targetJsonStr = claimStr;
+        if (aesKey != null) {
+            targetJsonStr = AesMarker.decrypt(aesKey, claimStr);
+        }
 
         try {
             return new ObjectMapper().readValue(targetJsonStr, targetClass);

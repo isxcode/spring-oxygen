@@ -31,6 +31,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.cglib.core.Local;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.beans.PropertyDescriptor;
@@ -165,10 +166,16 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
      */
     public String getExecutorId() {
 
+        if (SecurityContextHolder.getContext() == null || SecurityContextHolder.getContext().getAuthentication() == null) {
+            return "anonymous";
+        }
+
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal == null) {
             return "anonymous";
         }
+        ;
+
         return String.valueOf(principal);
     }
 
@@ -213,14 +220,16 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
                     }
                 }
 
-                // 添加数据库字段对应值
-                columnList.add(columnsMap.get(propertyMeta.getName()));
+                if (invoke != null) {
+                    // 添加数据库字段对应值
+                    columnList.add(columnsMap.get(propertyMeta.getName()));
 
-                // 对boolean类型做特殊处理
-                if (propertyMeta.getPropertyType().getName().equals(JavaTypeConstants.Boolean)) {
-                    valueList.add(invoke == null ? "''" : invoke.toString());
-                } else {
-                    valueList.add(invoke == null ? "''" : FlysqlUtils.addSingleQuote(invoke));
+                    // 对boolean类型做特殊处理
+                    if (propertyMeta.getPropertyType().getName().equals(JavaTypeConstants.Boolean)) {
+                        valueList.add(invoke.toString());
+                    } else {
+                        valueList.add(FlysqlUtils.addSingleQuote(invoke));
+                    }
                 }
             }
         }
@@ -279,7 +288,12 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
         StringBuilder sqlStringBuilder = new StringBuilder("update " + FlysqlUtils.getTableName(flysqlKey.getTargetClass()) + " set ");
         for (SqlCondition sqlConditionMeta : sqlConditions) {
             if (sqlConditionMeta.getOperateType().equals(SqlOperateType.UPDATE)) {
-                sqlStringBuilder.append(sqlConditionMeta.getColumnName()).append(" = ").append(sqlConditionMeta.getValue());
+                Object value = sqlConditionMeta.getValue();
+                if (value == null) {
+                    sqlStringBuilder.append(sqlConditionMeta.getColumnName()).append(" = null");
+                }else{
+                    sqlStringBuilder.append(sqlConditionMeta.getColumnName()).append(" = ").append(value);
+                }
             }
         }
         String sqlString = parseSqlConditions(sqlStringBuilder.toString(), sqlConditions);

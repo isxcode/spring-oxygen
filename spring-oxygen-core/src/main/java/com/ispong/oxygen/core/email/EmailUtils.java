@@ -27,8 +27,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 发送电子邮件marker
@@ -37,7 +36,7 @@ import java.util.Map;
  * @since 0.0.1
  */
 @Slf4j
-public class EmailMaker {
+public class EmailUtils {
 
     private static JavaMailSenderImpl javaMailSender;
 
@@ -45,11 +44,29 @@ public class EmailMaker {
 
     private static ThreadPoolTaskExecutor emailThread;
 
-    public EmailMaker(MailSender mailSender, MailProperties mailProperties, ThreadPoolTaskExecutor emailThread) {
+    public EmailUtils(MailSender mailSender, MailProperties mailProperties, ThreadPoolTaskExecutor emailThread) {
 
-        EmailMaker.emailThread = emailThread;
-        EmailMaker.mailProperties = mailProperties;
-        EmailMaker.javaMailSender = (JavaMailSenderImpl) mailSender;
+        EmailUtils.emailThread = emailThread;
+        EmailUtils.mailProperties = mailProperties;
+        EmailUtils.javaMailSender = (JavaMailSenderImpl) mailSender;
+    }
+
+    public static void sendNormalEmail(String email, String content, String subject) {
+
+        try {
+            sendEmailMain(Collections.singletonList(email), content, subject, false, null, null);
+        } catch (Exception e) {
+            log.info("邮件发送失败" + e.getMessage());
+        }
+    }
+
+    public static void sendNormalHtmlEmail(String email, String content, String subject) {
+
+        try {
+            sendEmailMain(Collections.singletonList(email), content, subject, true, null, null);
+        } catch (Exception e) {
+            log.info("邮件发送失败" + e.getMessage());
+        }
     }
 
     /**
@@ -68,9 +85,10 @@ public class EmailMaker {
                                      String subject,
                                      boolean isHtmlContent,
                                      List<File> files,
-                                     Map<String, File> inlineFiles) throws OxygenException {
+                                     Map<String, File> inlineFiles) throws OxygenException, MessagingException {
 
         MimeMessage message = javaMailSender.createMimeMessage();
+        message.setFrom(mailProperties.getProperties().get("sender") +"<"+ Objects.requireNonNull(javaMailSender.getUsername())+">");
 
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -82,7 +100,6 @@ public class EmailMaker {
 
             helper.setSubject(subject);
             helper.setText(emailContent, isHtmlContent);
-            helper.setFrom(mailProperties.getUsername());
 
             // 遍历加入附件
             if (files != null) {

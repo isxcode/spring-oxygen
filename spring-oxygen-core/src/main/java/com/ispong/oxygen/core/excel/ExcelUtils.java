@@ -52,7 +52,7 @@ import static org.apache.poi.xssf.usermodel.XSSFWorkbookType.XLSX;
  * @since 0.0.1
  */
 @Slf4j
-public class ExcelMarker {
+public class ExcelUtils {
 
     /**
      * 解析excel文件生成数组

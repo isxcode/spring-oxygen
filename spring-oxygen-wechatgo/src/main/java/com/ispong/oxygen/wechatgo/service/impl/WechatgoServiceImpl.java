@@ -131,29 +131,25 @@ public class WechatgoServiceImpl implements WechatgoService {
     }
 
     @Override
-    public void handlerWechatEvent(WeChatEventBody weChatEventBody) {
+    public String handlerWechatEvent(WeChatEventBody weChatEventBody) {
 
         switch (String.valueOf(weChatEventBody.getEvent())) {
 
             case "subscribe":
                 log.debug("event subscribe");
-                wechatgoEventHandler.subscribeEvent(weChatEventBody);
-                break;
+                return wechatgoEventHandler.subscribeEvent(weChatEventBody);
             case "unsubscribe":
                 log.debug("event unsubscribe");
-                wechatgoEventHandler.unsubscribeEvent(weChatEventBody);
-                break;
+                return wechatgoEventHandler.unsubscribeEvent(weChatEventBody);
             case "TEMPLATESENDJOBFINISH":
                 log.debug("event send template success");
-                wechatgoEventHandler.sendMsgTemplateResponse(weChatEventBody);
-                break;
+                return wechatgoEventHandler.sendMsgTemplateResponse(weChatEventBody);
             case "SCAN":
                 log.debug("user login");
-                wechatgoEventHandler.userLoginEvent(weChatEventBody);
-                break;
+                return wechatgoEventHandler.scanEvent(weChatEventBody);
             default:
                 log.debug("event nothing");
-
+                return "success";
         }
     }
 

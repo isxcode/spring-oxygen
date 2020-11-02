@@ -19,6 +19,7 @@ import com.ispong.oxygen.core.http.HttpUtils;
 import com.ispong.oxygen.wechatgo.cache.WechatgoTokenCache;
 import com.ispong.oxygen.wechatgo.exception.WechatgoException;
 import com.ispong.oxygen.wechatgo.pojo.constant.WechatgoConstants;
+import com.ispong.oxygen.wechatgo.pojo.entity.WeChatEventBody;
 import com.ispong.oxygen.wechatgo.pojo.entity.WechatUserInfo;
 import com.ispong.oxygen.wechatgo.pojo.properties.WechatgoProperties;
 import com.ispong.oxygen.wechatgo.service.WechatgoService;

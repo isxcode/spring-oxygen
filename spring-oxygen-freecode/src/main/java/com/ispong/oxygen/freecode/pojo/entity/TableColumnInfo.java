@@ -66,6 +66,8 @@ public class TableColumnInfo {
      */
     private String comment;
 
+    private String originField;
+
     public String getType() {
 
         return FreecodeUtils.parseDataType(type);
@@ -76,4 +78,7 @@ public class TableColumnInfo {
         return FreecodeUtils.lineToHump(field);
     }
 
+    public String getOriginField() {
+        return this.field;
+    }
 }

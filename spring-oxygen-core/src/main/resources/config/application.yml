@@ -2,3 +2,14 @@ spring:
   freemarker:
     charset: UTF-8
     prefer-file-system-access: false
+  jpa:
+    open-in-view: true
+  mail:
+    default-encoding: UTF-8
+    protocol: smtp
+    test-connection: false
+    properties:
+      mail.smtp.ssl.enable: true
+      mail.smtp.connectiontimeout: 10000
+      mail.smtp.timeout: 10000
+      mail.smtp.writetimeout: 10000

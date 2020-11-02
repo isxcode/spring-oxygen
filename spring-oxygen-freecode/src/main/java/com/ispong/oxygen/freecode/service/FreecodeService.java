@@ -75,7 +75,7 @@ public class FreecodeService {
                 // 使用哪个模板文件
                 String modulePath = FreecodeConstants.MAIN_PATH + freecodeProperties.getModulePath() + "." + FreecodeUtils.lineToHump(tempFileName).toLowerCase();
                 String templateName = fileType + FreecodeConstants.FREEMARKER_FILE_SUFFIX;
-                String fileName = FreecodeUtils.upperFirstCase(FreecodeUtils.lineToHump(metaTableName)) + FreecodeUtils.upperFirstCase(fileType) + FreecodeConstants.JAVA_FILE_SUFFIX;
+                String fileName = FreecodeUtils.upperFirstCase(FreecodeUtils.lineToHump(tempFileName)) + FreecodeUtils.upperFirstCase(fileType) + FreecodeConstants.JAVA_FILE_SUFFIX;
 
                 // 生成文件
                 try {
@@ -107,15 +107,22 @@ public class FreecodeService {
         // 封装EntityClassPackageList
         freecodeInfo.setEntityPackageList(FreecodeUtils.parseDataPackage(tableColumns));
 
+        String doName = tableName.replace(freecodeProperties.getTablePrefix(), "").toLowerCase().replace("_", "");
+
         // module import class
-        freecodeInfo.setPackageName(freecodeProperties.getModulePath() + "." + tableName.replace(freecodeProperties.getTablePrefix(), "").toLowerCase().replace("_", ""));
+        freecodeInfo.setPackageName(freecodeProperties.getModulePath() + "." + doName);
 
         // 读取配置文件
         freecodeInfo.setFreecodeProperties(freecodeProperties);
 
         // 储存数据库名称
-        freecodeInfo.setTableName(FreecodeUtils.lineToHump(tableName));
+        freecodeInfo.setTableName(FreecodeUtils.lineToHump(doName));
         freecodeInfo.setPrimaryTableName(tableName);
+
+        // 表备注
+        freecodeInfo.setTableComment(freecodeRepository.getTableInfo(tableName).getTableComment());
+
+        freecodeInfo.setClassName(FreecodeUtils.upperFirstCase(FreecodeUtils.lineToHump(tableName.replace(freecodeProperties.getTablePrefix(), ""))));
 
         return freecodeInfo;
     }

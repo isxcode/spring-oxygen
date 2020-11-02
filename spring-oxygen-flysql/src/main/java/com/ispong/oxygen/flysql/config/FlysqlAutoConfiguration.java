@@ -18,6 +18,8 @@ package com.ispong.oxygen.flysql.config;
 import com.ispong.oxygen.flysql.core.Flysql;
 import com.ispong.oxygen.flysql.pojo.constant.FlysqlConstants;
 import com.ispong.oxygen.flysql.pojo.properties.FlysqlDataSourceProperties;
+import com.ispong.oxygen.flysql.success.SuccessControllerAdvice;
+import com.ispong.oxygen.flysql.success.SuccessResponseAdvice;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -37,6 +39,20 @@ import java.util.Map;
 @Slf4j
 @EnableConfigurationProperties(FlysqlDataSourceProperties.class)
 public class FlysqlAutoConfiguration {
+
+    @Bean
+    @ConditionalOnClass(FlysqlAutoConfiguration.class)
+    private SuccessResponseAdvice initSuccessAdvice() {
+
+        return new SuccessResponseAdvice();
+    }
+
+    @Bean
+    @ConditionalOnClass(FlysqlAutoConfiguration.class)
+    private SuccessControllerAdvice initSuccessControllerAdvice() {
+
+        return new SuccessControllerAdvice();
+    }
 
     @Bean
     @ConditionalOnClass(FlysqlAutoConfiguration.class)

@@ -80,19 +80,19 @@ public class WechatgoAutoConfiguration {
         log.debug("welcome to use oxygen-wechatgo");
     }
 
-    /**
-     * init wechatgo token cache
-     *
-     * @return WechatgoTokenCache
-     * @since  0.0.1
-     */
-    @Bean
-    @ConditionalOnClass(WechatgoAutoConfiguration.class)
-    public WechatgoTokenCache initWechatgoTokenCache(){
-
-        log.debug("init wechatgo cache");
-        return new WechatgoTokenCache();
-    }
+//    /**
+//     * init wechatgo token cache
+//     *
+//     * @return WechatgoTokenCache
+//     * @since  0.0.1
+//     */
+//    @Bean
+//    @ConditionalOnClass(WechatgoAutoConfiguration.class)
+//    public WechatgoTokenCache initWechatgoTokenCache(){
+//
+//        log.debug("init wechatgo cache");
+//        return new WechatgoTokenCache();
+//    }
 
     /**
      * init wechatgo service
