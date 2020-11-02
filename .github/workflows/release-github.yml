@@ -3,15 +3,21 @@ name: 🔖 release for github
 on:
   workflow_dispatch:
     inputs:
-      sure:
-        description: 'are you sure release to github repository'
+      version:
+        description: 'which version'
         required: true
 
 jobs:
   release:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        java:
+          - 1.8
+
     steps:
+
     - name: checkout repository
       uses: actions/checkout@v2.3.3
 
@@ -28,11 +34,12 @@ jobs:
     - name: gradle build
       uses: actions/setup-java@v1
       with:
-        java-version: 1.8
+        java-version: ${{ matrix.java }}
     - run: gradle build -x test
 
     - name: publish to github
       run: |
+        echo 'project.version=${{ github.event.inputs.version }}' >> gradle.properties
         echo 'gpr.user=${{ github.actor }}' >> gradle.properties
         echo 'gpr.key=${{ secrets.GITHUB_TOKEN }}' >> gradle.properties
         gradle publishGprPublicationToGitHubPackagesRepository

@@ -58,6 +58,7 @@ public interface WechatgoService {
      * 处理微信回调函数
      *
      * @param weChatEventBody weChatEventBody
+     * @return 返回给微信服务器
      * @since 2020-02-04
      */
     String handlerWechatEvent(WeChatEventBody weChatEventBody);

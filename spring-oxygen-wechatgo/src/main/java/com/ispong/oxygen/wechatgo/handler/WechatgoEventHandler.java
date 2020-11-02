@@ -29,6 +29,7 @@ public interface WechatgoEventHandler {
      * subscribe Event
      *
      * @param weChatEventBody weChatEventBody
+     * @return 返回给微信服务器
      * @since 0.0.1
      */
     default String subscribeEvent(WeChatEventBody weChatEventBody) {
@@ -39,9 +40,11 @@ public interface WechatgoEventHandler {
      * unsubscribe Event
      *
      * @param weChatEventBody weChatEventBody
+     * @return 返回给微信服务器
      * @since 0.0.1
      */
     default String unsubscribeEvent(WeChatEventBody weChatEventBody) {
+
         return "success";
     }
 
@@ -49,9 +52,11 @@ public interface WechatgoEventHandler {
      * send Msg Template Response
      *
      * @param weChatEventBody weChatEventBody
+     * @return 返回给微信服务器
      * @since 0.0.1
      */
     default String sendMsgTemplateResponse(WeChatEventBody weChatEventBody) {
+
         return "success";
     }
 
@@ -59,9 +64,11 @@ public interface WechatgoEventHandler {
      * send Msg Template Response
      *
      * @param weChatEventBody weChatEventBody
+     * @return 返回给微信服务器
      * @since 0.0.1
      */
     default String scanEvent(WeChatEventBody weChatEventBody) {
+
         return "success";
     }
 }

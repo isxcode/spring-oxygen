@@ -69,6 +69,7 @@ public class WechatgoController {
      * 接受微信回调函数接口
      *
      * @param httpServletRequest 请求体,为了获取微信推送的xml内容
+     * @return 返回给微信服务器
      * @since 0.0.1
      */
     @PostMapping("/wechatServer")

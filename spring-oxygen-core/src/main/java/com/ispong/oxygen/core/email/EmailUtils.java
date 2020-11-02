@@ -78,6 +78,8 @@ public class EmailUtils {
      * @param isHtmlContent 是否将邮件内容转成网页
      * @param files         附件列表
      * @param inlineFiles   嵌入式附件
+     * @throws OxygenException    主要异常
+     * @throws MessagingException 发送消息异常
      * @since 0.0.1
      */
     public static void sendEmailMain(List<String> toEmails,
@@ -88,7 +90,7 @@ public class EmailUtils {
                                      Map<String, File> inlineFiles) throws OxygenException, MessagingException {
 
         MimeMessage message = javaMailSender.createMimeMessage();
-        message.setFrom(mailProperties.getProperties().get("sender") +"<"+ Objects.requireNonNull(javaMailSender.getUsername())+">");
+        message.setFrom(mailProperties.getProperties().get("sender") + "<" + Objects.requireNonNull(javaMailSender.getUsername()) + ">");
 
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message);
