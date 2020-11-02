@@ -25,7 +25,11 @@ subprojects {
     targetCompatibility = JavaVersion.VERSION_1_8
 
     repositories {
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+
+        if (project.findProperty('project.version') == null) {
+            maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        }
+
         mavenCentral()
     }
 
