@@ -17,6 +17,8 @@ jobs:
       fail-fast: false
       matrix:
         language: ['java']
+        java:
+          - 1.8
 
     steps:
 
@@ -42,7 +44,7 @@ jobs:
     - name: gradle build
       uses: actions/setup-java@v1
       with:
-        java-version: 1.8
+        java-version: ${{ matrix.java }}
     - run: |
         chmod +x gradlew
         gradle build test
