@@ -5,6 +5,7 @@ updates:
   - package-ecosystem: 'github-actions'
     directory: '/'
     target-branch: 'latest'
+    open-pull-requests-limit: 30
     schedule:
       interval: 'daily'
       timezone: "Asia/Shanghai"
@@ -13,6 +14,7 @@ updates:
   - package-ecosystem: 'gradle'
     directory: '/'
     target-branch: 'latest'
+    open-pull-requests-limit: 30
     schedule:
       interval: 'daily'
       timezone: "Asia/Shanghai"
