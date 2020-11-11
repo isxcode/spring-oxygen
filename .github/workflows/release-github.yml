@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'which version'
+        description: 'which version like 1.1.3-alpha-x'
         required: true
 
 jobs:
@@ -19,7 +19,7 @@ jobs:
     steps:
 
     - name: checkout repository
-      uses: actions/checkout@v2.3.3
+      uses: actions/checkout@v2.3.4
 
     - name: cache gradle
       uses: actions/cache@v2
