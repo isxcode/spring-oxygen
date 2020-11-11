@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.3.4.RELEASE'
+    id 'org.springframework.boot' version '2.3.5.RELEASE'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
     id 'maven'
@@ -18,7 +18,7 @@ subprojects {
     apply plugin: 'maven-publish'
     apply plugin: 'jacoco'
 
-    version = project.findProperty('project.version') ?: '1.1.0'
+    version = project.findProperty('project.version') ?: '0.0.1'
     group = project.findProperty('project.group')
 
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -42,10 +42,10 @@ subprojects {
         compileOnly 'org.springframework.boot:spring-boot-starter-web'
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
-        compileOnly 'org.projectlombok:lombok:1.18.12'
-        annotationProcessor 'org.projectlombok:lombok:1.18.12'
+        compileOnly 'org.projectlombok:lombok:1.18.16'
+        annotationProcessor 'org.projectlombok:lombok:1.18.16'
 
-        implementation 'org.apache.logging.log4j:log4j-api:2.13.3'
+        implementation 'org.apache.logging.log4j:log4j-api:2.14.0'
 
         implementation 'org.junit.jupiter:junit-jupiter'
         testCompile 'org.junit.jupiter:junit-jupiter-api:5.7.0'
