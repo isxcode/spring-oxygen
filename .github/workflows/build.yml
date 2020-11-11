@@ -43,6 +43,7 @@ jobs:
         java-version: ${{ matrix.java }}
     - run: |
         chmod +x gradlew
+        echo 'project.version=0.0.1' >> gradle.properties
         gradle build test
 
     - name: codeql analysis
