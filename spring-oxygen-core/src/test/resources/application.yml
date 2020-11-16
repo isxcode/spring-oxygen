@@ -1,0 +1,4 @@
+spring:
+  freemarker:
+    enabled: true
+    template-loader-path: classpath:/templates/

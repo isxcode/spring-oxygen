@@ -34,7 +34,7 @@ import java.util.Base64;
  * @author ispong
  * @since 0.0.1
  */
-public class RsaMarker {
+public class RsaUtils {
 
     /**
      * 加密

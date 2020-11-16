@@ -15,7 +15,7 @@
  */
 package com.ispong.oxygen.wechatgo.controller;
 
-import com.ispong.oxygen.core.xml.XmlMarker;
+import com.ispong.oxygen.core.xml.XmlUtils;
 import com.ispong.oxygen.wechatgo.exception.WechatgoException;
 import com.ispong.oxygen.wechatgo.pojo.entity.WeChatEventBody;
 import com.ispong.oxygen.wechatgo.service.WechatgoService;
@@ -77,7 +77,7 @@ public class WechatgoController {
 
         log.debug("receive wechat event");
         try {
-            WeChatEventBody weChatEventBody = XmlMarker.parseInputStreamXml(httpServletRequest.getInputStream(), WeChatEventBody.class);
+            WeChatEventBody weChatEventBody = XmlUtils.parseInputStreamXml(httpServletRequest.getInputStream(), WeChatEventBody.class);
             return wechatgoService.handlerWechatEvent(weChatEventBody);
         } catch (IOException e) {
             throw new WechatgoException("has no inputStream");

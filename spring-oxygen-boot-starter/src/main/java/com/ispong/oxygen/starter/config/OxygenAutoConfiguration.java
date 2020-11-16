@@ -37,7 +37,7 @@ public class OxygenAutoConfiguration {
     @ConditionalOnClass(OxygenAutoConfiguration.class)
     private void initOxygenBanner() {
 
-        log.info("welcome to use spring-oxygen");
+        log.debug("welcome to use spring-oxygen");
         System.out.println("   _____            _                   ____                            ");
         System.out.println("  / ___/____  _____(_)___  ____ _      / __ \\_  ____  ______ ____  ____ ");
         System.out.println("  \\__ \\/ __ \\/ ___/ / __ \\/ __ `/_____/ / / / |/_/ / / / __ `/ _ \\/ __ \\");

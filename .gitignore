@@ -3,10 +3,9 @@
 
 ### Gradle ###
 .gradle
+gradle
+gradle.properties
 
 ### Packages ###
 **/build
 **/target
-
-## Logs ###
-**/logs
