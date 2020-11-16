@@ -1,4 +1,4 @@
-package com.ispong.oxygen.core;
+package com.ispong.oxygen.core.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.xml.sax.Attributes;

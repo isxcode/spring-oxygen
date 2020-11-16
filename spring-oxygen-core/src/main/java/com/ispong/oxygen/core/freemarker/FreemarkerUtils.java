@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Map;
 
 /**
  * freemarker 模板生成服务
@@ -75,8 +76,8 @@ public class FreemarkerUtils {
     /**
      * freemarker 通过模板内容生成String的模板内容
      *
-     * @param params freemarker需要解析的对象数据
-     * @param templateContent  模板内容
+     * @param templateContent 模板内容
+     * @param params          参数
      * @return 解析返回的字符串
      * @throws OxygenException 总异常
      * @since 0.0.1
@@ -102,7 +103,7 @@ public class FreemarkerUtils {
      * @throws OxygenException 总异常
      * @since 0.0.1
      */
-    public static String templateToString(String templateName, Object params) throws OxygenException {
+    public static String fileToString(String templateName, Object params) throws OxygenException {
 
         try {
             Template template = freeMarkerConfigurer.getConfiguration().getTemplate(templateName);

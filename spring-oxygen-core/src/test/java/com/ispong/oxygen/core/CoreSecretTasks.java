@@ -1,6 +1,7 @@
 package com.ispong.oxygen.core;
 
 import com.ispong.oxygen.core.config.OxygenCoreAutoConfiguration;
+import com.ispong.oxygen.core.pojo.Dog;
 import com.ispong.oxygen.core.secret.AesUtils;
 import com.ispong.oxygen.core.secret.JwtUtils;
 import com.ispong.oxygen.core.secret.RsaUtils;
