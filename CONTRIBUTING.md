@@ -28,3 +28,12 @@ git clone -b latest https://github.com/ispong/spring-oxygen
 cd spring-oxygen
 mvn install
 ```
+
+### Add git signed commits
+
+```
+gpg --gen-key
+git config commit.gpgsign true
+gpg --list-secret-keys
+gpg --armor --export F2307DAE
+```

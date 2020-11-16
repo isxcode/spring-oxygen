@@ -45,20 +45,20 @@ public class JwtUtils {
     /**
      * jwt默认加密工具
      *
-     * @param obj 传输对象
+     * @param obj    传输对象
      * @param aesKey 自定义密钥
      * @return jwt String
      * @since 2019-12-12
      */
-    public static String encrypt(Object obj, String aesKey) throws OxygenException {
+    public static String encrypt(String aesKey, Object obj) throws OxygenException {
 
         Map<String, Object> claims = new HashMap<>(1);
 
         try {
 
             String claimsStr = new ObjectMapper().writeValueAsString(obj);
-            if(aesKey!=null){
-                claimsStr = AesMarker.encrypt(aesKey, claimsStr);
+            if (aesKey != null) {
+                claimsStr = AesUtils.encrypt(aesKey, claimsStr);
             }
             claims.put(SecretConstants.CLAIM_KEY, claimsStr);
 
@@ -82,7 +82,7 @@ public class JwtUtils {
      */
     public static String encrypt(Object obj) throws OxygenException {
 
-        return encrypt(obj, null);
+        return encrypt(null, obj);
     }
 
     /**
@@ -120,11 +120,12 @@ public class JwtUtils {
 
         String targetJsonStr = claimStr;
         if (aesKey != null) {
-            targetJsonStr = AesMarker.decrypt(aesKey, claimStr);
+            targetJsonStr = AesUtils.decrypt(aesKey, claimStr);
         }
 
         try {
-            return new ObjectMapper().readValue(targetJsonStr, targetClass);
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.readValue(targetJsonStr, targetClass);
         } catch (JsonProcessingException e) {
             throw new OxygenException("Jwt decrypt is wrong");
         }

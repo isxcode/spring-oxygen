@@ -34,7 +34,7 @@ import java.io.InputStream;
  * @since 0.0.1
  */
 @Slf4j
-public class XmlMarker {
+public class XmlUtils {
 
     /**
      * 根据inputStream解析xml内容

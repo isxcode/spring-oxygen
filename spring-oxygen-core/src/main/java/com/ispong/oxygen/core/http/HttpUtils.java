@@ -15,7 +15,9 @@
  */
 package com.ispong.oxygen.core.http;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ispong.oxygen.core.exception.OxygenException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -42,10 +44,10 @@ public class HttpUtils {
      * @param targetClass   目标Class
      * @param <A>           A
      * @return target
-     * @throws IOException 访问失败
+     * @throws OxygenException 访问失败
      * @since 0.0.1
      */
-    public static <A> A doGet(String url, Map<String, String> requestParams, Class<A> targetClass) throws IOException {
+    public static <A> A doGet(String url, Map<String, String> requestParams, Class<A> targetClass) throws OxygenException {
 
         StringBuilder requestBody = new StringBuilder("?");
 
@@ -56,12 +58,10 @@ public class HttpUtils {
 
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<String> requestEntity = new HttpEntity<>("", headers);
-        String result = new RestTemplate().exchange(url + requestBody.toString(), HttpMethod.GET, requestEntity, String.class).getBody();
-
-        return new ObjectMapper().readValue(result, targetClass);
+        return new RestTemplate().exchange(url + requestBody.toString(), HttpMethod.GET, requestEntity, targetClass).getBody();
     }
 
-    public static <A> A doGet(String url, Class<A> targetClass) throws IOException {
+    public static <A> A doGet(String url, Class<A> targetClass) throws OxygenException {
 
         return doGet(url, null, targetClass);
     }
@@ -86,13 +86,7 @@ public class HttpUtils {
         }
 
         HttpEntity<String> requestEntity = new HttpEntity<>(new ObjectMapper().writeValueAsString(requestParams), headers);
-        String responseBody = new RestTemplate().exchange(url, HttpMethod.POST, requestEntity, String.class).getBody();
-        try {
-            return new ObjectMapper().readValue(responseBody, targetCls);
-        } catch (Exception e) {
-            log.error("request is wrong:" + responseBody);
-            return null;
-        }
+        return new RestTemplate().exchange(url, HttpMethod.POST, requestEntity, targetCls).getBody();
     }
 
     /**

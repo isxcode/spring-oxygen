@@ -1,11 +1,7 @@
 name: build
 
-#on:
-#  pull_request:
-#    branches:
-#      - main
 on:
-  push:
+  pull_request:
     branches:
       - latest
 
@@ -18,7 +14,7 @@ jobs:
       matrix:
         language: ['java']
         java:
-          - 1.8
+          - 11
 
     steps:
 
@@ -47,6 +43,7 @@ jobs:
         java-version: ${{ matrix.java }}
     - run: |
         chmod +x gradlew
+        echo 'project.version=0.0.1' >> gradle.properties
         gradle build test
 
     - name: codeql analysis
@@ -58,7 +55,7 @@ jobs:
         dotnet-version: 3.1.401
 
     - name: report generator
-      uses: danielpalme/ReportGenerator-GitHub-Action@4.7.1
+      uses: danielpalme/ReportGenerator-GitHub-Action@4.8.0
       with:
         reports: ./spring-oxygen-boot-starter/build/jacocoReport/test/jacocoTestReport.xml;./spring-oxygen-core/build/jacocoReport/test/jacocoTestReport.xml;./spring-oxygen-flysql/build/jacocoReport/test/jacocoTestReport.xml;./spring-oxygen-freecode/build/jacocoReport/test/jacocoTestReport.xml;./spring-oxygen-wechatgo/build/jacocoReport/test/jacocoTestReport.xml;
         targetdir: ./coverage/

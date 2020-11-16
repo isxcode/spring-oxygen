@@ -15,6 +15,7 @@
  */
 package com.ispong.oxygen.wechatgo.service.impl;
 
+import com.ispong.oxygen.core.exception.OxygenException;
 import com.ispong.oxygen.core.http.HttpUtils;
 import com.ispong.oxygen.wechatgo.exception.WechatgoException;
 import com.ispong.oxygen.wechatgo.handler.WechatgoEventHandler;
@@ -66,7 +67,7 @@ public class WechatgoServiceImpl implements WechatgoService {
         WeChatAccessToken weChatAccessToken;
         try {
             weChatAccessToken = HttpUtils.doGet(wechatgoProperties.getUrl() + "/cgi-bin/token", requestMap, WeChatAccessToken.class);
-        } catch (IOException e) {
+        } catch (OxygenException e) {
             throw new WechatgoException("get wechat server token fail");
         }
 

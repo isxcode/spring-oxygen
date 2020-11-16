@@ -84,6 +84,7 @@ public class OxygenCoreAutoConfiguration {
      */
     @Bean
     @ConditionalOnBean(OxygenCoreAutoConfiguration.class)
+    @ConditionalOnProperty(prefix = "spring.freemarker", name = "enabled", matchIfMissing = false)
     public FreemarkerUtils initFreemarkerMarker(FreeMarkerConfigurer freeMarkerConfigurer) {
 
         return new FreemarkerUtils(freeMarkerConfigurer);

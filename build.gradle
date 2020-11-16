@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.3.5.RELEASE'
+    id 'org.springframework.boot' version '2.4.0'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
     id 'maven'
@@ -21,16 +21,17 @@ subprojects {
     version = project.findProperty('project.version') ?: '0.0.1'
     group = project.findProperty('project.group')
 
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 
     repositories {
 
         if (project.findProperty('project.version') == null) {
             maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        }else{
+            mavenCentral()
         }
 
-        mavenCentral()
     }
 
     dependencies {
