@@ -70,10 +70,12 @@ dependencies {
 ```java
 package com.isxcode.leoday.config;
 
-import com.ispong.oxygen.starter.annotation.EnableOxygen;
 import org.springframework.context.annotation.Configuration;
+import com.ispong.oxygen.freecode.annotation.EnableFreecode;
+import com.ispong.oxygen.wechatgo.annotation.EnableWechatgo;
 
-@EnableOxygen
+@EnableWechatgo
+@EnableFreecode
 @Configuration
 public class AppConfig {
 
