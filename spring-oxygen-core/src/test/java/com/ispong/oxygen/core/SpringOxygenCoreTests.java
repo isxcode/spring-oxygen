@@ -2,7 +2,7 @@ package com.ispong.oxygen.core;
 
 import org.junit.jupiter.api.Test;
 
-public class StartTest {
+public class SpringOxygenCoreTests {
 
     @Test
     public void HelloTest(){

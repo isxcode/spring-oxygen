@@ -36,7 +36,7 @@ import java.util.Base64;
  * @since 0.0.1
  */
 @Slf4j
-public class AesMarker {
+public class AesUtils {
 
     /**
      * AES 加密
