@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.ispong.oxygen.wechatgo.config.WechatgoAutoConfiguration
+#  com.ispong.oxygen.wechatgo.config.WechatgoAutoConfiguration
