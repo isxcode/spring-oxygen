@@ -1,4 +1,6 @@
 dependencies {
     compile(project(':spring-oxygen-core'))
     compile(project(':spring-oxygen-flysql'))
+    compile(project(':spring-oxygen-wechatgo'))
+    compile(project(':spring-oxygen-freecode'))
 }

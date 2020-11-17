@@ -61,7 +61,11 @@ public class Dog extends DefaultHandler {
                     this.name = date;
                     break;
                 case "age":
-                    this.age = Integer.parseInt(date);
+                    try {
+                        this.age = Integer.parseInt(date);
+                    } catch (NumberFormatException e) {
+                        this.age = 0;
+                    }
                     break;
                 default:
             }
