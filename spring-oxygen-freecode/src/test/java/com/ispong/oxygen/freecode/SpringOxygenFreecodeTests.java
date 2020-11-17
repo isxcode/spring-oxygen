@@ -30,7 +30,7 @@ public class SpringOxygenFreecodeTests {
     @Test
     public void testGenerateCode() {
 
-        freecodeService.startFreecode("leo_files");
+        freecodeService.startFreecode("dogs");
     }
 }
 
