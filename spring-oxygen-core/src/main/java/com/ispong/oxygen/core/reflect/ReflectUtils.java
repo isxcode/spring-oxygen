@@ -20,6 +20,7 @@ import org.springframework.beans.BeanUtils;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,7 @@ import java.util.List;
  * @author ispong
  * @since 0.0.1
  */
-public class ReflectMarker {
+public class ReflectUtils {
 
     /**
      * 反射生成实例
@@ -67,8 +68,11 @@ public class ReflectMarker {
 
             try {
                 FieldBody tempFieldBody = new FieldBody();
-                tempFieldBody.setField(propertyMeta.getReadMethod().getDeclaringClass().getDeclaredField(propertyMeta.getName()));
-                tempFieldBody.setReadMethod(propertyMeta.getReadMethod());
+                Method readMethod = propertyMeta.getReadMethod();
+                if (readMethod != null) {
+                    tempFieldBody.setField(readMethod.getDeclaringClass().getDeclaredField(propertyMeta.getName()));
+                }
+                tempFieldBody.setReadMethod(readMethod);
                 tempFieldBody.setWriteMethod(propertyMeta.getWriteMethod());
                 tempFieldBody.setClassName(propertyMeta.getPropertyType().getName());
                 fieldList.add(tempFieldBody);

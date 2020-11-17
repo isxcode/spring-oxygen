@@ -15,14 +15,15 @@
  */
 package com.ispong.oxygen.freecode.service;
 
+import com.ispong.oxygen.flysql.core.Flysql;
 import com.ispong.oxygen.freecode.exception.FreecodeException;
-import com.ispong.oxygen.freecode.pojo.entity.FreecodeReq;
-import com.ispong.oxygen.freecode.pojo.entity.TableColumnInfo;
 import com.ispong.oxygen.freecode.pojo.constant.FreecodeConstants;
 import com.ispong.oxygen.freecode.pojo.entity.FreecodeInfo;
+import com.ispong.oxygen.freecode.pojo.entity.TableColumnInfo;
 import com.ispong.oxygen.freecode.pojo.properties.FreecodeProperties;
 import com.ispong.oxygen.freecode.repository.FreecodeRepository;
 import com.ispong.oxygen.freecode.utils.FreecodeUtils;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -70,7 +71,10 @@ public class FreecodeService {
             for (String fileType : freecodeProperties.getFileTypes()) {
 
                 // 去除表明前缀
-                String tempFileName = metaTableName.replace(freecodeProperties.getTablePrefix(), "");
+                String tempFileName = metaTableName;
+                if (freecodeProperties.getTablePrefix() != null) {
+                    tempFileName = metaTableName.replace(freecodeProperties.getTablePrefix(), "");
+                }
 
                 // 使用哪个模板文件
                 String modulePath = FreecodeConstants.MAIN_PATH + freecodeProperties.getModulePath() + "." + FreecodeUtils.lineToHump(tempFileName).toLowerCase();
@@ -96,6 +100,7 @@ public class FreecodeService {
      * @return FreecodeInfo
      * @since 0.0.1
      */
+    @SneakyThrows
     public FreecodeInfo generateFreecodeInfo(String tableName) {
 
         FreecodeInfo freecodeInfo = new FreecodeInfo();
@@ -107,7 +112,12 @@ public class FreecodeService {
         // 封装EntityClassPackageList
         freecodeInfo.setEntityPackageList(FreecodeUtils.parseDataPackage(tableColumns));
 
-        String doName = tableName.replace(freecodeProperties.getTablePrefix(), "").toLowerCase().replace("_", "");
+        String doName;
+        if (freecodeProperties.getTablePrefix() != null) {
+            doName= tableName.replace(freecodeProperties.getTablePrefix(), "").toLowerCase().replace("_", "");
+        }else{
+            doName = tableName.toLowerCase().replace("_", "");
+        }
 
         // module import class
         freecodeInfo.setPackageName(freecodeProperties.getModulePath() + "." + doName);
@@ -120,9 +130,15 @@ public class FreecodeService {
         freecodeInfo.setPrimaryTableName(tableName);
 
         // 表备注
-        freecodeInfo.setTableComment(freecodeRepository.getTableInfo(tableName).getTableComment());
+        if (!"H2".equals(Flysql.getDataSource().getConnection().getCatalog())) {
+            freecodeInfo.setTableComment(freecodeRepository.getTableInfo(tableName).getTableComment());
+        }
 
-        freecodeInfo.setClassName(FreecodeUtils.upperFirstCase(FreecodeUtils.lineToHump(tableName.replace(freecodeProperties.getTablePrefix(), ""))));
+        if (freecodeProperties.getTablePrefix() != null) {
+            freecodeInfo.setClassName(FreecodeUtils.upperFirstCase(FreecodeUtils.lineToHump(tableName.replace(freecodeProperties.getTablePrefix(), ""))));
+        }else{
+            freecodeInfo.setClassName(FreecodeUtils.upperFirstCase(FreecodeUtils.lineToHump(tableName)));
+        }
 
         return freecodeInfo;
     }

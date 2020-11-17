@@ -44,18 +44,16 @@ public class FreecodeRepository {
     @SneakyThrows
     public List<TableColumnInfo> getTableColumns(String tableName, List<String> ignoreFields) {
 
-        // 区分数据库类型
-        String databaseType = Flysql.getDataSource().getConnection().getCatalog();
-
         String sqlStr;
-        switch (databaseType) {
-            case "H2":
-                sqlStr = "show columns from " + tableName;
-                break;
-            default:
-//                throw new FreecodeException("dataSource type not support");
-                sqlStr = "show full columns from " + tableName;
-                break;
+
+        // 区分数据库类型
+        String databaseType = Flysql.getDataSource().getConnection().getMetaData().getDriverName();
+        if (databaseType.contains("MySQL")) {
+            sqlStr = "show full columns from " + tableName;
+        } else if (databaseType.contains("H2")) {
+            sqlStr = "show columns from " + tableName;
+        } else {
+            throw new FreecodeException("dataSource type not support");
         }
 
         List<TableColumnInfo> tableColumnInfos = Flysql.select(TableColumnInfo.class).sql(sqlStr).query();

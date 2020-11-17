@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Service - ${tableComment}
+ * Service - ${tableComment!""}
  *
  * @author ${freecodeProperties.author}
  * @since ${freecodeProperties.version}

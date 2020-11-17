@@ -3,7 +3,7 @@ package ${packageName};
 import org.springframework.stereotype.Service;
 
 /**
- * Interface - ${tableComment}
+ * Interface - ${tableComment!""}
  *
  * @author ${freecodeProperties.author}
  * @since ${freecodeProperties.version}
