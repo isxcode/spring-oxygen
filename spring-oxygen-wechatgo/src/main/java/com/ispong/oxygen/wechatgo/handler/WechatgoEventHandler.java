@@ -33,7 +33,8 @@ public interface WechatgoEventHandler {
      * @since 0.0.1
      */
     default String subscribeEvent(WeChatEventBody weChatEventBody) {
-        return "success";
+
+        return weChatEventBody == null ? "false" : "success";
     }
 
     /**
@@ -45,7 +46,7 @@ public interface WechatgoEventHandler {
      */
     default String unsubscribeEvent(WeChatEventBody weChatEventBody) {
 
-        return "success";
+        return weChatEventBody == null ? "false" : "success";
     }
 
     /**
@@ -57,7 +58,7 @@ public interface WechatgoEventHandler {
      */
     default String sendMsgTemplateResponse(WeChatEventBody weChatEventBody) {
 
-        return "success";
+        return weChatEventBody == null ? "false" : "success";
     }
 
     /**
@@ -69,6 +70,6 @@ public interface WechatgoEventHandler {
      */
     default String scanEvent(WeChatEventBody weChatEventBody) {
 
-        return "success";
+        return weChatEventBody == null ? "false" : "success";
     }
 }
