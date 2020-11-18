@@ -39,8 +39,8 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
     - run: |
-      echo 'project.version=${{ github.event.inputs.version }}' >> gradle.properties
-      gradle build -x test
+        echo 'project.version=${{ github.event.inputs.version }}' >> gradle.properties
+        gradle build -x test
 
     - name: publish to sonatype
       run: |
