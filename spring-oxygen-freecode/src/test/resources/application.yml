@@ -14,3 +14,7 @@ oxygen:
   freecode:
     module-path: com.ispong.oxygen.freecode.logs
     author: ispong
+
+logging:
+  level:
+    root: debug
