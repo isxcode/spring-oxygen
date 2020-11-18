@@ -17,7 +17,7 @@
 [![Github Build](https://github.com/ispong/spring-oxygen/workflows/build/badge.svg?branch=ispong)](https://github.com/ispong/spring-oxygen/actions?query=workflow%3A%22build%22)
 [![Maven Version](https://img.shields.io/maven-central/v/com.github.ispong/spring-oxygen-boot-starter)](https://search.maven.org/artifact/com.github.ispong/spring-oxygen-boot-starter)
 [![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/ispong/spring-oxygen.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ispong/spring-oxygen/context:java)
-[![Coverage Status](https://coveralls.io/repos/github/ispong/spring-oxygen/badge.svg?branch=ispong)](https://coveralls.io/github/ispong/spring-oxygen?branch=latest)
+[![Coverage Status](https://coveralls.io/repos/github/ispong/spring-oxygen/badge.svg?branch=ispong)](https://coveralls.io/github/ispong/spring-oxygen?branch=ispong)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fispong%2Fspring-oxygen.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fispong%2Fspring-oxygen?ref=badge_shield)
 
 </div>

@@ -13,7 +13,7 @@ import com.ispong.oxygen.flysql.annotation.TableName;
 import java.io.Serializable;
 
 /**
- * Entity - ${tableComment}
+ * Entity - ${tableComment!""}
  *
  * @author ${freecodeProperties.author}
  * @since ${freecodeProperties.version}
@@ -35,7 +35,7 @@ public class ${className?cap_first}Entity implements Serializable{
 <#-- 遍历字段 -->
 <#list tableColumns as field>
     /**
-     * ${field.comment}
+     * ${field.comment!""}
      */
     @ColumnName("${field.originField}")
     private ${field.type} ${field.field};

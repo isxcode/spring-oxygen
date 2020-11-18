@@ -18,6 +18,7 @@ package com.ispong.oxygen.freecode.utils;
 import com.ispong.oxygen.core.exception.OxygenException;
 import com.ispong.oxygen.core.freemarker.FreemarkerUtils;
 import com.ispong.oxygen.freecode.pojo.entity.TableColumnInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
@@ -39,6 +40,7 @@ import static java.util.regex.Pattern.compile;
  * @since 0.0.1
  */
 @Component
+@Slf4j
 public class FreecodeUtils {
 
     private static FreemarkerUtils freemarkerUtils;
@@ -72,6 +74,7 @@ public class FreecodeUtils {
             try {
                 freemarkerUtils.generateToFile(templateName, freecodeInfo, filePath);
             } catch (OxygenException e) {
+                log.debug("freecode generate file error->" + e.getMessage());
                 e.printStackTrace();
             }
         }

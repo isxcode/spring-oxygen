@@ -16,7 +16,7 @@
 package com.ispong.oxygen.core.xml;
 
 import com.ispong.oxygen.core.exception.OxygenException;
-import com.ispong.oxygen.core.reflect.ReflectMarker;
+import com.ispong.oxygen.core.reflect.ReflectUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -53,7 +53,7 @@ public class XmlUtils {
             SAXParser saxParser = saxParserFactory.newSAXParser();
 
             // 反射实例化
-            T target = ReflectMarker.newInstance(targetClass);
+            T target = ReflectUtils.newInstance(targetClass);
             saxParser.parse(inputStream, target);
             return target;
         } catch (ParserConfigurationException | SAXException | IOException e) {

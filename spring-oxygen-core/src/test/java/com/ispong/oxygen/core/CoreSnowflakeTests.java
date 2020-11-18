@@ -7,6 +7,20 @@ public class CoreSnowflakeTests {
 
     @Test
     public void testSnowflake() {
-        System.out.println(SnowflakeUtils.getNextUuid());
+
+        Thread thread1 = new Thread(() -> {
+            for (int i = 0; i < 100; i++) {
+                System.out.println("thread1-->" + SnowflakeUtils.getNextUuid());
+            }
+        });
+
+        Thread thread2 = new Thread(() -> {
+            for (int i = 0; i < 100; i++) {
+                System.out.println("thread2-->" + SnowflakeUtils.getNextUuid());
+            }
+        });
+
+        thread1.start();
+        thread2.start();
     }
 }

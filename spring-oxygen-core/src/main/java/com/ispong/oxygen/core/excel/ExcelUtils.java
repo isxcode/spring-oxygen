@@ -18,7 +18,7 @@ package com.ispong.oxygen.core.excel;
 import com.ispong.oxygen.core.exception.OxygenException;
 import com.ispong.oxygen.core.reflect.ClassNameConstants;
 import com.ispong.oxygen.core.reflect.FieldBody;
-import com.ispong.oxygen.core.reflect.ReflectMarker;
+import com.ispong.oxygen.core.reflect.ReflectUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
@@ -83,7 +83,7 @@ public class ExcelUtils {
             }
 
             // 匹配首行对应的属性的write函数
-            List<FieldBody> fieldList = ReflectMarker.queryFields(targetClass);
+            List<FieldBody> fieldList = ReflectUtils.queryFields(targetClass);
             Map<Integer, FieldBody> columnMap = new HashMap<>(fieldList.size());
             for (String metaRowName : rowColumnList) {
                 for (FieldBody metaFieldBody : fieldList) {
@@ -101,7 +101,7 @@ public class ExcelUtils {
             firstRowNum++;
             while (sheet.getRow(firstRowNum) != null) {
                 // 反射实例
-                A target = ReflectMarker.newInstance(targetClass);
+                A target = ReflectUtils.newInstance(targetClass);
 
                 Row nextRow = sheet.getRow(firstRowNum);
                 for (int i = firstColumnNum; i < lastColumnNum; i++) {
@@ -163,7 +163,7 @@ public class ExcelUtils {
                 throw new OxygenException("data is empty");
             }
 
-            List<FieldBody> fieldBodies = ReflectMarker.queryFields(data.get(0).getClass());
+            List<FieldBody> fieldBodies = ReflectUtils.queryFields(data.get(0).getClass());
 
             // 绘制表头
             XSSFRow row = sheet.createRow(0);

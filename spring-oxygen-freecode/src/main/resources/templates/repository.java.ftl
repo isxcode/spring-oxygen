@@ -7,7 +7,7 @@ import com.ispong.oxygen.flysql.core.Flysql;
 import java.util.List;
 
 /**
- * Repository - ${tableComment}
+ * Repository - ${tableComment!""}
  *
  * @author ${freecodeProperties.author}
  * @since ${freecodeProperties.version}
