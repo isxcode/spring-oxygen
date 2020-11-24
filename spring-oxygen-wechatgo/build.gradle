@@ -1,4 +1,0 @@
-dependencies {
-    implementation(project(':spring-oxygen-core'))
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-}

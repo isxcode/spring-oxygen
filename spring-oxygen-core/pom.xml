@@ -10,7 +10,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.github.ispong</groupId>
+    <groupId>com.isxcode.oxygen</groupId>
     <artifactId>spring-oxygen-core</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>

@@ -56,7 +56,7 @@ subprojects {
         repositories {
             maven {
                 name = 'GitHubPackages'
-                def githubRepoUrl = 'https://maven.pkg.github.com/ispong/spring-oxygen'
+                def githubRepoUrl = 'https://maven.pkg.github.com/isxcode/spring-oxygen'
                 url = githubRepoUrl
                 credentials {
                     username = project.findProperty('gpr.user') ?: System.getenv('USERNAME')
@@ -97,7 +97,7 @@ subprojects {
 
                     name = project.getName()
                     description = 'Spring rapid development integration framework.'
-                    url = 'https://github.com/ispong/spring-oxygen'
+                    url = 'https://github.com/isxcode/spring-oxygen'
 
                     licenses {
                         license {
@@ -108,16 +108,16 @@ subprojects {
 
                     developers {
                         developer {
-                            id = 'ispong'
-                            name = 'ispong'
-                            email = 'ispong@outlook.com'
+                            id = 'isxcode'
+                            name = 'isxcode'
+                            email = 'isxcode@outlook.com'
                         }
                     }
 
                     scm {
-                        connection = 'scm:git:git://github.com/ispong/spring-oxygen.git'
-                        developerConnection = 'scm:git:ssh://github.com/ispong/spring-oxygen.git'
-                        url = 'https://github.com/ispong/spring-oxygen'
+                        connection = 'scm:git:git://github.com/isxcode/spring-oxygen.git'
+                        developerConnection = 'scm:git:ssh://github.com/isxcode/spring-oxygen.git'
+                        url = 'https://github.com/isxcode/spring-oxygen'
                     }
                 }
             }

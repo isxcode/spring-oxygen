@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.ispong.oxygen.freecode.config.FreecodeAutoConfiguration
+  com.isxcode.oxygen.freecode.config.FreecodeAutoConfiguration

@@ -5,17 +5,16 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.ispong</groupId>
+    <groupId>com.isxcode.oxygen</groupId>
     <artifactId>spring-oxygen</artifactId>
     <version>0.0.1</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>spring-oxygen-boot-starter</module>
+        <module>oxygen-spring-boot-starter</module>
         <module>spring-oxygen-core</module>
         <module>spring-oxygen-flysql</module>
         <module>spring-oxygen-freecode</module>
-        <module>spring-oxygen-wechatgo</module>
     </modules>
 
 </project>
