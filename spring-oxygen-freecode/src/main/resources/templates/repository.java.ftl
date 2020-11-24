@@ -2,12 +2,12 @@ package ${packageName};
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
-import com.ispong.oxygen.flysql.core.Flysql;
+import Flysql;
 
 import java.util.List;
 
 /**
- * Repository - ${tableComment}
+ * Repository - ${tableComment!""}
  *
  * @author ${freecodeProperties.author}
  * @since ${freecodeProperties.version}

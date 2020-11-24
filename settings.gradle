@@ -1,7 +1,6 @@
 rootProject.name = 'spring-oxygen'
 
-include 'spring-oxygen-boot-starter'
+include 'oxygen-spring-boot-starter'
 include 'spring-oxygen-core'
 include 'spring-oxygen-flysql'
-include 'spring-oxygen-wechatgo'
 include 'spring-oxygen-freecode'

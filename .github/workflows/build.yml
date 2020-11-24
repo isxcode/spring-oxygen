@@ -3,7 +3,7 @@ name: build
 on:
   push:
     branches:
-      - ispong
+      - main
 
 jobs:
   build:
@@ -57,8 +57,8 @@ jobs:
     - name: report generator
       uses: danielpalme/ReportGenerator-GitHub-Action@4.8.0
       with:
-        reports: ./spring-oxygen-boot-starter/build/jacocoReport/test/jacocoTestReport.xml;./spring-oxygen-core/build/jacocoReport/test/jacocoTestReport.xml;./spring-oxygen-flysql/build/jacocoReport/test/jacocoTestReport.xml;./spring-oxygen-freecode/build/jacocoReport/test/jacocoTestReport.xml;./spring-oxygen-wechatgo/build/jacocoReport/test/jacocoTestReport.xml;
-        sourcedirs: ./spring-oxygen-boot-starter/src/main/java/;./spring-oxygen-core/src/main/java/;./spring-oxygen-flysql/src/main/java/;./spring-oxygen-freecode/src/main/java/;./spring-oxygen-wechatgo/src/main/java/;
+        reports: ./oxygen-spring-boot-starter/build/jacocoReport/test/jacocoTestReport.xml;./spring-oxygen-core/build/jacocoReport/test/jacocoTestReport.xml;./spring-oxygen-flysql/build/jacocoReport/test/jacocoTestReport.xml;./spring-oxygen-freecode/build/jacocoReport/test/jacocoTestReport.xml;
+        sourcedirs: ./spring-oxygen-boot-starter/src/main/java/;./spring-oxygen-core/src/main/java/;./spring-oxygen-flysql/src/main/java/;./spring-oxygen-freecode/src/main/java/;
         targetdir: ./coverage/
         reporttypes: lcov
 
