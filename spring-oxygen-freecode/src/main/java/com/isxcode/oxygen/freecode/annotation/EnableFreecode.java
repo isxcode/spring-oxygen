@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.freecode.annotation;
+package com.isxcode.oxygen.freecode.annotation;
 
-import com.ispong.oxygen.freecode.config.FreecodeAutoConfiguration;
+import com.isxcode.oxygen.freecode.config.FreecodeAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
