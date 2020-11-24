@@ -108,9 +108,9 @@ subprojects {
 
                     developers {
                         developer {
-                            id = 'isxcode'
-                            name = 'isxcode'
-                            email = 'isxcode@outlook.com'
+                            id = 'ispong'
+                            name = 'ispong'
+                            email = 'ispong@outlook.com'
                         }
                     }
 
