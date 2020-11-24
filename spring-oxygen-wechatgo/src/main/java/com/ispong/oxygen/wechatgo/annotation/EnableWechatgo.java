@@ -13,23 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ispong.oxygen.freecode.annotation;
+package com.ispong.oxygen.wechatgo.annotation;
 
-import com.ispong.oxygen.freecode.config.FreecodeAutoConfiguration;
+import com.ispong.oxygen.wechatgo.config.WechatgoAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
 
 /**
- * freecode 启动器
+ * annotation- @EnableWechatgo
  *
  * @author ispong
  * @since 0.0.1
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import(FreecodeAutoConfiguration.class)
+@Import(WechatgoAutoConfiguration.class)
 @Documented
-public @interface EnableFreecode {
+public @interface EnableWechatgo {
 
 }
