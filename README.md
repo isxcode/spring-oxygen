@@ -14,10 +14,10 @@
 
 <div align="center">
 
-[![Github Build](https://github.com/isxcode/spring-oxygen/workflows/build/badge.svg)](https://github.com/isxcode/spring-oxygen/actions?query=workflow%3A%22build%22)
+[![Github Build](https://github.com/isxcode/spring-oxygen/workflows/build/badge.svg?branch=latest)](https://github.com/isxcode/spring-oxygen/actions?query=workflow%3Abuild)
 [![Maven Version](https://img.shields.io/maven-central/v/com.isxcode.oxygen/oxygen-spring-boot-starter)](https://search.maven.org/artifact/com.isxcode.oxygen/oxygen-spring-boot-starter)
 [![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/isxcode/spring-oxygen.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/isxcode/spring-oxygen/context:java)
-[![Coverage Status](https://coveralls.io/repos/github/isxcode/spring-oxygen/badge.svg?branch=isxcode)](https://coveralls.io/github/isxcode/spring-oxygen?branch=isxcode)
+[![Coverage Status](https://coveralls.io/repos/github/isxcode/spring-oxygen/badge.svg?branch=latest)](https://coveralls.io/github/isxcode/spring-oxygen?branch=latest)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fisxcode%2Fspring-oxygen.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fisxcode%2Fspring-oxygen?ref=badge_shield)
 
 </div>

@@ -1,5 +1,6 @@
 # https://oss.sonatype.org/
 # https://search.maven.org/artifact/com.github.ispong/spring-oxygen-boot-starter
+#
 
 name: 🔖 release for sonatype
 
@@ -44,6 +45,6 @@ jobs:
 
     - name: publish to sonatype
       run: |
-        echo 'sonatypeUsername=${{ github.actor }}' >> gradle.properties
+        echo 'sonatypeUsername=${{ secrets.SONATYPE_USERNAME }}' >> gradle.properties
         echo 'sonatypePassword=${{ secrets.SONATYPE_PASSWORD }}' >> gradle.properties
         gradle publishMavenJavaPublicationToSonatypePackagesRepository
