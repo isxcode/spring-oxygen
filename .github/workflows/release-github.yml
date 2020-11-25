@@ -41,6 +41,6 @@ jobs:
 
     - name: publish to github
       run: |
-        echo 'gpr.user=${{ secrets.GITHUB_USERNAME }}' >> gradle.properties
+        echo 'gpr.user=${{ github.actor }}' >> gradle.properties
         echo 'gpr.key=${{ secrets.GITHUB_TOKEN }}' >> gradle.properties
         gradle publishGprPublicationToGitHubPackagesRepository
