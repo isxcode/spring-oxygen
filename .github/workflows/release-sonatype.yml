@@ -42,10 +42,10 @@ jobs:
     - run: |
         echo 'project.version=${{ github.event.inputs.version }}' >> gradle.properties
         gradle build -x test
-        gradle release
 
     - name: publish to sonatype
       run: |
         echo 'sonatypeUsername=${{ secrets.SONATYPE_USERNAME }}' >> gradle.properties
         echo 'sonatypePassword=${{ secrets.SONATYPE_PASSWORD }}' >> gradle.properties
         gradle publishMavenJavaPublicationToSonatypePackagesRepository
+        gradle release
