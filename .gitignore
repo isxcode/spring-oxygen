@@ -9,6 +9,3 @@ gradle.properties
 ### Packages ###
 **/build
 **/target
-
-### Freecode Test ###
-spring-oxygen-freecode/src/main/java/com/ispong/oxygen/freecode/logs/dogs
