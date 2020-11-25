@@ -45,7 +45,7 @@
 For instructions on use, please check the [Wiki](https://github.com/isxcode/spring-oxygen/wiki) carefully.
 Welcome to develop and maintain together, please follow the [github development](https://github.com/isxcode/spring-oxygen/blob/main/CONTRIBUTING.md) specification.
 
-## 📦 Installation
+## 📦 Install
 
 - for Gradle
 
@@ -68,15 +68,25 @@ dependencies {
 ## 🔨 Usage
 
 ```java
-package com.isxcode.leoday.config;
+import com.ispong.oxygen.flysql.pojo.enums.OrderType;
+import org.springframework.stereotype.Repository;
+import com.ispong.oxygen.flysql.core.Flysql;
 
-import org.springframework.context.annotation.Configuration;
-import com.isxcode.oxygen.freecode.annotation.EnableFreecode;
+import java.util.List;
 
-@EnableFreecode
-@Configuration
-public class AppConfig {
+@Repository
+public class LeoDogsRepository {
 
+    public List<LeoDogsEntity> customQuery() {
+
+        return Flysql.select(LeoDogsEntity.class)
+            .select("name", "age", "color")
+            .eq("name", "alen")
+            .between("age", 12, 20)
+            .like("color", "red")
+            .orderBy("userIndex", OrderType.DESC)
+            .query();
+    }
 }
 ```
 

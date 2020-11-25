@@ -48,4 +48,3 @@ jobs:
         echo 'sonatypeUsername=${{ secrets.SONATYPE_USERNAME }}' >> gradle.properties
         echo 'sonatypePassword=${{ secrets.SONATYPE_PASSWORD }}' >> gradle.properties
         gradle publishMavenJavaPublicationToSonatypePackagesRepository
-        gradle release
