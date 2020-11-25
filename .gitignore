@@ -9,3 +9,6 @@ gradle.properties
 ### Packages ###
 **/build
 **/target
+
+### Github ###
+.github

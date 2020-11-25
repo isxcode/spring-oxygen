@@ -1,2 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.isxcode.oxygen.core.config.OxygenCoreAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=

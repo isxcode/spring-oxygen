@@ -20,7 +20,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 
 /**
- * 启动oxygen 打印logo
+ * 打印logo
  *
  * @author ispong
  * @since 0.0.1
