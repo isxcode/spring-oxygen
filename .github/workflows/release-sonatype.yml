@@ -1,6 +1,6 @@
 # https://oss.sonatype.org/
-# https://search.maven.org/artifact/com.github.ispong/spring-oxygen-boot-starter
-#
+# https://search.maven.org/
+# https://search.maven.org/artifact/com.isxcode.oxygen/oxygen-spring-boot-starter
 
 name: 🔖 release for sonatype
 
@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'which version like 0.0.x-SNAPSHOT'
+        description: 'which version like 0.0.x-alpha-x'
         required: true
 
 jobs:
@@ -42,6 +42,7 @@ jobs:
     - run: |
         echo 'project.version=${{ github.event.inputs.version }}' >> gradle.properties
         gradle build -x test
+        gradle release
 
     - name: publish to sonatype
       run: |
