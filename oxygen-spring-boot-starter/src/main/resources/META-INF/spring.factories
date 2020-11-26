@@ -1,4 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.isxcode.oxygen.starter.OxygenAutoConfiguration,\
+  com.isxcode.oxygen.starter.OxygenStarterAutoConfiguration,\
   com.isxcode.oxygen.core.config.OxygenCoreAutoConfiguration,\
   com.isxcode.oxygen.flysql.config.FlysqlAutoConfiguration
