@@ -1,0 +1,7 @@
+# See: https://lgtm.com/projects/g/isxcode/isxcode
+
+extraction:
+  java:
+    index:
+      java_version: "11"
+      build_command: ./gradlew testClasses

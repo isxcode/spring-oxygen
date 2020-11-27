@@ -8,8 +8,8 @@ import ${freecodeProperties.baseEntityClass};
 import lombok.EqualsAndHashCode;
 </#if>
 import lombok.*;
-import ColumnName;
-import TableName;
+import com.isxcode.oxygen.flysql.annotation.ColumnName;
+import com.isxcode.oxygen.flysql.annotation.TableName;
 import java.io.Serializable;
 
 /**
