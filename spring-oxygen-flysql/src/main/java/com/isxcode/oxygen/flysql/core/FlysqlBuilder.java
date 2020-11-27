@@ -210,7 +210,7 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
                 } else if (metaField.isAnnotationPresent(CreatedDate.class) || metaField.isAnnotationPresent(LastModifiedDate.class)) {
                     invoke = LocalDateTime.now();
                 } else if (metaField.isAnnotationPresent(Version.class) || metaField.isAnnotationPresent(IsDelete.class)) {
-                    invoke = 0;
+                    invoke = 1;
                 } else {
                     try {
                         invoke = propertyMeta.getReadMethod().invoke(entity);

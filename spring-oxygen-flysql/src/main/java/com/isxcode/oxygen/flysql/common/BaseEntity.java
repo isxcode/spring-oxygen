@@ -29,17 +29,17 @@ import java.time.LocalDateTime;
  */
 public class BaseEntity {
 
+    @CreatedDate
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @CreatedDate
     private LocalDateTime createdDate;
 
     @CreatedBy
     private String createdBy;
 
+    @LastModifiedDate
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @LastModifiedDate
     private LocalDateTime lastModifiedDate;
 
     @LastModifiedBy
