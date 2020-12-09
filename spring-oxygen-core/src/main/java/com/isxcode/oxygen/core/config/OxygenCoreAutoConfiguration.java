@@ -91,14 +91,14 @@ public class OxygenCoreAutoConfiguration {
     }
 
     /**
-     * 初始化JwtMarker
+     * init jwt key
      *
-     * @return JwtMarker
+     * @return JwtUtils
      * @since 0.0.1
      */
     @Bean(initMethod = "init")
     @ConditionalOnBean(OxygenCoreAutoConfiguration.class)
-    public JwtUtils initJwtMarker() {
+    public JwtUtils initJwtUtils() {
 
         return new JwtUtils();
     }

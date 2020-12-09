@@ -15,8 +15,10 @@
  */
 
 /**
- * reflect: provide java reflect utils
- * xml: parse xml file
+ * reflect   : provide java reflect utils
+ * xml       : parse xml file
+ * secret    : provide ase rsa jwt encrypt utils
+ * snowflake : snowflake id
  */
 package com.isxcode.oxygen.core;
 
