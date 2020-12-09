@@ -12,7 +12,7 @@ public class CoreXmlTests {
     @Test
     public void testXml() {
         String xmlStr = "<xml><name>wang</name><age>12</age></xml>";
-        Dog dog = XmlUtils.parseInputStreamXml(new ByteArrayInputStream(xmlStr.getBytes()), Dog.class);
+        Dog dog = XmlUtils.parseXmlInputStream(new ByteArrayInputStream(xmlStr.getBytes()), Dog.class);
         System.out.println("dog==>" + dog.getName() + ":" + dog.getAge());
     }
 
@@ -20,7 +20,7 @@ public class CoreXmlTests {
     public void testXmlForException() {
         String xmlStr = "<xml><namewang</name><age>12</age></xml>";
         try {
-            XmlUtils.parseInputStreamXml(new ByteArrayInputStream(xmlStr.getBytes()), Dog.class);
+            XmlUtils.parseXmlInputStream(new ByteArrayInputStream(xmlStr.getBytes()), Dog.class);
         }catch (OxygenException e){
             System.out.println("xml parse  exception");
         }

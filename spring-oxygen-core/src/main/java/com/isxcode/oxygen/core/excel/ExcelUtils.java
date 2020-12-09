@@ -16,7 +16,7 @@
 package com.isxcode.oxygen.core.excel;
 
 import com.isxcode.oxygen.core.exception.OxygenException;
-import com.isxcode.oxygen.core.reflect.ClassNameConstants;
+import com.isxcode.oxygen.core.reflect.ReflectConstants;
 import com.isxcode.oxygen.core.reflect.FieldBody;
 import com.isxcode.oxygen.core.reflect.ReflectUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -119,16 +119,16 @@ public class ExcelUtils {
                     // 写入数据
                     Method writeMethod = fieldBody.getWriteMethod();
                     switch (fieldBody.getClassName()) {
-                        case ClassNameConstants.STRING:
+                        case ReflectConstants.STRING:
                             writeMethod.invoke(target, metaCell.getStringCellValue());
                             break;
-                        case ClassNameConstants.LOCAL_DATE_TIME:
+                        case ReflectConstants.LOCAL_DATE_TIME:
                             writeMethod.invoke(target, metaCell.getLocalDateTimeCellValue());
                             break;
-                        case ClassNameConstants.DOUBLE:
+                        case ReflectConstants.DOUBLE:
                             writeMethod.invoke(target, metaCell.getNumericCellValue());
                             break;
-                        case ClassNameConstants.DATE:
+                        case ReflectConstants.DATE:
                             writeMethod.invoke(target, metaCell.getDateCellValue());
                             break;
                         default:
@@ -212,24 +212,24 @@ public class ExcelUtils {
                         Method readMethod = metaFieldBody.getReadMethod();
                         String dataStr = String.valueOf(readMethod.invoke(metaData));
                         switch (metaFieldBody.getClassName()) {
-                            case ClassNameConstants.STRING:
+                            case ReflectConstants.STRING:
                                 cell.setCellValue(dataStr);
                                 break;
-                            case ClassNameConstants.DATE:
+                            case ReflectConstants.DATE:
                                 SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
                                 cell.setCellValue(dateFormat.parse(dataStr));
                                 cell.setCellStyle(dateStyle);
                                 break;
-                            case ClassNameConstants.LOCAL_DATE_TIME:
+                            case ReflectConstants.LOCAL_DATE_TIME:
                                 cell.setCellValue(LocalDateTime.parse(dataStr.substring(0, dataStr.indexOf('.')), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")));
                                 cell.setCellStyle(dateStyle);
                                 break;
-                            case ClassNameConstants.LOCAL_DATE:
+                            case ReflectConstants.LOCAL_DATE:
                                 cell.setCellValue(LocalDate.parse(dataStr.substring(0, dataStr.indexOf('.')), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
                                 cell.setCellStyle(dateStyle);
                                 break;
-                            case ClassNameConstants.DOUBLE:
-                            case ClassNameConstants.INTEGER:
+                            case ReflectConstants.DOUBLE:
+                            case ReflectConstants.INTEGER:
                                 cell.setCellValue(Double.parseDouble(dataStr));
                                 cell.setCellStyle(numberStyle);
                                 break;

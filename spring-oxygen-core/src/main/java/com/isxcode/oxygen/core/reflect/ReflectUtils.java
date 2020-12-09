@@ -1,31 +1,17 @@
-/*
- * Copyright [2020] [ispong]
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.isxcode.oxygen.core.reflect;
 
 import com.isxcode.oxygen.core.exception.OxygenException;
 import org.springframework.beans.BeanUtils;
 
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 反射Marker
+ * reflect utils
  *
  * @author ispong
  * @since 0.0.1
@@ -33,11 +19,11 @@ import java.util.List;
 public class ReflectUtils {
 
     /**
-     * 反射生成实例
+     * reflect create instance
      *
-     * @param targetClass 目标class
+     * @param targetClass targetClass
      * @param <T>         T
-     * @return T
+     * @return instance
      * @since 0.0.1
      */
     public static <T> T newInstance(Class<T> targetClass) {
@@ -50,37 +36,40 @@ public class ReflectUtils {
     }
 
     /**
-     * 获取对象各个属性
+     * query class fields
      *
-     * @param targetClass 目标class
+     * @param targetClass targetClass
      * @return List[FieldBody]
      * @since 0.0.1
      */
     public static List<FieldBody> queryFields(Class<?> targetClass) {
 
-        ArrayList<FieldBody> fieldList = new ArrayList<>();
+        ArrayList<FieldBody> fieldBodyList = new ArrayList<>();
 
         PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(targetClass);
         for (PropertyDescriptor propertyMeta : propertyDescriptors) {
-            if (ClassNameConstants.CLASS.equals(propertyMeta.getName())) {
+
+            if (ReflectConstants.CLASS.equals(propertyMeta.getName())) {
                 continue;
             }
 
             try {
-                FieldBody tempFieldBody = new FieldBody();
+                FieldBody.FieldBodyBuilder fieldBodyBuilder = FieldBody.builder();
                 Method readMethod = propertyMeta.getReadMethod();
-                if (readMethod != null) {
-                    tempFieldBody.setField(readMethod.getDeclaringClass().getDeclaredField(propertyMeta.getName()));
+                if (readMethod == null) {
+                    continue;
                 }
-                tempFieldBody.setReadMethod(readMethod);
-                tempFieldBody.setWriteMethod(propertyMeta.getWriteMethod());
-                tempFieldBody.setClassName(propertyMeta.getPropertyType().getName());
-                fieldList.add(tempFieldBody);
+                fieldBodyBuilder.field(readMethod.getDeclaringClass().getDeclaredField(propertyMeta.getName()));
+                fieldBodyBuilder.readMethod(readMethod);
+                fieldBodyBuilder.writeMethod(propertyMeta.getWriteMethod());
+                fieldBodyBuilder.className(propertyMeta.getPropertyType().getName());
+                fieldBodyList.add(fieldBodyBuilder.build());
             } catch (NoSuchFieldException e) {
                 // do nothing
             }
+
         }
 
-        return fieldList;
+        return fieldBodyList;
     }
 }
