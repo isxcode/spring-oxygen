@@ -19,6 +19,7 @@
  * xml       : parse xml file
  * secret    : provide ase rsa jwt encrypt utils
  * snowflake : snowflake id
+ * random    : generate phone verifty number
  */
 package com.isxcode.oxygen.core;
 
