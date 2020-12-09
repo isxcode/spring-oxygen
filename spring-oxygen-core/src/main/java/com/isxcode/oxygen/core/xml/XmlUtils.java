@@ -9,6 +9,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -22,8 +23,10 @@ import java.io.InputStream;
 public class XmlUtils {
 
     /**
+     * parse inputsteam content
+     *
      * @param inputStream inputStream
-     * @param targetClass 目标class
+     * @param targetClass targetClass
      * @param <T>         T
      * @return target
      * @since 0.0.1
@@ -39,8 +42,22 @@ public class XmlUtils {
             return target;
         } catch (ParserConfigurationException | SAXException | IOException e) {
 
-            throw new OxygenException("parse inputStream xml fail");
+            throw new OxygenException(e.getMessage());
         }
     }
 
+
+    /**
+     * parse string content
+     *
+     * @param data        stringData
+     * @param targetClass targetClass
+     * @param <T>         T
+     * @return target
+     * @since 0.0.1
+     */
+    public static <T extends DefaultHandler> T parseXmlString(String data, Class<T> targetClass) {
+
+        return parseXmlInputStream(new ByteArrayInputStream(data.getBytes()), targetClass);
+    }
 }
