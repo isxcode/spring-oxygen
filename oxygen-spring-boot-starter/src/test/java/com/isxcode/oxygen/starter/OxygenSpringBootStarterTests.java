@@ -9,8 +9,8 @@ import org.springframework.test.context.ContextConfiguration;
 public class OxygenSpringBootStarterTests {
 
     @Test
-    public void test() {
-
+    public void testStarter() {
+        System.out.println("hello oxygen");
     }
 
 }
