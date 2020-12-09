@@ -1,14 +1,22 @@
-### IntelliJ IDEA ###
+##
+# IntelliJ IDEA
+##
 .idea
 
-### Gradle ###
+##
+# Gradle
+##
 .gradle
 gradle
 gradle.properties
 
-### Packages ###
+##
+# Packages
+##
 **/build
 **/target
 
-### Github ###
+##
+# Github
+##
 .github

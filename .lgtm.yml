@@ -1,7 +1,9 @@
-# See: https://lgtm.com/projects/g/isxcode/isxcode
+##
+# See: https://lgtm.com/projects/g/isxcode/spring-oxygen/
+##
 
 extraction:
   java:
     index:
       java_version: "11"
-      build_command: ./gradlew testClasses
+      build_command: ./gradlew test
