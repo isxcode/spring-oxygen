@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 
 /**
- * 打印logo
+ * print terminal banner
  *
  * @author ispong
  * @since 0.0.1
@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 public class OxygenStarterAutoConfiguration {
 
     /**
-     * 打印启动logo
+     * init oxygen banner
      *
      * @since 0.0.1
      */
