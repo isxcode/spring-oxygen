@@ -20,6 +20,7 @@
  * secret    : provide ase rsa jwt encrypt utils
  * snowflake : snowflake id
  * random    : generate phone verifty number
+ * http      : provide http utils
  */
 package com.isxcode.oxygen.core;
 
