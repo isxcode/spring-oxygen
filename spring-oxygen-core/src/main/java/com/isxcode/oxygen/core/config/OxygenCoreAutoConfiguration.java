@@ -6,7 +6,6 @@ import com.isxcode.oxygen.core.secret.JwtUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.mail.MailSender;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -21,9 +20,9 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 public class OxygenCoreAutoConfiguration {
 
     /**
-     * 初始化EmailThread
+     * init email thread
      *
-     * @return EmailThread
+     * @return ThreadPoolTaskExecutor
      * @since 0.0.1
      */
     @Bean(name = "emailThread")
@@ -42,22 +41,20 @@ public class OxygenCoreAutoConfiguration {
     }
 
     /**
-     * 初始化EmailMarker
+     * init email utils
      *
-     * @param mailSender     mailSender
-     * @param mailProperties mailProperties
-     * @param emailThread    邮箱线程
+     * @param mailSender  mailSender
+     * @param emailThread 邮箱线程
      * @return EmailMaker
      * @since 0.0.1
      */
     @Bean
     @ConditionalOnBean(OxygenCoreAutoConfiguration.class)
-    @ConditionalOnProperty(prefix = "spring.mail", name = "username", matchIfMissing = false)
-    public EmailUtils initEmailMarker(MailSender mailSender,
-                                      MailProperties mailProperties,
-                                      @Qualifier("emailThread") ThreadPoolTaskExecutor emailThread) {
+    @ConditionalOnProperty(prefix = "spring.mail", name = "username")
+    public EmailUtils initEmailUtils(MailSender mailSender,
+                                     @Qualifier("emailThread") ThreadPoolTaskExecutor emailThread) {
 
-        return new EmailUtils(mailSender, mailProperties, emailThread);
+        return new EmailUtils(mailSender, emailThread);
     }
 
     /**

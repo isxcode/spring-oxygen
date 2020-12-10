@@ -22,7 +22,7 @@ public class FreemarkerUtilsTests {
     @Test
     public void testContentToFile() {
         try {
-            FreemarkerUtils.contentToFile(templateContent, dog, "D://test");
+            FreemarkerUtils.contentToFile(templateContent, dog, "F://test");
         } catch (OxygenException e) {
             System.out.println(e.getMessage());
         }

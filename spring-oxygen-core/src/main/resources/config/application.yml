@@ -24,7 +24,7 @@ spring:
   mail:
     default-encoding: UTF-8
     protocol: smtp
-    test-connection: false
+    test-connection: true
     properties:
       mail.smtp.ssl.enable: true
       mail.smtp.connectiontimeout: 10000

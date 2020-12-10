@@ -15,14 +15,18 @@ import java.util.List;
 public class ExcelUtilsTests {
 
     @Test
-    public void testExcelParseFile() throws FileNotFoundException {
+    public void testExcelParseFile() {
 
-        List<Dog> dogs = ExcelUtils.parseFile(new FileInputStream("D://test.xlsx"), Dog.class);
-        dogs.forEach(e-> System.out.println(e.toString()));
+        try {
+            List<Dog> dogs = ExcelUtils.parseFile(new FileInputStream("F://test.xlsx"), Dog.class);
+            dogs.forEach(e -> System.out.println(e.toString()));
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
-    public void testGenerateExcelFile() throws IOException {
+    public void testGenerateExcelFile() {
 
         List<Dog> dogs = new ArrayList<>();
         dogs.add(new Dog("alen", 12));
@@ -30,8 +34,8 @@ public class ExcelUtilsTests {
         dogs.add(new Dog("johy", 18));
 
         try {
-            ExcelUtils.generateFile(dogs, new FileOutputStream("D://test.xlsx"));
-        } catch (OxygenException e) {
+            ExcelUtils.generateFile(dogs, new FileOutputStream("F://test.xlsx"));
+        } catch (OxygenException | IOException e) {
             System.out.println(e.getMessage());
         }
     }
