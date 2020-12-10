@@ -21,6 +21,7 @@
  * snowflake : snowflake id
  * random    : generate phone verifty number
  * http      : provide http utils
+ * freemarker: provide tool to generate file or string
  */
 package com.isxcode.oxygen.core;
 

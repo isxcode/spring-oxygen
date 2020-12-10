@@ -1,9 +1,26 @@
 spring:
+
+  ##
+  # default freemarker config
+  ##
   freemarker:
+    enabled: true
     charset: UTF-8
+    cache: false
+    check-template-location: true
     prefer-file-system-access: false
+    template-loader-path:
+      - classpath:/templates/
+
+  ##
+  # default jpa config
+  ##
   jpa:
     open-in-view: true
+
+  ##
+  # default mail config
+  ##
   mail:
     default-encoding: UTF-8
     protocol: smtp
