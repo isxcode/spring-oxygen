@@ -23,6 +23,7 @@
  * http      : provide http utils
  * freemarker: provide tool to generate file or string
  * excel     : excel utils to parse and generate
+ * email     : add send email utils
  */
 package com.isxcode.oxygen.core;
 
