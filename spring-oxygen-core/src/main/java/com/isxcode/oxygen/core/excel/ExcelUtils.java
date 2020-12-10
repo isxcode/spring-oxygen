@@ -1,22 +1,7 @@
-/*
- * Copyright [2020] [ispong]
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.isxcode.oxygen.core.excel;
 
 import com.isxcode.oxygen.core.exception.OxygenException;
-import com.isxcode.oxygen.core.reflect.ClassNameConstants;
+import com.isxcode.oxygen.core.reflect.ReflectConstants;
 import com.isxcode.oxygen.core.reflect.FieldBody;
 import com.isxcode.oxygen.core.reflect.ReflectUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +14,7 @@ import java.awt.Color;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -42,11 +28,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.apache.poi.xssf.usermodel.XSSFWorkbookType.XLSX;
 
 /**
- * Excel文件解析Marker
+ * excel utils
  *
  * @author ispong
  * @since 0.0.1
@@ -55,23 +42,21 @@ import static org.apache.poi.xssf.usermodel.XSSFWorkbookType.XLSX;
 public class ExcelUtils {
 
     /**
-     * 解析excel文件生成数组
+     * parse excel file to data list
      *
-     * @param inputStream 输入文件流
-     * @param targetClass 目标类型
-     * @param <A>         泛型
+     * @param inputStream inputStream
+     * @param targetClass targetClass
+     * @param <A>         A
      * @return List[A]
      * @since 0.0.1
      */
-    public static <A> List<A> parse(InputStream inputStream, Class<A> targetClass) throws OxygenException {
+    public static <A> List<A> parseFile(InputStream inputStream, Class<A> targetClass) throws OxygenException {
 
-        // 初始化返回对象
         List<A> result = new ArrayList<>();
 
         try {
             Workbook workbook = XSSFWorkbookFactory.create(inputStream);
 
-            // 解析首行的对应字段
             Sheet sheet = workbook.getSheetAt(0);
             int firstRowNum = sheet.getFirstRowNum();
             Row firstRow = sheet.getRow(firstRowNum);
@@ -82,25 +67,24 @@ public class ExcelUtils {
                 rowColumnList.add(firstRow.getCell(i).getStringCellValue());
             }
 
-            // 匹配首行对应的属性的write函数
             List<FieldBody> fieldList = ReflectUtils.queryFields(targetClass);
+
+            fieldList = fieldList.stream().filter(e -> e.getField().isAnnotationPresent(ExcelType.class)).collect(Collectors.toList());
+
             Map<Integer, FieldBody> columnMap = new HashMap<>(fieldList.size());
             for (String metaRowName : rowColumnList) {
                 for (FieldBody metaFieldBody : fieldList) {
                     Field metaField = metaFieldBody.getField();
-                    if (metaField.isAnnotationPresent(ExcelType.class)) {
-                        if (metaRowName.equals(metaField.getAnnotation(ExcelType.class).cellName())) {
-                            columnMap.put(rowColumnList.indexOf(metaRowName) + firstColumnNum, metaFieldBody);
-                            break;
-                        }
+                    if (metaRowName.equals(metaField.getAnnotation(ExcelType.class).cellName())) {
+                        columnMap.put(rowColumnList.indexOf(metaRowName) + firstColumnNum, metaFieldBody);
+                        break;
                     }
                 }
             }
 
-            // 无限解析下面的数据
             firstRowNum++;
             while (sheet.getRow(firstRowNum) != null) {
-                // 反射实例
+
                 A target = ReflectUtils.newInstance(targetClass);
 
                 Row nextRow = sheet.getRow(firstRowNum);
@@ -116,19 +100,23 @@ public class ExcelUtils {
                         continue;
                     }
 
-                    // 写入数据
                     Method writeMethod = fieldBody.getWriteMethod();
                     switch (fieldBody.getClassName()) {
-                        case ClassNameConstants.STRING:
+                        case ReflectConstants.STRING:
                             writeMethod.invoke(target, metaCell.getStringCellValue());
                             break;
-                        case ClassNameConstants.LOCAL_DATE_TIME:
+                        case ReflectConstants.LOCAL_DATE_TIME:
                             writeMethod.invoke(target, metaCell.getLocalDateTimeCellValue());
                             break;
-                        case ClassNameConstants.DOUBLE:
+                        case ReflectConstants.DOUBLE:
                             writeMethod.invoke(target, metaCell.getNumericCellValue());
                             break;
-                        case ClassNameConstants.DATE:
+                        case ReflectConstants.INTEGER:
+                            String cellValue = String.valueOf(metaCell.getNumericCellValue());
+                            cellValue = cellValue.substring(0, cellValue.indexOf("."));
+                            writeMethod.invoke(target, Integer.parseInt(cellValue));
+                            break;
+                        case ReflectConstants.DATE:
                             writeMethod.invoke(target, metaCell.getDateCellValue());
                             break;
                         default:
@@ -145,14 +133,37 @@ public class ExcelUtils {
     }
 
     /**
-     * 通过传入的数据生成excel文件
+     * write in web servlet response
      *
-     * @param data     数据
-     * @param fileName 文件名
-     * @param response 返回
+     * @param data     data
+     * @param fileName fileName
+     * @param response http response
      * @since 0.0.1
      */
-    public static void generate(List<?> data, String fileName, HttpServletResponse response) {
+    public static void generateToResponse(List<?> data, String fileName, HttpServletResponse response) {
+
+        try {
+            response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + URLEncoder.encode(fileName, String.valueOf(StandardCharsets.UTF_8)) + "." + XLSX.getExtension());
+            response.setHeader(HttpHeaders.CONTENT_TYPE, XLSX.getContentType());
+            try (OutputStream fileOut = response.getOutputStream()) {
+                generateFile(data, fileOut);
+            } catch (IOException e) {
+                throw new OxygenException(e.getMessage());
+            }
+        } catch (UnsupportedEncodingException e) {
+            throw new OxygenException(e.getMessage());
+        }
+
+    }
+
+    /**
+     * write in output stream
+     *
+     * @param data         data
+     * @param outputStream outputStream
+     * @since 0.0.1
+     */
+    public static void generateFile(List<?> data, OutputStream outputStream) {
 
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet();
@@ -160,33 +171,37 @@ public class ExcelUtils {
         try {
 
             if (data == null || data.isEmpty()) {
-                throw new OxygenException("data is empty");
+                workbook.write(outputStream);
+                return;
             }
 
             List<FieldBody> fieldBodies = ReflectUtils.queryFields(data.get(0).getClass());
 
-            // 绘制表头
+            // filter ExcelType.class
+            fieldBodies = fieldBodies.stream().filter(e -> e.getField().isAnnotationPresent(ExcelType.class)).collect(Collectors.toList());
+
+            // create table first row
             XSSFRow row = sheet.createRow(0);
             for (FieldBody metaFieldBody : fieldBodies) {
 
                 Field metaField = metaFieldBody.getField();
-                if (metaField.isAnnotationPresent(ExcelType.class)) {
 
-                    ExcelType annotation = metaField.getAnnotation(ExcelType.class);
-                    int cellIndex = annotation.cellIndex() == -1 ? fieldBodies.indexOf(metaFieldBody) : annotation.cellIndex();
-                    sheet.setColumnWidth(cellIndex, annotation.cellWidth());
-                    XSSFCell cell = row.createCell(cellIndex, CellType.STRING);
-                    cell.setCellValue(annotation.cellName());
+                ExcelType annotation = metaField.getAnnotation(ExcelType.class);
+                int cellIndex = annotation.cellIndex() == -1 ? fieldBodies.indexOf(metaFieldBody) : annotation.cellIndex();
+                sheet.setColumnWidth(cellIndex, annotation.cellWidth());
+                XSSFCell cell = row.createCell(cellIndex, CellType.STRING);
 
-                    // 设置背景颜色
-                    XSSFCellStyle colorStyle = workbook.createCellStyle();
-                    colorStyle.setFillForegroundColor(new XSSFColor(new Color(annotation.cellColor()[0], annotation.cellColor()[1], annotation.cellColor()[2]), new DefaultIndexedColorMap()));
-                    colorStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-                    cell.setCellStyle(colorStyle);
-                }
+                // set cell name
+                cell.setCellValue(annotation.cellName());
+
+                // set cell color
+                XSSFCellStyle colorStyle = workbook.createCellStyle();
+                colorStyle.setFillForegroundColor(new XSSFColor(new Color(annotation.cellColor()[0], annotation.cellColor()[1], annotation.cellColor()[2]), new DefaultIndexedColorMap()));
+                colorStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+                cell.setCellStyle(colorStyle);
             }
 
-            // 装载数据
+            // add data
             for (Object metaData : data) {
                 XSSFRow metaRow = sheet.createRow(data.indexOf(metaData) + 1);
                 for (FieldBody metaFieldBody : fieldBodies) {
@@ -194,42 +209,42 @@ public class ExcelUtils {
                     if (metaField.isAnnotationPresent(ExcelType.class)) {
                         ExcelType annotation = metaField.getAnnotation(ExcelType.class);
                         int cellIndex = annotation.cellIndex() == -1 ? fieldBodies.indexOf(metaFieldBody) : annotation.cellIndex();
-                        // 读取数据填入
+
                         if (metaFieldBody.getReadMethod().invoke(metaData) == null) {
                             continue;
                         }
 
                         XSSFCell cell = metaRow.createCell(cellIndex);
 
-                        // 时间格式
+                        // time style
                         XSSFCellStyle dateStyle = workbook.createCellStyle();
                         dateStyle.setDataFormat(workbook.getCreationHelper().createDataFormat().getFormat(annotation.cellDateFormat()));
 
-                        // 数字格式
+                        // number style
                         XSSFCellStyle numberStyle = workbook.createCellStyle();
                         numberStyle.setDataFormat((workbook.createDataFormat().getFormat(annotation.cellDoubleFormat())));
 
                         Method readMethod = metaFieldBody.getReadMethod();
                         String dataStr = String.valueOf(readMethod.invoke(metaData));
                         switch (metaFieldBody.getClassName()) {
-                            case ClassNameConstants.STRING:
+                            case ReflectConstants.STRING:
                                 cell.setCellValue(dataStr);
                                 break;
-                            case ClassNameConstants.DATE:
+                            case ReflectConstants.DATE:
                                 SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
                                 cell.setCellValue(dateFormat.parse(dataStr));
                                 cell.setCellStyle(dateStyle);
                                 break;
-                            case ClassNameConstants.LOCAL_DATE_TIME:
+                            case ReflectConstants.LOCAL_DATE_TIME:
                                 cell.setCellValue(LocalDateTime.parse(dataStr.substring(0, dataStr.indexOf('.')), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")));
                                 cell.setCellStyle(dateStyle);
                                 break;
-                            case ClassNameConstants.LOCAL_DATE:
+                            case ReflectConstants.LOCAL_DATE:
                                 cell.setCellValue(LocalDate.parse(dataStr.substring(0, dataStr.indexOf('.')), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
                                 cell.setCellStyle(dateStyle);
                                 break;
-                            case ClassNameConstants.DOUBLE:
-                            case ClassNameConstants.INTEGER:
+                            case ReflectConstants.DOUBLE:
+                            case ReflectConstants.INTEGER:
                                 cell.setCellValue(Double.parseDouble(dataStr));
                                 cell.setCellStyle(numberStyle);
                                 break;
@@ -240,12 +255,7 @@ public class ExcelUtils {
                 }
             }
 
-            // 下载文件
-            response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + URLEncoder.encode(fileName, String.valueOf(StandardCharsets.UTF_8)) + "." + XLSX.getExtension());
-            response.setHeader(HttpHeaders.CONTENT_TYPE, XLSX.getContentType());
-            try (OutputStream fileOut = response.getOutputStream()) {
-                workbook.write(fileOut);
-            }
+            workbook.write(outputStream);
 
         } catch (Exception e) {
             throw new OxygenException(e.getMessage());

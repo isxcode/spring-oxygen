@@ -1,18 +1,3 @@
-/*
- * Copyright [2020] [ispong]
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.isxcode.oxygen.core.freemarker;
 
 import com.isxcode.oxygen.core.exception.OxygenException;
@@ -30,7 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * freemarker 模板生成服务
+ * freemarker utils
  *
  * @author ispong
  * @since 0.0.1
@@ -38,78 +23,109 @@ import java.nio.file.Paths;
 @Slf4j
 public class FreemarkerUtils {
 
+    private static final Configuration configuration = new Configuration(Configuration.VERSION_2_3_27);
+
     private static FreeMarkerConfigurer freeMarkerConfigurer;
 
     public FreemarkerUtils(FreeMarkerConfigurer freeMarkerConfigurer) {
 
+        configuration.setTemplateLoader(new StringTemplateLoader());
         FreemarkerUtils.freeMarkerConfigurer = freeMarkerConfigurer;
     }
 
     /**
-     * 通过模板生成对应文件
+     * generate template file to file
      *
-     * @param templateName 模板名称
-     * @param filePath     生成的文件地址+名称
-     * @param params       freemarker需要解析的对象数据
-     * @throws OxygenException 总异常
+     * @param templateFileName template file name
+     * @param filePath         file generate path
+     * @param params           freemarker params
+     * @throws OxygenException freemarker/io exception
      * @since 0.0.1
      */
-    public static void generateToFile(String templateName, Object params, String filePath) throws OxygenException {
+    public static void templateToFile(String templateFileName, Object params, String filePath) throws OxygenException {
 
         Path fileIoPath = Paths.get(filePath);
+
+        if (Files.isDirectory(fileIoPath)) {
+            throw new OxygenException("file is directory");
+        }
 
         if (Files.exists(fileIoPath)) {
             throw new OxygenException("file is exist");
         }
 
         try {
+            Template template = freeMarkerConfigurer.getConfiguration().getTemplate(templateFileName);
             Path path = Files.createFile(fileIoPath);
-            Template template = freeMarkerConfigurer.getConfiguration().getTemplate(templateName);
             Files.write(path, FreeMarkerTemplateUtils.processTemplateIntoString(template, params).getBytes());
-        } catch (TemplateException | IOException ex) {
-            log.debug(ex.getMessage());
-            throw new OxygenException("freemarker make file is wrong");
+        } catch (TemplateException | IOException e) {
+            throw new OxygenException(e.getMessage());
         }
     }
 
     /**
-     * freemarker 通过模板内容生成String的模板内容
+     * generate template file to string
      *
-     * @param templateContent 模板内容
-     * @param params          参数
-     * @return 解析返回的字符串
-     * @throws OxygenException 总异常
+     * @param templateFileName templateFileName
+     * @param params           params
+     * @return string
+     * @throws OxygenException OxygenException
      * @since 0.0.1
      */
-    public static String generateToString(String templateContent, Object params) throws OxygenException {
+    public static String templateToString(String templateFileName, Object params) {
 
-        Configuration configuration = new Configuration(Configuration.VERSION_2_3_27);
-        configuration.setTemplateLoader(new StringTemplateLoader());
+        try {
+            Template template = freeMarkerConfigurer.getConfiguration().getTemplate(templateFileName);
+            return FreeMarkerTemplateUtils.processTemplateIntoString(template, params);
+        } catch (TemplateException | IOException e) {
+            throw new OxygenException(e.getMessage());
+        }
+    }
+
+    /**
+     * generate content to file
+     *
+     * @param templateContent templateContent
+     * @param params          params
+     * @since 0.0.1
+     */
+    public static void contentToFile(String templateContent, Object params, String filePath) {
+
+        Path fileIoPath = Paths.get(filePath);
+
+        if (Files.isDirectory(fileIoPath)) {
+            throw new OxygenException("file is directory");
+        }
+
+        if (Files.exists(fileIoPath)) {
+            throw new OxygenException("file is exist");
+        }
+
+        try {
+            Template template = new Template("", templateContent, configuration);
+            Path path = Files.createFile(fileIoPath);
+            Files.write(path, FreeMarkerTemplateUtils.processTemplateIntoString(template, params).getBytes());
+        } catch (TemplateException | IOException e) {
+            throw new OxygenException(e.getMessage());
+        }
+    }
+
+    /**
+     * generate template content to string
+     *
+     * @param templateContent templateContent
+     * @param params          params
+     * @return string
+     * @throws OxygenException OxygenException
+     * @since 0.0.1
+     */
+    public static String contentToString(String templateContent, Object params) {
+
         try {
             Template template = new Template("", templateContent, configuration);
             return FreeMarkerTemplateUtils.processTemplateIntoString(template, params);
         } catch (TemplateException | IOException e) {
-            throw new OxygenException("freemarker parse template file to string is wrong");
+            throw new OxygenException(e.getMessage());
         }
     }
-
-    /**
-     * freemarker 通过模板内容生成String的模板内容
-     *
-     * @param templateName 模板姓名
-     * @param params       freemarker需要解析的对象数据
-     * @return 解析返回的字符串
-     * @throws OxygenException 总异常
-     * @since 0.0.1
-     */
-    public static String fileToString(String templateName, Object params) throws OxygenException {
-
-        try {
-            Template template = freeMarkerConfigurer.getConfiguration().getTemplate(templateName);
-            return FreeMarkerTemplateUtils.processTemplateIntoString(template, params);
-        } catch (TemplateException | IOException e) {
-            throw new OxygenException("freemarker parse template file to string is wrong");
-        }
-    }
-
 }
