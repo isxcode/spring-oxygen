@@ -57,7 +57,7 @@ public class FreecodeProperties {
     /**
      * 基础类Entity
      */
-    private String baseEntityClass = "com.ispong.oxygen.flysql.common.BaseEntity";
+    private String baseEntityClass = "com.isxcode.oxygen.flysql.common.BaseEntity";
 
     /**
      * 基础类Controller

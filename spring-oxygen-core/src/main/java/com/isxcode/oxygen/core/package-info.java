@@ -13,27 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.isxcode.oxygen.core.reflect;
 
 /**
- * 常用className静态值
- *
- * @author ispong
- * @since 0.0.1
+ * reflect   : provide java reflect utils
+ * xml       : parse xml file
+ * secret    : provide ase rsa jwt encrypt utils
+ * snowflake : snowflake id
+ * random    : generate phone verifty number
+ * http      : provide http utils
+ * freemarker: provide tool to generate file or string
+ * excel     : excel utils to parse and generate
+ * email     : add send email utils
  */
-public interface ClassNameConstants {
+package com.isxcode.oxygen.core;
 
-    String STRING = "java.lang.String";
 
-    String LOCAL_DATE_TIME = "java.time.LocalDateTime";
-
-    String LOCAL_DATE = "java.time.LocalDate";
-
-    String DOUBLE = "java.lang.Double";
-
-    String DATE = "java.util.Date";
-
-    String INTEGER = "java.lang.Integer";
-
-    String CLASS = "class";
-}

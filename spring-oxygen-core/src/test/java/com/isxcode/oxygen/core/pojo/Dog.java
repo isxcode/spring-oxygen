@@ -1,14 +1,17 @@
 package com.isxcode.oxygen.core.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.isxcode.oxygen.core.excel.ExcelType;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
 @JsonIgnoreProperties({"location"})
 public class Dog extends DefaultHandler {
 
+    @ExcelType(cellName = "name")
     private String name;
 
+    @ExcelType(cellName = "age")
     private Integer age;
 
     private String localName;
