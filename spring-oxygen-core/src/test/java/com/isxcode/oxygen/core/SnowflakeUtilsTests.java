@@ -3,7 +3,7 @@ package com.isxcode.oxygen.core;
 import com.isxcode.oxygen.core.snowflake.SnowflakeUtils;
 import org.junit.jupiter.api.Test;
 
-public class CoreSnowflakeTests {
+public class SnowflakeUtilsTests {
 
     @Test
     public void testSnowflake() {

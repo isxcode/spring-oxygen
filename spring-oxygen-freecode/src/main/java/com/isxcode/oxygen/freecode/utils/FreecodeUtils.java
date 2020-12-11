@@ -72,7 +72,7 @@ public class FreecodeUtils {
         String filePath = modulePath + "/" + fileName;
         if (!Files.exists(Paths.get(filePath))) {
             try {
-                freemarkerUtils.generateToFile(templateName, freecodeInfo, filePath);
+                FreemarkerUtils.templateToFile(templateName, freecodeInfo, filePath);
             } catch (OxygenException e) {
                 log.debug("freecode generate file error->" + e.getMessage());
                 e.printStackTrace();

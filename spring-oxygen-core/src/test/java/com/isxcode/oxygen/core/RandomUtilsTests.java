@@ -3,7 +3,7 @@ package com.isxcode.oxygen.core;
 import com.isxcode.oxygen.core.random.RandomUtils;
 import org.junit.jupiter.api.Test;
 
-public class CoreRandomTests {
+public class RandomUtilsTests {
 
     @Test
     public void testRandom() {
