@@ -44,6 +44,7 @@ public class EmailUtils {
      * @param isHtmlContent isHtmlContent
      * @param files         files
      * @param inlineFiles   inlineFiles
+     * @throws MessagingException MessagingException
      * @since 0.0.1
      */
     public static void sendEmail(List<String> toEmails,
@@ -97,6 +98,8 @@ public class EmailUtils {
     /**
      * send simple email
      *
+     * @param email      email
+     * @param content    content
      * @param subject    subject
      * @param senderName senderName
      * @since 0.0.1
@@ -113,6 +116,8 @@ public class EmailUtils {
     /**
      * send simple emails
      *
+     * @param emails     emails
+     * @param content    content
      * @param subject    subject
      * @param senderName senderName
      * @since 0.0.1
