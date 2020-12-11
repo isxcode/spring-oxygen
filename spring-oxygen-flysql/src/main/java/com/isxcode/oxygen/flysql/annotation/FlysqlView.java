@@ -1,6 +1,6 @@
 package com.isxcode.oxygen.flysql.annotation;
 
-import com.isxcode.oxygen.flysql.pojo.constant.FlysqlConstants;
+import com.isxcode.oxygen.flysql.constant.FlysqlConstants;
 
 import java.lang.annotation.*;
 

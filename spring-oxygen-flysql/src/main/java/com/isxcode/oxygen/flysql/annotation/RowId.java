@@ -1,6 +1,6 @@
 package com.isxcode.oxygen.flysql.annotation;
 
-import com.isxcode.oxygen.flysql.pojo.enums.IdGenerateType;
+import com.isxcode.oxygen.flysql.enums.IdGenerateType;
 
 import java.lang.annotation.*;
 

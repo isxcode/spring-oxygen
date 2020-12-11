@@ -15,43 +15,10 @@ import java.util.List;
 @ContextConfiguration(classes = FlysqlAutoConfiguration.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles
-public class SpringOxygenFlysqlTests {
+public class FlysqlSelectTests {
 
     @Test
     public void testSelect() {
-
-        List<Dog> dogs = Flysql.select(Dog.class).query();
-        System.out.println(dogs);
-    }
-
-    @Test
-    public void testUpdate() {
-
-        Flysql.update(Dog.class)
-            .update("age", 14)
-            .eq("name", "john")
-            .doUpdate();
-
-        List<Dog> dogs = Flysql.select(Dog.class).query();
-        System.out.println(dogs);
-    }
-
-    @Test
-    public void testInsert() {
-
-        Dog jack = new Dog("jack", 12);
-        Flysql.insert(Dog.class).save(jack);
-
-        List<Dog> dogs = Flysql.select(Dog.class).query();
-        System.out.println(dogs);
-    }
-
-    @Test
-    public void testDelete() {
-
-        Flysql.delete(Dog.class)
-            .eq("name", "john")
-            .doDelete();
 
         List<Dog> dogs = Flysql.select(Dog.class).query();
         System.out.println(dogs);

@@ -13,18 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.isxcode.oxygen.flysql.pojo.constant;
+package com.isxcode.oxygen.flysql.entity;
+
+import com.isxcode.oxygen.flysql.enums.SqlOperateType;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 /**
- * java 常用字段类型
+ * sql条件对象
  *
  * @author ispong
  * @since 0.0.1
  */
-public interface JavaTypeConstants {
+@Data
+@AllArgsConstructor
+public class SqlCondition {
 
     /**
-     * Boolean
+     * 条件类型
      */
-    String Boolean = "java.lang.Boolean";
+    private SqlOperateType operateType;
+
+    /**
+     * 字段名
+     */
+    private String columnName;
+
+    /**
+     * 字段内容
+     */
+    private Object value;
 }
