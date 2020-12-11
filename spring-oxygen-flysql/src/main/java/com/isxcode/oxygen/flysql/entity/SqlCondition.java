@@ -13,28 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.isxcode.oxygen.flysql.pojo.enums;
+package com.isxcode.oxygen.flysql.entity;
+
+import com.isxcode.oxygen.flysql.enums.SqlOperateType;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 /**
- * id generate type enum
+ * sql条件对象
  *
  * @author ispong
  * @since 0.0.1
  */
-public enum IdGenerateType {
+@Data
+@AllArgsConstructor
+public class SqlCondition {
 
     /**
-     * SNOW_FLACK 雪花算法
+     * 条件类型
      */
-    SNOW_FLACK,
+    private SqlOperateType operateType;
 
     /**
-     * UUID 随机数
+     * 字段名
      */
-    UUID,
+    private String columnName;
 
     /**
-     * INCREMENT 自增
+     * 字段内容
      */
-    INCREMENT,
+    private Object value;
 }

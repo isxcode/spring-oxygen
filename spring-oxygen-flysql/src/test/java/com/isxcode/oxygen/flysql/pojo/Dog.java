@@ -37,14 +37,14 @@ public class Dog extends BaseEntity {
     @Override
     public String toString() {
         return "Dog{" +
-            "name='" + name + '\'' +
+            "name=" + name +
             ", age=" + age +
-            ", IsDelete=" + getIsDelete() +
-            ", Version=" + getVersion() +
-            ", CreatedBy=" + getCreatedBy() +
-            ", CreatedDate=" + getCreatedDate() +
-            ", LastModifiedBy=" + getLastModifiedBy() +
-            ", LastModifiedDate=" + getLastModifiedDate() +
+            ", isDelete=" + getIsDelete() +
+            ", version=" + getVersion() +
+            ", createdBy=" + getCreatedBy() +
+            ", createdDate=" + getCreatedDate() +
+            ", lastModifiedBy=" + getLastModifiedBy() +
+            ", lastModifiedDate=" + getLastModifiedDate() +
             "}\n";
     }
 }

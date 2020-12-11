@@ -43,4 +43,8 @@ public interface ReflectConstants {
      */
     String INTEGER = "java.lang.Integer";
 
+    /**
+     * boolean
+     */
+    String BOOLEAN = "java.lang.Boolean";
 }
