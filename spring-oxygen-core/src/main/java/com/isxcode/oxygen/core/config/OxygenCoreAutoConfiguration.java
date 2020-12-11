@@ -1,18 +1,3 @@
-/*
- * Copyright [2020] [ispong]
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.isxcode.oxygen.core.config;
 
 import com.isxcode.oxygen.core.email.EmailUtils;
@@ -21,14 +6,13 @@ import com.isxcode.oxygen.core.secret.JwtUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.mail.MailSender;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 /**
- * spring-core marker 初始化生成器
+ * oxygen-core init auto configuration
  *
  * @author ispong
  * @since 0.0.1
@@ -36,9 +20,9 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 public class OxygenCoreAutoConfiguration {
 
     /**
-     * 初始化EmailThread
+     * init email thread
      *
-     * @return EmailThread
+     * @return ThreadPoolTaskExecutor
      * @since 0.0.1
      */
     @Bean(name = "emailThread")
@@ -57,48 +41,45 @@ public class OxygenCoreAutoConfiguration {
     }
 
     /**
-     * 初始化EmailMarker
+     * init email utils
      *
-     * @param mailSender     mailSender
-     * @param mailProperties mailProperties
-     * @param emailThread    邮箱线程
+     * @param mailSender  mailSender
+     * @param emailThread 邮箱线程
      * @return EmailMaker
      * @since 0.0.1
      */
     @Bean
     @ConditionalOnBean(OxygenCoreAutoConfiguration.class)
-    @ConditionalOnProperty(prefix = "spring.mail", name = "username", matchIfMissing = false)
-    public EmailUtils initEmailMarker(MailSender mailSender,
-                                      MailProperties mailProperties,
-                                      @Qualifier("emailThread") ThreadPoolTaskExecutor emailThread) {
+    @ConditionalOnProperty(prefix = "spring.mail", name = "username")
+    public EmailUtils initEmailUtils(MailSender mailSender,
+                                     @Qualifier("emailThread") ThreadPoolTaskExecutor emailThread) {
 
-        return new EmailUtils(mailSender, mailProperties, emailThread);
+        return new EmailUtils(mailSender, emailThread);
     }
 
     /**
-     * 初始化FreemarkerMarker
+     * freemarker init
      *
      * @param freeMarkerConfigurer freeMarkerConfigurer
-     * @return FreemarkerMarker
+     * @return FreemarkerUtils
      * @since 0.0.1
      */
     @Bean
     @ConditionalOnBean(OxygenCoreAutoConfiguration.class)
-    @ConditionalOnProperty(prefix = "spring.freemarker", name = "enabled", matchIfMissing = false)
-    public FreemarkerUtils initFreemarkerMarker(FreeMarkerConfigurer freeMarkerConfigurer) {
+    public FreemarkerUtils initFreemarkerUtils(FreeMarkerConfigurer freeMarkerConfigurer) {
 
         return new FreemarkerUtils(freeMarkerConfigurer);
     }
 
     /**
-     * 初始化JwtMarker
+     * init jwt key
      *
-     * @return JwtMarker
+     * @return JwtUtils
      * @since 0.0.1
      */
     @Bean(initMethod = "init")
     @ConditionalOnBean(OxygenCoreAutoConfiguration.class)
-    public JwtUtils initJwtMarker() {
+    public JwtUtils initJwtUtils() {
 
         return new JwtUtils();
     }
