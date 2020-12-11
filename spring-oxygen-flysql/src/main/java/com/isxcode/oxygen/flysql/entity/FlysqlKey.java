@@ -1,6 +1,6 @@
-package com.isxcode.oxygen.flysql.pojo.entity;
+package com.isxcode.oxygen.flysql.entity;
 
-import com.isxcode.oxygen.flysql.pojo.enums.SqlType;
+import com.isxcode.oxygen.flysql.enums.SqlType;
 import lombok.Data;
 import org.springframework.jdbc.core.JdbcTemplate;
 

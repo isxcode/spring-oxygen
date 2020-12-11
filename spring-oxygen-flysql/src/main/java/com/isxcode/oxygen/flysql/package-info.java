@@ -13,18 +13,4 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.isxcode.oxygen.flysql.pojo.constant;
-
-/**
- * java 常用字段类型
- *
- * @author ispong
- * @since 0.0.1
- */
-public interface JavaTypeConstants {
-
-    /**
-     * Boolean
-     */
-    String Boolean = "java.lang.Boolean";
-}
+package com.isxcode.oxygen.flysql;

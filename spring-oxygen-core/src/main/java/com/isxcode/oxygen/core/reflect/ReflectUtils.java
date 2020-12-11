@@ -4,11 +4,13 @@ import com.isxcode.oxygen.core.exception.OxygenException;
 import org.springframework.beans.BeanUtils;
 
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+
+import static java.util.regex.Pattern.compile;
 
 /**
  * reflect utils
@@ -71,5 +73,25 @@ public class ReflectUtils {
         }
 
         return fieldBodyList;
+    }
+
+    /**
+     * hump translate to under_line
+     *
+     * @param humpStr humpStr
+     * @return String
+     * @since 0.0.1
+     */
+    public static String humpToLine(String humpStr) {
+
+        humpStr = humpStr.substring(0, 1).toLowerCase() + humpStr.substring(1);
+
+        Matcher matcher = compile("[A-Z]").matcher(humpStr);
+        StringBuffer lineStrBuff = new StringBuffer();
+        while (matcher.find()) {
+            matcher.appendReplacement(lineStrBuff, "_" + matcher.group(0).toLowerCase());
+        }
+        matcher.appendTail(lineStrBuff);
+        return lineStrBuff.toString();
     }
 }

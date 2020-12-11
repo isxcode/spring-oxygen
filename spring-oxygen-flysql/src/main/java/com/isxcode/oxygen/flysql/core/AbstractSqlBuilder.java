@@ -1,23 +1,9 @@
-/*
- * Copyright [2020] [ispong]
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.isxcode.oxygen.flysql.core;
 
-import com.isxcode.oxygen.flysql.pojo.entity.SqlCondition;
-import com.isxcode.oxygen.flysql.pojo.enums.OrderType;
-import com.isxcode.oxygen.flysql.pojo.enums.SqlOperateType;
+import com.isxcode.oxygen.core.reflect.ReflectUtils;
+import com.isxcode.oxygen.flysql.entity.SqlCondition;
+import com.isxcode.oxygen.flysql.enums.OrderType;
+import com.isxcode.oxygen.flysql.enums.SqlOperateType;
 import com.isxcode.oxygen.flysql.utils.FlysqlUtils;
 import org.apache.logging.log4j.util.Strings;
 
@@ -27,29 +13,24 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 条件组装器
+ * add flysql condition
  *
  * @author ispong
  * @version v0.1.0
  */
 public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
 
-    /**
-     * 临时储存拼接条件
-     */
     public List<SqlCondition> sqlConditions = new ArrayList<>();
 
-    /**
-     * 对象的各个属性的字段
-     */
     public Map<String, String> columnsMap;
 
     public AbstractSqlBuilder(Class<?> genericType) {
-        this.columnsMap = FlysqlUtils.parseBeanName(genericType);
+
+        this.columnsMap = FlysqlUtils.parseBeanProperties(genericType);
     }
 
     /**
-     * 获取自己
+     * get self
      *
      * @return self[T]
      * @since 0.0.1
@@ -76,7 +57,7 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
     @Override
     public T setValue(String columnName, String value) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.SET_VALUE, ":" + columnName, FlysqlUtils.addSingleQuote(value)));
+        sqlConditions.add(new SqlCondition(SqlOperateType.SET_VALUE, ":" + columnName, addSingleQuote(value)));
         return getSelf();
     }
 
@@ -97,42 +78,42 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
     @Override
     public T eq(String columnName, Object value) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.EQ, columnsMap.get(columnName), FlysqlUtils.addSingleQuote(value)));
+        sqlConditions.add(new SqlCondition(SqlOperateType.EQ, columnsMap.get(columnName), addSingleQuote(value)));
         return getSelf();
     }
 
     @Override
     public T ne(String columnName, Object value) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.NE, columnsMap.get(columnName), FlysqlUtils.addSingleQuote(value)));
+        sqlConditions.add(new SqlCondition(SqlOperateType.NE, columnsMap.get(columnName), addSingleQuote(value)));
         return getSelf();
     }
 
     @Override
     public T gt(String columnName, Object value) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.GT, columnsMap.get(columnName), FlysqlUtils.addSingleQuote(value)));
+        sqlConditions.add(new SqlCondition(SqlOperateType.GT, columnsMap.get(columnName), addSingleQuote(value)));
         return getSelf();
     }
 
     @Override
     public T gtEq(String columnName, Object value) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.GT_EQ, columnsMap.get(columnName), FlysqlUtils.addSingleQuote(value)));
+        sqlConditions.add(new SqlCondition(SqlOperateType.GT_EQ, columnsMap.get(columnName), addSingleQuote(value)));
         return getSelf();
     }
 
     @Override
     public T lt(String columnName, Object value) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.LT, columnsMap.get(columnName), FlysqlUtils.addSingleQuote(value)));
+        sqlConditions.add(new SqlCondition(SqlOperateType.LT, columnsMap.get(columnName), addSingleQuote(value)));
         return getSelf();
     }
 
     @Override
     public T ltEq(String columnName, Object value) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.LT_EQ, columnsMap.get(columnName), FlysqlUtils.addSingleQuote(value)));
+        sqlConditions.add(new SqlCondition(SqlOperateType.LT_EQ, columnsMap.get(columnName), addSingleQuote(value)));
         return getSelf();
     }
 
@@ -140,7 +121,7 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
     public T in(String columnName, Object... values) {
 
         List<String> inValues = new ArrayList<>();
-        Arrays.stream(values).forEach(v -> inValues.add(FlysqlUtils.addSingleQuote(v)));
+        Arrays.stream(values).forEach(v -> inValues.add(addSingleQuote(v)));
         sqlConditions.add(new SqlCondition(SqlOperateType.IN, columnsMap.get(columnName), "(" + Strings.join(inValues, ',') + ")"));
         return getSelf();
     }
@@ -149,7 +130,7 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
     public T notIn(String columnName, Object... values) {
 
         List<String> inValues = new ArrayList<>();
-        Arrays.stream(values).forEach(v -> inValues.add(FlysqlUtils.addSingleQuote(v)));
+        Arrays.stream(values).forEach(v -> inValues.add(addSingleQuote(v)));
         sqlConditions.add(new SqlCondition(SqlOperateType.NOT_IN, columnsMap.get(columnName), "(" + Strings.join(inValues, ',') + ")"));
         return getSelf();
     }
@@ -157,14 +138,14 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
     @Override
     public T between(String columnName, Object value1, Object value2) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.BETWEEN, columnsMap.get(columnName), "(" + FlysqlUtils.addSingleQuote(value1) + " and " + FlysqlUtils.addSingleQuote(value2) + ")"));
+        sqlConditions.add(new SqlCondition(SqlOperateType.BETWEEN, columnsMap.get(columnName), "(" + addSingleQuote(value1) + " and " + addSingleQuote(value2) + ")"));
         return getSelf();
     }
 
     @Override
     public T notBetween(String columnName, Object value1, Object value2) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.NOT_BETWEEN, columnsMap.get(columnName), "(" + FlysqlUtils.addSingleQuote(value1) + " and " + FlysqlUtils.addSingleQuote(value2) + ")"));
+        sqlConditions.add(new SqlCondition(SqlOperateType.NOT_BETWEEN, columnsMap.get(columnName), "(" + addSingleQuote(value1) + " and " + addSingleQuote(value2) + ")"));
         return getSelf();
     }
 
@@ -178,14 +159,14 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
     @Override
     public T like(String columnName, String value) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.LIKE, columnsMap.get(columnName), FlysqlUtils.addSingleQuote(("%" + value + "%"))));
+        sqlConditions.add(new SqlCondition(SqlOperateType.LIKE, columnsMap.get(columnName), addSingleQuote(("%" + value + "%"))));
         return getSelf();
     }
 
     @Override
     public T notLike(String columnName, String value) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.NOT_LIKE, columnsMap.get(columnName), FlysqlUtils.addSingleQuote(("%" + value + "%"))));
+        sqlConditions.add(new SqlCondition(SqlOperateType.NOT_LIKE, columnsMap.get(columnName), addSingleQuote(("%" + value + "%"))));
         return getSelf();
     }
 
@@ -199,7 +180,7 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
     @Override
     public T update(String columnName, Object value) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.UPDATE, columnsMap.get(columnName), FlysqlUtils.addSingleQuote(value)));
+        sqlConditions.add(new SqlCondition(SqlOperateType.UPDATE, columnsMap.get(columnName), addSingleQuote(value)));
         return getSelf();
     }
 
@@ -222,5 +203,21 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
 
         sqlConditions.add(new SqlCondition(SqlOperateType.SQL, sqlStr, ""));
         return getSelf();
+    }
+
+    /**
+     * add single quote
+     *
+     * @param value value
+     * @return string
+     * @since 0.0.1
+     */
+    public static String addSingleQuote(Object value) {
+
+        if (value == null) {
+            return null;
+        } else {
+            return "'" + value + "'";
+        }
     }
 }

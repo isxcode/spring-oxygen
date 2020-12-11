@@ -1,30 +1,14 @@
-/*
- * Copyright [2020] [ispong]
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.isxcode.oxygen.flysql.core;
 
-import com.isxcode.oxygen.flysql.pojo.constant.FlysqlConstants;
-import com.isxcode.oxygen.flysql.pojo.entity.FlysqlKey;
-import com.isxcode.oxygen.flysql.pojo.enums.SqlType;
+import com.isxcode.oxygen.flysql.constant.FlysqlConstants;
+import com.isxcode.oxygen.flysql.entity.FlysqlKey;
+import com.isxcode.oxygen.flysql.enums.SqlType;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import javax.sql.DataSource;
 import java.util.Map;
 
 /**
- * 初始化一个flysql构造器
+ * Flysql factory
  *
  * @author ispong
  * @version 0.0.1
@@ -32,7 +16,7 @@ import java.util.Map;
 public class Flysql {
 
     /**
-     * 支持多数据源,保存所有的数据源
+     * store datasource list
      */
     private static Map<String, JdbcTemplate> jdbcTemplateMap;
 
@@ -41,29 +25,24 @@ public class Flysql {
         Flysql.jdbcTemplateMap = jdbcTemplateMap;
     }
 
-    public static DataSource getDataSource() {
-        return jdbcTemplateMap.get(FlysqlConstants.PRIMARY_DATASOURCE_NAME).getDataSource();
-    }
-
     /**
      * insert builder
      *
-     * @param targetClass    目标class
-     * @param dataSourceName 数据源名称
      * @param <A>            A
+     * @param targetClass    targetClass
+     * @param dataSourceName dataSourceName
      * @return FlysqlBuilder
      * @since 0.0.1
      */
     public static <A> FlysqlBuilder<A> insert(String dataSourceName, Class<A> targetClass) {
 
-        FlysqlKey<A> flysqlKey = new FlysqlKey<>(SqlType.INSERT, jdbcTemplateMap.get(dataSourceName), targetClass);
-        return new FlysqlBuilder<>(flysqlKey);
+        return new FlysqlBuilder<>(new FlysqlKey<>(SqlType.INSERT, jdbcTemplateMap.get(dataSourceName), targetClass));
     }
 
     /**
-     * inset builder
+     * insert builder
      *
-     * @param targetClass 目标class
+     * @param targetClass targetClass
      * @param <A>         A
      * @return FlysqlBuilder
      * @since 0.0.1
@@ -76,22 +55,21 @@ public class Flysql {
     /**
      * delete builder
      *
-     * @param targetClass    目标class
-     * @param dataSourceName 数据源名称
+     * @param targetClass    targetClass
+     * @param dataSourceName dataSourceName
      * @param <A>            A
      * @return FlysqlBuilder
      * @since 0.0.1
      */
     public static <A> FlysqlBuilder<A> delete(String dataSourceName, Class<A> targetClass) {
 
-        FlysqlKey<A> flysqlKey = new FlysqlKey<>(SqlType.DELETE, jdbcTemplateMap.get(dataSourceName), targetClass);
-        return new FlysqlBuilder<>(flysqlKey);
+        return new FlysqlBuilder<>(new FlysqlKey<>(SqlType.DELETE, jdbcTemplateMap.get(dataSourceName), targetClass));
     }
 
     /**
      * delete builder
      *
-     * @param targetClass 目标class
+     * @param targetClass targetClass
      * @param <A>         A
      * @return FlysqlBuilder
      * @since 0.0.1
@@ -104,22 +82,21 @@ public class Flysql {
     /**
      * update builder
      *
-     * @param targetClass    目标class
-     * @param dataSourceName 数据源名称
+     * @param targetClass    targetClass
+     * @param dataSourceName dataSourceName
      * @param <A>            A
      * @return FlysqlBuilder
      * @since 0.0.1
      */
     public static <A> FlysqlBuilder<A> update(String dataSourceName, Class<A> targetClass) {
 
-        FlysqlKey<A> flysqlKey = new FlysqlKey<>(SqlType.UPDATE, jdbcTemplateMap.get(dataSourceName), targetClass);
-        return new FlysqlBuilder<>(flysqlKey);
+        return new FlysqlBuilder<>(new FlysqlKey<>(SqlType.UPDATE, jdbcTemplateMap.get(dataSourceName), targetClass));
     }
 
     /**
      * update builder
      *
-     * @param targetClass 目标class
+     * @param targetClass targetClass
      * @param <A>         A
      * @return FlysqlBuilder
      * @since 0.0.1
@@ -132,24 +109,23 @@ public class Flysql {
     /**
      * view builder
      *
-     * @param targetClass    目标class
-     * @param dataSourceName 数据源名称
-     * @param viewName       视图名称
+     * @param targetClass    targetClass
+     * @param dataSourceName dataSourceName
+     * @param viewName       viewName
      * @param <A>            A
      * @return FlysqlBuilder
      * @since 0.0.1
      */
     public static <A> FlysqlBuilder<A> view(String dataSourceName, String viewName, Class<A> targetClass) {
 
-        FlysqlKey<A> flysqlKey = new FlysqlKey<>(SqlType.VIEW, jdbcTemplateMap.get(dataSourceName), targetClass, viewName);
-        return new FlysqlBuilder<>(flysqlKey);
+        return new FlysqlBuilder<>(new FlysqlKey<>(SqlType.VIEW, jdbcTemplateMap.get(dataSourceName), targetClass, viewName));
     }
 
     /**
      * view builder
      *
-     * @param targetClass 目标class
-     * @param viewName    视图名称
+     * @param targetClass targetClass
+     * @param viewName    viewName
      * @param <A>         A
      * @return FlysqlBuilder
      * @since 0.0.1
@@ -162,22 +138,21 @@ public class Flysql {
     /**
      * select builder
      *
-     * @param targetClass    目标class
-     * @param dataSourceName 数据源名称
+     * @param targetClass    targetClass
+     * @param dataSourceName dataSourceName
      * @param <A>            A
      * @return FlysqlBuilder
      * @since 0.0.1
      */
     public static <A> FlysqlBuilder<A> select(String dataSourceName, Class<A> targetClass) {
 
-        FlysqlKey<A> flysqlKey = new FlysqlKey<>(SqlType.SELECT, jdbcTemplateMap.get(dataSourceName), targetClass);
-        return new FlysqlBuilder<>(flysqlKey);
+        return new FlysqlBuilder<>(new FlysqlKey<>(SqlType.SELECT, jdbcTemplateMap.get(dataSourceName), targetClass));
     }
 
     /**
      * select builder
      *
-     * @param targetClass 目标class
+     * @param targetClass targetClass
      * @param <A>         A
      * @return FlysqlBuilder
      * @since 0.0.1
