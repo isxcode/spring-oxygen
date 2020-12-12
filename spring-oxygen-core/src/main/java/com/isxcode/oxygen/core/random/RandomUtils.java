@@ -12,7 +12,7 @@ public class RandomUtils {
      * generate custom number
      *
      * @param number number
-     * @author ispong
+     * @return string
      * @since 0.0.2
      */
     public static String generateNumber(int number) {

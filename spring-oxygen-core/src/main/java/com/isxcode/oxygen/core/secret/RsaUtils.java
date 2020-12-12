@@ -66,6 +66,7 @@ public class RsaUtils {
     /**
      * generate key pair
      *
+     * @return key pair
      * @since 0.0.1
      */
     public KeyPair generateKeyPair() throws OxygenException {

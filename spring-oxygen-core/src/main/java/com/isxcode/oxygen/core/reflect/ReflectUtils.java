@@ -4,6 +4,7 @@ import com.isxcode.oxygen.core.exception.OxygenException;
 import org.springframework.beans.BeanUtils;
 
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -73,6 +74,7 @@ public class ReflectUtils {
         }
 
         return fieldBodyList;
+
     }
 
     /**
