@@ -15,6 +15,7 @@ public @interface TableName {
 
     /**
      * table name
+     * @return table name
      */
     String value();
 }

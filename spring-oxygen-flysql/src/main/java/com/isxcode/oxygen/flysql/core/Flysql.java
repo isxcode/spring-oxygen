@@ -5,6 +5,7 @@ import com.isxcode.oxygen.flysql.entity.FlysqlKey;
 import com.isxcode.oxygen.flysql.enums.SqlType;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import javax.sql.DataSource;
 import java.util.Map;
 
 /**
@@ -23,6 +24,16 @@ public class Flysql {
     public Flysql(Map<String, JdbcTemplate> jdbcTemplateMap) {
 
         Flysql.jdbcTemplateMap = jdbcTemplateMap;
+    }
+
+    /**
+     * get default datasource
+     *
+     * @return DataSource
+     */
+    public static DataSource getDefaultDataSource() {
+
+        return jdbcTemplateMap.get(FlysqlConstants.PRIMARY_DATASOURCE_NAME).getDataSource();
     }
 
     /**
