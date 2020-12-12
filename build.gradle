@@ -1,3 +1,6 @@
+/*
+ * point plugin version
+ */
 plugins {
     id 'org.springframework.boot' version '2.3.5.RELEASE'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
@@ -8,8 +11,14 @@ plugins {
     id 'jacoco'
 }
 
+/*
+ * config moudle info
+ */
 subprojects {
 
+    /*
+     * add plugin
+     */
     apply plugin: 'signing'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
@@ -24,6 +33,9 @@ subprojects {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
 
+    /*
+     * point repositories
+     */
     repositories {
         if (project.findProperty('project.version') == null) {
             maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
@@ -53,7 +65,9 @@ subprojects {
         testCompile 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     }
 
-    // https://docs.github.com/en/packages/using-github-packages-with-your-projects-ecosystem/configuring-gradle-for-use-with-github-packages
+    /*
+     * publish to github packages [https://docs.github.com/en/packages/using-github-packages-with-your-projects-ecosystem/configuring-gradle-for-use-with-github-packages]
+     */
     publishing {
 
         repositories {
@@ -75,7 +89,9 @@ subprojects {
         }
     }
 
-    // https://docs.gradle.org/current/userguide/publishing_maven.html#header
+    /*
+     * publish to maven center [https://docs.gradle.org/current/userguide/publishing_maven.html#header]
+     */
     publishing {
 
         repositories {
@@ -143,7 +159,9 @@ subprojects {
         }
     }
 
-    // https://docs.gradle.org/current/userguide/jacoco_plugin.html#header
+    /*
+     * add jacoco coverage [https://docs.gradle.org/current/userguide/jacoco_plugin.html#header]
+     */
     test {
         useJUnitPlatform()
         finalizedBy jacocoTestReport
