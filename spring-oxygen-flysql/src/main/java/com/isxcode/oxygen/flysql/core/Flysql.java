@@ -26,6 +26,16 @@ public class Flysql {
     }
 
     /**
+     * get default datasource
+     *
+     * @return DataSource
+     */
+    public static DataSource getDefaultDataSource() {
+
+        return jdbcTemplateMap.get(FlysqlConstants.PRIMARY_DATASOURCE_NAME).getDataSource();
+    }
+
+    /**
      * insert builder
      *
      * @param <A>            A

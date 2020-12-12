@@ -13,27 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.isxcode.oxygen.freecode.pojo.entity;
+package com.isxcode.oxygen.freecode.entity;
 
 import lombok.Data;
 
 /**
- * freecode请求对象
+ * 数据库信息
  *
  * @author ispong
- * @since 0.0.1
+ * @version v0.1.0
  */
 @Data
-public class FreecodeReq {
+public class TableInfo {
 
-    /**
-     * 数据源名称 (可为空)
-     */
-    private String dataSourceName;
-
-    /**
-     * 表名
-     */
-    private String tableName;
-
+    private String tableComment;
 }
+

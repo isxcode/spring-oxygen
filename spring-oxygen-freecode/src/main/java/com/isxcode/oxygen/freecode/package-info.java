@@ -13,19 +13,4 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.isxcode.oxygen.freecode.pojo.entity;
-
-import lombok.Data;
-
-/**
- * 数据库信息
- *
- * @author ispong
- * @version v0.1.0
- */
-@Data
-public class TableInfo {
-
-    private String tableComment;
-}
-
+package com.isxcode.oxygen.freecode;
