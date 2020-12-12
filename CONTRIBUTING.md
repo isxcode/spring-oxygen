@@ -66,3 +66,12 @@ git push origin feature-core
 - https://github.com/isxcode/spring-oxygen/compare
 
 > Note:  xiao/spring-oxygen/feature-core  --> isxcode/spring-oxygen/feature-core
+ 
+ Branch flow                                                                  | Operate
+ ----                                                                         | ---
+ xiao/spring-oxygen/feature-core --> isxcode/spring-oxygen/feature-core       | squash merge
+ isxcode/spring-oxygen/feature-core --> xiao/spring-oxygen/feature-core       | merge commits 
+ isxcode/spring-oxygen/feature-core --> isxcode/spring-oxygen/release-0.0.x   | merge commits
+ isxcode/spring-oxygen/release-0.0.x --> isxcode/spring-oxygen/feature-flysql | squash merge
+ isxcode/spring-oxygen/release-0.0.x --> isxcode/spring-oxygen/main           | rebase merge
+ isxcode/spring-oxygen/hotfix-0.0.x --> isxcode/spring-oxygen/release-0.0.x   | merge commits
