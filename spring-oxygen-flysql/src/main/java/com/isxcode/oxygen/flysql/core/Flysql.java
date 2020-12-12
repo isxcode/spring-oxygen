@@ -28,6 +28,8 @@ public class Flysql {
 
     /**
      * get default datasource
+     *
+     * @return DataSource
      */
     public static DataSource getDefaultDataSource() {
 

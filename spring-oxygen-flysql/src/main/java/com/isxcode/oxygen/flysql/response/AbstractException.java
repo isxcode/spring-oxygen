@@ -3,12 +3,12 @@ package com.isxcode.oxygen.flysql.response;
 import lombok.Getter;
 
 /**
- * AbstractException
+ * Abstract Exception Template
  *
  * @author ispong
  * @since 0.0.1
  */
-abstract class AbstractException extends RuntimeException {
+public abstract class AbstractException extends RuntimeException {
 
     /**
      * code
@@ -28,4 +28,15 @@ abstract class AbstractException extends RuntimeException {
         this.msg = abstractExceptionEnum.getMsg();
     }
 
+    public AbstractException(String code, String msg) {
+
+        this.code = code;
+        this.msg = msg;
+    }
+
+    public AbstractException(String msg) {
+
+        this.code = null;
+        this.msg = msg;
+    }
 }

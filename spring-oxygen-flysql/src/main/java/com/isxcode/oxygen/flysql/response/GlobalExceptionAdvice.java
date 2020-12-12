@@ -7,14 +7,13 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
- * GlobalExceptionAdvice
+ * global exception advice
  *
  * @author isxcode
  * @since 0.0.1
@@ -23,11 +22,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 @ResponseBody
 @Order(Ordered.HIGHEST_PRECEDENCE)
-@Component
 public class GlobalExceptionAdvice extends ResponseEntityExceptionHandler {
 
     /**
-     * custom exception
+     * flysql custom exception
      *
      * @param abstractException abstractException
      * @return ResponseEntity
@@ -37,7 +35,7 @@ public class GlobalExceptionAdvice extends ResponseEntityExceptionHandler {
     public ResponseEntity<BaseResponse<?>> customException(AbstractException abstractException) {
 
         BaseResponse<?> errorResponse = new BaseResponse<>();
-        errorResponse.setCode(abstractException.getCode());
+        errorResponse.setCode(abstractException.getCode() == null ? ResponseConstant.ERROR_CODE : abstractException.getCode());
         errorResponse.setMsg(abstractException.getMsg());
         return new ResponseEntity<>(errorResponse, HttpStatus.OK);
     }

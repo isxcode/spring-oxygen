@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.stereotype.Component;
 
 /**
  * success response advice
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Component;
  * @since 0.0.2
  */
 @Aspect
-@Component
 @Slf4j
 public class SuccessResponseAdvice {
 
@@ -23,58 +21,29 @@ public class SuccessResponseAdvice {
     }
 
     /**
-     * has no return response
+     * has return response
      *
-     * @param
-     * @return
+     * @param data            data
+     * @param successResponse successResponse
+     * @param joinPoint       joinPoint
      * @since 0.0.1
      */
-    @After(value = "operateLog()&&@annotation(successResponse)")
-    public void after(JoinPoint joinPoint, SuccessResponse successResponse) {
+    @AfterReturning(returning = "data", value = "operateLog()&&@annotation(successResponse)")
+    public void afterReturning(JoinPoint joinPoint, Object data, SuccessResponse successResponse) {
 
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        String returnClassName = signature.getReturnType().getName();
-        if ("void".equals(returnClassName)) {
-            BaseResponse<Object> baseResponse = new BaseResponse<>();
+        BaseResponse<Object> baseResponse = new BaseResponse<>();
+        if (!"void".equals(signature.getReturnType().getName())) {
+            baseResponse.setCode(ResponseConstant.SUCCESS_CODE);
+            baseResponse.setData(data);
+            baseResponse.setMsg(successResponse.value().isEmpty() ? successResponse.msg() : successResponse.value());
+            successResponse(baseResponse);
+        } else {
             baseResponse.setCode(ResponseConstant.SUCCESS_CODE);
             baseResponse.setMsg(successResponse.value().isEmpty() ? successResponse.msg() : successResponse.value());
             successResponse(baseResponse);
         }
-    }
 
-    /**
-     * has return response
-     *
-     * @param
-     * @return
-     * @since 0.0.1
-     */
-    @AfterReturning(returning = "data", value = "operateLog()&&@annotation(successResponse)")
-    public void afterReturning(Object data, SuccessResponse successResponse) {
-
-        BaseResponse<Object> baseResponse = new BaseResponse<>();
-        baseResponse.setCode(ResponseConstant.SUCCESS_CODE);
-        baseResponse.setData(data);
-        baseResponse.setMsg(successResponse.value().isEmpty() ? successResponse.msg() : successResponse.value());
-        successResponse(baseResponse);
-
-    }
-
-    /**
-     * all exception
-     *
-     * @param
-     * @return
-     * @since 0.0.1
-     */
-    @AfterThrowing(throwing = "exception", value = "operateLog()&& @annotation(successResponse)")
-    public void afterThrowing(Exception exception, SuccessResponse successResponse) {
-
-        BaseResponse<Object> baseResponse = new BaseResponse<>();
-        baseResponse.setCode("50010");
-        baseResponse.setData("");
-        baseResponse.setMsg(exception.getMessage());
-        successResponse(baseResponse);
     }
 
     public void successResponse(BaseResponse<Object> baseResponse) {
