@@ -1,0 +1,91 @@
+package com.isxcode.oxygen.flysql.response;
+
+import com.isxcode.oxygen.flysql.common.BaseResponse;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+/**
+ * GlobalExceptionAdvice
+ *
+ * @author isxcode
+ * @since 0.0.1
+ */
+@Slf4j
+@ControllerAdvice
+@ResponseBody
+@Order(Ordered.HIGHEST_PRECEDENCE)
+@Component
+public class GlobalExceptionAdvice extends ResponseEntityExceptionHandler {
+
+    /**
+     * custom exception
+     *
+     * @param abstractException abstractException
+     * @return ResponseEntity
+     * @since 0.0.1
+     */
+    @ExceptionHandler(AbstractException.class)
+    public ResponseEntity<BaseResponse<?>> customException(AbstractException abstractException) {
+
+        BaseResponse<?> errorResponse = new BaseResponse<>();
+        errorResponse.setCode(abstractException.getCode());
+        errorResponse.setMsg(abstractException.getMsg());
+        return new ResponseEntity<>(errorResponse, HttpStatus.OK);
+    }
+
+    /**
+     * access exception
+     *
+     * @param accessDeniedException accessDeniedException
+     * @return ResponseEntity
+     * @since 0.0.1
+     */
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<BaseResponse<String>> accessDeniedException(AccessDeniedException accessDeniedException) {
+
+        BaseResponse<String> errorResponse = new BaseResponse<>();
+        errorResponse.setCode(ResponseConstant.FORBIDDEN_CODE);
+        errorResponse.setData(accessDeniedException.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
+    }
+
+    /**
+     * success response throw
+     *
+     * @param successException successException
+     * @return ResponseEntity
+     * @since 0.0.1
+     */
+    @ExceptionHandler(SuccessException.class)
+    public ResponseEntity<BaseResponse<Object>> successException(SuccessException successException) {
+
+        return new ResponseEntity<>(successException.getBaseResponse(), HttpStatus.OK);
+    }
+
+    /**
+     * all exception
+     *
+     * @param exception exception
+     * @return ResponseEntity
+     * @since 0.0.1
+     */
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<BaseResponse<?>> allException(Exception exception) {
+
+        BaseResponse<?> baseResponse = new BaseResponse<>();
+        baseResponse.setCode(ResponseConstant.ERROR_CODE);
+        baseResponse.setMsg(exception.getMessage());
+        return new ResponseEntity<>(baseResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+}
+

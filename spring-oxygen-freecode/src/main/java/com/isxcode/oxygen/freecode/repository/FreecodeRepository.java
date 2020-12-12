@@ -17,8 +17,8 @@ package com.isxcode.oxygen.freecode.repository;
 
 import com.isxcode.oxygen.flysql.core.Flysql;
 import com.isxcode.oxygen.freecode.exception.FreecodeException;
-import com.isxcode.oxygen.freecode.pojo.entity.TableColumnInfo;
-import com.isxcode.oxygen.freecode.pojo.entity.TableInfo;
+import com.isxcode.oxygen.freecode.entity.TableColumnInfo;
+import com.isxcode.oxygen.freecode.entity.TableInfo;
 import com.isxcode.oxygen.freecode.utils.FreecodeUtils;
 import lombok.SneakyThrows;
 
@@ -47,7 +47,7 @@ public class FreecodeRepository {
         String sqlStr;
 
         // 区分数据库类型
-        String databaseType = Flysql.getDataSource().getConnection().getMetaData().getDriverName();
+        String databaseType = Flysql.getDefaultDataSource().getConnection().getMetaData().getDriverName();
         if (databaseType.contains("MySQL")) {
             sqlStr = "show full columns from " + tableName;
         } else if (databaseType.contains("H2")) {

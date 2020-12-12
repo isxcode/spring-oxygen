@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.isxcode.oxygen.freecode.pojo.constant;
+package com.isxcode.oxygen.freecode.constant;
 
 /**
  * 常用静态值

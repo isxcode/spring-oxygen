@@ -15,6 +15,7 @@ public @interface ColumnName {
 
     /**
      * db column name
+     * @return column name
      */
     String value();
 }
