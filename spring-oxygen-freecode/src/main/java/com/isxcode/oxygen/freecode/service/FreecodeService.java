@@ -17,10 +17,10 @@ package com.isxcode.oxygen.freecode.service;
 
 import com.isxcode.oxygen.flysql.core.Flysql;
 import com.isxcode.oxygen.freecode.exception.FreecodeException;
-import com.isxcode.oxygen.freecode.pojo.constant.FreecodeConstants;
-import com.isxcode.oxygen.freecode.pojo.entity.FreecodeInfo;
-import com.isxcode.oxygen.freecode.pojo.entity.TableColumnInfo;
-import com.isxcode.oxygen.freecode.pojo.properties.FreecodeProperties;
+import com.isxcode.oxygen.freecode.constant.FreecodeConstants;
+import com.isxcode.oxygen.freecode.entity.FreecodeInfo;
+import com.isxcode.oxygen.freecode.entity.TableColumnInfo;
+import com.isxcode.oxygen.freecode.properties.FreecodeProperties;
 import com.isxcode.oxygen.freecode.repository.FreecodeRepository;
 import com.isxcode.oxygen.freecode.utils.FreecodeUtils;
 import lombok.SneakyThrows;
@@ -130,7 +130,7 @@ public class FreecodeService {
         freecodeInfo.setPrimaryTableName(tableName);
 
         // 表备注
-        if (!"H2".equals(Flysql.getDataSource().getConnection().getCatalog())) {
+        if (!"H2".equals(Flysql.getDefaultDataSource().getConnection().getCatalog())) {
             freecodeInfo.setTableComment(freecodeRepository.getTableInfo(tableName).getTableComment());
         }
 

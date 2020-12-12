@@ -2,19 +2,21 @@ dependencies {
 
     implementation(project(':spring-oxygen-core'))
 
+    // security
+    implementation 'org.springframework.security:spring-security-core'
+
+    // aop
     implementation 'org.springframework.boot:spring-boot-starter-aop'
 
+    // jdbc
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
-    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-
+    // h2
     runtimeOnly 'com.h2database:h2'
 
+    // mysql
     runtimeOnly 'mysql:mysql-connector-java'
 
+    // ojdbc
     runtimeOnly 'com.oracle.ojdbc:ojdbc8'
-
-    implementation 'org.springframework.security:spring-security-core'
 }

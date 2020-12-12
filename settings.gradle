@@ -1,5 +1,7 @@
+// project name
 rootProject.name = 'spring-oxygen'
 
+// project module
 include 'oxygen-spring-boot-starter'
 include 'spring-oxygen-core'
 include 'spring-oxygen-flysql'
