@@ -42,4 +42,6 @@ public interface FreecodeConstants {
      * 主路径
      */
     String MAIN_PATH = "src.main.java.";
+
+    String splitStr = ",";
 }

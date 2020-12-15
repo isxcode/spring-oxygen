@@ -1,8 +1,7 @@
 package com.isxcode.oxygen.freecode.controller;
 
+import com.isxcode.oxygen.flysql.response.SuccessResponse;
 import com.isxcode.oxygen.freecode.service.FreecodeService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,15 +26,13 @@ public class FreecodeController {
      * generate code api
      *
      * @param tableNames tableNames(split ,)
-     * @return ResponseEntity
      * @since 0.0.1
      */
+    @SuccessResponse("generate success!!!")
     @GetMapping("/generate")
-    public ResponseEntity<String> generateCode(@RequestParam String tableNames) {
+    public void generateCode(@RequestParam String tableNames) {
 
         freecodeService.startFreecode(tableNames);
-
-        return new ResponseEntity<>("welcome to use oxygen-freecode! generate code success", HttpStatus.OK);
     }
 
 }
