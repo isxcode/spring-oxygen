@@ -13,19 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.isxcode.oxygen.freecode.pojo.entity;
-
-import lombok.Data;
+package com.isxcode.oxygen.freecode.constant;
 
 /**
- * 数据库信息
+ * 常用静态值
  *
  * @author ispong
- * @version v0.1.0
+ * @since 0.0.1
  */
-@Data
-public class TableInfo {
+public interface FreecodeConstants {
 
-    private String tableComment;
+    /**
+     * 默认数据源名称
+     */
+    String PRIMARY_DATASOURCE_NAME = "primary";
+
+    /**
+     * java文件后缀
+     */
+    String JAVA_FILE_SUFFIX = ".java";
+
+    /**
+     * freemarker文件后缀
+     */
+    String FREEMARKER_FILE_SUFFIX = ".java.ftl";
+
+    /**
+     * 主路径
+     */
+    String MAIN_PATH = "src.main.java.";
 }
-

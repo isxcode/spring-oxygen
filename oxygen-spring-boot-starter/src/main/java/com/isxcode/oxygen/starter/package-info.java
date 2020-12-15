@@ -13,33 +13,4 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.isxcode.oxygen.freecode.pojo.constant;
-
-/**
- * 常用静态值
- *
- * @author ispong
- * @since 0.0.1
- */
-public interface FreecodeConstants {
-
-    /**
-     * 默认数据源名称
-     */
-    String PRIMARY_DATASOURCE_NAME = "primary";
-
-    /**
-     * java文件后缀
-     */
-    String JAVA_FILE_SUFFIX = ".java";
-
-    /**
-     * freemarker文件后缀
-     */
-    String FREEMARKER_FILE_SUFFIX = ".java.ftl";
-
-    /**
-     * 主路径
-     */
-    String MAIN_PATH = "src.main.java.";
-}
+package com.isxcode.oxygen.starter;

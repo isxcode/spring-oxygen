@@ -3,6 +3,8 @@ package com.isxcode.oxygen.flysql.config;
 import com.isxcode.oxygen.flysql.core.Flysql;
 import com.isxcode.oxygen.flysql.constant.FlysqlConstants;
 import com.isxcode.oxygen.flysql.properties.FlysqlDataSourceProperties;
+import com.isxcode.oxygen.flysql.response.GlobalExceptionAdvice;
+import com.isxcode.oxygen.flysql.response.SuccessResponseAdvice;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -22,6 +24,26 @@ import java.util.Map;
 @Slf4j
 @EnableConfigurationProperties(FlysqlDataSourceProperties.class)
 public class FlysqlAutoConfiguration {
+
+    /**
+     * init SuccessResponseAdvice
+     */
+    @Bean
+    @ConditionalOnClass(FlysqlAutoConfiguration.class)
+    private SuccessResponseAdvice initSuccessResponseAdvice() {
+
+        return new SuccessResponseAdvice();
+    }
+
+    /**
+     * init GlobalExceptionAdvice
+     */
+    @Bean
+    @ConditionalOnClass(FlysqlAutoConfiguration.class)
+    private GlobalExceptionAdvice initGlobalExceptionAdvice() {
+
+        return new GlobalExceptionAdvice();
+    }
 
     /**
      * init datasource

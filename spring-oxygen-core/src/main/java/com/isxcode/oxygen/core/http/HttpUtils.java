@@ -58,6 +58,7 @@ public class HttpUtils {
     /**
      * simple get
      *
+     * @param url         url
      * @param <A>         A
      * @param targetClass targetClass
      * @return A
@@ -71,6 +72,7 @@ public class HttpUtils {
     /**
      * simple get
      *
+     * @param url          url
      * @param <A>          A
      * @param targetClass  targetClass
      * @param headerParams headerParams
