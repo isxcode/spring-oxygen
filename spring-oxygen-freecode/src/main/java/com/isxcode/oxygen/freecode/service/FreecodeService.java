@@ -2,7 +2,7 @@ package com.isxcode.oxygen.freecode.service;
 
 import com.isxcode.oxygen.core.reflect.ReflectUtils;
 import com.isxcode.oxygen.flysql.core.Flysql;
-import com.isxcode.oxygen.flysql.enums.DateBaseType;
+import com.isxcode.oxygen.flysql.enums.DataBaseType;
 import com.isxcode.oxygen.freecode.constant.FreecodeConstants;
 import com.isxcode.oxygen.freecode.entity.FreecodeInfo;
 import com.isxcode.oxygen.freecode.exception.FreecodeException;
@@ -49,20 +49,26 @@ public class FreecodeService {
             // generate freemarker info
             FreecodeInfo freecodeInfo = generateFreecodeInfo(metaTableName);
 
+            // pojo name
+            String pojoName = ReflectUtils.lineToHump(FreecodeUtils.parseTableName(metaTableName, freecodeProperties));
+
+            // class name
+            String className = ReflectUtils.upperFirstCase(pojoName);
+
+            // directory name
+            String directoryName = pojoName.toLowerCase();
+
+            freecodeInfo.setClassName(className);
+            freecodeInfo.setPackageName(FreecodeUtils.parsePathToPackage(freecodeProperties.getModulePath()) + "." + directoryName);
+
             // foreach generate file
             for (String fileType : freecodeProperties.getFileTypes()) {
 
-                // pojoName
-                String pojoName = ReflectUtils.lineToHump(FreecodeUtils.parseTableName(metaTableName, freecodeProperties));
-
                 // templateName
-                String templateName = fileType + FreecodeConstants.FREEMARKER_FILE_SUFFIX;
-
-                // directoryName
-                String directoryName = pojoName.toLowerCase();
+                String templateName = fileType + freecodeProperties.getTemplatePrefix();
 
                 // fileName
-                String fileName = ReflectUtils.upperFirstCase(pojoName) + ReflectUtils.upperFirstCase(fileType) + FreecodeConstants.JAVA_FILE_SUFFIX;
+                String fileName = className + ReflectUtils.upperFirstCase(fileType) + FreecodeConstants.JAVA_FILE_SUFFIX;
 
                 // generate file
                 try {
@@ -70,7 +76,6 @@ public class FreecodeService {
                 } catch (IOException e) {
                     throw new FreecodeException(e.getMessage());
                 }
-
             }
         }
     }
@@ -95,15 +100,11 @@ public class FreecodeService {
         // add user config
         freecodeInfo.setFreecodeProperties(freecodeProperties);
 
+        // table name
+        freecodeInfo.setTableName(tableName);
+
         // add column comment
-        try {
-            String catalog = Flysql.getDefaultDataSource().getConnection().getCatalog();
-            if (DateBaseType.MYSQL.name().equals(catalog)) {
-                freecodeInfo.setTableComment(freecodeRepository.getTableInfo(tableName).getTableComment());
-            }
-        } catch (SQLException throwables) {
-            // do nothing
-        }
+        freecodeInfo.setTableComment(freecodeRepository.getTableInfo(tableName));
 
         return freecodeInfo;
     }

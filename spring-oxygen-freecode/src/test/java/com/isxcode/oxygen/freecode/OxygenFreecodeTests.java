@@ -19,10 +19,11 @@ import org.springframework.test.context.ContextConfiguration;
     FreecodeAutoConfiguration.class,
     FlysqlAutoConfiguration.class,
     OxygenCoreAutoConfiguration.class,
-    FreeMarkerAutoConfiguration.class})
+    FreeMarkerAutoConfiguration.class,
+    })
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles
-public class SpringOxygenFreecodeTests {
+public class OxygenFreecodeTests {
 
     @Autowired
     private FreecodeService freecodeService;
@@ -30,7 +31,7 @@ public class SpringOxygenFreecodeTests {
     @Test
     public void testGenerateCode() {
 
-//        freecodeService.startFreecode("dogs");
+        freecodeService.startFreecode("leo_dogs");
     }
 }
 

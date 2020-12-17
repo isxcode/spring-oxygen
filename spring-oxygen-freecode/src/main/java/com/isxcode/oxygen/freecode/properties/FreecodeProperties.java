@@ -1,18 +1,3 @@
-/*
- * Copyright [2020] [ispong]
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.isxcode.oxygen.freecode.properties;
 
 import lombok.Data;
@@ -22,6 +7,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * freecode properties
+ *
  * @author ispong
  * @since 0.0.1
  */
@@ -30,42 +17,42 @@ import java.util.List;
 public class FreecodeProperties {
 
     /**
-     * 文件类型
+     * file type , "entity", "service", "repository", "innerService"
      */
-    private List<String> fileTypes = Arrays.asList("controller", "entity", "service", "repository", "innerService");
+    private List<String> fileTypes = Arrays.asList("controller");
 
     /**
-     * 忽略字段
+     * ignore columns
      */
-    private List<String> ignoreColumns = Arrays.asList("created_date", "created_by", "last_modified_date", "last_modified_by", "version", "is_delete");
+    private List<String> ignoreColumns;
 
     /**
-     * 模块的地址
+     * module path (src/main/java/com/)
      */
     private String modulePath;
 
     /**
-     * 作者
+     * author
      */
     private String author;
 
     /**
-     * 版本号
+     * version
      */
     private String version = "v0.0.1";
 
     /**
-     * 基础类Entity
+     * base entity
      */
     private String baseEntityClass = "com.isxcode.oxygen.flysql.common.BaseEntity";
 
     /**
-     * 基础类Controller
-     */
-    private String baseControllerClass;
-
-    /**
-     * 表名前缀
+     * table prefix
      */
     private String tablePrefix;
+
+    /**
+     * template prefix
+     */
+    private String templatePrefix = ".java.ftl";
 }
