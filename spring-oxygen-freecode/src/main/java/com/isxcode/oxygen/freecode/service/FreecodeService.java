@@ -1,8 +1,6 @@
 package com.isxcode.oxygen.freecode.service;
 
 import com.isxcode.oxygen.core.reflect.ReflectUtils;
-import com.isxcode.oxygen.flysql.core.Flysql;
-import com.isxcode.oxygen.flysql.enums.DataBaseType;
 import com.isxcode.oxygen.freecode.constant.FreecodeConstants;
 import com.isxcode.oxygen.freecode.entity.FreecodeInfo;
 import com.isxcode.oxygen.freecode.exception.FreecodeException;
@@ -12,7 +10,6 @@ import com.isxcode.oxygen.freecode.utils.FreecodeUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 /**
  * freecode service

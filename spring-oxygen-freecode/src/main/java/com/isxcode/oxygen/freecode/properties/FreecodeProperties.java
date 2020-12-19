@@ -17,9 +17,9 @@ import java.util.List;
 public class FreecodeProperties {
 
     /**
-     * file type , "entity", "service", "repository", "innerService"
+     * file type
      */
-    private List<String> fileTypes = Arrays.asList("controller");
+    private List<String> fileTypes = Arrays.asList("controller", "entity", "service", "repository", "innerService");
 
     /**
      * ignore columns

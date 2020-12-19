@@ -53,6 +53,20 @@ public class TableColumnInfo {
     private String comment;
 
     /**
+     * origin field
+     */
+    private String originField;
+
+    /**
+     * get origin field
+     * @return OriginField
+     */
+    public String getOriginField() {
+
+        return this.field.toLowerCase();
+    }
+
+    /**
      * get data type
      *
      * @return data type
