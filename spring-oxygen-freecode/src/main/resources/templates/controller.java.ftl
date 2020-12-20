@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RestController
-@RequestMapping("/${tableName}")
+@RequestMapping("/${className?uncap_first}")
 public class ${className?cap_first}Controller {
 
     public final ${className?cap_first}Service ${className?uncap_first}Service;

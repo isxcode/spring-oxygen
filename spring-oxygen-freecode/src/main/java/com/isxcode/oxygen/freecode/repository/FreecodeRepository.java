@@ -47,11 +47,8 @@ public class FreecodeRepository {
         // remove ignore columns
         ignoreFields.addAll(FreecodeConstants.sysColumns);
         tableColumnInfos.forEach(e -> {
-            for (String metaIgnoreField : ignoreFields) {
-                if (!e.getField().equals(ReflectUtils.lineToHump(metaIgnoreField))) {
-                    columnList.add(e);
-                    return;
-                }
+            if (!ignoreFields.contains(ReflectUtils.humpToLine(e.getField()))) {
+                columnList.add(e);
             }
         });
 

@@ -3,6 +3,7 @@ package com.isxcode.oxygen.freecode.properties;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,17 +25,17 @@ public class FreecodeProperties {
     /**
      * ignore columns
      */
-    private List<String> ignoreColumns;
+    private List<String> ignoreColumns = new ArrayList<>();
 
     /**
-     * module path (src/main/java/com/)
+     * module path (src/main/java/com) end must not has /
      */
     private String modulePath;
 
     /**
      * author
      */
-    private String author;
+    private String author = "anonymous";
 
     /**
      * version
