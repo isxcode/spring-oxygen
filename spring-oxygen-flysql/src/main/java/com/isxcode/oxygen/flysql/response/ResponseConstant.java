@@ -23,4 +23,8 @@ public interface ResponseConstant {
      */
     String ERROR_CODE = "500";
 
+    /**
+     * bad request code
+     */
+    String BAD_REQUEST_CODE = "400";
 }

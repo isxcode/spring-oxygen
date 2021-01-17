@@ -4,12 +4,16 @@ import com.isxcode.oxygen.flysql.common.BaseResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
@@ -23,6 +27,17 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ResponseBody
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class GlobalExceptionAdvice extends ResponseEntityExceptionHandler {
+
+    /**
+     * execute 400 request
+     *
+     * @since 0.0.1
+     */
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        ObjectError objectError = ex.getBindingResult().getAllErrors().get(0);
+        return new ResponseEntity<>(new BaseResponse<>(ResponseConstant.BAD_REQUEST_CODE, objectError.getDefaultMessage(), ""), HttpStatus.BAD_REQUEST);
+    }
 
     /**
      * flysql custom exception
