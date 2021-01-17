@@ -6,7 +6,12 @@ package com.isxcode.oxygen.flysql.enums;
  * @author ispong
  * @since 0.0.1
  */
-public enum DateBaseType {
+public enum DataBaseType {
+
+    /**
+     * H2
+     */
+    H2,
 
     /**
      * Mysql

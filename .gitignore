@@ -20,3 +20,8 @@ gradle.properties
 # Github
 ##
 .github
+
+##
+# Test
+##
+**/*Dogs

@@ -1,27 +1,13 @@
-/*
- * Copyright [2020] [ispong]
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.isxcode.oxygen.freecode.entity;
 
+import com.isxcode.oxygen.core.reflect.ReflectUtils;
 import com.isxcode.oxygen.freecode.utils.FreecodeUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 数据库表每个字段的所有信息对象
+ * table column info
  *
  * @author ispong
  * @version v0.1.0
@@ -32,53 +18,72 @@ import lombok.NoArgsConstructor;
 public class TableColumnInfo {
 
     /**
-     * 字段名
+     * field
      */
     private String field;
 
     /**
-     * 字段类型
+     * type
      */
     private String type;
 
     /**
-     * 字符集
+     * collation
      */
     private String collation;
 
     /**
-     * 主键
+     * key
      */
     private String key;
 
     /**
-     * 额外值
+     * extra
      */
     private String extra;
 
     /**
-     * 权限
+     * privileges
      */
     private String privileges;
 
     /**
-     * 字段备注
+     * comment
      */
     private String comment;
 
+    /**
+     * origin field
+     */
     private String originField;
 
+    /**
+     * get origin field
+     * @return OriginField
+     */
+    public String getOriginField() {
+
+        return this.field.toLowerCase();
+    }
+
+    /**
+     * get data type
+     *
+     * @return data type
+     */
     public String getType() {
 
-        return FreecodeUtils.parseDataType(type);
+        return FreecodeUtils.parseDataType(this.type);
     }
 
+    /**
+     * get data field
+     *
+     * @return data field
+     */
     public String getField() {
 
-        return FreecodeUtils.lineToHump(field);
+        return ReflectUtils.lineToHump(this.field);
     }
 
-    public String getOriginField() {
-        return this.field;
-    }
 }
