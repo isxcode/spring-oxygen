@@ -16,9 +16,6 @@ import java.time.LocalDateTime;
 @Data
 public class BaseEntity {
 
-    @ColumnName("ID")
-    private String id;
-
     @CreatedDate
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
