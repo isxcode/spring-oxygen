@@ -7,13 +7,14 @@ spring:
     initialization-mode: always
     schema: classpath:db/schema_h2.sql
     data: classpath:db/data_h2.sql
-  freemarker:
-    enabled: true
 
 oxygen:
   freecode:
-    module-path: com.ispong.oxygen.freecode.logs
+    module-path: src/test/java/com/isxcode/oxygen/freecode
     author: ispong
+    table-prefix: leo_
+    ignore-columns:
+      - version
 
 logging:
   level:
