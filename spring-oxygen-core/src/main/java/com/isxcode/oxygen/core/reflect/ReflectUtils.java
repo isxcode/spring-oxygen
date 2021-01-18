@@ -73,6 +73,7 @@ public class ReflectUtils {
         }
 
         return fieldBodyList;
+
     }
 
     /**
@@ -93,5 +94,35 @@ public class ReflectUtils {
         }
         matcher.appendTail(lineStrBuff);
         return lineStrBuff.toString();
+    }
+
+    /**
+     * upper first case
+     *
+     * @param data data
+     * @return string
+     * @since 0.0.1
+     */
+    public static String upperFirstCase(String data) {
+
+        return data.substring(0, 1).toUpperCase() + data.substring(1);
+    }
+
+    /**
+     * line to hump
+     *
+     * @param lineStr lineStr
+     * @return String
+     * @since 0.0.1
+     */
+    public static String lineToHump(String lineStr) {
+
+        StringBuffer humpStrBuff = new StringBuffer();
+        lineStr = lineStr.toLowerCase();
+        Matcher matcher = compile("_(\\w)").matcher(lineStr);
+        while (matcher.find()) {
+            matcher.appendReplacement(humpStrBuff, matcher.group(1).toUpperCase());
+        }
+        return matcher.appendTail(humpStrBuff).toString();
     }
 }

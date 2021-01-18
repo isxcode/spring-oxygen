@@ -13,27 +13,4 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.isxcode.oxygen.freecode.entity;
-
-import lombok.Data;
-
-/**
- * freecode请求对象
- *
- * @author ispong
- * @since 0.0.1
- */
-@Data
-public class FreecodeReq {
-
-    /**
-     * 数据源名称 (可为空)
-     */
-    private String dataSourceName;
-
-    /**
-     * 表名
-     */
-    private String tableName;
-
-}
+package com.isxcode.oxygen.starter;
