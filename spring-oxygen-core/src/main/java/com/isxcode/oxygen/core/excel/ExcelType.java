@@ -1,24 +1,9 @@
-/*
- * Copyright [2020] [ispong]
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.isxcode.oxygen.core.excel;
 
 import java.lang.annotation.*;
 
 /**
- * excel 样式注释
+ * excel style annotation
  *
  * @author ispon
  * @since 2019-10-31
@@ -30,32 +15,32 @@ import java.lang.annotation.*;
 public @interface ExcelType {
 
     /**
-     * @return 表头
+     * @return cell name
      */
-    String cellName() default "表头名称";
+    String cellName();
 
     /**
-     * @return 表长
+     * @return cell width
      */
     int cellWidth() default 10000;
 
     /**
-     * @return 字段排序
+     * @return cell index
      */
     int cellIndex() default -1;
 
     /**
-     * @return 表头背景颜色
+     * @return cell color
      */
     int[] cellColor() default {245, 247, 250};
 
     /**
-     * @return 日期格式
+     * @return data format
      */
     String cellDateFormat() default "yyyy/mm/dd";
 
     /**
-     * @return 数字类型格式
+     * @return number format
      */
     String cellDoubleFormat() default "0.00";
 }

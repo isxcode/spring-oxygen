@@ -1,25 +1,10 @@
-/*
- * Copyright [2020] [ispong]
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.isxcode.oxygen.flysql.config;
 
 import com.isxcode.oxygen.flysql.core.Flysql;
-import com.isxcode.oxygen.flysql.pojo.constant.FlysqlConstants;
-import com.isxcode.oxygen.flysql.pojo.properties.FlysqlDataSourceProperties;
-import com.isxcode.oxygen.flysql.success.SuccessControllerAdvice;
-import com.isxcode.oxygen.flysql.success.SuccessResponseAdvice;
+import com.isxcode.oxygen.flysql.constant.FlysqlConstants;
+import com.isxcode.oxygen.flysql.properties.FlysqlDataSourceProperties;
+import com.isxcode.oxygen.flysql.response.GlobalExceptionAdvice;
+import com.isxcode.oxygen.flysql.response.SuccessResponseAdvice;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -31,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 自动配置
+ * flysql auto configure
  *
  * @author ispong
  * @since 0.0.1
@@ -40,37 +25,31 @@ import java.util.Map;
 @EnableConfigurationProperties(FlysqlDataSourceProperties.class)
 public class FlysqlAutoConfiguration {
 
+    /**
+     * init SuccessResponseAdvice
+     */
     @Bean
     @ConditionalOnClass(FlysqlAutoConfiguration.class)
-    private SuccessResponseAdvice initSuccessAdvice() {
+    private SuccessResponseAdvice initSuccessResponseAdvice() {
 
         return new SuccessResponseAdvice();
     }
 
+    /**
+     * init GlobalExceptionAdvice
+     */
     @Bean
     @ConditionalOnClass(FlysqlAutoConfiguration.class)
-    private SuccessControllerAdvice initSuccessControllerAdvice() {
+    private GlobalExceptionAdvice initGlobalExceptionAdvice() {
 
-        return new SuccessControllerAdvice();
-    }
-
-    @Bean
-    @ConditionalOnClass(FlysqlAutoConfiguration.class)
-    private void initBanner() {
-        log.debug("welcome to use oxygen-flysql");
-        log.debug("                                           ______                 __");
-        log.debug("  ____  _  ____  ______ ____  ____        / __/ /_  ___________ _/ /");
-        log.debug(" / __ \\| |/_/ / / / __ `/ _ \\/ __ \\______/ /_/ / / / / ___/ __ `/ / ");
-        log.debug("/ /_/ />  </ /_/ / /_/ /  __/ / / /_____/ __/ / /_/ (__  ) /_/ / /  ");
-        log.debug("\\____/_/|_|\\__, /\\__, /\\___/_/ /_/     /_/ /_/\\__, /____/\\__, /_/   ");
-        log.debug("          /____//____/                       /____/        /_/      ");
+        return new GlobalExceptionAdvice();
     }
 
     /**
-     * 初始化多数据源
+     * init datasource
      *
-     * @param flysqlDataSourceProperties 数据源yaml配置
-     * @param jdbcTemplate               原生jdbcTemplate
+     * @param flysqlDataSourceProperties datasource configs
+     * @param jdbcTemplate               jdbcTemplate
      * @since 0.0.1
      */
     @Bean
@@ -78,6 +57,7 @@ public class FlysqlAutoConfiguration {
     private Flysql initFlySqlFactory(FlysqlDataSourceProperties flysqlDataSourceProperties, JdbcTemplate jdbcTemplate) {
 
         Map<String, JdbcTemplate> jdbcTemplateMap;
+
         Map<String, DataSourceProperties> dataSourcePropertiesMap = flysqlDataSourceProperties.getDatasource();
         if (dataSourcePropertiesMap == null) {
             jdbcTemplateMap = new HashMap<>(1);

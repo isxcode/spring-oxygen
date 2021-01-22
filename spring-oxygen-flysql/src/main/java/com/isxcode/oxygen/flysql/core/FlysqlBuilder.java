@@ -1,47 +1,32 @@
-/*
- * Copyright [2020] [ispong]
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.isxcode.oxygen.flysql.core;
 
 import com.isxcode.oxygen.flysql.annotation.*;
+import com.isxcode.oxygen.flysql.constant.FlysqlConstants;
+import com.isxcode.oxygen.core.reflect.FieldBody;
+import com.isxcode.oxygen.core.reflect.ReflectConstants;
+import com.isxcode.oxygen.core.reflect.ReflectUtils;
+import com.isxcode.oxygen.flysql.entity.FlysqlKey;
+import com.isxcode.oxygen.flysql.entity.SqlCondition;
+import com.isxcode.oxygen.flysql.enums.SqlOperateType;
+import com.isxcode.oxygen.flysql.enums.SqlType;
 import com.isxcode.oxygen.flysql.exception.FlysqlException;
-import com.isxcode.oxygen.flysql.pojo.constant.FlysqlConstants;
-import com.isxcode.oxygen.flysql.pojo.constant.JavaTypeConstants;
-import com.isxcode.oxygen.flysql.pojo.entity.FlysqlKey;
-import com.isxcode.oxygen.flysql.pojo.entity.SqlCondition;
-import com.isxcode.oxygen.flysql.pojo.enums.SqlType;
 import com.isxcode.oxygen.flysql.utils.FlysqlUtils;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
-import org.springframework.beans.BeanUtils;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.isxcode.oxygen.flysql.pojo.enums.SqlOperateType.UPDATE;
+import static com.isxcode.oxygen.flysql.enums.SqlOperateType.UPDATE;
 
 /**
- * flysql 核心构造中心
+ * flysql builder
  *
  * @author ispong
  * @version v0.1.0
@@ -53,37 +38,281 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
 
     public FlysqlBuilder(FlysqlKey<A> flysqlKey) {
 
-        // 为了获取父级的属性值
         super(flysqlKey.getTargetClass());
         this.flysqlKey = flysqlKey;
     }
 
     @Override
     public FlysqlBuilder<A> getSelf() {
+
         return this;
     }
 
+    // ---------------------------------------- execute sql ----------------------------------------
+
+    @Override
+    public A getOne() {
+
+        String sqlString = parseSqlConditions(initSelectSql(), sqlConditions);
+        log.debug("[oxygen-flysql-sql]:" + sqlString);
+
+        try {
+            return flysqlKey.getJdbcTemplate().queryForObject(sqlString, new BeanPropertyRowMapper<>(flysqlKey.getTargetClass()));
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<A> query() {
+
+        String sqlString = parseSqlConditions(initSelectSql(), sqlConditions);
+        log.debug("[oxygen-flysql-sql]:" + sqlString);
+
+        try {
+            return flysqlKey.getJdbcTemplate().query(sqlString, new BeanPropertyRowMapper<>(flysqlKey.getTargetClass()));
+        } catch (Exception e) {
+            throw new FlysqlException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<A> query(Integer page, Integer size) {
+
+        String sqlString = parseSqlConditions(initSelectSql(), sqlConditions) + " limit " + (page - 1) * size + " , " + size;
+        log.debug("[oxygen-flysql-sql]:" + sqlString);
+
+        try {
+            return flysqlKey.getJdbcTemplate().query(sqlString, new BeanPropertyRowMapper<>(flysqlKey.getTargetClass()));
+        } catch (Exception e) {
+            throw new FlysqlException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void doUpdate() {
+
+        String sqlString = parseSqlConditions(initUpdateSql(), sqlConditions);
+        log.debug("[oxygen-flysql-sql]" + sqlString);
+
+        try {
+            flysqlKey.getJdbcTemplate().update(sqlString);
+        } catch (Exception e) {
+            throw new FlysqlException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void save(Object entity) {
+
+        String sqlString = initSaveSql(entity);
+        log.debug("[oxygen-flysql-sql]:" + sqlString);
+
+        try {
+            flysqlKey.getJdbcTemplate().execute(sqlString);
+        } catch (Exception e) {
+            throw new FlysqlException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void doDelete() {
+
+        String sqlString = parseSqlConditions(initDeleteSql(), sqlConditions);
+        log.debug("[oxygen-flysql-sql]:" + sqlString);
+
+        try {
+            flysqlKey.getJdbcTemplate().update(sqlString);
+        } catch (Exception e) {
+            throw new FlysqlException(e.getMessage());
+        }
+    }
+
+    @Override
+    public Integer count() {
+
+        String sqlString = parseSqlConditions(initCountSql(), sqlConditions);
+        log.debug("[oxygen-flysql-sql]:" + sqlString);
+
+        try {
+            return flysqlKey.getJdbcTemplate().queryForObject(sqlString, Integer.class);
+        } catch (Exception e) {
+            throw new FlysqlException(e.getMessage());
+        }
+    }
+
+    // ---------------------------------------- init sql ----------------------------------------
+
     /**
-     * 解析flysql的条件
+     * init count sql
      *
-     * @param sqlString     初始化sql
-     * @param sqlConditions sql的拼接条件
+     * @return sqlString
+     * @since 0.0.1
+     */
+    public String initCountSql() {
+
+        return "select count(1) from " + FlysqlUtils.getTableName(flysqlKey.getTargetClass());
+    }
+
+    /**
+     * init delete sql
+     *
+     * @return sqlString
+     * @since 0.0.1
+     */
+    public String initDeleteSql() {
+
+        return "delete from " + FlysqlUtils.getTableName(flysqlKey.getTargetClass());
+    }
+
+    /**
+     * init update sql
+     *
+     * @return sqlString
+     * @since 0.0.1
+     */
+    public String initUpdateSql() {
+
+        StringBuilder sqlStringBuilder = new StringBuilder("update " + FlysqlUtils.getTableName(flysqlKey.getTargetClass()) + " set ");
+
+        for (SqlCondition sqlConditionMeta : sqlConditions) {
+            if (sqlConditionMeta.getOperateType().equals(UPDATE)) {
+                Object value = sqlConditionMeta.getValue();
+                if (value == null) {
+                    sqlStringBuilder.append(sqlConditionMeta.getColumnName()).append(" = null");
+                } else {
+                    sqlStringBuilder.append(sqlConditionMeta.getColumnName()).append(" = ").append(value);
+                }
+            }
+        }
+        return sqlStringBuilder.toString();
+    }
+
+    /**
+     * init select sql
+     *
+     * @return sqlString
+     * @since 0.0.1
+     */
+    public String initSelectSql() {
+
+        if (flysqlKey.getSqlType().equals(SqlType.VIEW)) {
+
+            // duplicate view
+            if (flysqlKey.getTargetClass().isAnnotationPresent(FlysqlViews.class)) {
+
+                FlysqlView[] flysqlViews = flysqlKey.getTargetClass().getAnnotation(FlysqlViews.class).value();
+                for (FlysqlView metaFlysqlView : flysqlViews) {
+                    if (flysqlKey.getViewSqlName().equals(metaFlysqlView.name())) {
+                        return " select " + FlysqlConstants.SELECT_REPLACE_CONTENT + " from ( " + metaFlysqlView.value() + " ) flysql ";
+                    }
+                }
+            }
+
+            // singel view
+            if (flysqlKey.getTargetClass().isAnnotationPresent(FlysqlView.class)) {
+
+                FlysqlView flysqlView = flysqlKey.getTargetClass().getAnnotation(FlysqlView.class);
+                return " select " + FlysqlConstants.SELECT_REPLACE_CONTENT + " from ( " + flysqlView.value() + " ) flysql ";
+            }
+
+            throw new FlysqlException("view is not exist");
+        } else {
+
+            // normal select sql
+            String tableName = FlysqlUtils.getTableName(flysqlKey.getTargetClass());
+            return tableName == null ? "" : "select " + FlysqlConstants.SELECT_REPLACE_CONTENT + " from " + tableName;
+        }
+    }
+
+    /**
+     * init insert sql
+     *
+     * @param entity entity
+     * @return sqlString
+     * @since 0.0.1
+     */
+    public String initSaveSql(Object entity) {
+
+        List<String> columnList = new ArrayList<>();
+        List<String> valueList = new ArrayList<>();
+
+        List<FieldBody> fieldBodies = ReflectUtils.queryFields(flysqlKey.getTargetClass());
+
+        for (FieldBody metaFieldBody : fieldBodies) {
+
+            Object invoke;
+
+            Field metaField = metaFieldBody.getField();
+            if (metaField.isAnnotationPresent(CreatedBy.class) || metaField.isAnnotationPresent(LastModifiedBy.class)) {
+                invoke = getExecutorId();
+            } else if (metaField.isAnnotationPresent(CreatedDate.class) || metaField.isAnnotationPresent(LastModifiedDate.class)) {
+                invoke = LocalDateTime.now();
+            } else if (metaField.isAnnotationPresent(Version.class) ) {
+                invoke = 1;
+            } else if (metaField.isAnnotationPresent(IsDelete.class)) {
+                invoke = 0;
+            } else {
+                try {
+                    invoke = metaFieldBody.getReadMethod().invoke(entity);
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    continue;
+                }
+            }
+
+            if (invoke != null) {
+                columnList.add(columnsMap.get(metaField.getName()));
+                if (metaField.getName().equals(ReflectConstants.BOOLEAN)) {
+                    valueList.add(invoke.toString());
+                } else {
+                    valueList.add(FlysqlBuilder.addSingleQuote(invoke));
+                }
+            }
+        }
+
+        String tableName = FlysqlUtils.getTableName(flysqlKey.getTargetClass());
+
+        return "insert into " + tableName + " ( " + Strings.join(columnList, ',') + " ) values ( " + Strings.join(valueList, ',') + ")";
+    }
+
+    /**
+     * get executor id
+     *
+     * @return user id
+     * @since 0.0.1
+     */
+    public String getExecutorId() {
+
+        if (SecurityContextHolder.getContext() == null || SecurityContextHolder.getContext().getAuthentication() == null) {
+            return "anonymous";
+        }
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal == null) {
+            return "anonymous";
+        }
+
+        return String.valueOf(principal);
+    }
+
+    /**
+     * parse sql conditions
+     *
+     * @param sqlString     sqlString
+     * @param sqlConditions sqlConditions
      * @return sqlString
      * @since 0.0.1
      */
     public String parseSqlConditions(String sqlString, List<SqlCondition> sqlConditions) {
 
-        // 转化StringBuilder拼接
         StringBuilder sqlStringBuilder = new StringBuilder(sqlString);
 
-        // 判断标识是否使用了select做自定义查询
         boolean selectFlag = true;
 
-        // 前一个拼接条件临时储存
         SqlCondition sqlConditionTemp = null;
 
-        // 遍历所有的拼接条件
         for (SqlCondition sqlConditionMeta : sqlConditions) {
+
             switch (sqlConditionMeta.getOperateType()) {
                 case SELECT:
                     sqlStringBuilder = new StringBuilder(sqlStringBuilder.toString().replace(FlysqlConstants.SELECT_REPLACE_CONTENT, String.valueOf(sqlConditionMeta.getValue())));
@@ -97,7 +326,11 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
                     sqlStringBuilder.append(sqlConditionMeta.getOperateType().getCode());
                     break;
                 case ORDER_BY:
-                    FlysqlUtils.addOrderBy(sqlConditionTemp, sqlStringBuilder);
+                    if (hasOperateType(sqlConditionTemp, SqlOperateType.ORDER_BY)) {
+                        sqlStringBuilder.append(",");
+                    } else {
+                        sqlStringBuilder.append(" order by ");
+                    }
                     sqlStringBuilder.append(sqlConditionMeta.getColumnName()).append(" ").append(sqlConditionMeta.getValue());
                     break;
                 case UPDATE:
@@ -105,14 +338,17 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
                 case SQL:
                     return sqlConditionMeta.getColumnName();
                 default:
-                    FlysqlUtils.addWhere(sqlConditionTemp, sqlStringBuilder);
+                    if (hasOperateType(sqlConditionTemp, UPDATE) || hasOperateType(sqlConditionTemp, SqlOperateType.SELECT) || hasOperateType(sqlConditionTemp, SqlOperateType.SET_VALUE)) {
+                        sqlStringBuilder.append(" where ");
+                    } else {
+                        sqlStringBuilder.append(" and ");
+                    }
                     sqlStringBuilder.append(sqlConditionMeta.getColumnName()).append(sqlConditionMeta.getOperateType().getCode()).append(sqlConditionMeta.getValue());
                     break;
             }
             sqlConditionTemp = sqlConditionMeta;
         }
 
-        // 没有select条件,替换对象的所有属性
         if (selectFlag) {
             List<String> columnsList = new ArrayList<>();
             columnsMap.forEach((k, v) -> columnsList.add(v + " " + k));
@@ -123,220 +359,18 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
     }
 
     /**
-     * 初始化select查询的sql
+     * has use operate
      *
-     * @return sqlString
+     * @param sqlCondition   sqlCondition
+     * @param sqlOperateType sqlOperateType
+     * @return true has used
      * @since 0.0.1
      */
-    public String initSelectSql() {
+    public static Boolean hasOperateType(SqlCondition sqlCondition, SqlOperateType sqlOperateType) {
 
-        if (flysqlKey.getSqlType().equals(SqlType.VIEW)) {
-
-            // 多视图初始化
-            if (flysqlKey.getTargetClass().isAnnotationPresent(FlysqlViews.class)) {
-                FlysqlView[] flysqlViews = flysqlKey.getTargetClass().getAnnotation(FlysqlViews.class).value();
-                for (FlysqlView metaFlysqlView : flysqlViews) {
-                    if (flysqlKey.getViewSqlName().equals(metaFlysqlView.name())) {
-                        return " select " + FlysqlConstants.SELECT_REPLACE_CONTENT + " from ( " + metaFlysqlView.value() + " ) flysql ";
-                    }
-                }
-            }
-
-            // 单视图初始化
-            if (flysqlKey.getTargetClass().isAnnotationPresent(FlysqlView.class)) {
-                FlysqlView flysqlView = flysqlKey.getTargetClass().getAnnotation(FlysqlView.class);
-                return " select " + FlysqlConstants.SELECT_REPLACE_CONTENT + " from ( " + flysqlView.value() + " ) flysql ";
-            }
-
-            throw new FlysqlException("view is not exist");
-        } else {
-
-            String tableName = FlysqlUtils.getTableName(flysqlKey.getTargetClass());
-            return tableName == null ? "" : "select " + FlysqlConstants.SELECT_REPLACE_CONTENT + " from " + tableName;
+        if (sqlCondition == null) {
+            return true;
         }
-
-    }
-
-    /**
-     * 获取全局的用户id
-     *
-     * @return  获取执行者id
-     * @since 0.0.1
-     */
-    public String getExecutorId() {
-
-        if (SecurityContextHolder.getContext() == null || SecurityContextHolder.getContext().getAuthentication() == null) {
-            return "anonymous";
-        }
-
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal == null) {
-            return "anonymous";
-        }
-        ;
-
-        return String.valueOf(principal);
-    }
-
-    /**
-     * 初始化插入sql拼接 将object反射获取数据库字段名和属性值
-     * Example: insert table ( ) values ( )
-     *
-     * @param entity 对象实体
-     * @return sqlString
-     * @since 0.0.1
-     */
-    @SneakyThrows
-    public String initSaveSql(Object entity) {
-
-        // 获取属性值属性
-        PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(flysqlKey.getTargetClass());
-
-        // 遍历封装进数据库字段和变量值
-        List<String> columnList = new ArrayList<>();
-        List<String> valueList = new ArrayList<>();
-
-        // 解析所有属性和它对应的值
-        for (PropertyDescriptor propertyMeta : propertyDescriptors) {
-            if (!FlysqlConstants.CLASS.equals(propertyMeta.getName())) {
-
-                //  反射读取对象中的数据
-                Object invoke;
-
-                // 获取属性的Field,为了识别自动更新参数注解
-                Field metaField = propertyMeta.getReadMethod().getDeclaringClass().getDeclaredField(propertyMeta.getName());
-                if (metaField.isAnnotationPresent(CreatedBy.class) || metaField.isAnnotationPresent(LastModifiedBy.class)) {
-                    invoke = getExecutorId();
-                } else if (metaField.isAnnotationPresent(CreatedDate.class) || metaField.isAnnotationPresent(LastModifiedDate.class)) {
-                    invoke = LocalDateTime.now();
-                } else if (metaField.isAnnotationPresent(Version.class) || metaField.isAnnotationPresent(IsDelete.class)) {
-                    invoke = 0;
-                } else {
-                    try {
-                        invoke = propertyMeta.getReadMethod().invoke(entity);
-                    } catch (IllegalAccessException | InvocationTargetException e) {
-                        continue;
-                    }
-                }
-
-                if (invoke != null) {
-                    // 添加数据库字段对应值
-                    columnList.add(columnsMap.get(propertyMeta.getName()));
-
-                    // 对boolean类型做特殊处理
-                    if (propertyMeta.getPropertyType().getName().equals(JavaTypeConstants.Boolean)) {
-                        valueList.add(invoke.toString());
-                    } else {
-                        valueList.add(FlysqlUtils.addSingleQuote(invoke));
-                    }
-                }
-            }
-        }
-
-        String tableName = FlysqlUtils.getTableName(flysqlKey.getTargetClass());
-
-        // 拼接插入sql
-        return "insert into " + tableName + " ( " + Strings.join(columnList, ',') + " ) values ( " + Strings.join(valueList, ',') + ")";
-    }
-
-    // ---------------------------------------- 执行jdbcTemplate操作 ----------------------------------------
-
-    @Override
-    public A getOne() {
-
-        String sqlString = parseSqlConditions(initSelectSql(), sqlConditions);
-        log.debug("[oxygen-flysql-sql]:" + sqlString);
-
-        try {
-            return flysqlKey.getJdbcTemplate().queryForObject(sqlString, new BeanPropertyRowMapper<>(flysqlKey.getTargetClass()));
-        } catch (EmptyResultDataAccessException e) {
-            if ("Incorrect result size: expected 1, actual 0".equals(e.getMessage())) {
-                return null;
-            }
-            throw new FlysqlException(e.getMessage());
-        }
-    }
-
-    @Override
-    public List<A> query() {
-
-        String sqlString = parseSqlConditions(initSelectSql(), sqlConditions);
-        log.debug("[oxygen-flysql-sql]:" + sqlString);
-        try {
-            return flysqlKey.getJdbcTemplate().query(sqlString, new BeanPropertyRowMapper<>(flysqlKey.getTargetClass()));
-        } catch (Exception e) {
-            throw new FlysqlException(e.getMessage());
-        }
-    }
-
-    @Override
-    public List<A> query(Integer page, Integer size) {
-
-        String sqlString = parseSqlConditions(initSelectSql(), sqlConditions) + " limit " + (page - 1) * size + " , " + size;
-        log.debug("[oxygen-flysql-sql]:" + sqlString);
-        try {
-            return flysqlKey.getJdbcTemplate().query(sqlString, new BeanPropertyRowMapper<>(flysqlKey.getTargetClass()));
-        } catch (Exception e) {
-            throw new FlysqlException(e.getMessage());
-        }
-    }
-
-    @Override
-    public void doUpdate() {
-
-        StringBuilder sqlStringBuilder = new StringBuilder("update " + FlysqlUtils.getTableName(flysqlKey.getTargetClass()) + " set ");
-        for (SqlCondition sqlConditionMeta : sqlConditions) {
-            if (sqlConditionMeta.getOperateType().equals(UPDATE)) {
-                Object value = sqlConditionMeta.getValue();
-                if (value == null) {
-                    sqlStringBuilder.append(sqlConditionMeta.getColumnName()).append(" = null");
-                }else{
-                    sqlStringBuilder.append(sqlConditionMeta.getColumnName()).append(" = ").append(value);
-                }
-            }
-        }
-        String sqlString = parseSqlConditions(sqlStringBuilder.toString(), sqlConditions);
-        log.debug("[oxygen-flysql-sql]" + sqlString);
-        try {
-            flysqlKey.getJdbcTemplate().update(sqlString);
-        } catch (Exception e) {
-            throw new FlysqlException(e.getMessage());
-        }
-    }
-
-    @Override
-    public void save(Object entity) {
-
-        String sqlString = initSaveSql(entity);
-        log.debug("[oxygen-flysql-sql]:" + sqlString);
-        try {
-            flysqlKey.getJdbcTemplate().execute(sqlString);
-        } catch (Exception e) {
-            throw new FlysqlException(e.getMessage());
-        }
-    }
-
-    @Override
-    public void doDelete() {
-
-        String sqlString = parseSqlConditions("delete from " + FlysqlUtils.getTableName(flysqlKey.getTargetClass()), sqlConditions);
-        log.debug("[oxygen-flysql-sql]:" + sqlString);
-        try {
-            flysqlKey.getJdbcTemplate().update(sqlString);
-        } catch (Exception e) {
-            throw new FlysqlException(e.getMessage());
-        }
-    }
-
-    @Override
-    public Integer count() {
-
-        String sqlString = parseSqlConditions("select count(1) from " + FlysqlUtils.getTableName(flysqlKey.getTargetClass()), sqlConditions);
-        log.debug("[oxygen-flysql-sql]:" + sqlString);
-        try {
-            return flysqlKey.getJdbcTemplate().queryForObject(sqlString, Integer.class);
-        } catch (Exception e) {
-            throw new FlysqlException(e.getMessage());
-        }
+        return sqlCondition.getOperateType().equals(sqlOperateType);
     }
 }

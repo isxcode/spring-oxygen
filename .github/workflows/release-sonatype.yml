@@ -1,7 +1,3 @@
-# https://oss.sonatype.org/
-# https://search.maven.org/
-# https://search.maven.org/artifact/com.isxcode.oxygen/oxygen-spring-boot-starter
-
 name: 🔖 release for sonatype
 
 on:
