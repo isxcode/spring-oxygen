@@ -1,10 +1,12 @@
 package com.isxcode.oxygen.core.excel;
 
 import com.isxcode.oxygen.core.exception.OxygenException;
-import com.isxcode.oxygen.core.reflect.ReflectConstants;
 import com.isxcode.oxygen.core.reflect.FieldBody;
+import com.isxcode.oxygen.core.reflect.ReflectConstants;
 import com.isxcode.oxygen.core.reflect.ReflectUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
 import org.springframework.http.HttpHeaders;
@@ -55,7 +57,8 @@ public class ExcelUtils {
         List<A> result = new ArrayList<>();
 
         try {
-            Workbook workbook = XSSFWorkbookFactory.create(inputStream);
+            OPCPackage pkg = OPCPackage.open(inputStream);
+            Workbook workbook = XSSFWorkbookFactory.createWorkbook(pkg);
 
             Sheet sheet = workbook.getSheetAt(0);
             int firstRowNum = sheet.getFirstRowNum();
@@ -127,7 +130,7 @@ public class ExcelUtils {
                 firstRowNum++;
             }
             return result;
-        } catch (IOException | IllegalAccessException | InvocationTargetException e) {
+        } catch (IOException | IllegalAccessException | InvocationTargetException | InvalidFormatException e) {
             throw new OxygenException(e.getMessage());
         }
     }
