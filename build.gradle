@@ -12,7 +12,7 @@ plugins {
 }
 
 /*
- * config moudle info
+ * config module info
  */
 subprojects {
 
