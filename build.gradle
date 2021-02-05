@@ -62,7 +62,7 @@ subprojects {
         implementation 'org.apache.logging.log4j:log4j-api:2.14.0'
 
         implementation 'org.junit.jupiter:junit-jupiter'
-        testCompile 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+        testCompile 'org.junit.jupiter:junit-jupiter-api:5.7.1'
     }
 
     /*
