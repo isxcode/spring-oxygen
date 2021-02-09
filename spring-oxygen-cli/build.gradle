@@ -1,3 +1,12 @@
 dependencies {
+
+    /**
+     * spring shell
+     */
     implementation 'org.springframework.shell:spring-shell-starter:2.0.0.RELEASE'
+
+    /**
+     * spring oxygen core
+     */
+    implementation(project(':spring-oxygen-core'))
 }

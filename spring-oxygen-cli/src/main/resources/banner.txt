@@ -1,0 +1,3 @@
+Welcome to use Spring Oxygen Cli !
+
+you can use command 'init' to generate project

@@ -48,8 +48,6 @@
   - 📒 [Documentation](#-documentation)
   - 👏 [Contributing](#-contributing)
 
-<br/>
-
 ## 🐣 Introduce
 
 [Spring Oxygen](https://github.com/isxcode/spring-oxygen) is rapid development integration framework for [Spring](https://spring.io/).

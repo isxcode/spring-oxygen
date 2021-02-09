@@ -1,30 +1,41 @@
 package com.isxcode.oxygen.cli.command;
 
+import com.isxcode.oxygen.cli.store.LocalStorage;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 
+/**
+ * all command
+ *
+ * @author ispong
+ * @since 0.0.2
+ */
 @ShellComponent
 public class CommandCenter {
+
+    private final CommandService commandService;
+
+    public CommandCenter(CommandService commandService) {
+
+        this.commandService = commandService;
+    }
 
     @ShellMethod(key = "init", value = "init project")
     public String init() {
 
-        if (LocalStorage.projectInfo.getArtifact() == null ||
-            LocalStorage.projectInfo.getDescription() == null ||
-            LocalStorage.projectInfo.getGroup() == null ||
-            LocalStorage.projectInfo.getName() == null ||
-            LocalStorage.projectInfo.getPackageName() == null ||
-            LocalStorage.projectInfo.getLocalPath() == null) {
+        if (commandService.canGenerateProject()) {
 
-            return "请先配置好项目信息 \n" +
-                LocalStorage.projectInfo.toString() +
-                "command like: oxygen set name=xxx  \n";
+            LocalStorage.nowCommandCode = "Select Build Tool";
+
+            return "" +
+                "select build tool: \n" +
+                "    [A] Gradle \n" +
+                "    [B] Maven ";
         }
 
-        return "" +
-            "select build tool: \n" +
-            "    [A] gradle \n" +
-            "    [B] maven ";
+        return "please full project info: \n\n" +
+            commandService.printProjectInfo() +
+            "\ncommand like: oxygen set group=xxx  \n";
     }
 
     @ShellMethod(key = "oxygen", value = "set oxygen params")
@@ -46,7 +57,7 @@ public class CommandCenter {
                     LocalStorage.projectInfo.setName(value);
                     break;
                 case "localPath":
-                    LocalStorage.projectInfo.setLocalPath(value);
+                    LocalStorage.localPath = value;
                     break;
                 case "artifact":
                     LocalStorage.projectInfo.setArtifact(value);
@@ -62,8 +73,10 @@ public class CommandCenter {
                     break;
             }
 
-            return "请先配置好项目信息 \n" +
-                LocalStorage.projectInfo.toString();
+            return "please full project info: \n\n" +
+                commandService.printProjectInfo() +
+                "\n" +
+                "command like: oxygen set group=xxx  \n";
         }
 
         return "" +

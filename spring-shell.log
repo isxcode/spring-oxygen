@@ -30,3 +30,18 @@
 1611983837433:init
 1611983907658:oxygen set name=test001
 1611983920650:init
+1612843974872:oxygen set group=com.demo.b
+1612844033245:init
+1612844044591:oxygen set group=com.demo.a
+1612844080827:init
+1612844132577:oxygen set group=com.demo.a
+1612844190553:init
+1612844213756:oxygen set group=com.demo.system
+1612844523040:init
+1612844611126:oxygen set group=com.demo.a
+1612844621804:oxygen set name= zhangasan
+1612844641071:oxygen set name=zhangsan
+1612844654541:oxygen set localPath=D:/
+1612844667326:oxygen set artifact=demo
+1612844705335:init
+1612845059264:A
