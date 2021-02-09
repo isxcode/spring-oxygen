@@ -2,7 +2,7 @@
  * point plugin version
  */
 plugins {
-    id 'org.springframework.boot' version '2.3.5.RELEASE'
+    id 'org.springframework.boot' version '2.4.2'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
     id 'maven'
@@ -12,9 +12,11 @@ plugins {
 }
 
 /*
- * config module info
+ * config subproject module info
  */
 subprojects {
+
+    println "now is " + project.name
 
     /*
      * add plugin
@@ -44,23 +46,44 @@ subprojects {
         }
     }
 
+    /**
+     * common dependencies
+     */
     dependencies {
 
-        testImplementation('org.springframework.boot:spring-boot-starter-test') {
-            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-        }
-
+        /**
+         * spring web
+         */
         implementation('org.springframework.boot:spring-boot-starter-web') {
             exclude group: 'com.fasterxml.jackson.datatype', module: 'jackson-datatype-jdk8'
         }
 
+        /**
+         * spring web test
+         */
+        testImplementation('org.springframework.boot:spring-boot-starter-test') {
+            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        }
+
+        /**
+         * spring-annotation
+         */
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
+        /**
+         * lombok
+         */
         compileOnly 'org.projectlombok:lombok:1.18.16'
         annotationProcessor 'org.projectlombok:lombok:1.18.16'
 
+        /**
+         * log4j
+         */
         implementation 'org.apache.logging.log4j:log4j-api:2.14.0'
 
+        /**
+         * junit5
+         */
         implementation 'org.junit.jupiter:junit-jupiter'
         testCompile 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     }
@@ -176,12 +199,9 @@ subprojects {
     }
 
     jacoco {
-        toolVersion = "0.8.5"
-        reportsDir = file("$buildDir/jacocoReport")
+        toolVersion = "0.8.6"
+        reportsDirectory = file("$buildDir/jacocoReport")
     }
-}
-
-allprojects {
 
     bootJar { enabled false }
 

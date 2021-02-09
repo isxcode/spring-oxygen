@@ -1,9 +1,3 @@
 dependencies {
     implementation 'org.springframework.shell:spring-shell-starter:2.0.0.RELEASE'
 }
-
-bootJar { enabled true }
-
-jar { enabled false }
-
-bootRun { enabled true }
