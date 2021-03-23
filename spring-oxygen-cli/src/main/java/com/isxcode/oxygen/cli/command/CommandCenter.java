@@ -4,6 +4,8 @@ import com.isxcode.oxygen.cli.store.LocalStorage;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 
+import static com.isxcode.oxygen.cli.store.LocalStorage.nowCommandCode;
+
 /**
  * all command
  *
@@ -25,7 +27,7 @@ public class CommandCenter {
 
         if (commandService.canGenerateProject()) {
 
-            LocalStorage.nowCommandCode = "Select Build Tool";
+            nowCommandCode = "Select Build Tool";
 
             return "" +
                 "select build tool: \n" +
@@ -85,17 +87,32 @@ public class CommandCenter {
             "    [B] maven ";
     }
 
-    public void A(){
+    @ShellMethod(key = "A", value = "A Choose")
+    public String A() {
 
+        switch (nowCommandCode) {
+            case "Select Build Tool":
+                return "" +
+                    "Select Java Version  \n" +
+                    "  [A] 15 \n" +
+                    "  [B] 11 \n" +
+                    "  [C] 8  \n";
+        }
+
+        return "";
     }
 
+    @ShellMethod(key = "B", value = "B Choose")
+    public String B() {
 
-
-    public void B() {
-
+        return "";
     }
 
+    @ShellMethod(key = "C", value = "C Choose")
+    public String C() {
 
+        return "";
+    }
 
     public void Y(){
 
