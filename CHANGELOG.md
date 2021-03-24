@@ -1,17 +1,14 @@
 ## 0.0.2
 
-### 💥 Breaking Change
-
-- spring-oxygen-cli
-
 ### ✨ Feature
 
-- add utils
+- add new features oxygen-cli
+- support new datasource -- Oracle
 
 ### 🎨 Enhancement
 
-- 
+- enhance key column update
 
 ### 🐛 Fix
 
-- 
+- fix can not create default user

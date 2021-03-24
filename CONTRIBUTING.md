@@ -12,17 +12,19 @@ Hello! Thank you for taking the time to contribute! If you want to join us, plea
 - Java 11+
 - Gradle 6.5+
 
-### Contribute (developer : _xiao_)
+### Contribute (developer : _ispong_)
 
-1. Fork Project (https://github.com/xiao/spring-oxygen)
+1. Fork Project (https://github.com/isxcode/spring-oxygen)
 
-2. Clone Project
+your project - https://github.com/ispong/spring-oxygen
+
+2. Clone Project (branch: **latest**)
 
 ```
-git clone https://github.com/xiao/spring-oxygen.git
+git clone -b latest https://github.com/ispong/spring-oxygen.git
 ```
 
-3. Build Project and Use
+3. Build Project and Install Local and Use
 
 ```
 cd spring-oxygen
@@ -41,7 +43,7 @@ dependencies {
 }
 ```
 
-4. Git Branchs
+4. Git Branchs (**Optional**)
 
  Branch             | Desc
  ---                | ---
@@ -51,26 +53,27 @@ dependencies {
  feature-flysql     | flysql moudle
  feature-freecode   | freecode moudle
 
-5. Merge conflict
+5. Merge conflict (branch: **latest**)
 
 ```
-git checkout -b feature-core origin/feature-core
 git remote add upstream https://github.com/isxcode/spring-oxygen.git
 git fetch upstream
-git merge upstream/feature-core
-git push origin feature-core
+git merge upstream/latest
+git push origin latest
 ```
 
 6. Pull Request
 
 - https://github.com/isxcode/spring-oxygen/compare
 
-> Note:  xiao/spring-oxygen/feature-core  --> isxcode/spring-oxygen/feature-core
+> Note:  ispong/spring-oxygen/latest  **==squash merge==>** isxcode/spring-oxygen/latest
+
+7. Merge Rule (**Optional**)
  
  Branch flow                                                                  | Operate
  ----                                                                         | ---
- xiao/spring-oxygen/feature-core --> isxcode/spring-oxygen/feature-core       | squash merge
- isxcode/spring-oxygen/feature-core --> xiao/spring-oxygen/feature-core       | merge commits 
+ ispong/spring-oxygen/feature-core --> isxcode/spring-oxygen/feature-core     | squash merge
+ isxcode/spring-oxygen/feature-core --> ispong/spring-oxygen/feature-core     | merge commits 
  isxcode/spring-oxygen/feature-core --> isxcode/spring-oxygen/release-0.0.x   | merge commits
  isxcode/spring-oxygen/release-0.0.x --> isxcode/spring-oxygen/feature-flysql | squash merge
  isxcode/spring-oxygen/release-0.0.x --> isxcode/spring-oxygen/main           | rebase merge

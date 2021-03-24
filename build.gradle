@@ -16,8 +16,6 @@ plugins {
  */
 subprojects {
 
-    println "now is " + project.name
-
     /*
      * add plugin
      */
