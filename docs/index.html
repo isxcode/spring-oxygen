@@ -9,16 +9,16 @@
 
   <!-- themes choose  -->
    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
-  <!-- Theme: Defaults -->
-<!--   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-defaults.css">-->
-  <!-- Theme: Simple -->
-<!--   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">-->
-  <!-- Theme: Simple Dark -->
-  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css"> -->
-<!--   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css" />-->
-<!--   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/buble.css" />-->
-<!--   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/dark.css" />-->
-<!--   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/pure.css" />-->
+    <!--   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css" />-->
+    <!--   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/buble.css" />-->
+    <!--   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/dark.css" />-->
+    <!--   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/pure.css" />-->
+    <!-- Theme: Defaults -->
+    <!--   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">-->
+    <!-- Theme: Simple -->
+    <!--   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-defaults.css">-->
+    <!-- Theme: Simple Dark -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css"> -->
 
 </head>
 <body>
@@ -26,35 +26,39 @@
   <script>
       window.$docsify = {
           // 指定默认文件夹
-          basePath: './zh-cn/',
+          basePath: '/',
           // 指定项目名称
           name: 'spring oxygen',
           // name: '<span style="color:#6db33f;font-size: 35px;font-weight: bold;display: block;height: 65px">spring oxygen</span>',
           // nameLink: '/',
           // 指定默认首页
-          // homepage: '/#/zh-cn/README.md',
+          homepage: '/zh-cn/README.md',
           // 设置系统主题色
           themeColor: '#6db33f',
           // 右上角配置github
           repo: 'https://github.com/isxcode/spring-oxygen',
           // 设置项目logo(目前禁用)
-          logo: '../_media/logo.png',
+          logo: '_media/logo.png',
           // 开启侧边栏
           loadSidebar: true,
           // 开启导航栏
-          loadNavbar: '../_navbar.md',
+          loadNavbar: '_navbar.md',
           // 开启搜索
           search: 'auto',
           // 开启首页
           // coverpage: true,
           // 自定义404界面(多语言无效)
-          notFoundPage: '../_404.md',
+          notFoundPage: '_media/_404.md',
           // 侧边栏最大层级
           subMaxLevel: 3,
           // 设置路由模式 (history/hash)
-          routerMode: 'history',
+          routerMode: 'hash',
           // 切换页面自动置顶
-          // auto2top: true,
+          auto2top: true,
+          // 路由控制
+          alias: {
+              '/_sidebar.md': '/zh-cn/_sidebar.md'
+          }
       };
   </script>
 
