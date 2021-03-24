@@ -24,7 +24,6 @@
 
 <div align="center">
 
-[![Wiki](https://img.shields.io/badge/Wiki-docs-important)](https://github.com/isxcode/spring-oxygen/wiki)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/isxcode/spring-oxygen/blob/main/CONTRIBUTING.md)
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/isxcode/spring-oxygen)
 
@@ -38,16 +37,26 @@
 
 </div>
 
-## 🐣 Intro
+##  Table of contents
+
+  - 🐣 [Introduce](#-introduce)
+  - 📦 [Installation](#-installation)
+    - [Gradle](#for-gradle)
+    - [Maven](#for-maven)
+  - 🔨 [Usage](#-usage)
+  - 📒 [Documentation](#-documentation)
+  - 👏 [Contributing](#-contributing)
+
+## 🐣 Introduce
 
 [Spring Oxygen](https://github.com/isxcode/spring-oxygen) is rapid development integration framework for [Spring](https://spring.io/).
 **Important statement, enterprise-level development is recommended to be used with caution!**
 For instructions on use, please check the [Wiki](https://github.com/isxcode/spring-oxygen/wiki) carefully.
 Welcome to develop and maintain together, please follow the [github development](https://github.com/isxcode/spring-oxygen/blob/main/CONTRIBUTING.md) specification.
 
-## 📦 Install
+## 📦 Installation
 
-- for Gradle
+#### For Gradle
 
 ```groovy
 dependencies {
@@ -55,7 +64,7 @@ dependencies {
 }
 ```
 
-- for Maven
+#### For Maven
 
 ```xml
 <dependency>
@@ -68,27 +77,35 @@ dependencies {
 ## 🔨 Usage
 
 ```java
-import com.ispong.oxygen.flysql.pojo.enums.OrderType;
+import com.isxcode.oxygen.flysql.pojo.enums.OrderType;
 import org.springframework.stereotype.Repository;
-import com.ispong.oxygen.flysql.core.Flysql;
+import com.isxcode.oxygen.flysql.core.Flysql;
 
 import java.util.List;
 
 @Repository
-public class LeoDogsRepository {
+public class DogsRepository {
 
-    public List<LeoDogsEntity> customQuery() {
+    public List<DogsEntity> queryDogsEntity() {
 
-        return Flysql.select(LeoDogsEntity.class)
+        return Flysql.select(DogsEntity.class)
             .select("name", "age", "color")
             .eq("name", "alen")
-            .between("age", 12, 20)
+            .between("age", 1, 2)
             .like("color", "red")
-            .orderBy("userIndex", OrderType.DESC)
+            .orderBy("index", OrderType.DESC)
             .query();
     }
 }
 ```
+
+## 📒 Documentation
+
+- [Docs](https://isxcode.github.io/spring-oxygen/#/)
+
+##  👏 Contributing
+
+- [PRs Welcome](https://github.com/isxcode/spring-oxygen/blob/main/CONTRIBUTING.md)
 
 ***
 

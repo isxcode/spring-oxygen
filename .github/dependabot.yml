@@ -1,4 +1,6 @@
-# https://docs.github.com/en/github/administering-a-repository/keeping-your-dependencies-updated-automatically
+##
+# dependabot config [https://docs.github.com/en/github/administering-a-repository/keeping-your-dependencies-updated-automatically]
+##
 version: 2
 updates:
 
@@ -7,8 +9,8 @@ updates:
     target-branch: 'latest'
     open-pull-requests-limit: 30
     schedule:
-      interval: 'daily'
-      timezone: "Asia/Shanghai"
+      interval: 'weekly'
+      timezone: 'Asia/Shanghai'
       time: '09:00'
 
   - package-ecosystem: 'gradle'
@@ -16,6 +18,6 @@ updates:
     target-branch: 'latest'
     open-pull-requests-limit: 30
     schedule:
-      interval: 'daily'
-      timezone: "Asia/Shanghai"
+      interval: 'weekly'
+      timezone: 'Asia/Shanghai'
       time: '09:00'

@@ -1,6 +1,6 @@
-drop table if exists dogs;
+drop table if exists leo_dogs;
 
-create table dogs
+create table leo_dogs
 (
     name               varchar(32)  primary key ,
     age                integer      not null ,

@@ -1,23 +1,11 @@
-/*
- * Copyright [2020] [ispong]
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.isxcode.oxygen.freecode.utils;
 
 import com.isxcode.oxygen.core.exception.OxygenException;
 import com.isxcode.oxygen.core.freemarker.FreemarkerUtils;
-import com.isxcode.oxygen.freecode.pojo.entity.TableColumnInfo;
+import com.isxcode.oxygen.flysql.core.Flysql;
+import com.isxcode.oxygen.freecode.entity.FreecodeInfo;
+import com.isxcode.oxygen.freecode.entity.TableColumnInfo;
+import com.isxcode.oxygen.freecode.properties.FreecodeProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
@@ -25,16 +13,16 @@ import org.springframework.util.ResourceUtils;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static java.util.regex.Pattern.compile;
 
 /**
- * freecode工具类
+ * freecode utils
  *
  * @author ispong
  * @since 0.0.1
@@ -43,88 +31,45 @@ import static java.util.regex.Pattern.compile;
 @Slf4j
 public class FreecodeUtils {
 
-    private static FreemarkerUtils freemarkerUtils;
-
-    public FreecodeUtils(FreemarkerUtils freemarkerUtils) {
-
-        FreecodeUtils.freemarkerUtils = freemarkerUtils;
-    }
-
     /**
-     * 生成文件
+     * generate file
      *
-     * @param fileName     文件名
-     * @param templateName 模板名
-     * @param freecodeInfo 对象
-     * @param modulePath   文件路径
-     * @throws IOException 生成文件异常
+     * @param directoryName directory name
+     * @param fileName      file name
+     * @param templateName  template name
+     * @param freecodeInfo  freecodeInfo
+     * @throws IOException file exception
      * @since 0.0.1
      */
-    public static void generateFile(String modulePath, String fileName, String templateName, Object freecodeInfo) throws IOException {
+    public static void generateFile(String directoryName, String fileName, String templateName, FreecodeInfo freecodeInfo) throws IOException {
 
-        // 生成文件夹
-        modulePath = ResourceUtils.getURL(modulePath).getPath().substring(1);
-        if (!Files.exists(Paths.get(modulePath)) && !Files.isDirectory(Paths.get(modulePath))) {
-            Files.createDirectory(Paths.get(modulePath));
+        // fine module path
+        String modulePath = ResourceUtils.getURL(freecodeInfo.getFreecodeProperties().getModulePath()).getPath().substring(1);
+
+        // generate directoty
+        String directoryPath = modulePath + directoryName;
+        if (!Files.exists(Paths.get(directoryPath)) && !Files.isDirectory(Paths.get(directoryPath))) {
+            Files.createDirectory(Paths.get(directoryPath));
         }
-
-        // 生成文件
-        String filePath = modulePath + "/" + fileName;
+        // geneate file
+        String filePath = directoryPath + "/" + fileName;
         if (!Files.exists(Paths.get(filePath))) {
-            try {
-                freemarkerUtils.generateToFile(templateName, freecodeInfo, filePath);
-            } catch (OxygenException e) {
-                log.debug("freecode generate file error->" + e.getMessage());
-                e.printStackTrace();
-            }
+            FreemarkerUtils.templateToFile(templateName, freecodeInfo, filePath);
         }
     }
 
     /**
-     * 首字母大写
+     * parse data type
      *
-     * @param data 需要转的string
-     * @return string
-     * @since 0.0.1
-     */
-    public static String upperFirstCase(String data) {
-
-        return data.substring(0, 1).toUpperCase() + data.substring(1);
-    }
-
-    /**
-     * 下划线转小驼峰
-     *
-     * @param lineStr 包含下滑线字符串
-     * @return 下划线写法
-     * @since 2019-12-24
-     */
-    public static String lineToHump(String lineStr) {
-
-        StringBuffer humpStrBuff = new StringBuffer();
-        lineStr = lineStr.toLowerCase();
-        Matcher matcher = compile("_(\\w)").matcher(lineStr);
-        while (matcher.find()) {
-            matcher.appendReplacement(humpStrBuff, matcher.group(1).toUpperCase());
-        }
-        return matcher.appendTail(humpStrBuff).toString();
-    }
-
-    /**
-     * 将数据库类型转换成java的类型
-     *
-     * @param dataType 数据库类型
-     * @return java类型
+     * @param dataType dataType
+     * @return data class
      * @since 2020-01-09
      */
     public static String parseDataType(String dataType) {
 
-        // 去掉括号，包括括号内的值
-        // Example: varchar(200) --> varchar
         Pattern pattern = compile("\\(.*?\\)");
         String dataStr = pattern.matcher(dataType).replaceAll("");
 
-        // 匹配全小写的数据库字段
         switch (dataStr.toLowerCase()) {
             case "int":
             case "integer":
@@ -146,16 +91,34 @@ public class FreecodeUtils {
     }
 
     /**
-     * 生成需要导入的jar包
+     * parse table name
      *
-     * @param fieldList 数据库字段列表
-     * @return 返回需要导入的包
+     * @param tableName          tableName
+     * @param freecodeProperties freecodeProperties
+     * @return String
+     * @since 0.0.1
+     */
+    public static String parseTableName(String tableName, FreecodeProperties freecodeProperties) {
+
+        if (freecodeProperties.getTablePrefix() == null) {
+            return tableName;
+        } else {
+            return tableName.replaceFirst(freecodeProperties.getTablePrefix(), "");
+        }
+    }
+
+    /**
+     * parse entity properties class
+     *
+     * @param columnInfoList columnInfoList
+     * @return List[String]
      * @since 2020-01-09
      */
-    public static List<String> parseDataPackage(List<TableColumnInfo> fieldList) {
+    public static List<String> parseDataPackage(List<TableColumnInfo> columnInfoList) {
 
         List<String> packages = new ArrayList<>();
-        for (TableColumnInfo metaColumn : fieldList) {
+
+        for (TableColumnInfo metaColumn : columnInfoList) {
 
             switch (metaColumn.getType()) {
                 case "LocalDateTime":
@@ -173,8 +136,38 @@ public class FreecodeUtils {
                 default:
             }
         }
+
         return packages.stream().distinct().collect(Collectors.toList());
     }
 
+    /**
+     * turn moudle path to java package
+     *
+     * @param moudlePath moudlePath
+     * @return String
+     * @since 0.0.1
+     */
+    public static String parsePathToPackage(String moudlePath) {
+
+        String[] split = moudlePath.split("/");
+        int len = split[0].length() + split[1].length() + split[2].length() + 3;
+        return moudlePath.substring(len).replace("/", ".");
+    }
+
+    /**
+     * 获取用户默认数据库类型
+     *
+     * @return database
+     * @since 0.0.1
+     */
+    public static String getDataBaseType() {
+
+        // get database type
+        try {
+            return Flysql.getDefaultDataSource().getConnection().getMetaData().getDatabaseProductName();
+        } catch (SQLException throwables) {
+            throw new OxygenException(throwables.getMessage());
+        }
+    }
 }
 

@@ -8,32 +8,82 @@ Hello! Thank you for taking the time to contribute! If you want to join us, plea
 
 ### Installation Prerequisites
 
-- Git 2.22.+
-- Java 11.+
-- Gradle 6.5.+
+- Git 2.22+
+- Java 11+
+- Gradle 6.5+
 
-### Build and Package
+### Contribute (developer : _ispong_)
 
-- for Gradle
+1. Fork Project (https://github.com/isxcode/spring-oxygen)
+
+your project - https://github.com/ispong/spring-oxygen
+
+2. Clone Project (branch: **latest**)
 
 ```
-git clone -b latest https://github.com/ispong/spring-oxygen
+git clone -b latest https://github.com/ispong/spring-oxygen.git
+```
+
+3. Build Project and Install Local and Use
+
+```
 cd spring-oxygen
 gradle publishToMavenLocal
 ```
 
-- for Maven
+- Open other spring project and Change file `build.gradle`
+
+```groovy
+repositories {
+    mavenLocal()
+}
+
+dependencies {
+    compile group: 'com.isxcode.oxygen', name: 'oxygen-spring-boot-starter', version: '0.0.1', changing: true
+}
 ```
-git clone -b latest https://github.com/ispong/spring-oxygen
+
+4. Git Branchs (**Optional**)
+
+ Branch             | Desc
+ ---                | ---
+ feature-project    | change project base file like (README.md/SECURITY.md e.g)
+ feature-starter    | change spring-oxygen starter config
+ feature-core       | change core utils in moudle spring-oxygen-core
+ feature-flysql     | flysql moudle
+ feature-freecode   | freecode moudle
+
+5. Merge conflict (branch: **latest**)
+
+```
+git remote add upstream https://github.com/isxcode/spring-oxygen.git
+git fetch upstream
+git merge upstream/latest
+git push origin latest
+```
+
+6. Pull Request
+
+- https://github.com/isxcode/spring-oxygen/compare
+
+> Note:  ispong/spring-oxygen/latest  **==squash merge==>** isxcode/spring-oxygen/latest
+
+7. Merge Rule (**Optional**)
+ 
+ Branch flow                                                                  | Operate
+ ----                                                                         | ---
+ ispong/spring-oxygen/feature-core --> isxcode/spring-oxygen/feature-core     | squash merge
+ isxcode/spring-oxygen/feature-core --> ispong/spring-oxygen/feature-core     | merge commits 
+ isxcode/spring-oxygen/feature-core --> isxcode/spring-oxygen/release-0.0.x   | merge commits
+ isxcode/spring-oxygen/release-0.0.x --> isxcode/spring-oxygen/feature-flysql | squash merge
+ isxcode/spring-oxygen/release-0.0.x --> isxcode/spring-oxygen/main           | rebase merge
+ isxcode/spring-oxygen/hotfix-0.0.x --> isxcode/spring-oxygen/release-0.0.x   | merge commits
+
+8. Docs Contribute 
+
+```
 cd spring-oxygen
-mvn install
+docsify serve docs
 ```
 
-### Add git signed commits
-
-```
-gpg --gen-key
-git config commit.gpgsign true
-gpg --list-secret-keys
-gpg --armor --export F2307DAE
-```
+- [local docs](http://localhost:3000)
