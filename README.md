@@ -24,7 +24,6 @@
 
 <div align="center">
 
-[![Wiki](https://img.shields.io/badge/Wiki-docs-important)](https://github.com/isxcode/spring-oxygen/wiki)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/isxcode/spring-oxygen/blob/main/CONTRIBUTING.md)
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/isxcode/spring-oxygen)
 
@@ -47,8 +46,6 @@
   - 🔨 [Usage](#-usage)
   - 📒 [Documentation](#-documentation)
   - 👏 [Contributing](#-contributing)
-
-<br/>
 
 ## 🐣 Introduce
 
@@ -104,11 +101,11 @@ public class DogsRepository {
 
 ## 📒 Documentation
 
-- [![Wiki](https://img.shields.io/badge/Wiki-docs-important)](https://github.com/isxcode/spring-oxygen/wiki)
+- [Docs](https://isxcode.github.io/spring-oxygen/#/)
 
 ##  👏 Contributing
 
-- [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/isxcode/spring-oxygen/blob/main/CONTRIBUTING.md)
+- [PRs Welcome](https://github.com/isxcode/spring-oxygen/blob/main/CONTRIBUTING.md)
 
 ***
 

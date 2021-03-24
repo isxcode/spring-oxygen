@@ -1,0 +1,6 @@
+server:
+  port: 8899
+
+logging:
+  level:
+    root: error
