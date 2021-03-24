@@ -2,7 +2,7 @@
  * point plugin version
  */
 plugins {
-    id 'org.springframework.boot' version '2.4.2'
+    id 'org.springframework.boot' version '2.4.4'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
     id 'maven'
@@ -71,19 +71,19 @@ subprojects {
         /**
          * lombok
          */
-        compileOnly 'org.projectlombok:lombok:1.18.16'
-        annotationProcessor 'org.projectlombok:lombok:1.18.16'
+        compileOnly 'org.projectlombok:lombok:1.18.18'
+        annotationProcessor 'org.projectlombok:lombok:1.18.18'
 
         /**
          * log4j
          */
-        implementation 'org.apache.logging.log4j:log4j-api:2.14.0'
+        implementation 'org.apache.logging.log4j:log4j-api:2.14.1'
 
         /**
          * junit5
          */
         implementation 'org.junit.jupiter:junit-jupiter'
-        testCompile 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+        testCompile 'org.junit.jupiter:junit-jupiter-api:5.7.1'
     }
 
     /*

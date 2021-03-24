@@ -17,6 +17,8 @@ public class CommandService {
 
     /**
      * check must params
+     *
+     * @return has edit power
      */
     public boolean canGenerateProject() {
 
@@ -27,6 +29,8 @@ public class CommandService {
 
     /**
      * create project info
+     *
+     * @return projectInfo
      */
     public String printProjectInfo() {
 

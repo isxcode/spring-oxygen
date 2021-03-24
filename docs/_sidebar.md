@@ -1,3 +1,0 @@
-
-* [Home](/)
-* [Demo](demo.md)
