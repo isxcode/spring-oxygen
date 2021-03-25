@@ -101,7 +101,7 @@ public class DogsRepository {
 
 ## 📒 Documentation
 
-- [Docs](https://isxcode.github.io/spring-oxygen/#/)
+- [Docs](https://spring-oxygen.isxcode.com)
 
 ##  👏 Contributing
 
