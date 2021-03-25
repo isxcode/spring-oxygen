@@ -1,6 +1,6 @@
 * [**Oxygen Spring Boot Starter**]()
     * [1 Init spring project](/en-us/1-1-Init-spring-project.md)
-    * [2 Use spring-oxygen](/en-us/1-2-Use-spring-oxygen.md)
+    * [2 Use spring oxygen](/en-us/1-2-Use-spring-oxygen.md)
 * [**Oxygen Core**]()
     * [1 Email utils](/en-us/2-1-Email-utils.md)
     * [2 Excel utils](/en-us/2-2-Excel-utils.md)

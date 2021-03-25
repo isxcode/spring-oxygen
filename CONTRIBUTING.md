@@ -5,6 +5,7 @@ Hello! Thank you for taking the time to contribute! If you want to join us, plea
 #### [How to Contribute to an Open Source Project on GitHub](https://app.egghead.io/playlists/how-to-contribute-to-an-open-source-project-on-github)
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
 ---
 
 ### Installation Prerequisites
@@ -30,21 +31,23 @@ cd spring-oxygen
 gradle publishToMavenLocal
 ```
 
-4. Install Local
+4. Install Local ([Example](https://spring-oxygen.isxcode.com/#/en-us/1-1-Init-spring-project))
 
-- Open local spring project and Change file `build.gradle`
+- Open local spring project and Change file `build.gradle` 
 
 ```groovy
 repositories {
+    // ...    
     mavenLocal()
 }
 
 dependencies {
+    // ...
     compile group: 'com.isxcode.oxygen', name: 'oxygen-spring-boot-starter', version: '0.0.1', changing: true
 }
 ```
 
-5. Merge conflict (branch: **latest**)
+5. Merge conflict (Branch: **latest**)
 
 ```bash
 git remote add upstream https://github.com/isxcode/spring-oxygen.git

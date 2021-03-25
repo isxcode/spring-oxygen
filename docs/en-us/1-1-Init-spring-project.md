@@ -1,21 +1,20 @@
-### Init spring project
+1. Init from [spring website](https://start.spring.io/)
 
-1. Init from spring website -- https://start.spring.io/
+> Project: Gradle Project </br>
+> Language: Java </br>
+> Spring Boot: 2.4.4 </br>
+> Package: Jar </br>
+> Java: 11 </br>
+> Dependencies: Spring Web+Lombok </br>
 
-- choose gradle
+![img](https://gitee.com/isxcode/blogs-galaxy-images/raw/master/oxygen-docs/8821090bd75e877d12bfa0dfe4d1e06.png)
 
-2. Add base dependencies
-
-- Lombok
-- Spring Web
-
-![img](https://gitee.com/isxcode/blogs-galaxy-images/raw/master/oxygen/bd0064ce4010736e9bf98a33a91a720.png)
-
-3. Unzip project
+2. Unzip and Run Project
 
 ```
+unzip demo
 cd demo
 gradle bootRun
 ```
 
-![img](https://gitee.com/isxcode/blogs-galaxy-images/raw/master/oxygen/038c9973a8cc873c4e12fa49a2777cb.png)
+![img](https://gitee.com/isxcode/blogs-galaxy-images/raw/master/oxygen-docs/be9d9e3c363ead6c79c51bd9a8521fe.png)
