@@ -51,7 +51,7 @@
 
 [Spring Oxygen](https://github.com/isxcode/spring-oxygen) is rapid development integration framework for [Spring](https://spring.io/).
 **Important statement, enterprise-level development is recommended to be used with caution!**
-For instructions on use, please check the [Wiki](https://github.com/isxcode/spring-oxygen/wiki) carefully.
+For instructions on use, please check the [Docs](https://spring-oxygen.isxcode.com) carefully.
 Welcome to develop and maintain together, please follow the [github development](https://github.com/isxcode/spring-oxygen/blob/main/CONTRIBUTING.md) specification.
 
 ## 📦 Installation
