@@ -82,6 +82,7 @@ git push origin latest
 8. Docs Contribute 
 
 ```
+npm i docsify-cli -g
 cd spring-oxygen
 docsify serve docs
 ```
