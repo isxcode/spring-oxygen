@@ -1,10 +1,11 @@
 ---
-name: Normal Issues
-about: 
-title:
-labels:
-assignees:
+name: For Tracking Issues
+about: Use this template for issues.
+title: "[ISSUE NAME]"
+labels: bug
+assignees: ispong
 ---
+
 
 <!--
 !!! Thanks for taking the time to create an issue. A clear and concise description of what the question is. !!!
