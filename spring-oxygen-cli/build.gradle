@@ -3,7 +3,7 @@ dependencies {
     /**
      * spring shell
      */
-    implementation 'org.springframework.shell:spring-shell-starter:2.0.0.RELEASE'
+    implementation 'org.springframework.shell:spring-shell-starter:2.0.1.RELEASE'
 
     /**
      * spring oxygen core
