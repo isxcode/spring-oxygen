@@ -1,9 +1,9 @@
 ---
-name: Project Task Template
-about: 
-title: 
-labels: project
-assignees:
+name: For Project New Features
+about: Use this template for new features.
+title: "[FEATURE NAME]"
+labels: 
+assignees: ispong
 ---
 
 <!--
