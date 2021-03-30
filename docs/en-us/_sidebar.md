@@ -1,7 +1,7 @@
 * **Getting Started**
     * [Overview](/en-us/README.md)
     * [Quick Start](/en-us/quick-start.md)
-    * [Examples](/en-us/example.md)
+    * [Examples](/en-us/examples.md)
         
 
 [comment]: <> (* [**Oxygen Core**]&#40;&#41;)
