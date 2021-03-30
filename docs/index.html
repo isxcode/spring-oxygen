@@ -1,72 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Spring Oxygen Docs</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Description">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta charset="UTF-8">
+    <title> 🦄 Spring rapid development integration framework. </title>
 
-  <!-- themes choose  -->
-   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
-    <!--   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css" />-->
-    <!--   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/buble.css" />-->
-    <!--   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/dark.css" />-->
-    <!--   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/pure.css" />-->
-    <!-- Theme: Defaults -->
-    <!--   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">-->
-    <!-- Theme: Simple -->
-    <!--   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-defaults.css">-->
-    <!-- Theme: Simple Dark -->
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css"> -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="description" content="🦄 Spring rapid development integration framework.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+    <!-- favicon   -->
+    <link rel="icon" href="https://gitee.com/isxcode/blogs-galaxy-images/raw/master/oxygen-docs/favicon.png">
+
+    <!-- add custom css -->
+    <link rel="stylesheet" href="custom.css" />
+
+    <!-- themes  -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css" />
+
+    <!-- edit-on-github -->
+    <script src="//cdn.jsdelivr.net/npm/docsify-edit-on-github"></script>
 
 </head>
+
 <body>
-  <div id="app">Please wait...</div>
-  <script>
-      window.$docsify = {
-          // 指定默认文件夹 本地使用'/'
-          // basePath: '/spring-oxygen',
-          basePath: '/',
-          // 指定项目名称
-          name: 'spring oxygen',
-          // name: '<span style="color:#6db33f;font-size: 35px;font-weight: bold;display: block;height: 65px">spring oxygen</span>',
-          // nameLink: '/',
-          // 指定默认首页
-          homepage: 'zh-cn/README.md',
-          // 设置系统主题色
-          themeColor: '#6db33f',
-          // 右上角配置github
-          repo: 'https://github.com/isxcode/spring-oxygen',
-          // 设置项目logo(目前禁用)
-          logo: '_media/logo.png',
-          // 开启侧边栏
-          loadSidebar: true,
-          // 开启导航栏
-          loadNavbar: '_navbar.md',
-          // 开启搜索
-          search: 'auto',
-          // 开启首页
-          // coverpage: true,
-          // 自定义404界面(多语言无效)
-          notFoundPage: '_media/_404.md',
-          // 侧边栏最大层级
-          subMaxLevel: 3,
-          // 设置路由模式 (history/hash)
-          routerMode: 'hash',
-          // 切换页面自动置顶
-          auto2top: true,
-          // 路由控制
-          alias: {
-              '/_sidebar.md': '/zh-cn/_sidebar.md'
-          }
-      };
-  </script>
+<div id="app">Please wait...</div>
 
-  <!-- Docsify v4 -->
-  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+<script>
 
-  <!-- plugins choose -->
-<!--  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>-->
+    window.$docsify = {
+        basePath: '/',
+        name: 'spring oxygen',
+        homepage: '/en-us/README.md',
+        themeColor: '#6db33f',
+        repo: 'https://github.com/isxcode/spring-oxygen',
+        logo: 'https://gitee.com/isxcode/blogs-galaxy-images/raw/master/oxygen-docs/logo.png',
+        loadSidebar: true,
+        loadNavbar: '_navbar.md',
+        notFoundPage: '_404.md',
+        // coverpage: true,
+        subMaxLevel: 3,
+        maxLevel: 4,
+        routerMode: 'hash',
+        auto2top: true,
+        autoHeader: false,
+        alias: {
+            '/_sidebar.md': '/en-us/_sidebar.md',
+        },
+        plugins: [
+
+            EditOnGithubPlugin.create(
+                'https://github.com/isxcode/spring-oxygen/blob/main/docs/',
+                null,
+                function (file) {
+                    if (file.indexOf('en-us') === -1) {
+                        return 'Edit on github';
+                    } else {
+                        return 'Edit on github';
+                    }
+                }
+            )
+        ],
+        pagination: {
+            previousText: 'PREVIOUS',
+            nextText: 'NEXT',
+            crossChapter: true,
+            crossChapterText: true,
+        },
+        search: {
+            placeholder: {
+                '/': 'Search',
+                '/zh-cn/': '搜索',
+                '/en-us/': 'Type to search'
+            },
+            noData: {
+                '/': 'No Results',
+                '/zh-cn/': '找不到结果',
+                '/en-us/': 'No Results'
+            },
+            namespace: '/en-us/',
+            hideOtherSidebarContent: true,
+        },
+    };
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+
 </body>
 </html>
