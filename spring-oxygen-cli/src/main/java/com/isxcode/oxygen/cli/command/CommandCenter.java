@@ -4,6 +4,8 @@ import com.isxcode.oxygen.cli.store.LocalStorage;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 
+import java.util.UUID;
+
 import static com.isxcode.oxygen.cli.store.LocalStorage.nowCommandCode;
 
 /**

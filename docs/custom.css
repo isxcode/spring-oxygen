@@ -23,6 +23,11 @@ body {
     font-size: 25px !important;
 }
 
+/****** scrollbar  ******/
+html::-webkit-scrollbar {
+    width: 0
+}
+
 /****** Edit on github ******/
 .markdown-section div p {
     float: left !important;
