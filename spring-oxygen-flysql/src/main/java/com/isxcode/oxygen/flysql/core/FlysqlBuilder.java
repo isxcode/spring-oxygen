@@ -1,10 +1,10 @@
 package com.isxcode.oxygen.flysql.core;
 
-import com.isxcode.oxygen.flysql.annotation.*;
-import com.isxcode.oxygen.flysql.constant.FlysqlConstants;
 import com.isxcode.oxygen.core.reflect.FieldBody;
 import com.isxcode.oxygen.core.reflect.ReflectConstants;
 import com.isxcode.oxygen.core.reflect.ReflectUtils;
+import com.isxcode.oxygen.flysql.annotation.*;
+import com.isxcode.oxygen.flysql.constant.FlysqlConstants;
 import com.isxcode.oxygen.flysql.entity.FlysqlKey;
 import com.isxcode.oxygen.flysql.entity.SqlCondition;
 import com.isxcode.oxygen.flysql.enums.SqlOperateType;
@@ -14,6 +14,8 @@ import com.isxcode.oxygen.flysql.utils.FlysqlUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -22,6 +24,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.isxcode.oxygen.flysql.enums.SqlOperateType.UPDATE;
 
@@ -38,7 +41,7 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
 
     public FlysqlBuilder(FlysqlKey<A> flysqlKey) {
 
-        super(flysqlKey.getTargetClass());
+        super(flysqlKey.getTargetClass(), flysqlKey.getDataBaseType());
         this.flysqlKey = flysqlKey;
     }
 
@@ -66,11 +69,14 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
     @Override
     public List<A> query() {
 
-        String sqlString = parseSqlConditions(initSelectSql(), sqlConditions);
-        log.debug("[oxygen-flysql-sql]:" + sqlString);
-
         try {
-            return flysqlKey.getJdbcTemplate().query(sqlString, new BeanPropertyRowMapper<>(flysqlKey.getTargetClass()));
+            if (flysqlKey.getJdbcTemplate() == null) {
+                return flysqlKey.getMongoTemplate().find(new Query(parseSqlConditions(sqlConditions)), flysqlKey.getTargetClass(), Objects.requireNonNull(FlysqlUtils.getTableName(flysqlKey.getTargetClass())));
+            } else {
+                String sqlString = parseSqlConditions(initSelectSql(), sqlConditions);
+                log.debug("[oxygen-flysql-sql]:" + sqlString);
+                return flysqlKey.getJdbcTemplate().query(sqlString, new BeanPropertyRowMapper<>(flysqlKey.getTargetClass()));
+            }
         } catch (Exception e) {
             throw new FlysqlException(e.getMessage());
         }
@@ -109,7 +115,11 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
         log.debug("[oxygen-flysql-sql]:" + sqlString);
 
         try {
-            flysqlKey.getJdbcTemplate().execute(sqlString);
+            if (flysqlKey.getJdbcTemplate() == null) {
+                flysqlKey.getMongoTemplate().save(entity, Objects.requireNonNull(FlysqlUtils.getTableName(flysqlKey.getTargetClass())));
+            } else {
+                flysqlKey.getJdbcTemplate().execute(sqlString);
+            }
         } catch (Exception e) {
             throw new FlysqlException(e.getMessage());
         }
@@ -248,7 +258,7 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
                 invoke = getExecutorId();
             } else if (metaField.isAnnotationPresent(CreatedDate.class) || metaField.isAnnotationPresent(LastModifiedDate.class)) {
                 invoke = LocalDateTime.now();
-            } else if (metaField.isAnnotationPresent(Version.class) ) {
+            } else if (metaField.isAnnotationPresent(Version.class)) {
                 invoke = 1;
             } else if (metaField.isAnnotationPresent(IsDelete.class)) {
                 invoke = 0;
@@ -293,6 +303,55 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
         }
 
         return String.valueOf(principal);
+    }
+
+    /**
+     * parse mongodb sql conditions
+     *
+     * @param sqlConditions sqlConditions
+     * @return sqlString
+     * @since 0.0.1
+     */
+    public Criteria parseSqlConditions(List<SqlCondition> sqlConditions) {
+
+        Criteria criteria = new Criteria();
+
+        for (SqlCondition sqlConditionMeta : sqlConditions) {
+
+            switch (sqlConditionMeta.getOperateType()) {
+
+                case EQ:
+                    criteria.and(sqlConditionMeta.getColumnName()).is(sqlConditionMeta.getValue());
+                    break;
+                case GT_EQ:
+                    criteria.and(sqlConditionMeta.getColumnName()).gte(sqlConditionMeta.getValue());
+                    break;
+                case GT:
+                    criteria.and(sqlConditionMeta.getColumnName()).gt(sqlConditionMeta.getValue());
+                    break;
+                case LT:
+                    criteria.and(sqlConditionMeta.getColumnName()).lt(sqlConditionMeta.getValue());
+                    break;
+                case LT_EQ:
+                    criteria.and(sqlConditionMeta.getColumnName()).lte(sqlConditionMeta.getValue());
+                    break;
+                case IN:
+                    criteria.and(sqlConditionMeta.getColumnName()).in(sqlConditionMeta.getValue());
+                    break;
+                case NOT_IN:
+                    criteria.and(sqlConditionMeta.getColumnName()).ne(sqlConditionMeta.getValue());
+                    break;
+                case OR:
+                    criteria.orOperator();
+                    break;
+                case AND:
+                    criteria.andOperator();
+                    break;
+            }
+
+        }
+
+        return criteria;
     }
 
     /**
@@ -349,6 +408,7 @@ public class FlysqlBuilder<A> extends AbstractSqlBuilder<FlysqlBuilder<A>> imple
             sqlConditionTemp = sqlConditionMeta;
         }
 
+        // 替换需要查询的字段
         if (selectFlag) {
             List<String> columnsList = new ArrayList<>();
             columnsMap.forEach((k, v) -> columnsList.add(v + " " + k));

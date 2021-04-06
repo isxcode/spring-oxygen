@@ -1,7 +1,9 @@
 package com.isxcode.oxygen.flysql.entity;
 
+import com.isxcode.oxygen.flysql.enums.DataBaseType;
 import com.isxcode.oxygen.flysql.enums.SqlType;
 import lombok.Data;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -33,16 +35,43 @@ public class FlysqlKey<A> {
      */
     private SqlType sqlType;
 
-    public FlysqlKey(SqlType sqlType, JdbcTemplate jdbcTemplate, Class<A> targetClass, String viewSqlName) {
+    /**
+     * 数据源对应的mongoTemplate
+     */
+    private MongoTemplate mongoTemplate;
+
+    /**
+     * 数据源类型
+     */
+    private DataBaseType dataBaseType;
+
+    public FlysqlKey(DataBaseType dataBaseType, SqlType sqlType, JdbcTemplate jdbcTemplate, Class<A> targetClass, String viewSqlName) {
         this.targetClass = targetClass;
         this.jdbcTemplate = jdbcTemplate;
         this.viewSqlName = viewSqlName;
         this.sqlType = sqlType;
+        this.dataBaseType = dataBaseType;
     }
 
-    public FlysqlKey(SqlType sqlType, JdbcTemplate jdbcTemplate, Class<A> targetClass) {
+    public FlysqlKey(DataBaseType dataBaseType, SqlType sqlType, JdbcTemplate jdbcTemplate, Class<A> targetClass) {
         this.targetClass = targetClass;
         this.jdbcTemplate = jdbcTemplate;
         this.sqlType = sqlType;
+        this.dataBaseType = dataBaseType;
+    }
+
+    public FlysqlKey(DataBaseType dataBaseType, SqlType sqlType, MongoTemplate mongoTemplate, Class<A> targetClass, String viewSqlName) {
+        this.targetClass = targetClass;
+        this.mongoTemplate = mongoTemplate;
+        this.viewSqlName = viewSqlName;
+        this.sqlType = sqlType;
+        this.dataBaseType = dataBaseType;
+    }
+
+    public FlysqlKey(DataBaseType dataBaseType, SqlType sqlType, MongoTemplate mongoTemplate, Class<A> targetClass) {
+        this.targetClass = targetClass;
+        this.mongoTemplate = mongoTemplate;
+        this.sqlType = sqlType;
+        this.dataBaseType = dataBaseType;
     }
 }

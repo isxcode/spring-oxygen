@@ -1,16 +1,21 @@
 package com.isxcode.oxygen.flysql.config;
 
-import com.isxcode.oxygen.flysql.core.Flysql;
 import com.isxcode.oxygen.flysql.constant.FlysqlConstants;
+import com.isxcode.oxygen.flysql.core.Flysql;
 import com.isxcode.oxygen.flysql.properties.FlysqlDataSourceProperties;
 import com.isxcode.oxygen.flysql.response.GlobalExceptionAdvice;
 import com.isxcode.oxygen.flysql.response.SuccessResponseAdvice;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.autoconfigure.mongo.MongoProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.lang.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +27,7 @@ import java.util.Map;
  * @since 0.0.1
  */
 @Slf4j
+@EnableAutoConfiguration
 @EnableConfigurationProperties(FlysqlDataSourceProperties.class)
 public class FlysqlAutoConfiguration {
 
@@ -52,12 +58,14 @@ public class FlysqlAutoConfiguration {
      * @param jdbcTemplate               jdbcTemplate
      * @since 0.0.1
      */
-    @Bean
+    @Bean("flysqlFactory")
     @ConditionalOnClass(FlysqlAutoConfiguration.class)
-    private Flysql initFlySqlFactory(FlysqlDataSourceProperties flysqlDataSourceProperties, JdbcTemplate jdbcTemplate) {
+    private Flysql initFlySqlFactory(FlysqlDataSourceProperties flysqlDataSourceProperties, @Nullable JdbcTemplate jdbcTemplate, @Nullable MongoTemplate mongoTemplate) {
 
         Map<String, JdbcTemplate> jdbcTemplateMap;
+        Map<String, MongoTemplate> mongoTemplateMap;
 
+        // 集成oracle/mysql/h2数据库
         Map<String, DataSourceProperties> dataSourcePropertiesMap = flysqlDataSourceProperties.getDatasource();
         if (dataSourcePropertiesMap == null) {
             jdbcTemplateMap = new HashMap<>(1);
@@ -65,9 +73,32 @@ public class FlysqlAutoConfiguration {
             jdbcTemplateMap = new HashMap<>(dataSourcePropertiesMap.size() + 1);
             dataSourcePropertiesMap.forEach((k, v) -> jdbcTemplateMap.put(k, new JdbcTemplate(v.initializeDataSourceBuilder().build())));
         }
+        if (jdbcTemplate != null) {
+            jdbcTemplateMap.put(FlysqlConstants.PRIMARY_DATASOURCE_NAME, jdbcTemplate);
+        }
 
-        jdbcTemplateMap.put(FlysqlConstants.PRIMARY_DATASOURCE_NAME, jdbcTemplate);
-        return new Flysql(jdbcTemplateMap);
+        // 集成mongodb数据库
+        Map<String, MongoProperties> mongodbPropertiesMap = flysqlDataSourceProperties.getMongodb();
+        if (mongodbPropertiesMap == null) {
+            mongoTemplateMap = new HashMap<>(1);
+        } else {
+            mongoTemplateMap = new HashMap<>(mongodbPropertiesMap.size() + 1);
+            mongodbPropertiesMap.forEach((k, v) -> {
+                String connectSetting;
+                if (v.getUri() == null) {
+                    connectSetting = "mongo://" + v.getUsername() + ":" + String.valueOf(v.getPassword()) + "@" + v.getHost() + ":" + v.getPort() + "/" + v.getDatabase();
+                } else {
+                    connectSetting = v.getUri();
+                }
+                mongoTemplateMap.put(k, new MongoTemplate(new SimpleMongoClientDatabaseFactory(connectSetting)));
+            });
+        }
+        if (mongoTemplate != null) {
+            mongoTemplateMap.put(FlysqlConstants.PRIMARY_DATASOURCE_NAME, mongoTemplate);
+        }
+
+        // 储存关系型数据库和非关系型数据库
+        return new Flysql(jdbcTemplateMap, mongoTemplateMap);
     }
 
 }

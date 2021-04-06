@@ -2,6 +2,7 @@ package com.isxcode.oxygen.flysql.core;
 
 import com.isxcode.oxygen.core.reflect.ReflectUtils;
 import com.isxcode.oxygen.flysql.entity.SqlCondition;
+import com.isxcode.oxygen.flysql.enums.DataBaseType;
 import com.isxcode.oxygen.flysql.enums.OrderType;
 import com.isxcode.oxygen.flysql.enums.SqlOperateType;
 import com.isxcode.oxygen.flysql.utils.FlysqlUtils;
@@ -24,8 +25,11 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
 
     public Map<String, String> columnsMap;
 
-    public AbstractSqlBuilder(Class<?> genericType) {
+    public DataBaseType dataBaseType;
 
+    public AbstractSqlBuilder(Class<?> genericType, DataBaseType dataBaseType) {
+
+        this.dataBaseType = dataBaseType;
         this.columnsMap = FlysqlUtils.parseBeanProperties(genericType);
     }
 
@@ -77,6 +81,11 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
 
     @Override
     public T eq(String columnName, Object value) {
+
+        if (DataBaseType.MONGO.equals(dataBaseType)) {
+            sqlConditions.add(new SqlCondition(SqlOperateType.EQ, columnName, value));
+            return getSelf();
+        }
 
         sqlConditions.add(new SqlCondition(SqlOperateType.EQ, columnsMap.get(columnName), addSingleQuote(value)));
         return getSelf();

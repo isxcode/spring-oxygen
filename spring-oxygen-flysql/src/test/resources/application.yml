@@ -1,9 +1,21 @@
 spring:
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:~/h2
-    username: root
-    password: root
-    initialization-mode: always
-    schema: classpath:db/schema_h2.sql
-    data: classpath:db/data_h2.sql
+
+#  datasource:
+#    h2 数据库测试
+#    name: h2-test
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:~/h2
+#    username: root
+#    password: root
+#    initialization-mode: always
+#    schema: classpath:db/h2/schema_h2.sql
+#    data: classpath:db/h2/data_h2.sql
+
+#    oracle 数据库测试
+  data:
+    mongodb:
+      host: 47.96.19.185
+      port: 31001
+      username: xdap-app
+      password: xdap-app-2020
+      database: xdap_app_database

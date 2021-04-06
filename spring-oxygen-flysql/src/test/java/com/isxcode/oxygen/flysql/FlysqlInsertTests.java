@@ -2,7 +2,7 @@
 //
 //import com.isxcode.oxygen.flysql.config.FlysqlAutoConfiguration;
 //import com.isxcode.oxygen.flysql.core.Flysql;
-//import com.isxcode.oxygen.flysql.pojo.Dog;
+//import com.isxcode.oxygen.flysql.Dog;
 //import org.junit.jupiter.api.Test;
 //import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 //import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
