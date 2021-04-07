@@ -24,14 +24,18 @@ public class FlysqlBuilder {
 
     private final FlysqlDataSourceProperties flysqlDataSourceProperties;
 
-    public FlysqlBuilder(DataBaseType dataBaseType, MongoTemplate mongoTemplate, FlysqlDataSourceProperties flysqlDataSourceProperties) {
+    public FlysqlBuilder(DataBaseType dataBaseType,
+                         MongoTemplate mongoTemplate,
+                         FlysqlDataSourceProperties flysqlDataSourceProperties) {
 
         this.dataBaseType = dataBaseType;
         this.mongoTemplate = mongoTemplate;
         this.flysqlDataSourceProperties = flysqlDataSourceProperties;
     }
 
-    public FlysqlBuilder(DataBaseType dataBaseType, JdbcTemplate jdbcTemplate, FlysqlDataSourceProperties flysqlDataSourceProperties) {
+    public FlysqlBuilder(DataBaseType dataBaseType,
+                         JdbcTemplate jdbcTemplate,
+                         FlysqlDataSourceProperties flysqlDataSourceProperties) {
 
         this.dataBaseType = dataBaseType;
         this.jdbcTemplate = jdbcTemplate;
@@ -60,7 +64,6 @@ public class FlysqlBuilder {
         }
     }
 
-
     /**
      * delete builder
      *
@@ -83,7 +86,6 @@ public class FlysqlBuilder {
         }
     }
 
-
     /**
      * update builder
      *
@@ -105,7 +107,6 @@ public class FlysqlBuilder {
                 throw new FlysqlException("数据库类型暂不支持");
         }
     }
-
 
     /**
      * view builder

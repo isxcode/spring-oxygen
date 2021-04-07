@@ -4,5 +4,3 @@ spring:
     url: jdbc:mysql://39.99.176.43:30002/dehoop?serverTimezone=Asia/Shanghai
     username: dehoop
     password: welcome1
-    schema: classpath*:db/schema_mysql.sql
-#    initialization-mode: always

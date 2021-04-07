@@ -480,7 +480,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
         // 替换需要查询的字段
         if (selectFlag) {
             List<String> columnsList = new ArrayList<>();
-            columnsMap.forEach((k, v) -> columnsList.add(columnsMap.get(v.getName()).getName() + " " + k));
+            columnsMap.forEach((k, v) -> columnsList.add(v.getName() + " " + k));
             return sqlStringBuilder.toString().replace(FlysqlConstants.SELECT_REPLACE_CONTENT, Strings.join(columnsList, ','));
         }
 
