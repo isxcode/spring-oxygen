@@ -1,6 +1,15 @@
 spring:
+
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://39.99.176.43:30002/dehoop?serverTimezone=Asia/Shanghai
+#    username: dehoop
+#    password: welcome1
+
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://39.99.176.43:30002/dehoop?serverTimezone=Asia/Shanghai
-    username: dehoop
-    password: welcome1
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:~/h2
+    username: root
+    password: root
+    initialization-mode: always
+    schema: classpath:db/schema_h2.sql

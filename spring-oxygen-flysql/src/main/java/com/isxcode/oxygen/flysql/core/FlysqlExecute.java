@@ -8,6 +8,7 @@ import com.isxcode.oxygen.flysql.annotation.*;
 import com.isxcode.oxygen.flysql.constant.FlysqlConstants;
 import com.isxcode.oxygen.flysql.entity.FlysqlKey;
 import com.isxcode.oxygen.flysql.entity.SqlCondition;
+import com.isxcode.oxygen.flysql.enums.DataBaseType;
 import com.isxcode.oxygen.flysql.enums.SqlOperateType;
 import com.isxcode.oxygen.flysql.enums.SqlType;
 import com.isxcode.oxygen.flysql.exception.FlysqlException;
@@ -335,16 +336,24 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
                 } else if (ReflectConstants.DATE.equals(metaField.getType().getName())) {
                     // 如果是Date类型需要特殊处理
                     SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
-                    SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    try {
-                        valueList.add(FlysqlExecute.addSingleQuote(sdf2.format(sdf.parse(String.valueOf(invoke)))));
-                    } catch (ParseException e) {
-                        continue;
+                    if (DataBaseType.H2.equals(flysqlKey.getDataBaseType())) {
+                        try {
+                            SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+                            valueList.add(FlysqlExecute.addSingleQuote(sdf2.format(sdf.parse(String.valueOf(invoke)))));
+                        } catch (ParseException e) {
+                            continue;
+                        }
+                    } else {
+                        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        try {
+                            valueList.add(FlysqlExecute.addSingleQuote(sdf2.format(sdf.parse(String.valueOf(invoke)))));
+                        } catch (ParseException e) {
+                            continue;
+                        }
                     }
                 } else {
                     valueList.add(FlysqlExecute.addSingleQuote(invoke));
                 }
-
                 columnList.add(ReflectUtils.humpToLine(columnsMap.get(metaField.getName()).getName()));
             }
         }
