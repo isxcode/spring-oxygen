@@ -26,15 +26,10 @@ public class FlysqlMongdbTests {
     }
 
     @Test
-    public void testSelect() {
+    public MetaData getOne(String name) {
 
-        List<MetaData> metaDataList = flysql
-            .mongoSelect(MetaData.class)
-            .eq("aInt", 0)
-            .query();
-
-        System.out.println("================= Result:");
-        metaDataList.forEach(System.out::println);
-        System.out.println("=========================");
+        return flysql.build().select(MetaData.class)
+            .isNotNull("name")
+            .getOne();
     }
 }

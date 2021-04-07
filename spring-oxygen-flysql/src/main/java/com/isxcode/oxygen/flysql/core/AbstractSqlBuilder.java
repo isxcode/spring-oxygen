@@ -1,6 +1,5 @@
 package com.isxcode.oxygen.flysql.core;
 
-import com.isxcode.oxygen.core.reflect.ReflectUtils;
 import com.isxcode.oxygen.flysql.entity.SqlCondition;
 import com.isxcode.oxygen.flysql.enums.DataBaseType;
 import com.isxcode.oxygen.flysql.enums.OrderType;
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * add flysql condition
+ * 将条件构建成条件list对象
  *
  * @author ispong
  * @version v0.1.0
@@ -94,12 +93,22 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
     @Override
     public T ne(String columnName, Object value) {
 
+        if (DataBaseType.MONGO.equals(dataBaseType)) {
+            sqlConditions.add(new SqlCondition(SqlOperateType.NE, columnName, value));
+            return getSelf();
+        }
+
         sqlConditions.add(new SqlCondition(SqlOperateType.NE, columnsMap.get(columnName), addSingleQuote(value)));
         return getSelf();
     }
 
     @Override
     public T gt(String columnName, Object value) {
+
+        if (DataBaseType.MONGO.equals(dataBaseType)) {
+            sqlConditions.add(new SqlCondition(SqlOperateType.GT, columnName, value));
+            return getSelf();
+        }
 
         sqlConditions.add(new SqlCondition(SqlOperateType.GT, columnsMap.get(columnName), addSingleQuote(value)));
         return getSelf();
@@ -108,12 +117,22 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
     @Override
     public T gtEq(String columnName, Object value) {
 
+        if (DataBaseType.MONGO.equals(dataBaseType)) {
+            sqlConditions.add(new SqlCondition(SqlOperateType.GT_EQ, columnName, value));
+            return getSelf();
+        }
+
         sqlConditions.add(new SqlCondition(SqlOperateType.GT_EQ, columnsMap.get(columnName), addSingleQuote(value)));
         return getSelf();
     }
 
     @Override
     public T lt(String columnName, Object value) {
+
+        if (DataBaseType.MONGO.equals(dataBaseType)) {
+            sqlConditions.add(new SqlCondition(SqlOperateType.LT, columnName, value));
+            return getSelf();
+        }
 
         sqlConditions.add(new SqlCondition(SqlOperateType.LT, columnsMap.get(columnName), addSingleQuote(value)));
         return getSelf();
@@ -122,12 +141,22 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
     @Override
     public T ltEq(String columnName, Object value) {
 
+        if (DataBaseType.MONGO.equals(dataBaseType)) {
+            sqlConditions.add(new SqlCondition(SqlOperateType.LT_EQ, columnName, value));
+            return getSelf();
+        }
+
         sqlConditions.add(new SqlCondition(SqlOperateType.LT_EQ, columnsMap.get(columnName), addSingleQuote(value)));
         return getSelf();
     }
 
     @Override
     public T in(String columnName, Object... values) {
+
+        if (DataBaseType.MONGO.equals(dataBaseType)) {
+            sqlConditions.add(new SqlCondition(SqlOperateType.IN, columnName, Arrays.asList(values)));
+            return getSelf();
+        }
 
         List<String> inValues = new ArrayList<>();
         Arrays.stream(values).forEach(v -> inValues.add(addSingleQuote(v)));
@@ -137,6 +166,11 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
 
     @Override
     public T notIn(String columnName, Object... values) {
+
+        if (DataBaseType.MONGO.equals(dataBaseType)) {
+            sqlConditions.add(new SqlCondition(SqlOperateType.NOT_IN, columnName, Arrays.asList(values)));
+            return getSelf();
+        }
 
         List<String> inValues = new ArrayList<>();
         Arrays.stream(values).forEach(v -> inValues.add(addSingleQuote(v)));

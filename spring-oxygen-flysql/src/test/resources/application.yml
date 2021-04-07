@@ -19,3 +19,9 @@ spring:
       username: xdap-app
       password: xdap-app-2020
       database: xdap_app_database
+
+oxygen:
+  flysql:
+    mongodb:
+      dbSource1:
+        uri:

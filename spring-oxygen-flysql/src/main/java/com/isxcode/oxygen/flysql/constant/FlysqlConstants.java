@@ -9,9 +9,9 @@ package com.isxcode.oxygen.flysql.constant;
 public interface FlysqlConstants {
 
     /**
-     * default datasource name
+     * 默认数据库名称
      */
-    String PRIMARY_DATASOURCE_NAME = "primary";
+    String PRIMARY_DATASOURCE_NAME = "oxygen_primary_database_name";
 
     /**
      * default view name

@@ -27,7 +27,7 @@ public class FlysqlSelectTests {
     @Test
     public void testSelect() {
 
-        List<MetaData> metaDataList = flysql.select(MetaData.class).query();
+        List<MetaData> metaDataList = flysql.build().select(MetaData.class).query();
 
         System.out.println("================= Result:");
         metaDataList.forEach(System.out::println);
