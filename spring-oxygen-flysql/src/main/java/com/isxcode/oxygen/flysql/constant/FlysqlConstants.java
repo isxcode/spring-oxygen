@@ -21,7 +21,7 @@ public interface FlysqlConstants {
     /**
      * replace key
      */
-    String SELECT_REPLACE_CONTENT = "##flysql##";
+    String SELECT_REPLACE_CONTENT = "##flysql_columns_info##";
 
 }
 

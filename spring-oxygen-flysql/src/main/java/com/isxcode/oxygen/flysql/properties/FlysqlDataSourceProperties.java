@@ -27,4 +27,9 @@ public class FlysqlDataSourceProperties {
      */
     private Map<String, MongoProperties> mongodb;
 
+    /**
+     * 打印日志 默认打印日志
+     */
+    private Boolean showLog = true;
+
 }

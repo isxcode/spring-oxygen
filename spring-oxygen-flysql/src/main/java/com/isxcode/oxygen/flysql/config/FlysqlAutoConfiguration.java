@@ -52,10 +52,11 @@ public class FlysqlAutoConfiguration {
     }
 
     /**
-     * init datasource
+     * 初始化flysql factory
      *
-     * @param flysqlDataSourceProperties datasource configs
+     * @param flysqlDataSourceProperties configs
      * @param jdbcTemplate               jdbcTemplate
+     * @param mongoTemplate              mongoTemplate
      * @since 0.0.1
      */
     @Bean("flysqlFactory")
@@ -98,7 +99,7 @@ public class FlysqlAutoConfiguration {
         }
 
         // 储存关系型数据库和非关系型数据库
-        return new Flysql(jdbcTemplateMap, mongoTemplateMap);
+        return new Flysql(jdbcTemplateMap, mongoTemplateMap, flysqlDataSourceProperties);
     }
 
 }

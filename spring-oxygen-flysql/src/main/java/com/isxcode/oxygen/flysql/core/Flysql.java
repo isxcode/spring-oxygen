@@ -3,6 +3,7 @@ package com.isxcode.oxygen.flysql.core;
 import com.isxcode.oxygen.flysql.constant.FlysqlConstants;
 import com.isxcode.oxygen.flysql.enums.DataBaseType;
 import com.isxcode.oxygen.flysql.exception.FlysqlException;
+import com.isxcode.oxygen.flysql.properties.FlysqlDataSourceProperties;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -27,9 +28,16 @@ public class Flysql {
      */
     private final Map<String, MongoTemplate> mongdTemplateMap;
 
-    public Flysql(Map<String, JdbcTemplate> jdbcTemplateMap,
-                  Map<String, MongoTemplate> mongdTemplateMap) {
+    /**
+     * 展示日志
+     */
+    public final FlysqlDataSourceProperties flysqlDataSourceProperties;
 
+    public Flysql(Map<String, JdbcTemplate> jdbcTemplateMap,
+                  Map<String, MongoTemplate> mongdTemplateMap,
+                  FlysqlDataSourceProperties flysqlDataSourceProperties) {
+
+        this.flysqlDataSourceProperties = flysqlDataSourceProperties;
         this.mongdTemplateMap = mongdTemplateMap;
         this.jdbcTemplateMap = jdbcTemplateMap;
     }
@@ -45,11 +53,11 @@ public class Flysql {
 
         switch (dataBaseType) {
             case MONGO:
-                return new FlysqlBuilder(dataBaseType, mongdTemplateMap.get(dataBaseName));
+                return new FlysqlBuilder(dataBaseType, mongdTemplateMap.get(dataBaseName), flysqlDataSourceProperties);
             case ORACLE:
             case H2:
             case MYSQL:
-                return new FlysqlBuilder(dataBaseType, jdbcTemplateMap.get(dataBaseName));
+                return new FlysqlBuilder(dataBaseType, jdbcTemplateMap.get(dataBaseName), flysqlDataSourceProperties);
             default:
                 throw new FlysqlException("数据库类型暂不支持");
         }

@@ -1,5 +1,4 @@
-//package com.isxcode.oxygen.flysql;
-//
+package com.isxcode.oxygen.flysql;//package com.isxcode.oxygen.flysql;
 //
 //import com.isxcode.oxygen.flysql.config.FlysqlAutoConfiguration;
 //import com.isxcode.oxygen.flysql.core.Flysql;
@@ -16,16 +15,12 @@
 //@ContextConfiguration(classes = FlysqlAutoConfiguration.class)
 //@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 //@ActiveProfiles
-//public class FlysqlUpdateTests {
+//public class FlysqlDeleteTests {
 //
 //    @Test
-//    public void testSelect() {
+//    public void testDelete() {
 //
-//        Flysql.update(Dog.class)
-//            .update("age", 15)
-//            .eq("name", "john")
-//            .doUpdate();
-//
+//        Flysql.delete(Dog.class).eq("name", "tom").doDelete();
 //        List<Dog> dogs = Flysql.select(Dog.class).query();
 //        System.out.println(dogs);
 //    }

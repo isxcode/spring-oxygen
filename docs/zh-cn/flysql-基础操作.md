@@ -21,6 +21,8 @@ public void save(MetaData metaData) {
 }
 ```
 
+!> 一定要注意，对象一定得有空的构造器
+
 ### 删
 
 ```java
