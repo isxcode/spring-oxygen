@@ -1,7 +1,6 @@
 * **Getting Started**
-    * [Overview](/en-us/README.md)
-    * [Quick Start](/en-us/quick-start.md)
-    * [Examples](/en-us/examples.md)
+    * [Quick Start](/en-us/1-1-Quick-Start.md)
 * **Frameworks** 
-    * [Flysql](/en-us/flysql.md)
-    * [Freecode](/en-us/freecode.md)
+    * [Core](/en-us/2-1-Core.md)
+    * [Flysql](/en-us/2-2-Flysql.md)
+    * [Freecode](/en-us/2-3-Freecode.md)

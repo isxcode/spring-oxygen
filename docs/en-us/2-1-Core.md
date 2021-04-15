@@ -1,6 +1,4 @@
-### Email utils
-
-#### config spring properties
+### Config Core
 
 ```yaml
 spring:
@@ -20,7 +18,7 @@ spring:
       mail.smtp.writetimeout: 10000            # 默认10000 默认写入超时时间
 ```
 
-### 发送邮件代码
+### Send Email
 
 ```
 package com.isxcode.demo.oxygen;
@@ -45,9 +43,7 @@ public class EmailController {
 }
 ```
 
-### 接口访问 http://localhost:8080/email/send
-
-### Excel utils
+### Export Excel
 
 1. create dog entity
 
