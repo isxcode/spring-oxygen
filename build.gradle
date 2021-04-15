@@ -71,10 +71,10 @@ subprojects {
         /**
          * lombok （测试和运行）
          */
-        testCompileOnly 'org.projectlombok:lombok:1.18.18'
-        testAnnotationProcessor 'org.projectlombok:lombok:1.18.18'
-        compileOnly 'org.projectlombok:lombok:1.18.18'
-        annotationProcessor 'org.projectlombok:lombok:1.18.18'
+        testCompileOnly 'org.projectlombok:lombok:1.18.20'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+        compileOnly 'org.projectlombok:lombok:1.18.20'
+        annotationProcessor 'org.projectlombok:lombok:1.18.20'
 
         /**
          * log4j
