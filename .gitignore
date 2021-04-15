@@ -2,6 +2,7 @@
 # IntelliJ IDEA
 ##
 .idea
+*.iml
 
 ##
 # Gradle

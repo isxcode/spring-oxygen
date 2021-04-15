@@ -24,6 +24,11 @@ public enum DataBaseType {
     ORACLE,
 
     /**
+     * mongoDB
+     */
+    MONGO,
+
+    /**
      * nothing
      */
     DEFAULT,

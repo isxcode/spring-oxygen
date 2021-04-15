@@ -1,176 +1,110 @@
 package com.isxcode.oxygen.flysql.core;
 
 import com.isxcode.oxygen.flysql.constant.FlysqlConstants;
-import com.isxcode.oxygen.flysql.entity.FlysqlKey;
-import com.isxcode.oxygen.flysql.enums.SqlType;
+import com.isxcode.oxygen.flysql.enums.DataBaseType;
+import com.isxcode.oxygen.flysql.exception.FlysqlException;
+import com.isxcode.oxygen.flysql.properties.FlysqlDataSourceProperties;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 import java.util.Map;
 
 /**
- * Flysql factory
+ * 负责初始化所有的template,并生成对应的builder
  *
  * @author ispong
- * @version 0.0.1
+ * @version 0.0.2
  */
 public class Flysql {
 
     /**
-     * store datasource list
+     * 初始化flysql时,存储jdbcTemplate
      */
-    private static Map<String, JdbcTemplate> jdbcTemplateMap;
+    private final Map<String, JdbcTemplate> jdbcTemplateMap;
 
-    public Flysql(Map<String, JdbcTemplate> jdbcTemplateMap) {
+    /**
+     * 初始化flysql时,存储mongoTemplate
+     */
+    private final Map<String, MongoTemplate> mongdTemplateMap;
 
-        Flysql.jdbcTemplateMap = jdbcTemplateMap;
+    /**
+     * 展示日志
+     */
+    public final FlysqlDataSourceProperties flysqlDataSourceProperties;
+
+    public Flysql(Map<String, JdbcTemplate> jdbcTemplateMap,
+                  Map<String, MongoTemplate> mongdTemplateMap,
+                  FlysqlDataSourceProperties flysqlDataSourceProperties) {
+
+        this.flysqlDataSourceProperties = flysqlDataSourceProperties;
+        this.mongdTemplateMap = mongdTemplateMap;
+        this.jdbcTemplateMap = jdbcTemplateMap;
     }
 
     /**
-     * get default datasource
+     * 构建数据源
+     *
+     * @param dataBaseType 数据源类型
+     * @param dataBaseName 数据源名称
+     * @return FlysqlBuilder
+     */
+    public FlysqlBuilder build(DataBaseType dataBaseType, String dataBaseName) {
+
+        switch (dataBaseType) {
+            case MONGO:
+                return new FlysqlBuilder(dataBaseType, mongdTemplateMap.get(dataBaseName), flysqlDataSourceProperties);
+            case ORACLE:
+            case H2:
+            case MYSQL:
+                return new FlysqlBuilder(dataBaseType, jdbcTemplateMap.get(dataBaseName), flysqlDataSourceProperties);
+            default:
+                throw new FlysqlException("数据库类型暂不支持");
+        }
+    }
+
+    /**
+     * 构建数据源
+     * 默认数据源为Mysql
+     *
+     * @param dataBaseName 数据源名称
+     * @return FlysqlBuilder
+     */
+    public FlysqlBuilder build(String dataBaseName) {
+
+        return build(DataBaseType.MYSQL, dataBaseName);
+    }
+
+    /**
+     * 构建数据源
+     * 默认数据源名称为FlysqlConstants.PRIMARY_DATASOURCE_NAME
+     *
+     * @param dataBaseType 数据源类型
+     * @return FlysqlBuilder
+     */
+    public FlysqlBuilder build(DataBaseType dataBaseType) {
+
+        return build(dataBaseType, FlysqlConstants.PRIMARY_DATASOURCE_NAME);
+    }
+
+    /**
+     * 构建数据源
+     * 默认数据源为Mysql,且默认数据源名为FlysqlConstants.PRIMARY_DATASOURCE_NAME
+     *
+     * @return FlysqlBuilder
+     */
+    public FlysqlBuilder build() {
+
+        return build(DataBaseType.MYSQL, FlysqlConstants.PRIMARY_DATASOURCE_NAME);
+    }
+
+    /**
+     * 获取用户默认数据源
      *
      * @return DataSource
      */
-    public static DataSource getDefaultDataSource() {
+    public DataSource getDefaultDataSource() {
 
         return jdbcTemplateMap.get(FlysqlConstants.PRIMARY_DATASOURCE_NAME).getDataSource();
     }
-
-    /**
-     * insert builder
-     *
-     * @param <A>            A
-     * @param targetClass    targetClass
-     * @param dataSourceName dataSourceName
-     * @return FlysqlBuilder
-     * @since 0.0.1
-     */
-    public static <A> FlysqlBuilder<A> insert(String dataSourceName, Class<A> targetClass) {
-
-        return new FlysqlBuilder<>(new FlysqlKey<>(SqlType.INSERT, jdbcTemplateMap.get(dataSourceName), targetClass));
-    }
-
-    /**
-     * insert builder
-     *
-     * @param targetClass targetClass
-     * @param <A>         A
-     * @return FlysqlBuilder
-     * @since 0.0.1
-     */
-    public static <A> FlysqlBuilder<A> insert(Class<A> targetClass) {
-
-        return insert(FlysqlConstants.PRIMARY_DATASOURCE_NAME, targetClass);
-    }
-
-    /**
-     * delete builder
-     *
-     * @param targetClass    targetClass
-     * @param dataSourceName dataSourceName
-     * @param <A>            A
-     * @return FlysqlBuilder
-     * @since 0.0.1
-     */
-    public static <A> FlysqlBuilder<A> delete(String dataSourceName, Class<A> targetClass) {
-
-        return new FlysqlBuilder<>(new FlysqlKey<>(SqlType.DELETE, jdbcTemplateMap.get(dataSourceName), targetClass));
-    }
-
-    /**
-     * delete builder
-     *
-     * @param targetClass targetClass
-     * @param <A>         A
-     * @return FlysqlBuilder
-     * @since 0.0.1
-     */
-    public static <A> FlysqlBuilder<A> delete(Class<A> targetClass) {
-
-        return delete(FlysqlConstants.PRIMARY_DATASOURCE_NAME, targetClass);
-    }
-
-    /**
-     * update builder
-     *
-     * @param targetClass    targetClass
-     * @param dataSourceName dataSourceName
-     * @param <A>            A
-     * @return FlysqlBuilder
-     * @since 0.0.1
-     */
-    public static <A> FlysqlBuilder<A> update(String dataSourceName, Class<A> targetClass) {
-
-        return new FlysqlBuilder<>(new FlysqlKey<>(SqlType.UPDATE, jdbcTemplateMap.get(dataSourceName), targetClass));
-    }
-
-    /**
-     * update builder
-     *
-     * @param targetClass targetClass
-     * @param <A>         A
-     * @return FlysqlBuilder
-     * @since 0.0.1
-     */
-    public static <A> FlysqlBuilder<A> update(Class<A> targetClass) {
-
-        return update(FlysqlConstants.PRIMARY_DATASOURCE_NAME, targetClass);
-    }
-
-    /**
-     * view builder
-     *
-     * @param targetClass    targetClass
-     * @param dataSourceName dataSourceName
-     * @param viewName       viewName
-     * @param <A>            A
-     * @return FlysqlBuilder
-     * @since 0.0.1
-     */
-    public static <A> FlysqlBuilder<A> view(String dataSourceName, String viewName, Class<A> targetClass) {
-
-        return new FlysqlBuilder<>(new FlysqlKey<>(SqlType.VIEW, jdbcTemplateMap.get(dataSourceName), targetClass, viewName));
-    }
-
-    /**
-     * view builder
-     *
-     * @param targetClass targetClass
-     * @param viewName    viewName
-     * @param <A>         A
-     * @return FlysqlBuilder
-     * @since 0.0.1
-     */
-    public static <A> FlysqlBuilder<A> view(String viewName, Class<A> targetClass) {
-
-        return view(FlysqlConstants.PRIMARY_DATASOURCE_NAME, viewName, targetClass);
-    }
-
-    /**
-     * select builder
-     *
-     * @param targetClass    targetClass
-     * @param dataSourceName dataSourceName
-     * @param <A>            A
-     * @return FlysqlBuilder
-     * @since 0.0.1
-     */
-    public static <A> FlysqlBuilder<A> select(String dataSourceName, Class<A> targetClass) {
-
-        return new FlysqlBuilder<>(new FlysqlKey<>(SqlType.SELECT, jdbcTemplateMap.get(dataSourceName), targetClass));
-    }
-
-    /**
-     * select builder
-     *
-     * @param targetClass targetClass
-     * @param <A>         A
-     * @return FlysqlBuilder
-     * @since 0.0.1
-     */
-    public static <A> FlysqlBuilder<A> select(Class<A> targetClass) {
-
-        return select(FlysqlConstants.PRIMARY_DATASOURCE_NAME, targetClass);
-    }
-
 }

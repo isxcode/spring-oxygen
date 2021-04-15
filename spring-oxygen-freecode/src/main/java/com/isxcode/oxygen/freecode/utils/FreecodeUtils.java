@@ -163,11 +163,13 @@ public class FreecodeUtils {
     public static String getDataBaseType() {
 
         // get database type
-        try {
-            return Flysql.getDefaultDataSource().getConnection().getMetaData().getDatabaseProductName();
-        } catch (SQLException throwables) {
-            throw new OxygenException(throwables.getMessage());
-        }
+//        try {
+            // todo 修复freecode
+//            return Flysql.getDefaultDataSource().getConnection().getMetaData().getDatabaseProductName();
+            return "";
+//        } catch (SQLException throwables) {
+//            throw new OxygenException(throwables.getMessage());
+//        }
     }
 }
 

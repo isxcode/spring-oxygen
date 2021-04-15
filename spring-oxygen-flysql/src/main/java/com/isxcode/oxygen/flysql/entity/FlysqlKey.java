@@ -1,7 +1,10 @@
 package com.isxcode.oxygen.flysql.entity;
 
+import com.isxcode.oxygen.flysql.enums.DataBaseType;
 import com.isxcode.oxygen.flysql.enums.SqlType;
+import com.isxcode.oxygen.flysql.properties.FlysqlDataSourceProperties;
 import lombok.Data;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -33,16 +36,46 @@ public class FlysqlKey<A> {
      */
     private SqlType sqlType;
 
-    public FlysqlKey(SqlType sqlType, JdbcTemplate jdbcTemplate, Class<A> targetClass, String viewSqlName) {
+    /**
+     * 数据源对应的mongoTemplate
+     */
+    private MongoTemplate mongoTemplate;
+
+    /**
+     * 数据源类型
+     */
+    private DataBaseType dataBaseType;
+
+    /**
+     * 暂时日志
+     */
+    private FlysqlDataSourceProperties flysqlDataSourceProperties;
+
+    public FlysqlKey(DataBaseType dataBaseType, SqlType sqlType, JdbcTemplate jdbcTemplate, Class<A> targetClass, String viewSqlName, FlysqlDataSourceProperties flysqlDataSourceProperties) {
+
+        this.flysqlDataSourceProperties = flysqlDataSourceProperties;
         this.targetClass = targetClass;
         this.jdbcTemplate = jdbcTemplate;
         this.viewSqlName = viewSqlName;
         this.sqlType = sqlType;
+        this.dataBaseType = dataBaseType;
     }
 
-    public FlysqlKey(SqlType sqlType, JdbcTemplate jdbcTemplate, Class<A> targetClass) {
+    public FlysqlKey(DataBaseType dataBaseType, SqlType sqlType, JdbcTemplate jdbcTemplate, Class<A> targetClass, FlysqlDataSourceProperties flysqlDataSourceProperties) {
+
+        this.flysqlDataSourceProperties = flysqlDataSourceProperties;
         this.targetClass = targetClass;
         this.jdbcTemplate = jdbcTemplate;
         this.sqlType = sqlType;
+        this.dataBaseType = dataBaseType;
+    }
+
+    public FlysqlKey(DataBaseType dataBaseType, SqlType sqlType, MongoTemplate mongoTemplate, Class<A> targetClass, FlysqlDataSourceProperties flysqlDataSourceProperties) {
+
+        this.flysqlDataSourceProperties = flysqlDataSourceProperties;
+        this.targetClass = targetClass;
+        this.mongoTemplate = mongoTemplate;
+        this.sqlType = sqlType;
+        this.dataBaseType = dataBaseType;
     }
 }

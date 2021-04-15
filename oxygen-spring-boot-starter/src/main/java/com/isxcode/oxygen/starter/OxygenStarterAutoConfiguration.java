@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 @Slf4j
 public class OxygenStarterAutoConfiguration {
 
-    private String oxygenVersion = "0.0.1";
+    private String oxygenVersion = "0.0.2";
 
     /**
      * init oxygen banner

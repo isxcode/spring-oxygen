@@ -42,8 +42,9 @@ public class FreecodeRepository {
 
         // get table columns
         List<TableColumnInfo> columnList = new ArrayList<>();
-        List<TableColumnInfo> tableColumnInfos = Flysql.select(TableColumnInfo.class).sql(sqlStr).query();
-
+//        todo 完善freecode
+//        List<TableColumnInfo> tableColumnInfos = Flysql.select(TableColumnInfo.class).sql(sqlStr).query();
+        List<TableColumnInfo> tableColumnInfos = new ArrayList<>();
         // remove ignore columns
         ignoreFields.addAll(FreecodeConstants.sysColumns);
         tableColumnInfos.forEach(e -> {
@@ -64,18 +65,19 @@ public class FreecodeRepository {
      */
     public String getTableInfo(String tableName) {
 
-        if (DataBaseType.MYSQL.name().equals(FreecodeUtils.getDataBaseType())) {
-
-            String sqlStr = "SELECT TABLE_COMMENT FROM information_schema.TABLES where TABLE_NAME = '" + tableName + "'";
-            TableInfo tableInfo = Flysql.select(TableInfo.class).sql(sqlStr).getOne();
-            if (tableInfo == null || tableInfo.getTableComment() == null) {
-                return "";
-            } else {
-                return tableInfo.getTableComment();
-            }
-        }else{
+//        todo 完善freecode
+//        if (DataBaseType.MYSQL.name().equals(FreecodeUtils.getDataBaseType())) {
+//
+//            String sqlStr = "SELECT TABLE_COMMENT FROM information_schema.TABLES where TABLE_NAME = '" + tableName + "'";
+//            TableInfo tableInfo = Flysql.select(TableInfo.class).sql(sqlStr).getOne();
+//            if (tableInfo == null || tableInfo.getTableComment() == null) {
+//                return "";
+//            } else {
+//                return tableInfo.getTableComment();
+//            }
+//        }else{
             return "";
-        }
+//        }
     }
 
 }

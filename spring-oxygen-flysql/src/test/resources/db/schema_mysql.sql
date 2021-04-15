@@ -18,7 +18,7 @@ CREATE TABLE META_DATA_T
     an_boolean         BOOLEAN      NOT NULL,
     an_char            CHAR         NOT NULL,
     an_string          VARCHAR(100) NOT NULL,
-    an_date            TIMESTAMP    NOT NULL,
+    an_date            DATE         NOT NULL,
     an_local_date      TIMESTAMP    NOT NULL,
     an_local_date_time DATETIME     NOT NULL,
     an_big_decimal     DECIMAL      NOT NULL
