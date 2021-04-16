@@ -8,28 +8,27 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import java.util.Map;
 
 /**
- * 配置文件
+ * config flysql
  *
  * @author ispong
  * @since 0.0.1
  */
 @Data
 @ConfigurationProperties("oxygen.flysql")
-public class FlysqlDataSourceProperties {
+public class FlysqlProperties {
 
     /**
-     *
+     * jdbc properties
      */
     private Map<String, DataSourceProperties> datasource;
 
     /**
-     * 配置mongodb
+     * mongo properties
      */
     private Map<String, MongoProperties> mongodb;
 
     /**
-     * 打印日志 默认打印日志
+     * show logs
      */
     private Boolean showLog = true;
-
 }

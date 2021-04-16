@@ -2,14 +2,26 @@ spring:
 
 #  datasource:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://39.99.176.43:30002/dehoop?serverTimezone=Asia/Shanghai
-#    username: dehoop
-#    password: welcome1
+#    url: jdbc:mysql://39.99.176.43:30002/data_assets?serverTimezone=Asia/Shanghai
+#    username: dehoop_data
+#    password: define2021
+#    initialization-mode: always
+#    schema: classpath:db/schema_mysql.sql
 
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:~/h2
-    username: root
-    password: root
-    initialization-mode: always
-    schema: classpath:db/schema_h2.sql
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@47.111.230.1:1521/definesys
+    username: cscectest
+    password: welcome1
+
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:~/h2
+#    username: root
+#    password: root
+#    initialization-mode: always
+#    schema: classpath:db/schema_h2.sql
+
+  data:
+    mongodb:
+      uri: mongodb://xdap-app:xdap-app-2020@47.96.19.185:31001/xdap_app_database

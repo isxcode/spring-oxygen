@@ -66,7 +66,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
         String sqlString = parseSqlConditions(initSelectSql(), sqlConditions);
 
         // 打印日志
-        if (flysqlKey.getFlysqlDataSourceProperties().getShowLog()) {
+        if (flysqlKey.getFlysqlProperties().getShowLog()) {
             log.info("[oxygen-flysql-sql]:" + sqlString);
         } else {
             log.debug("[oxygen-flysql-sql]:" + sqlString);
@@ -89,7 +89,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
                 String sqlString = parseSqlConditions(initSelectSql(), sqlConditions);
 
                 // 打印日志
-                if (flysqlKey.getFlysqlDataSourceProperties().getShowLog()) {
+                if (flysqlKey.getFlysqlProperties().getShowLog()) {
                     log.info("[oxygen-flysql-sql]:" + sqlString);
                 } else {
                     log.debug("[oxygen-flysql-sql]:" + sqlString);
@@ -108,7 +108,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
         String sqlString = parseSqlConditions(initSelectSql(), sqlConditions) + " limit " + (page - 1) * size + " , " + size;
 
         // 打印日志
-        if (flysqlKey.getFlysqlDataSourceProperties().getShowLog()) {
+        if (flysqlKey.getFlysqlProperties().getShowLog()) {
             log.info("[oxygen-flysql-sql]:" + sqlString);
         } else {
             log.debug("[oxygen-flysql-sql]:" + sqlString);
@@ -127,7 +127,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
         String sqlString = parseSqlConditions(initUpdateSql(), sqlConditions);
 
         // 打印日志
-        if (flysqlKey.getFlysqlDataSourceProperties().getShowLog()) {
+        if (flysqlKey.getFlysqlProperties().getShowLog()) {
             log.info("[oxygen-flysql-sql]:" + sqlString);
         } else {
             log.debug("[oxygen-flysql-sql]:" + sqlString);
@@ -146,7 +146,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
         String sqlString = initSaveSql(entity);
 
         // 打印日志
-        if (flysqlKey.getFlysqlDataSourceProperties().getShowLog()) {
+        if (flysqlKey.getFlysqlProperties().getShowLog()) {
             log.info("[oxygen-flysql-sql]:" + sqlString);
         } else {
             log.debug("[oxygen-flysql-sql]:" + sqlString);
@@ -169,7 +169,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
         String sqlString = parseSqlConditions(initDeleteSql(), sqlConditions);
 
         // 打印日志
-        if (flysqlKey.getFlysqlDataSourceProperties().getShowLog()) {
+        if (flysqlKey.getFlysqlProperties().getShowLog()) {
             log.info("[oxygen-flysql-sql]:" + sqlString);
         } else {
             log.debug("[oxygen-flysql-sql]:" + sqlString);
@@ -187,7 +187,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
 
         String sqlString = parseSqlConditions(initCountSql(), sqlConditions);
         // 打印日志
-        if (flysqlKey.getFlysqlDataSourceProperties().getShowLog()) {
+        if (flysqlKey.getFlysqlProperties().getShowLog()) {
             log.info("[oxygen-flysql-sql]:" + sqlString);
         } else {
             log.debug("[oxygen-flysql-sql]:" + sqlString);

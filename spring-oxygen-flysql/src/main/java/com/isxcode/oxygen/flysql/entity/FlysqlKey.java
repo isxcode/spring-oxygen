@@ -2,7 +2,7 @@ package com.isxcode.oxygen.flysql.entity;
 
 import com.isxcode.oxygen.flysql.enums.DataBaseType;
 import com.isxcode.oxygen.flysql.enums.SqlType;
-import com.isxcode.oxygen.flysql.properties.FlysqlDataSourceProperties;
+import com.isxcode.oxygen.flysql.properties.FlysqlProperties;
 import lombok.Data;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -49,11 +49,11 @@ public class FlysqlKey<A> {
     /**
      * 暂时日志
      */
-    private FlysqlDataSourceProperties flysqlDataSourceProperties;
+    private FlysqlProperties flysqlProperties;
 
-    public FlysqlKey(DataBaseType dataBaseType, SqlType sqlType, JdbcTemplate jdbcTemplate, Class<A> targetClass, String viewSqlName, FlysqlDataSourceProperties flysqlDataSourceProperties) {
+    public FlysqlKey(DataBaseType dataBaseType, SqlType sqlType, JdbcTemplate jdbcTemplate, Class<A> targetClass, String viewSqlName, FlysqlProperties flysqlProperties) {
 
-        this.flysqlDataSourceProperties = flysqlDataSourceProperties;
+        this.flysqlProperties = flysqlProperties;
         this.targetClass = targetClass;
         this.jdbcTemplate = jdbcTemplate;
         this.viewSqlName = viewSqlName;
@@ -61,18 +61,18 @@ public class FlysqlKey<A> {
         this.dataBaseType = dataBaseType;
     }
 
-    public FlysqlKey(DataBaseType dataBaseType, SqlType sqlType, JdbcTemplate jdbcTemplate, Class<A> targetClass, FlysqlDataSourceProperties flysqlDataSourceProperties) {
+    public FlysqlKey(DataBaseType dataBaseType, SqlType sqlType, JdbcTemplate jdbcTemplate, Class<A> targetClass, FlysqlProperties flysqlProperties) {
 
-        this.flysqlDataSourceProperties = flysqlDataSourceProperties;
+        this.flysqlProperties = flysqlProperties;
         this.targetClass = targetClass;
         this.jdbcTemplate = jdbcTemplate;
         this.sqlType = sqlType;
         this.dataBaseType = dataBaseType;
     }
 
-    public FlysqlKey(DataBaseType dataBaseType, SqlType sqlType, MongoTemplate mongoTemplate, Class<A> targetClass, FlysqlDataSourceProperties flysqlDataSourceProperties) {
+    public FlysqlKey(DataBaseType dataBaseType, SqlType sqlType, MongoTemplate mongoTemplate, Class<A> targetClass, FlysqlProperties flysqlProperties) {
 
-        this.flysqlDataSourceProperties = flysqlDataSourceProperties;
+        this.flysqlProperties = flysqlProperties;
         this.targetClass = targetClass;
         this.mongoTemplate = mongoTemplate;
         this.sqlType = sqlType;

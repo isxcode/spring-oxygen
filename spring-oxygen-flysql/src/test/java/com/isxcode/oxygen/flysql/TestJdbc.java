@@ -15,21 +15,21 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
-@JdbcTest
+@org.springframework.boot.test.autoconfigure.jdbc.JdbcTest
 @ContextConfiguration(classes = FlysqlAutoConfiguration.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles
-public class MysqlTest {
+public class TestJdbc {
 
     private final Flysql flysql;
 
-    public MysqlTest(@Qualifier("flysqlFactory") Flysql flysql) {
+    public TestJdbc(@Qualifier("flysqlFactory") Flysql flysql) {
 
         this.flysql = flysql;
     }
 
     @Test
-    public void testMysql() {
+    public void testJdbc() {
 
         // 插入数据
         MetaData metaData1 = new MetaData("data1", new Date(), LocalDate.now(), LocalDateTime.now(), new BigDecimal("1"), '1', 1, 1.1, 1L, true, Short.parseShort("1"), 1f, Byte.parseByte("1"));

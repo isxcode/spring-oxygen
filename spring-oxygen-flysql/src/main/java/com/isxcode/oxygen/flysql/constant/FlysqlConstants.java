@@ -23,5 +23,19 @@ public interface FlysqlConstants {
      */
     String SELECT_REPLACE_CONTENT = "##flysql_columns_info##";
 
+    /**
+     * H2
+     */
+    String H2_DB = "H2";
+
+    /**
+     * MYSQL
+     */
+    String MYSQL_DB = "MySQL";
+
+    /**
+     * ORACLE
+     */
+    String ORACLE_DB = "Oracle";
 }
 
