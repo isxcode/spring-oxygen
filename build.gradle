@@ -1,6 +1,3 @@
-/*
- * point plugin version
- */
 plugins {
     id 'org.springframework.boot' version '2.4.5'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
@@ -11,14 +8,21 @@ plugins {
     id 'jacoco'
 }
 
-/*
- * config subproject module info
- */
 allprojects {
+    repositories {
+        if (project.findProperty('project.version') == null) {
+            maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        } else {
+            mavenCentral()
+        }
+    }
+    bootJar{
+        enabled false
+    }
+}
 
-    /*
-     * add plugin
-     */
+subprojects {
+
     apply plugin: 'signing'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
@@ -28,69 +32,34 @@ allprojects {
     apply plugin: 'jacoco'
 
     version = project.findProperty('project.version') ?: '0.0.1'
-    group = project.findProperty('project.group')
+    group = 'com.isxcode.oxygen'
 
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
 
-    /*
-     * point repositories
-     */
-    repositories {
-        if (project.findProperty('project.version') == null) {
-            maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-        } else {
-            mavenCentral()
-        }
-    }
-
-    /**
-     * common dependencies
-     */
     dependencies {
 
-        /**
-         * spring web
-         */
         implementation('org.springframework.boot:spring-boot-starter-web') {
             exclude group: 'com.fasterxml.jackson.datatype', module: 'jackson-datatype-jdk8'
         }
 
-        /**
-         * spring web test
-         */
         testImplementation('org.springframework.boot:spring-boot-starter-test') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
         }
 
-        /**
-         * spring-annotation
-         */
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
-        /**
-         * lombok （测试和运行）
-         */
         testCompileOnly 'org.projectlombok:lombok:1.18.20'
         testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
         compileOnly 'org.projectlombok:lombok:1.18.20'
         annotationProcessor 'org.projectlombok:lombok:1.18.20'
 
-        /**
-         * log4j
-         */
         implementation 'org.apache.logging.log4j:log4j-api:2.14.1'
 
-        /**
-         * junit5
-         */
         implementation 'org.junit.jupiter:junit-jupiter'
         testCompile 'org.junit.jupiter:junit-jupiter-api:5.7.1'
     }
 
-    /*
-     * publish to github packages [https://docs.github.com/en/packages/using-github-packages-with-your-projects-ecosystem/configuring-gradle-for-use-with-github-packages]
-     */
     publishing {
 
         repositories {
@@ -112,14 +81,11 @@ allprojects {
         }
     }
 
-    /*
-     * publish to maven center [https://docs.gradle.org/current/userguide/publishing_maven.html#header]
-     */
     publishing {
 
         repositories {
             maven {
-                name = "SonatypePackages"
+                name = "Sonatype"
                 def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
                 def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
                 url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
@@ -131,23 +97,18 @@ allprojects {
         }
 
         publications {
-
             mavenJava(MavenPublication) {
                 from components.java
-
                 pom {
-
                     name = project.getName()
                     description = 'Spring rapid development integration framework.'
-                    url = 'https://github.com/isxcode/spring-oxygen'
-
+                    url = 'https://spring-oxygen.isxcode.com'
                     licenses {
                         license {
                             name = 'The Apache License, Version 2.0'
-                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                            url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
                         }
                     }
-
                     developers {
                         developer {
                             id = 'ispong'
@@ -155,7 +116,6 @@ allprojects {
                             email = 'ispong@outlook.com'
                         }
                     }
-
                     scm {
                         connection = 'scm:git:git://github.com/isxcode/spring-oxygen.git'
                         developerConnection = 'scm:git:ssh://github.com/isxcode/spring-oxygen.git'
@@ -182,9 +142,6 @@ allprojects {
         }
     }
 
-    /*
-     * add jacoco coverage [https://docs.gradle.org/current/userguide/jacoco_plugin.html#header]
-     */
     test {
         useJUnitPlatform()
         finalizedBy jacocoTestReport

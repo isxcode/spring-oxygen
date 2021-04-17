@@ -1,33 +1,13 @@
-##
-# IntelliJ IDEA
-##
 .idea
 *.iml
 
-##
-# Gradle
-##
 .gradle
 gradle
 gradle.properties
 
-##
-# Packages
-##
 **/build
 **/target
 
-##
-# Github
-##
 .github
 
-##
-# Test
-##
-**/*Dogs
-
-##
-# logs
-##
 **/*.log

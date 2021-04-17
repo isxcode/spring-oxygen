@@ -31,7 +31,7 @@ cd spring-oxygen
 gradle publishToMavenLocal
 ```
 
-4. Install Local ([Example](https://spring-oxygen.isxcode.com/#/en-us/1-1-Init-spring-project))
+4. Install Local
 
 - Open local spring project and Change file `build.gradle` 
 
@@ -72,4 +72,30 @@ git push origin latest
 npm i docsify-cli -g
 cd spring-oxygen
 docsify serve docs
+```
+
+8. Publish to maven center
+
+- https://oss.sonatype.org/
+
+> change `gradle.properties` file and set version number and password
+
+```
+project.version=xxx
+
+signing.keyId=57CA7F60
+signing.password=spring-oxygen
+signing.secretKeyRingFile=../.github/secring.gpg
+
+sonatypeUsername=isxcode
+sonatypePassword=xxx
+
+gpr.user=isxcode
+#gpr.key=xxx
+
+###
+```
+
+```bash
+gradle publishMavenJavaPublicationToSonatypeRepository
 ```
