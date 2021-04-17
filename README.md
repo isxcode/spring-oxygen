@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/isxcode/spring-oxygen" style="border-bottom: none !important">
+  <a href="https://github.com/isxcode/spring-oxygen" style="border-bottom: none !important;">
     <img alt="spring-oxygen" width="500" src="https://gitee.com/isxcode/blogs-galaxy-images/raw/master/oxygen/oxygen.png">
   </a>
 </p>
@@ -38,10 +38,9 @@
 
 </div>
 
-
 ## 🐣 Introduce
 
-[Spring Oxygen](https://github.com/isxcode/spring-oxygen) is rapid development integration framework for [Spring](https://spring.io/) framework.
+[Spring Oxygen](https://github.com/isxcode/spring-oxygen) is rapid development integration framework for [Spring framework](https://spring.io/) .
 **Important statement, enterprise-level development is recommended to be used with caution!**
 For instructions on use, please check the [Docs](https://spring-oxygen.isxcode.com) carefully.
 Welcome to develop and maintain together, please follow the [github development](https://github.com/isxcode/spring-oxygen/blob/latest/CONTRIBUTING.md) specification.
@@ -52,7 +51,7 @@ Welcome to develop and maintain together, please follow the [github development]
 
 ```groovy
 dependencies {
-    implementation 'com.isxcode.oxygen:oxygen-spring-boot-starter:0.0.1'
+    implementation 'com.isxcode.oxygen:oxygen-spring-boot-starter:0.0.2'
 }
 ```
 
@@ -62,30 +61,40 @@ dependencies {
 <dependency>
   <groupId>com.isxcode.oxygen</groupId>
   <artifactId>oxygen-spring-boot-starter</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
 </dependency>
 ```
 
 ## 🔨 Usage
 
+```yaml
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:~/h2
+    username: root
+    password: root
+```
+
 ```java
-import com.isxcode.oxygen.flysql.pojo.enums.OrderType;
-import org.springframework.stereotype.Repository;
-import com.isxcode.oxygen.flysql.core.Flysql;
-
-import java.util.List;
-
 @Repository
-public class DogsRepository {
+public class MetaDataRepository {
 
-    public List<DogsEntity> queryDogsEntity() {
+    private final Flysql flysql;
 
-        return Flysql.build().select(DogsEntity.class)
-            .select("name", "age", "color")
-            .eq("name", "alen")
-            .between("age", 1, 2)
-            .like("color", "red")
-            .orderBy("index", OrderType.DESC)
+    public TestJdbc(Flysql flysql) {
+
+        this.flysql = flysql;
+    }
+
+    public List<MetaData> queryJdbcMetaData() {
+
+        return flysql.build().select(MetaData.class)
+            .select("c1", "c2", "c3")
+            .eq("c1", "v1")
+            .between("c2", 0, 1)
+            .like("c3", "green")
+            .orderBy("c4", OrderType.DESC)
             .query();
     }
 }
@@ -97,12 +106,12 @@ Check out the [Getting Started](https://spring-oxygen.isxcode.com) page for a qu
 
 ##  👏 Contributing
 
-Read our [contributing guide](https://github.com/isxcode/spring-oxygen/blob/main/CONTRIBUTING.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to React.
+Read our [contributing guide](https://github.com/isxcode/spring-oxygen/blob/main/CONTRIBUTING.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to Spring Oxygen.
 
 ***
 
 #### Thanks for free JetBrains Open Source license
 
-<a href="https://www.jetbrains.com/?from=spring-oxygen" target="_blank" style="border-bottom: none !important">
+<a href="https://www.jetbrains.com/?from=spring-oxygen" target="_blank" style="border-bottom: none !important;">
     <img src="https://gitee.com/isxcode/blogs-galaxy-images/raw/master/jetbrains/jetbrains-3.png" height="100" alt="jetbrains"/>
 </a>

@@ -21,6 +21,6 @@ spring:
     password: root
     initialization-mode: always
     schema: classpath:db/schema_h2.sql
-#  data:
-#    mongodb:
-#      uri: mongodb://xdap-app:xdap-app-2020@47.96.19.185:31001/xdap_app_database
+  data:
+    mongodb:
+      uri: mongodb://xdap-app:xdap-app-2020@47.96.19.185:31001/xdap_app_database
