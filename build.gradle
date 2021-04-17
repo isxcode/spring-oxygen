@@ -14,7 +14,7 @@ plugins {
 /*
  * config subproject module info
  */
-subprojects {
+allprojects {
 
     /*
      * add plugin
@@ -37,12 +37,11 @@ subprojects {
      * point repositories
      */
     repositories {
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-//        if (project.findProperty('project.version') == null) {
-//            maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-//        } else {
-//            mavenCentral()
-//        }
+        if (project.findProperty('project.version') == null) {
+            maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        } else {
+            mavenCentral()
+        }
     }
 
     /**
@@ -201,7 +200,6 @@ subprojects {
 
     jacoco {
         toolVersion = "0.8.6"
-        reportsDirectory = file("$buildDir/jacocoReport")
     }
 
     bootJar { enabled false }

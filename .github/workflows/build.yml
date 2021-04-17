@@ -15,7 +15,6 @@ jobs:
         language: ['java']
         java:
           - 11
-        openjdk: 'adopt'
 
     steps:
 
@@ -41,12 +40,12 @@ jobs:
     - name: gradle build
       uses: actions/setup-java@v2
       with:
-        distribution: ${{ matrix.openjdk }}
+        distribution: 'adopt'
         java-version: ${{ matrix.java }}
     - run: |
         chmod +x gradlew
         echo 'project.version=0.0.1' >> gradle.properties
-        gradle build test
+        ./gradlew build test
 
     - name: codeql analysis
       uses: github/codeql-action/analyze@v1
@@ -59,7 +58,7 @@ jobs:
     - name: report generator
       uses: danielpalme/ReportGenerator-GitHub-Action@4.8.7
       with:
-        reports: ./oxygen-spring-boot-starter/build/jacocoReport/test/jacocoTestReport.xml;./spring-oxygen-core/build/jacocoReport/test/jacocoTestReport.xml;./spring-oxygen-flysql/build/jacocoReport/test/jacocoTestReport.xml;./spring-oxygen-freecode/build/jacocoReport/test/jacocoTestReport.xml;
+        reports: ./oxygen-spring-boot-starter/build/reports/jacoco/test/jacocoTestReport.xml;./spring-oxygen-core/build/reports/jacoco/test/jacocoTestReport.xml;./spring-oxygen-flysql/build/reports/jacoco/test/jacocoTestReport.xml;./spring-oxygen-freecode/build/reports/jacoco/test/jacocoTestReport.xml;
         sourcedirs: ./oxygen-spring-boot-starter/src/main/java/;./spring-oxygen-core/src/main/java/;./spring-oxygen-flysql/src/main/java/;./spring-oxygen-freecode/src/main/java/;
         targetdir: ./coverage/
         reporttypes: lcov
