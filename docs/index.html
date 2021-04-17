@@ -17,10 +17,10 @@
 </div>
 <script>
     window.$docsify = {
-        basePath: '/',
-        name: '<h3>Spring Oxygen</h3>',
+        name: '<h4>Spring Oxygen</h4>',
         themeColor: '#6db33f',
         repo: 'https://github.com/isxcode/spring-oxygen',
+        homepage: 'https://raw.githubusercontent.com/isxcode/spring-oxygen/latest/README.md',
         loadSidebar: true,
         loadNavbar: true,
         coverpage: true,
@@ -31,6 +31,10 @@
         routerMode: 'hash',
         auto2top: true,
         autoHeader: false,
+        alias: {
+            '.*/_sidebar.md': '/en-us/_sidebar.md',
+            '.*/_navbar.md': '/en-us/_navbar.md',
+        },
         plugins: [
             EditOnGithubPlugin.create('https://github.com/isxcode/spring-oxygen/blob/latest/docs/', null, 'Edit on github')
         ],
