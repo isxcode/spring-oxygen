@@ -1,25 +1,10 @@
 dependencies {
-
-    // 为了使用通用方法，反射之类
     implementation(project(':spring-oxygen-core'))
-
-    // 为了获取spring session中的用户id
     implementation 'org.springframework.security:spring-security-core'
-
     implementation 'org.springframework.boot:spring-boot-starter-aop'
-
-    // 调用jdbcTemplate
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-
-    // 支持h2数据库 (测试环境)
-    runtimeOnly 'com.h2database:h2'
-
-    // 支持mysql数据库
-    runtimeOnly 'mysql:mysql-connector-java'
-
-    // 支持oracle数据库
-    runtimeOnly 'com.oracle.ojdbc:ojdbc8'
-
-    // 支持mongodb数据库
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'mysql:mysql-connector-java'
+    runtimeOnly 'com.oracle.ojdbc:ojdbc8'
 }

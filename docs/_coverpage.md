@@ -8,5 +8,5 @@
 
 <div class="buttons">
   <a href="https://github.com/isxcode/spring-oxygen/" target="_blank"><span>GitHub</span></a>
-  <a href="#/en-us/README.md"><span>Get Started</span></a>
+  <a href="#/README"><span>Get Started</span></a>
 </div>

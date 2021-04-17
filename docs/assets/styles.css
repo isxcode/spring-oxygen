@@ -384,3 +384,18 @@ body .sidebar-toggle span:nth-child(3) {
 .docsify-copy-code-button {
   font-size: 0.7em !important;
 }
+
+/****** COPY TO CLIPBOARD ******/
+.badge {
+    display: table !important;
+    margin: auto ;
+    border-spacing: 4px !important;
+}
+
+.badge p {
+    margin: 0.2rem !important;
+}
+
+.badge p a {
+    border-bottom: none !important;
+}

@@ -1,6 +1,5 @@
+###
 
+测试flysql所有组件
 
-```java
-flysql.build("").select(xx.class).eq().save()
-flysql.buildMongo("").select(xx.class).eq().save()
-```
+清理flysql所有函数

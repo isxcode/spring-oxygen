@@ -2,7 +2,7 @@ package com.isxcode.oxygen.flysql.config;
 
 import com.isxcode.oxygen.flysql.constant.FlysqlConstants;
 import com.isxcode.oxygen.flysql.core.Flysql;
-import com.isxcode.oxygen.flysql.properties.FlysqlDataSourceProperties;
+import com.isxcode.oxygen.flysql.properties.FlysqlProperties;
 import com.isxcode.oxygen.flysql.response.GlobalExceptionAdvice;
 import com.isxcode.oxygen.flysql.response.SuccessResponseAdvice;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +28,7 @@ import java.util.Map;
  */
 @Slf4j
 @EnableAutoConfiguration
-@EnableConfigurationProperties(FlysqlDataSourceProperties.class)
+@EnableConfigurationProperties(FlysqlProperties.class)
 public class FlysqlAutoConfiguration {
 
     /**
@@ -54,20 +54,20 @@ public class FlysqlAutoConfiguration {
     /**
      * 初始化flysql factory
      *
-     * @param flysqlDataSourceProperties configs
+     * @param flysqlProperties configs
      * @param jdbcTemplate               jdbcTemplate
      * @param mongoTemplate              mongoTemplate
      * @since 0.0.1
      */
     @Bean("flysqlFactory")
     @ConditionalOnClass(FlysqlAutoConfiguration.class)
-    private Flysql initFlySqlFactory(FlysqlDataSourceProperties flysqlDataSourceProperties, @Nullable JdbcTemplate jdbcTemplate, @Nullable MongoTemplate mongoTemplate) {
+    private Flysql initFlySqlFactory(FlysqlProperties flysqlProperties, @Nullable JdbcTemplate jdbcTemplate, @Nullable MongoTemplate mongoTemplate) {
 
         Map<String, JdbcTemplate> jdbcTemplateMap;
         Map<String, MongoTemplate> mongoTemplateMap;
 
         // 集成oracle/mysql/h2数据库
-        Map<String, DataSourceProperties> dataSourcePropertiesMap = flysqlDataSourceProperties.getDatasource();
+        Map<String, DataSourceProperties> dataSourcePropertiesMap = flysqlProperties.getDatasource();
         if (dataSourcePropertiesMap == null) {
             jdbcTemplateMap = new HashMap<>(1);
         } else {
@@ -79,7 +79,7 @@ public class FlysqlAutoConfiguration {
         }
 
         // 集成mongodb数据库
-        Map<String, MongoProperties> mongodbPropertiesMap = flysqlDataSourceProperties.getMongodb();
+        Map<String, MongoProperties> mongodbPropertiesMap = flysqlProperties.getMongodb();
         if (mongodbPropertiesMap == null) {
             mongoTemplateMap = new HashMap<>(1);
         } else {
@@ -99,7 +99,7 @@ public class FlysqlAutoConfiguration {
         }
 
         // 储存关系型数据库和非关系型数据库
-        return new Flysql(jdbcTemplateMap, mongoTemplateMap, flysqlDataSourceProperties);
+        return new Flysql(jdbcTemplateMap, mongoTemplateMap, flysqlProperties);
     }
 
 }

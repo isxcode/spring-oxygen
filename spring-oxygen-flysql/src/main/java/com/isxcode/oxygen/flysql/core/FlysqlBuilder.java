@@ -1,15 +1,19 @@
 package com.isxcode.oxygen.flysql.core;
 
+import com.isxcode.oxygen.flysql.constant.FlysqlConstants;
 import com.isxcode.oxygen.flysql.entity.FlysqlKey;
 import com.isxcode.oxygen.flysql.enums.DataBaseType;
 import com.isxcode.oxygen.flysql.enums.SqlType;
 import com.isxcode.oxygen.flysql.exception.FlysqlException;
-import com.isxcode.oxygen.flysql.properties.FlysqlDataSourceProperties;
+import com.isxcode.oxygen.flysql.properties.FlysqlProperties;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.sql.SQLException;
+import java.util.Objects;
+
 /**
- * 初始化flysql构建对象
+ * init flysql builder
  *
  * @author ispong
  * @version 0.0.1
@@ -20,26 +24,40 @@ public class FlysqlBuilder {
 
     private MongoTemplate mongoTemplate;
 
-    private final DataBaseType dataBaseType;
+    private final FlysqlProperties flysqlProperties;
 
-    private final FlysqlDataSourceProperties flysqlDataSourceProperties;
+    public FlysqlBuilder(MongoTemplate mongoTemplate, FlysqlProperties flysqlProperties) {
 
-    public FlysqlBuilder(DataBaseType dataBaseType,
-                         MongoTemplate mongoTemplate,
-                         FlysqlDataSourceProperties flysqlDataSourceProperties) {
-
-        this.dataBaseType = dataBaseType;
         this.mongoTemplate = mongoTemplate;
-        this.flysqlDataSourceProperties = flysqlDataSourceProperties;
+        this.flysqlProperties = flysqlProperties;
     }
 
-    public FlysqlBuilder(DataBaseType dataBaseType,
-                         JdbcTemplate jdbcTemplate,
-                         FlysqlDataSourceProperties flysqlDataSourceProperties) {
+    public FlysqlBuilder(JdbcTemplate jdbcTemplate, FlysqlProperties flysqlProperties) {
 
-        this.dataBaseType = dataBaseType;
         this.jdbcTemplate = jdbcTemplate;
-        this.flysqlDataSourceProperties = flysqlDataSourceProperties;
+        this.flysqlProperties = flysqlProperties;
+    }
+
+    public DataBaseType getDataBaseType() {
+
+        if (mongoTemplate != null) {
+            return DataBaseType.MONGO;
+        } else {
+            try {
+                String databaseName = Objects.requireNonNull(jdbcTemplate.getDataSource()).getConnection().getMetaData().getDatabaseProductName();
+                switch (databaseName) {
+                    case FlysqlConstants.ORACLE_DB:
+                        return DataBaseType.ORACLE;
+                    case FlysqlConstants.H2_DB:
+                        return DataBaseType.H2;
+                    case FlysqlConstants.MYSQL_DB:
+                        return DataBaseType.MYSQL;
+                }
+            } catch (SQLException e) {
+                throw new FlysqlException("datasource link error");
+            }
+        }
+        throw new FlysqlException("datasource link error");
     }
 
     /**
@@ -52,16 +70,10 @@ public class FlysqlBuilder {
      */
     public <A> FlysqlExecute<A> insert(Class<A> targetClass) {
 
-        switch (dataBaseType) {
-            case MONGO:
-                return new FlysqlExecute<>(new FlysqlKey<>(DataBaseType.MONGO, SqlType.INSERT, mongoTemplate, targetClass, flysqlDataSourceProperties));
-            case ORACLE:
-            case H2:
-                return new FlysqlExecute<>(new FlysqlKey<>(DataBaseType.H2, SqlType.INSERT, jdbcTemplate, targetClass, flysqlDataSourceProperties));
-            case MYSQL:
-                return new FlysqlExecute<>(new FlysqlKey<>(DataBaseType.MYSQL, SqlType.INSERT, jdbcTemplate, targetClass, flysqlDataSourceProperties));
-            default:
-                throw new FlysqlException("数据库类型暂不支持");
+        if (jdbcTemplate == null) {
+            return new FlysqlExecute<>(new FlysqlKey<>(DataBaseType.MONGO, SqlType.INSERT, mongoTemplate, targetClass, flysqlProperties));
+        } else {
+            return new FlysqlExecute<>(new FlysqlKey<>(getDataBaseType(), SqlType.INSERT, jdbcTemplate, targetClass, flysqlProperties));
         }
     }
 
@@ -75,16 +87,10 @@ public class FlysqlBuilder {
      */
     public <A> FlysqlExecute<A> delete(Class<A> targetClass) {
 
-        switch (dataBaseType) {
-            case MONGO:
-                return new FlysqlExecute<>(new FlysqlKey<>(DataBaseType.MONGO, SqlType.DELETE, mongoTemplate, targetClass, flysqlDataSourceProperties));
-            case ORACLE:
-            case H2:
-                return new FlysqlExecute<>(new FlysqlKey<>(DataBaseType.H2, SqlType.DELETE, jdbcTemplate, targetClass, flysqlDataSourceProperties));
-            case MYSQL:
-                return new FlysqlExecute<>(new FlysqlKey<>(DataBaseType.MYSQL, SqlType.DELETE, jdbcTemplate, targetClass, flysqlDataSourceProperties));
-            default:
-                throw new FlysqlException("数据库类型暂不支持");
+        if (jdbcTemplate == null) {
+            return new FlysqlExecute<>(new FlysqlKey<>(DataBaseType.MONGO, SqlType.DELETE, mongoTemplate, targetClass, flysqlProperties));
+        } else {
+            return new FlysqlExecute<>(new FlysqlKey<>(getDataBaseType(), SqlType.DELETE, jdbcTemplate, targetClass, flysqlProperties));
         }
     }
 
@@ -98,16 +104,10 @@ public class FlysqlBuilder {
      */
     public <A> FlysqlExecute<A> update(Class<A> targetClass) {
 
-        switch (dataBaseType) {
-            case MONGO:
-                return new FlysqlExecute<>(new FlysqlKey<>(DataBaseType.MONGO, SqlType.UPDATE, mongoTemplate, targetClass, flysqlDataSourceProperties));
-            case ORACLE:
-            case H2:
-                return new FlysqlExecute<>(new FlysqlKey<>(DataBaseType.H2, SqlType.UPDATE, jdbcTemplate, targetClass, flysqlDataSourceProperties));
-            case MYSQL:
-                return new FlysqlExecute<>(new FlysqlKey<>(DataBaseType.MYSQL, SqlType.UPDATE, jdbcTemplate, targetClass, flysqlDataSourceProperties));
-            default:
-                throw new FlysqlException("数据库类型暂不支持");
+        if (jdbcTemplate == null) {
+            return new FlysqlExecute<>(new FlysqlKey<>(DataBaseType.MONGO, SqlType.UPDATE, mongoTemplate, targetClass, flysqlProperties));
+        } else {
+            return new FlysqlExecute<>(new FlysqlKey<>(getDataBaseType(), SqlType.UPDATE, jdbcTemplate, targetClass, flysqlProperties));
         }
     }
 
@@ -122,15 +122,10 @@ public class FlysqlBuilder {
      */
     public <A> FlysqlExecute<A> view(String viewName, Class<A> targetClass) {
 
-        switch (dataBaseType) {
-            case ORACLE:
-            case H2:
-                return new FlysqlExecute<>(new FlysqlKey<>(DataBaseType.H2, SqlType.VIEW, jdbcTemplate, targetClass, viewName, flysqlDataSourceProperties));
-            case MYSQL:
-                return new FlysqlExecute<>(new FlysqlKey<>(DataBaseType.MYSQL, SqlType.VIEW, jdbcTemplate, targetClass, viewName, flysqlDataSourceProperties));
-            case MONGO:
-            default:
-                throw new FlysqlException("数据库类型暂不支持");
+        if (jdbcTemplate == null) {
+            return new FlysqlExecute<>(new FlysqlKey<>(DataBaseType.MONGO, SqlType.VIEW, mongoTemplate, targetClass, flysqlProperties));
+        } else {
+            return new FlysqlExecute<>(new FlysqlKey<>(getDataBaseType(), SqlType.VIEW, jdbcTemplate, targetClass, flysqlProperties));
         }
     }
 
@@ -144,16 +139,10 @@ public class FlysqlBuilder {
      */
     public <A> FlysqlExecute<A> select(Class<A> targetClass) {
 
-        switch (dataBaseType) {
-            case MONGO:
-                return new FlysqlExecute<>(new FlysqlKey<>(DataBaseType.MONGO, SqlType.SELECT, mongoTemplate, targetClass, flysqlDataSourceProperties));
-            case ORACLE:
-            case H2:
-                return new FlysqlExecute<>(new FlysqlKey<>(DataBaseType.H2, SqlType.SELECT, mongoTemplate, targetClass, flysqlDataSourceProperties));
-            case MYSQL:
-                return new FlysqlExecute<>(new FlysqlKey<>(DataBaseType.MYSQL, SqlType.SELECT, jdbcTemplate, targetClass, flysqlDataSourceProperties));
-            default:
-                throw new FlysqlException("数据库类型暂不支持");
+        if (jdbcTemplate == null) {
+            return new FlysqlExecute<>(new FlysqlKey<>(DataBaseType.MONGO, SqlType.SELECT, mongoTemplate, targetClass, flysqlProperties));
+        } else {
+            return new FlysqlExecute<>(new FlysqlKey<>(getDataBaseType(), SqlType.SELECT, jdbcTemplate, targetClass, flysqlProperties));
         }
     }
 
