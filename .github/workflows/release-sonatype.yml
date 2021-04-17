@@ -6,22 +6,19 @@ on:
       branch:
         description: 'which branch'
         required: true
-        default: main
       version:
-        description: 'which version like 0.0.x-alpha-x'
+        description: 'version number'
         required: true
 
 jobs:
   release:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         java:
           - 11
 
     steps:
-
     - name: checkout repository
       uses: actions/checkout@v2.3.4
       with:
@@ -40,13 +37,13 @@ jobs:
     - name: gradle build
       uses: actions/setup-java@v2
       with:
+        distribution: 'adopt'
         java-version: ${{ matrix.java }}
     - run: |
         echo 'project.version=${{ github.event.inputs.version }}' >> gradle.properties
-        gradle build -x test
+        ./gradlew build -x test
 
     - name: publish to sonatype
       run: |
-        echo 'sonatypeUsername=${{ secrets.SONATYPE_USERNAME }}' >> gradle.properties
         echo 'sonatypePassword=${{ secrets.SONATYPE_PASSWORD }}' >> gradle.properties
-        gradle publishMavenJavaPublicationToSonatypePackagesRepository
+        ./gradlew publishMavenJavaPublicationToSonatypeRepository
