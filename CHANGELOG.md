@@ -1,39 +1,39 @@
 ## 0.0.2
 
-### 💥️ 重大变动
+### 💥️ Breaking Change
 
-- Flysql从静态导入转为注入方式
-- Flysql使用语法变法
+- flysql need manual dependency injection
 
 ```java
 class demo{
-    
+
     private final Flysql flysql;
-    
-    public demo(Flysql flysql){
+
+    public demo(Flysql flysql) {
+        
         this.flysql = flysql;
     }
-    
-    void test(){
-        flysql.build().select().eq().query();    
-    }   
 }
 ```
 
-### ✨ 新功能
+- flysql add new function for mongoDB
 
-- 支持新的数据源 -- Oracle
-- 支持新的数据源 -- MongoDB
-- 日志打印可以配置
+```java
+flysql.buildMongo().select(MetaData.class).query()
+```
 
-### 🎨 优化
+### ✨ Feature
 
-- 优化打包大小，提出lombok以来
-- 添加系统性测试
-- 项目启动时,扫描创建所有类属性对象
-- rowId没有值的时候，自动补齐雪花id
+- Support new database -- `Oracle`
+- Support new database -- `MongoDB`
+- add new property for show sql -- `oxygen.flysql.showLog` 
 
-### 🐛 修复
+### 🎨 Enhancement
 
-- 修复boolean类型无法插入问题
-- 修复Date类型无法直接插入问题
+- add more flysql unit test
+- when rowId is null , will auto set id by snowFlakeId
+
+### 🐛 Fix
+
+- fix column type is `Boolean` can not insert table
+- fix column type is `Date` can not insert table
