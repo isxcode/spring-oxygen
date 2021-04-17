@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/isxcode/spring-oxygen">
+  <a href="https://github.com/isxcode/spring-oxygen" style="border-bottom: none !important">
     <img alt="spring-oxygen" width="500" src="https://gitee.com/isxcode/blogs-galaxy-images/raw/master/oxygen/oxygen.png">
   </a>
 </p>
@@ -12,7 +12,7 @@
     🦄 Spring rapid development integration framework.
 </h4>
 
-<div align="center">
+<div align="center" class="badge">
 
 [![Github Build](https://github.com/isxcode/spring-oxygen/workflows/build/badge.svg?branch=latest)](https://github.com/isxcode/spring-oxygen/actions?query=workflow%3Abuild)
 [![Maven Version](https://img.shields.io/maven-central/v/com.isxcode.oxygen/oxygen-spring-boot-starter)](https://search.maven.org/artifact/com.isxcode.oxygen/oxygen-spring-boot-starter)
@@ -22,7 +22,7 @@
 
 </div>
 
-<div align="center">
+<div align="center" class="badge">
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/isxcode/spring-oxygen/blob/main/CONTRIBUTING.md)
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/isxcode/spring-oxygen)
@@ -30,7 +30,7 @@
 
 </div>
 
-<div align="center">
+<div align="center" class="badge">
 
 [![Github Watch](https://img.shields.io/github/watchers/isxcode/spring-oxygen?style=social)](https://github.com/isxcode/spring-oxygen/watchers)
 [![Github Star](https://img.shields.io/github/stars/isxcode/spring-oxygen?style=social)](https://github.com/isxcode/spring-oxygen/stargazers)
