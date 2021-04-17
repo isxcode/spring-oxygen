@@ -45,7 +45,7 @@ jobs:
     - run: |
         chmod +x gradlew
         echo 'project.version=0.0.1' >> gradle.properties
-        gradle build test
+        ./gradlew build test
 
     - name: codeql analysis
       uses: github/codeql-action/analyze@v1
