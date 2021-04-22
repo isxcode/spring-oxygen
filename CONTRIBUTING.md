@@ -80,7 +80,7 @@ docsify serve docs
 
 > change `gradle.properties` file and set version number and password
 
-```
+```properties
 project.version=xxx
 
 signing.keyId=57CA7F60

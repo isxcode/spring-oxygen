@@ -24,7 +24,7 @@
 
 <div align="center" class="badge">
 
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/isxcode/spring-oxygen/blob/main/CONTRIBUTING.md)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/isxcode/spring-oxygen/blob/latest/CONTRIBUTING.md)
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/isxcode/spring-oxygen)
 [![Discussions on github](https://img.shields.io/badge/Discussions-on%20github-blueviolet)](https://github.com/isxcode/spring-oxygen/discussions)
 
@@ -40,14 +40,14 @@
 
 ## 🐣 Introduce
 
-[Spring Oxygen](https://github.com/isxcode/spring-oxygen) is rapid development integration framework for [Spring framework](https://spring.io/) .
+[Spring Oxygen](https://github.com/isxcode/spring-oxygen) is rapid development integration framework for [spring](https://spring.io/) .
 **Important statement, enterprise-level development is recommended to be used with caution!**
-For instructions on use, please check the [Docs](https://spring-oxygen.isxcode.com) carefully.
+For instructions on use, please check the [website](https://spring-oxygen.isxcode.com) carefully.
 Welcome to develop and maintain together, please follow the [github development](https://github.com/isxcode/spring-oxygen/blob/latest/CONTRIBUTING.md) specification.
 
 ## 📦 Installation
 
-#### For Gradle
+- For Gradle
 
 ```groovy
 dependencies {
@@ -55,13 +55,13 @@ dependencies {
 }
 ```
 
-#### For Maven
+- For Maven
 
 ```xml
 <dependency>
-  <groupId>com.isxcode.oxygen</groupId>
-  <artifactId>oxygen-spring-boot-starter</artifactId>
-  <version>0.0.2</version>
+    <groupId>com.isxcode.oxygen</groupId>
+    <artifactId>oxygen-spring-boot-starter</artifactId>
+    <version>0.0.2</version>
 </dependency>
 ```
 
@@ -83,12 +83,10 @@ public class MetaDataRepository {
     private final Flysql flysql;
 
     public TestJdbc(Flysql flysql) {
-
         this.flysql = flysql;
     }
 
     public List<MetaData> queryJdbcMetaData() {
-
         return flysql.build().select(MetaData.class)
             .select("c1", "c2", "c3")
             .eq("c1", "v1")
@@ -106,11 +104,11 @@ Check out the [Getting Started](https://spring-oxygen.isxcode.com) page for a qu
 
 ##  👏 Contributing
 
-Read our [contributing guide](https://github.com/isxcode/spring-oxygen/blob/main/CONTRIBUTING.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to Spring Oxygen.
+Read our [contributing guide](https://github.com/isxcode/spring-oxygen/blob/latest/CONTRIBUTING.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to Spring Oxygen.
 
 ***
 
-#### Thanks for free JetBrains Open Source license
+**Thanks for free JetBrains Open Source license**
 
 <a href="https://www.jetbrains.com/?from=spring-oxygen" target="_blank" style="border-bottom: none !important;">
     <img src="https://gitee.com/isxcode/blogs-galaxy-images/raw/master/jetbrains/jetbrains-3.png" height="100" alt="jetbrains"/>
