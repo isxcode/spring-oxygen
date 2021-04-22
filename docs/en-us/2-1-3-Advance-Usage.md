@@ -1,4 +1,4 @@
-### Oracle + Mysql + H2
+### Oracle/Mysql/H2
 
 ```yaml
 oxygen:

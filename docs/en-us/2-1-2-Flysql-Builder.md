@@ -1,7 +1,4 @@
-?> 条件类型仅支持基础类型 -- 改、删、查。文档中仅做查询条件演示。
-
-#### Select
-
+#### Select()
 ```java
 public MetaData getOne(String id) {
 
@@ -12,7 +9,7 @@ public MetaData getOne(String id) {
 }
 ```
 
-#### Eq
+#### Eq()
 
 ```java
 public MetaData getOne(String id, String name) {
@@ -24,7 +21,7 @@ public MetaData getOne(String id, String name) {
 }
 ```
 
-#### Not_Eq
+#### NotEq()
 
 ```java
 public MetaData getOne(String id, String name) {
@@ -36,7 +33,7 @@ public MetaData getOne(String id, String name) {
 }
 ```
 
-#### Gt
+#### Gt()
 
 ```java
 public MetaData getOne(String id, String name) {
@@ -47,7 +44,7 @@ public MetaData getOne(String id, String name) {
 }
 ```
 
-#### Gt_Eq
+#### GtEq()
 
 ```java
 public MetaData getOne(String id, String name) {
@@ -58,7 +55,7 @@ public MetaData getOne(String id, String name) {
 }
 ```
 
-#### Lt
+#### Lt()
 
 ```java
 public MetaData getOne(String id, String name) {
@@ -69,7 +66,7 @@ public MetaData getOne(String id, String name) {
 }
 ```
 
-#### Lt_Eq
+#### LtEq()
 
 ```java
 public MetaData getOne(String id, String name) {
@@ -80,7 +77,7 @@ public MetaData getOne(String id, String name) {
 }
 ```
 
-#### In
+#### In()
 
 ```java
 public MetaData getOne(String id, String id2) {
@@ -91,7 +88,7 @@ public MetaData getOne(String id, String id2) {
 }
 ```
 
-#### Not_In
+#### NotIn()
 
 ```java
 public MetaData getOne(String id, String id2) {
@@ -102,7 +99,7 @@ public MetaData getOne(String id, String id2) {
 }
 ```
 
-#### Between
+#### Between()
 
 ```java
 public MetaData getOne(String id, String id2) {
@@ -113,7 +110,7 @@ public MetaData getOne(String id, String id2) {
 }
 ```
 
-#### Not_Between
+#### NotBetween()
 
 ```java
 public MetaData getOne(String id, String id2) {
@@ -124,7 +121,7 @@ public MetaData getOne(String id, String id2) {
 }
 ```
 
-####  Like
+#### Like()
 
 ```java
 public MetaData getOne(String name) {
@@ -135,7 +132,7 @@ public MetaData getOne(String name) {
 }
 ```
 
-#### Not_Like
+#### NotLike()
 
 ```java
 public MetaData getOne(String name) {
@@ -146,7 +143,7 @@ public MetaData getOne(String name) {
 }
 ```
 
-#### Is_Null
+#### IsNull()
 
 ```java
 public MetaData getOne(String name) {
@@ -157,7 +154,7 @@ public MetaData getOne(String name) {
 }
 ```
 
-#### Not_Null
+#### NotNull()
 
 ```java
 public MetaData getOne(String name) {
