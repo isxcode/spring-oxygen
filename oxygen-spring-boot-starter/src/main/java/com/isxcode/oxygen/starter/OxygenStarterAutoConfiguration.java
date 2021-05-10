@@ -1,8 +1,14 @@
 package com.isxcode.oxygen.starter;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
+import org.springframework.util.ResourceUtils;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Objects;
 
 /**
  * print terminal banner
@@ -11,9 +17,19 @@ import org.springframework.context.annotation.Bean;
  * @since 0.0.1
  */
 @Slf4j
+@EnableAutoConfiguration
 public class OxygenStarterAutoConfiguration {
 
-    private String oxygenVersion = "0.0.2";
+    private String oxygenVersion;
+
+    public void getVersion() {
+
+        try {
+            oxygenVersion = Objects.requireNonNull(ResourceUtils.getFile("VERSION.md").list())[0];
+        } catch (FileNotFoundException e) {
+            oxygenVersion = "0.0.1";
+        }
+    }
 
     /**
      * init oxygen banner
@@ -23,6 +39,8 @@ public class OxygenStarterAutoConfiguration {
     @Bean
     @ConditionalOnClass(OxygenStarterAutoConfiguration.class)
     private void initOxygenBanner() {
+
+        getVersion();
 
         log.debug("welcome to use spring-oxygen");
         System.out.println("   _____            _                   ____                            ");

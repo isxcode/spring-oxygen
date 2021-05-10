@@ -27,7 +27,6 @@ import java.util.Map;
  * @since 0.0.1
  */
 @Slf4j
-@EnableAutoConfiguration
 @EnableConfigurationProperties(FlysqlProperties.class)
 public class FlysqlAutoConfiguration {
 
@@ -59,7 +58,7 @@ public class FlysqlAutoConfiguration {
      * @param mongoTemplate              mongoTemplate
      * @since 0.0.1
      */
-    @Bean("flysqlFactory")
+    @Bean
     @ConditionalOnClass(FlysqlAutoConfiguration.class)
     private Flysql initFlySqlFactory(FlysqlProperties flysqlProperties, @Nullable JdbcTemplate jdbcTemplate, @Nullable MongoTemplate mongoTemplate) {
 
