@@ -9,4 +9,4 @@
 
 ## Reporting a Vulnerability
 
-- https://spring-oxygen.isxcode.com
+- https://oxygen.isxcode.com

@@ -6,7 +6,6 @@ import com.isxcode.oxygen.flysql.properties.FlysqlProperties;
 import com.isxcode.oxygen.flysql.response.GlobalExceptionAdvice;
 import com.isxcode.oxygen.flysql.response.SuccessResponseAdvice;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.mongo.MongoProperties;
@@ -27,7 +26,6 @@ import java.util.Map;
  * @since 0.0.1
  */
 @Slf4j
-@EnableAutoConfiguration
 @EnableConfigurationProperties(FlysqlProperties.class)
 public class FlysqlAutoConfiguration {
 
@@ -59,9 +57,9 @@ public class FlysqlAutoConfiguration {
      * @param mongoTemplate              mongoTemplate
      * @since 0.0.1
      */
-    @Bean("flysqlFactory")
+    @Bean
     @ConditionalOnClass(FlysqlAutoConfiguration.class)
-    private Flysql initFlySqlFactory(FlysqlProperties flysqlProperties, @Nullable JdbcTemplate jdbcTemplate, @Nullable MongoTemplate mongoTemplate) {
+    private Flysql flysql(FlysqlProperties flysqlProperties, @Nullable JdbcTemplate jdbcTemplate, @Nullable MongoTemplate mongoTemplate) {
 
         Map<String, JdbcTemplate> jdbcTemplateMap;
         Map<String, MongoTemplate> mongoTemplateMap;

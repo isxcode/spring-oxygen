@@ -38,6 +38,7 @@
 
 </div>
 
+
 ## 🐣 Introduce
 
 [Spring Oxygen](https://github.com/isxcode/spring-oxygen) is rapid development integration framework for [Spring](https://spring.io/) .
@@ -61,7 +62,7 @@ dependencies {
 <dependency>
     <groupId>com.isxcode.oxygen</groupId>
     <artifactId>oxygen-spring-boot-starter</artifactId>
-    <version>0.0.2-alpha.1</version>
+    <version>0.0.2</version>
 </dependency>
 ```
 
@@ -87,7 +88,6 @@ public class MetaDataRepository {
     }
 
     public List<MetaData> queryJdbcMetaData() {
-
         return flysql.build().select(MetaData.class)
             .select("c1", "c2", "c3")
             .eq("c1", "v1")

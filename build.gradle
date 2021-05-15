@@ -10,11 +10,8 @@ plugins {
 
 allprojects {
     repositories {
-        if (project.findProperty('project.version') == null) {
-            maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
-        } else {
-            mavenCentral()
-        }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        mavenCentral()
     }
     bootJar{
         enabled false
@@ -31,7 +28,9 @@ subprojects {
     apply plugin: 'maven-publish'
     apply plugin: 'jacoco'
 
-    version = project.findProperty('project.version') ?: '0.0.1'
+    def newVersion = new File(rootDir.getAbsolutePath(), "VERSION.md").readLines()[0]
+
+    version = newVersion
     group = 'com.isxcode.oxygen'
 
     sourceCompatibility = JavaVersion.VERSION_11
@@ -102,7 +101,7 @@ subprojects {
                 pom {
                     name = project.getName()
                     description = 'Spring rapid development integration framework.'
-                    url = 'https://spring-oxygen.isxcode.com'
+                    url = 'https://oxygen.isxcode.com'
                     licenses {
                         license {
                             name = 'The Apache License, Version 2.0'

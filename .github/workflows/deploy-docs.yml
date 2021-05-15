@@ -1,0 +1,34 @@
+name: deploy-docs
+
+on:
+  push:
+    branches:
+      - latest
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout repository
+      uses: actions/checkout@v2.3.4
+
+    - name: clean docs
+      uses: appleboy/ssh-action@v0.1.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        script_stop: false
+        script: |
+          rm -rf /data/nginx/html/oxygen/docs
+
+    - name: publish blogs
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        source: "docs"
+        target: "/data/nginx/html/oxygen/"

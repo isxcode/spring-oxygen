@@ -8,6 +8,4 @@ gradle.properties
 **/build
 **/target
 
-.github
-
 **/*.log
