@@ -37,3 +37,23 @@ flysql.buildMongo().select(MetaData.class).query()
 
 - fix column type is `Boolean` can not insert table
 - fix column type is `Date` can not insert table
+
+
+## 0.0.2-alpha.1
+
+### 💥️ Breaking Change
+
+- nothing
+
+### ✨ Feature
+
+- nothing
+
+### 🎨 Enhancement
+
+- nothing
+
+### 🐛 Fix
+
+- fix flysql can not bean
+- add String result type

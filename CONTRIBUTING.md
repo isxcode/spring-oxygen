@@ -76,6 +76,7 @@ docsify serve docs
 
 8. Publish to maven center
 
+- https://search.maven.org/
 - https://oss.sonatype.org/
 
 > change `gradle.properties` file and set version number and password

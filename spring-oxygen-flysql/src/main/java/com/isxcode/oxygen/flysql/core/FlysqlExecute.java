@@ -95,7 +95,13 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
                     log.debug("[oxygen-flysql-sql]:" + sqlString);
                 }
 
-                return flysqlKey.getJdbcTemplate().query(sqlString, new BeanPropertyRowMapper<>(flysqlKey.getTargetClass()));
+                // 基础类型返回
+                if (flysqlKey.getTargetClass().isInstance("") || flysqlKey.getTargetClass().isInstance(1)) {
+                    return flysqlKey.getJdbcTemplate().queryForList(sqlString, flysqlKey.getTargetClass());
+                } else {
+                    return flysqlKey.getJdbcTemplate().query(sqlString, new BeanPropertyRowMapper<>(flysqlKey.getTargetClass()));
+                }
+
             }
         } catch (Exception e) {
             throw new FlysqlException(e.getMessage());
