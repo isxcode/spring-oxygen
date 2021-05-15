@@ -43,7 +43,7 @@
 
 [Spring Oxygen](https://github.com/isxcode/spring-oxygen) is rapid development integration framework for [Spring](https://spring.io/) .
 **Important statement, enterprise-level development is recommended to be used with caution!**
-For instructions on use, please check the [website](https://spring-oxygen.isxcode.com) carefully.
+For instructions on use, please check the [website](https://oxygen.isxcode.com) carefully.
 Welcome to develop and maintain together, please follow the [github development](https://github.com/isxcode/spring-oxygen/blob/latest/CONTRIBUTING.md) specification.
 
 ## 📦 Installation
@@ -101,7 +101,7 @@ public class MetaDataRepository {
 
 ## 📒 Documentation
 
-Check out the [Getting Started](https://spring-oxygen.isxcode.com) page for a quick overview.
+Check out the [Getting Started](https://oxygen.isxcode.com) page for a quick overview.
 
 ##  👏 Contributing
 
