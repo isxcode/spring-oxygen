@@ -57,3 +57,22 @@ flysql.buildMongo().select(MetaData.class).query()
 
 - fix flysql can not bean
 - add String result type
+
+## 0.0.3-alpha.1
+
+### 💥️ Breaking Change
+
+- nothing
+
+### ✨ Feature
+
+- nothing
+
+### 🎨 Enhancement
+
+- @SuccessResponse properties msg not has default value
+
+### 🐛 Fix
+
+- fix empty object class throw exception
+- fix can not use core moudle function

@@ -35,7 +35,11 @@ public class SuccessResponseAdvice {
         BaseResponse<Object> baseResponse = new BaseResponse<>();
         if (!"void".equals(signature.getReturnType().getName())) {
             baseResponse.setCode(ResponseConstant.SUCCESS_CODE);
-            baseResponse.setData(data);
+            if (data.getClass().getFields().length == 0) {
+                baseResponse.setData(null);
+            }else{
+                baseResponse.setData(data);
+            }
             baseResponse.setMsg(successResponse.value().isEmpty() ? successResponse.msg() : successResponse.value());
             successResponse(baseResponse);
         } else {
