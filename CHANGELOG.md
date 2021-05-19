@@ -58,7 +58,7 @@ flysql.buildMongo().select(MetaData.class).query()
 - fix flysql can not bean
 - add String result type
 
-## 0.0.3-alpha.1
+## 0.0.3
 
 ### 💥️ Breaking Change
 
@@ -71,6 +71,7 @@ flysql.buildMongo().select(MetaData.class).query()
 ### 🎨 Enhancement
 
 - @SuccessResponse properties msg not has default value
+- remove baseEntity id property
 
 ### 🐛 Fix
 
