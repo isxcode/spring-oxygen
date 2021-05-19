@@ -72,8 +72,12 @@ flysql.buildMongo().select(MetaData.class).query()
 
 - @SuccessResponse properties msg not has default value
 - remove baseEntity id property
+- show all error trace
+- custom jwtUtils jwtKey
+- add jwtUtits jwtKey minutes
 
 ### 🐛 Fix
 
 - fix empty object class throw exception
 - fix can not use core moudle function
+- fix insert sql can not execute

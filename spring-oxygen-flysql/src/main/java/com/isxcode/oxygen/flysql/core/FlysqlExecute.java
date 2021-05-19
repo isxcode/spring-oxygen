@@ -360,7 +360,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
                 } else {
                     valueList.add(FlysqlExecute.addSingleQuote(invoke));
                 }
-                columnList.add(ReflectUtils.humpToLine(columnsMap.get(metaField.getName()).getName()));
+                columnList.add(columnsMap.get(metaField.getName()).getName());
             }
         }
 
