@@ -81,7 +81,7 @@ public class GlobalExceptionAdvice extends ResponseEntityExceptionHandler {
 
         BaseResponse<?> baseResponse = new BaseResponse<>();
         baseResponse.setCode(ResponseConstant.ERROR_CODE);
-        baseResponse.setMsg(exception.getClass().getName());
+        baseResponse.setMsg(exception.getMessage() == null ? "server is error" : exception.getMessage());
         exception.printStackTrace();
         return new ResponseEntity<>(baseResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
