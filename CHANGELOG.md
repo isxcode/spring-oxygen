@@ -81,3 +81,4 @@ flysql.buildMongo().select(MetaData.class).query()
 - fix empty object class throw exception
 - fix can not use core moudle function
 - fix insert sql can not execute
+- fix datasource connect not close

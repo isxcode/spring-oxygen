@@ -9,6 +9,7 @@ import com.isxcode.oxygen.flysql.properties.FlysqlProperties;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Objects;
 
@@ -43,8 +44,10 @@ public class FlysqlBuilder {
         if (mongoTemplate != null) {
             return DataBaseType.MONGO;
         } else {
+            Connection connection = null;
             try {
-                String databaseName = Objects.requireNonNull(jdbcTemplate.getDataSource()).getConnection().getMetaData().getDatabaseProductName();
+                connection = Objects.requireNonNull(jdbcTemplate.getDataSource()).getConnection();
+                String databaseName = connection.getMetaData().getDatabaseProductName();
                 switch (databaseName) {
                     case FlysqlConstants.ORACLE_DB:
                         return DataBaseType.ORACLE;
@@ -55,6 +58,14 @@ public class FlysqlBuilder {
                 }
             } catch (SQLException e) {
                 throw new FlysqlException("datasource link error");
+            }finally {
+                if (connection != null) {
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
         throw new FlysqlException("datasource link error");
