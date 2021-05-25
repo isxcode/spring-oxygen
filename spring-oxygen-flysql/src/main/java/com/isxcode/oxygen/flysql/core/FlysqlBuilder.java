@@ -54,11 +54,13 @@ public class FlysqlBuilder {
                     case FlysqlConstants.H2_DB:
                         return DataBaseType.H2;
                     case FlysqlConstants.MYSQL_DB:
+                    default:
                         return DataBaseType.MYSQL;
                 }
             } catch (SQLException e) {
+                e.printStackTrace();
                 throw new FlysqlException("datasource link error");
-            }finally {
+            } finally {
                 if (connection != null) {
                     try {
                         connection.close();
@@ -68,7 +70,6 @@ public class FlysqlBuilder {
                 }
             }
         }
-        throw new FlysqlException("datasource link error");
     }
 
     /**
