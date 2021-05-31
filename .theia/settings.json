@@ -1,0 +1,32 @@
+{
+    "workbench.colorTheme": "Atom One Light",
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.iconTheme": "none",
+    "editor.renderWhitespace": "none",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.minimap.enabled": false,
+    "markdown.extension.toc.updateOnSave": false,
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "git.enableSmartCommit": true,
+    "workbench.editorAssociations": [
+        {
+            "viewType": "jupyter-notebook",
+            "filenamePattern": "*.ipynb"
+        }
+    ],
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
+    "git.confirmSync": false,
+    "editor.wordWrap": "on",
+    "explorer.confirmDelete": false,
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "git.autofetch": true,
+    "[markdown]": {
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    },
+    "window.menuBarVisibility": "compact"
+}
