@@ -8,4 +8,9 @@ gradle.properties
 **/build
 **/target
 
+**/bin
+**/.project
+**/.classpath
+**/.settings
+
 **/*.log

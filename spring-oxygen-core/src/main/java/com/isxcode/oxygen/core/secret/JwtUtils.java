@@ -30,8 +30,10 @@ public class JwtUtils {
     /**
      * jwt encrypt
      *
-     * @param obj    object
-     * @param aesKey aesKey
+     * @param obj     object
+     * @param aesKey  aesKey
+     * @param jwtKey  jwtKey
+     * @param minutes minutes
      * @return jwt String
      * @since 2019-12-12
      */
@@ -89,7 +91,8 @@ public class JwtUtils {
     /**
      * jwt encrypt
      *
-     * @param obj object
+     * @param obj    object
+     * @param jwtKey jwtKey 
      * @return jwt String
      * @since 2019-12-12
      */
@@ -101,7 +104,9 @@ public class JwtUtils {
     /**
      * jwt encrypt
      *
-     * @param obj object
+     * @param obj     object
+     * @param jwtKey  jwtKey
+     * @param minutes minutes 
      * @return jwt String
      * @since 2019-12-12
      */
@@ -115,6 +120,7 @@ public class JwtUtils {
      *
      * @param jwtString   jwt
      * @param <A>         A
+     * @param jwtKey      jwtKey
      * @param targetClass targetClass
      * @param aesKey      aesKey
      * @return A
@@ -168,6 +174,7 @@ public class JwtUtils {
      * @param jwtString  jwt
      * @param <A>        A
      * @param claimClass claimClass
+     * @param jwtKey     jwtKey
      * @return A
      * @since 2019-12-12
      */
