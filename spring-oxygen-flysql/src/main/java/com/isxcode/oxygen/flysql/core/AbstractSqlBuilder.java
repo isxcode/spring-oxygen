@@ -165,7 +165,14 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
         }
 
         List<String> inValues = new ArrayList<>();
-        Arrays.stream(values).forEach(v -> inValues.add(addSingleQuote(v)));
+        Arrays.stream(values).forEach(value -> {
+            if (value instanceof List) {
+                ((List) value).stream().forEach(v -> inValues.add(addSingleQuote(v)));
+            } else {
+                inValues.add(addSingleQuote(value));
+            }
+        });
+
         sqlConditions.add(new SqlCondition(SqlOperateType.IN, columnsMap.get(columnName).getName(), "(" + Strings.join(inValues, ',') + ")"));
         return getSelf();
     }
@@ -179,7 +186,14 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
         }
 
         List<String> inValues = new ArrayList<>();
-        Arrays.stream(values).forEach(v -> inValues.add(addSingleQuote(v)));
+        Arrays.stream(values).forEach(value -> {
+            if (value instanceof List) {
+                ((List) value).stream().forEach(v -> inValues.add(addSingleQuote(v)));
+            } else {
+                inValues.add(addSingleQuote(value));
+            }
+        });
+
         sqlConditions.add(new SqlCondition(SqlOperateType.NOT_IN, columnsMap.get(columnName).getName(), "(" + Strings.join(inValues, ',') + ")"));
         return getSelf();
     }
