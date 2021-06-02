@@ -1,7 +1,6 @@
 package com.isxcode.oxygen.flysql.core;
 
 import com.isxcode.oxygen.core.reflect.ReflectConstants;
-import com.isxcode.oxygen.core.reflect.ReflectUtils;
 import com.isxcode.oxygen.flysql.entity.ColumnProperties;
 import com.isxcode.oxygen.flysql.entity.SqlCondition;
 import com.isxcode.oxygen.flysql.enums.DataBaseType;
@@ -10,7 +9,6 @@ import com.isxcode.oxygen.flysql.enums.SqlOperateType;
 import com.isxcode.oxygen.flysql.utils.FlysqlUtils;
 import org.apache.logging.log4j.util.Strings;
 
-import java.beans.PropertyDescriptor;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -165,8 +163,17 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
         }
 
         List<String> inValues = new ArrayList<>();
-        Arrays.stream(values).forEach(v -> inValues.add(addSingleQuote(v)));
-        sqlConditions.add(new SqlCondition(SqlOperateType.IN, columnsMap.get(columnName).getName(), "(" + Strings.join(inValues, ',') + ")"));
+        Arrays.stream(values).forEach(value -> {
+            if (value instanceof List) {
+                ((List) value).stream().forEach(v -> inValues.add(addSingleQuote(v)));
+            } else {
+                inValues.add(addSingleQuote(value));
+            }
+        });
+
+        if (!inValues.isEmpty()) {
+            sqlConditions.add(new SqlCondition(SqlOperateType.IN, columnsMap.get(columnName).getName(), "(" + Strings.join(inValues, ',') + ")"));
+        }
         return getSelf();
     }
 
@@ -179,8 +186,17 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
         }
 
         List<String> inValues = new ArrayList<>();
-        Arrays.stream(values).forEach(v -> inValues.add(addSingleQuote(v)));
-        sqlConditions.add(new SqlCondition(SqlOperateType.NOT_IN, columnsMap.get(columnName).getName(), "(" + Strings.join(inValues, ',') + ")"));
+        Arrays.stream(values).forEach(value -> {
+            if (value instanceof List) {
+                ((List) value).stream().forEach(v -> inValues.add(addSingleQuote(v)));
+            } else {
+                inValues.add(addSingleQuote(value));
+            }
+        });
+
+        if (!inValues.isEmpty()) {
+            sqlConditions.add(new SqlCondition(SqlOperateType.NOT_IN, columnsMap.get(columnName).getName(), "(" + Strings.join(inValues, ',') + ")"));
+        }
         return getSelf();
     }
 
@@ -277,6 +293,12 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
         if (value == null) {
             return null;
         } else {
+            if (value instanceof String) {
+                String val = String.valueOf(value);
+                if (val.contains("'")) {
+                    return "'" + val.replace("'", "''") + "'";
+                }
+            }
             return "'" + value + "'";
         }
     }

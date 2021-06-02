@@ -90,7 +90,13 @@ public class EmailUtils {
 
         for (String toEmail : toEmails) {
             helper.setTo(toEmail);
-            emailThread.execute(() -> javaMailSender.send(message));
+            emailThread.execute(() -> {
+                try {
+                    javaMailSender.send(message);
+                } catch (Exception e) {
+                    log.info("email fail to send");
+                }
+            });
         }
 
     }
@@ -108,7 +114,7 @@ public class EmailUtils {
 
         try {
             sendEmail(Collections.singletonList(email), content, subject, senderName, false, null, null);
-        } catch (Exception e) {
+        } catch (MessagingException e) {
             throw new OxygenException(e.getMessage());
         }
     }

@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.isxcode.oxygen.flysql.enums.SqlOperateType.SQL;
 import static com.isxcode.oxygen.flysql.enums.SqlOperateType.UPDATE;
 
 /**
@@ -360,7 +361,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
                 } else {
                     valueList.add(FlysqlExecute.addSingleQuote(invoke));
                 }
-                columnList.add(ReflectUtils.humpToLine(columnsMap.get(metaField.getName()).getName()));
+                columnList.add(columnsMap.get(metaField.getName()).getName());
             }
         }
 
@@ -479,9 +480,10 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
                 case UPDATE:
                     break;
                 case SQL:
-                    return sqlConditionMeta.getColumnName();
+                    sqlStringBuilder = new StringBuilder(" select * from (" + sqlConditionMeta.getColumnName() + ") as alia ");
+                    break;
                 default:
-                    if (hasOperateType(sqlConditionTemp, UPDATE) || hasOperateType(sqlConditionTemp, SqlOperateType.SELECT) || hasOperateType(sqlConditionTemp, SqlOperateType.SET_VALUE)) {
+                    if (hasOperateType(sqlConditionTemp, SQL) || hasOperateType(sqlConditionTemp, UPDATE) || hasOperateType(sqlConditionTemp, SqlOperateType.SELECT) || hasOperateType(sqlConditionTemp, SqlOperateType.SET_VALUE)) {
                         sqlStringBuilder.append(" where ");
                     } else {
                         sqlStringBuilder.append(" and ");

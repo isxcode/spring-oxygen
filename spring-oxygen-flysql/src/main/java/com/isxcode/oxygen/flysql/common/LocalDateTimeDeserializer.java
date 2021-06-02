@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 /**
- * LocalDate Deserializer
+ * LocalDateTime Deserializer
  *
  * @author ispong
  * @since 0.0.1

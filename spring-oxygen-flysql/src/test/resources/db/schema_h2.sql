@@ -2,7 +2,6 @@ DROP TABLE IF EXISTS META_DATA_T;
 
 CREATE TABLE META_DATA_T
 (
-    id                 VARCHAR(100) PRIMARY KEY,
     is_delete          INT          NOT NULL,
     created_by         VARCHAR(100) NOT NULL,
     created_date       TIMESTAMP    NOT NULL,

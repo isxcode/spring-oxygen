@@ -1,3 +1,44 @@
+## 0.0.4
+
+### 💥️ Breaking Change
+
+### ✨ Feature
+
+### 🎨 Enhancement
+
+### 🐛 Fix
+
+- fix notIn() for empty list
+- fix sql contain `'`
+
+## 0.0.3
+
+### 💥️ Breaking Change
+
+- nothing
+
+### ✨ Feature
+
+- nothing
+
+### 🎨 Enhancement
+
+- @SuccessResponse properties msg not has default value
+- remove baseEntity id property
+- show all error trace
+- custom jwtUtils jwtKey
+- add jwtUtils jwtKey minutes
+- add LocalDateDeserializer and LocalDateSerializer
+- support sql() function and add condition
+
+### 🐛 Fix
+
+- fix empty object class throw exception
+- fix can not use core module function
+- fix insert sql can not execute
+- fix datasource connect not close
+- fix notIn() function not support list object
+
 ## 0.0.2
 
 ### 💥️ Breaking Change

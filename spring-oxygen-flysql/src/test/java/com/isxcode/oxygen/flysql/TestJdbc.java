@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
-@org.springframework.boot.test.autoconfigure.jdbc.JdbcTest
+@JdbcTest
 @ContextConfiguration(classes = FlysqlAutoConfiguration.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles
@@ -23,7 +23,7 @@ public class TestJdbc {
 
     private final Flysql flysql;
 
-    public TestJdbc(@Qualifier("flysqlFactory") Flysql flysql) {
+    public TestJdbc(@Qualifier("flysql") Flysql flysql) {
 
         this.flysql = flysql;
     }
