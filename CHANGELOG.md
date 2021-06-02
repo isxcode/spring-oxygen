@@ -1,3 +1,15 @@
+## 0.0.4
+
+### 💥️ Breaking Change
+
+### ✨ Feature
+
+### 🎨 Enhancement
+
+### 🐛 Fix
+
+- fix notIn() for empty list
+
 ## 0.0.3
 
 ### 💥️ Breaking Change

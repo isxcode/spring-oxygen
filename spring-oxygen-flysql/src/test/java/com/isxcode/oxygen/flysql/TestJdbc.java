@@ -29,6 +29,12 @@ public class TestJdbc {
     }
 
     @Test
+    public void testDebug(){
+
+        System.out.println("测试vscode debug");
+    }
+
+    @Test
     public void testJdbc() {
 
         // 插入数据

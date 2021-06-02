@@ -173,7 +173,9 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
             }
         });
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.IN, columnsMap.get(columnName).getName(), "(" + Strings.join(inValues, ',') + ")"));
+        if (!inValues.isEmpty()) {
+            sqlConditions.add(new SqlCondition(SqlOperateType.IN, columnsMap.get(columnName).getName(), "(" + Strings.join(inValues, ',') + ")"));
+        }
         return getSelf();
     }
 
@@ -194,7 +196,9 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
             }
         });
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.NOT_IN, columnsMap.get(columnName).getName(), "(" + Strings.join(inValues, ',') + ")"));
+        if (!inValues.isEmpty()) {
+            sqlConditions.add(new SqlCondition(SqlOperateType.NOT_IN, columnsMap.get(columnName).getName(), "(" + Strings.join(inValues, ',') + ")"));
+        }
         return getSelf();
     }
 
