@@ -20,7 +20,7 @@ jobs:
       uses: actions/checkout@v2.3.4
 
     - name: cache gradle
-      uses: actions/cache@v2.1.5
+      uses: actions/cache@v2.1.6
       with:
         path: |
           ~/.gradle/caches
@@ -49,12 +49,12 @@ jobs:
       uses: github/codeql-action/analyze@v1
 
     - name: setup .net env
-      uses: actions/setup-dotnet@v1.7.2
+      uses: actions/setup-dotnet@v1.8.0
       with:
         dotnet-version: 3.1.401
 
     - name: report generator
-      uses: danielpalme/ReportGenerator-GitHub-Action@4.8.7
+      uses: danielpalme/ReportGenerator-GitHub-Action@4.8.9
       with:
         reports: ./oxygen-spring-boot-starter/build/reports/jacoco/test/jacocoTestReport.xml;./spring-oxygen-core/build/reports/jacoco/test/jacocoTestReport.xml;./spring-oxygen-flysql/build/reports/jacoco/test/jacocoTestReport.xml;./spring-oxygen-freecode/build/reports/jacoco/test/jacocoTestReport.xml;
         sourcedirs: ./oxygen-spring-boot-starter/src/main/java/;./spring-oxygen-core/src/main/java/;./spring-oxygen-flysql/src/main/java/;./spring-oxygen-freecode/src/main/java/;

@@ -25,7 +25,7 @@ jobs:
         ref: ${{ github.event.inputs.branch }}
 
     - name: cache gradle
-      uses: actions/cache@v2.1.5
+      uses: actions/cache@v2.1.6
       with:
         path: |
           ~/.gradle/caches

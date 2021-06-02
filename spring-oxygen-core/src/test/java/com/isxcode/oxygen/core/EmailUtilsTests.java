@@ -15,14 +15,14 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 @ContextConfiguration(classes = {OxygenCoreAutoConfiguration.class, JavaMailSenderImpl.class, FreeMarkerConfigurer.class})
 public class EmailUtilsTests {
 
-    @Test
-    public void testSendEmail() {
-        try {
-            EmailUtils.sendSimpleEmail("ispong", "hello test", "test", "ispong");
-        } catch (OxygenException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+//    @Test
+//    public void testSendEmail() {
+//        try {
+//            EmailUtils.sendSimpleEmail("ispong", "hello test", "test", "ispong");
+//        } catch (OxygenException e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
 
 }
 

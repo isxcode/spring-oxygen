@@ -6,7 +6,7 @@ updates:
     target-branch: 'latest'
     open-pull-requests-limit: 30
     schedule:
-      interval: 'weekly'
+      interval: 'monthly'
       timezone: 'Asia/Shanghai'
       time: '09:00'
 
@@ -15,6 +15,6 @@ updates:
     target-branch: 'latest'
     open-pull-requests-limit: 30
     schedule:
-      interval: 'weekly'
+      interval: 'monthly'
       timezone: 'Asia/Shanghai'
       time: '09:00'

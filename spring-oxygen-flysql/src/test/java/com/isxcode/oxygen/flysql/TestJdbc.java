@@ -23,15 +23,9 @@ public class TestJdbc {
 
     private final Flysql flysql;
 
-    public TestJdbc(Flysql flysql) {
+    public TestJdbc(@Qualifier("flysql") Flysql flysql) {
 
         this.flysql = flysql;
-    }
-
-    @Test
-    public void testDebug(){
-
-        System.out.println("测试vscode debug");
     }
 
     @Test
