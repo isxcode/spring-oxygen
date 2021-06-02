@@ -9,6 +9,7 @@
 ### 🐛 Fix
 
 - fix notIn() for empty list
+- fix sql contain `'`
 
 ## 0.0.3
 

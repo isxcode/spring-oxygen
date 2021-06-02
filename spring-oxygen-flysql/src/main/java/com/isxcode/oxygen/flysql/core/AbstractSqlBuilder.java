@@ -1,7 +1,6 @@
 package com.isxcode.oxygen.flysql.core;
 
 import com.isxcode.oxygen.core.reflect.ReflectConstants;
-import com.isxcode.oxygen.core.reflect.ReflectUtils;
 import com.isxcode.oxygen.flysql.entity.ColumnProperties;
 import com.isxcode.oxygen.flysql.entity.SqlCondition;
 import com.isxcode.oxygen.flysql.enums.DataBaseType;
@@ -10,7 +9,6 @@ import com.isxcode.oxygen.flysql.enums.SqlOperateType;
 import com.isxcode.oxygen.flysql.utils.FlysqlUtils;
 import org.apache.logging.log4j.util.Strings;
 
-import java.beans.PropertyDescriptor;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -295,6 +293,12 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
         if (value == null) {
             return null;
         } else {
+            if (value instanceof String) {
+                String val = String.valueOf(value);
+                if (val.contains("'")) {
+                    return "'" + val.replace("'", "''") + "'";
+                }
+            }
             return "'" + value + "'";
         }
     }
