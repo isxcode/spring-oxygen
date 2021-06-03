@@ -38,7 +38,6 @@
 
 </div>
 
-
 ## 🐣 Introduce
 
 [Spring Oxygen](https://github.com/isxcode/spring-oxygen) is rapid development integration framework for [Spring](https://spring.io/) .
@@ -52,7 +51,7 @@ Welcome to develop and maintain together, please follow the [github development]
 
 ```groovy
 dependencies {
-    implementation 'com.isxcode.oxygen:oxygen-spring-boot-starter:0.0.2'
+    implementation 'com.isxcode.oxygen:oxygen-spring-boot-starter:0.0.3'
 }
 ```
 
@@ -62,7 +61,7 @@ dependencies {
 <dependency>
     <groupId>com.isxcode.oxygen</groupId>
     <artifactId>oxygen-spring-boot-starter</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
 </dependency>
 ```
 
@@ -88,12 +87,13 @@ public class MetaDataRepository {
     }
 
     public List<MetaData> queryJdbcMetaData() {
+
         return flysql.build().select(MetaData.class)
-            .select("c1", "c2", "c3")
-            .eq("c1", "v1")
-            .between("c2", 0, 1)
-            .like("c3", "green")
-            .orderBy("c4", OrderType.DESC)
+            .select("col1", "col2", "col3")
+            .eq("col4", "val1")
+            .between("col2", 0, 1)
+            .like("col3", "green")
+            .orderBy("col4", OrderType.DESC)
             .query();
     }
 }
