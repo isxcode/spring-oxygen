@@ -38,6 +38,7 @@ jobs:
         distribution: 'adopt'
         java-version: ${{ matrix.java }}
     - run: |
+        chmod +x gradlew
         ./gradlew build -x test
 
     - name: publish to github
