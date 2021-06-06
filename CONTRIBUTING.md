@@ -109,3 +109,4 @@ gradle publishMavenJavaPublicationToSonatypeRepository
 7. building status
 8. dependent version update to latest
 9. fix github security
+10. publish new version docs
