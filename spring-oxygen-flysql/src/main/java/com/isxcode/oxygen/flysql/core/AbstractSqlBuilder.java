@@ -56,12 +56,6 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
     }
 
     @Override
-    public T unSelect(String... columnNames) {
-
-        return getSelf();
-    }
-
-    @Override
     public T setValue(String columnName, String value) {
 
         sqlConditions.add(new SqlCondition(SqlOperateType.SET_VALUE, ":" + columnName, addSingleQuote(value)));

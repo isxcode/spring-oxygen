@@ -20,15 +20,6 @@ public interface FlysqlCondition<T> {
     T select(String... columnNames);
 
     /**
-     * unSelect('T','B')
-     *
-     * @param columnNames columnNames
-     * @return self
-     * @since 0.0.1
-     */
-    T unSelect(String... columnNames);
-
-    /**
      * setVar()
      *
      * @param columnName columnName

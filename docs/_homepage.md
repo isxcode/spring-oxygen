@@ -69,11 +69,11 @@ dependencies {
 
 ```yaml
 spring:
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:~/h2
-    username: root
-    password: root
+    datasource:
+        driver-class-name: org.h2.Driver
+        url: jdbc:h2:~/h2
+        username: root
+        password: root
 ```
 
 ```java
