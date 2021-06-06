@@ -31,10 +31,18 @@ public class TestJdbc {
     @Test
     public void testJdbc() {
 
+        MetaData metaData1 = null;
+        MetaData metaData2 = null;
+        MetaData metaData3 = null;
+
         // 插入数据
-        MetaData metaData1 = new MetaData("data1", new Date(), LocalDate.now(), LocalDateTime.now(), new BigDecimal("1"), '1', 1, 1.1, 1L, true, Short.parseShort("1"), 1f, Byte.parseByte("1"));
-        MetaData metaData2 = new MetaData("data2", new Date(), LocalDate.now(), LocalDateTime.now(), new BigDecimal("2"), '2', 2, 2.2, 2L, true, Short.parseShort("2"), 2f, Byte.parseByte("2"));
-        MetaData metaData3 = new MetaData("data3", new Date(), LocalDate.now(), LocalDateTime.now(), new BigDecimal("3"), '3', 3, 3.3, 3L, true, Short.parseShort("3"), 3f, Byte.parseByte("3"));
+        try {
+            metaData1 = new MetaData("data1", new Date(), LocalDate.now(), LocalDateTime.now(), new BigDecimal("1"), '1', 1, 1.1, 1L, true, Short.parseShort("1"), 1f, Byte.parseByte("1"));
+            metaData2 = new MetaData("data2", new Date(), LocalDate.now(), LocalDateTime.now(), new BigDecimal("2"), '2', 2, 2.2, 2L, true, Short.parseShort("2"), 2f, Byte.parseByte("2"));
+            metaData3 = new MetaData("data3", new Date(), LocalDate.now(), LocalDateTime.now(), new BigDecimal("3"), '3', 3, 3.3, 3L, true, Short.parseShort("3"), 3f, Byte.parseByte("3"));
+        } catch (NumberFormatException e) {
+            System.out.println("has numberFormatException");
+        }
 
         flysql.build().insert(MetaData.class).save(metaData1);
         flysql.build().insert(MetaData.class).save(metaData2);

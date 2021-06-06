@@ -128,11 +128,10 @@ public class FlysqlBuilder {
      *
      * @param <A>         A
      * @param targetClass targetClass
-     * @param viewName    viewName
      * @return FlysqlBuilder
      * @since 0.0.2
      */
-    public <A> FlysqlExecute<A> view(String viewName, Class<A> targetClass) {
+    public <A> FlysqlExecute<A> view(Class<A> targetClass) {
 
         if (jdbcTemplate == null) {
             return new FlysqlExecute<>(new FlysqlKey<>(DataBaseType.MONGO, SqlType.VIEW, mongoTemplate, targetClass, flysqlProperties));
