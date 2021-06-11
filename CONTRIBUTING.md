@@ -100,13 +100,13 @@ gradle publishMavenJavaPublicationToSonatypeRepository
 
 ### todo
 
-1. README.md version number
-2. VERSION.md version number
-3. github tag and make new branch
-4. github publish repository
-5. SECURITY.md version number
-6. docs _homepage.md same with readme.md
-7. building status
-8. dependent version update to latest
-9. fix github security
-10. publish new version docs
+[] README.md version number
+[] VERSION.md version number
+[] github tag and make new branch
+[] github publish repository
+[] SECURITY.md version number
+[] docs _homepage.md same with readme.md
+[] building status
+[] dependent version update to latest
+[] fix github security
+[] publish new version docs
