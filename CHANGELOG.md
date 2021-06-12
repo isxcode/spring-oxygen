@@ -1,8 +1,10 @@
-## 0.0.4
+## 0.6.x
 
 ### 💥️ Breaking Change
 
 ### ✨ Feature
+
+- add saveBatch() only support for mysql
 
 ### 🎨 Enhancement
 

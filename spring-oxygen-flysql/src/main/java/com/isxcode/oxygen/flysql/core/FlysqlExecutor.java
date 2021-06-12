@@ -49,7 +49,15 @@ public interface FlysqlExecutor<A> {
      * @param entity model object
      * @since 2019-12-26
      */
-    void save(Object entity);
+    void save(A entity);
+
+    /**
+     * batch save data
+     *
+     * @param entity model object
+     * @since 2019-12-26
+     */
+    void batchSave(List<A> entity);
 
     /**
      * delete data

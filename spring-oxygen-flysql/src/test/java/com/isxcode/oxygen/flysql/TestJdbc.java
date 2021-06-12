@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,36 +36,36 @@ public class TestJdbc {
         MetaData metaData2 = null;
         MetaData metaData3 = null;
 
-        // 插入数据
+        ArrayList<MetaData> metaList = new ArrayList<>();
+
         try {
             metaData1 = new MetaData("data1", new Date(), LocalDate.now(), LocalDateTime.now(), new BigDecimal("1"), '1', 1, 1.1, 1L, true, Short.parseShort("1"), 1f, Byte.parseByte("1"));
             metaData2 = new MetaData("data2", new Date(), LocalDate.now(), LocalDateTime.now(), new BigDecimal("2"), '2', 2, 2.2, 2L, true, Short.parseShort("2"), 2f, Byte.parseByte("2"));
             metaData3 = new MetaData("data3", new Date(), LocalDate.now(), LocalDateTime.now(), new BigDecimal("3"), '3', 3, 3.3, 3L, true, Short.parseShort("3"), 3f, Byte.parseByte("3"));
-        } catch (NumberFormatException e) {
-            System.out.println("has numberFormatException");
+        } catch (NumberFormatException ignored) {
+
         }
 
-        flysql.build().insert(MetaData.class).save(metaData1);
-        flysql.build().insert(MetaData.class).save(metaData2);
-        flysql.build().insert(MetaData.class).save(metaData3);
+        metaList.add(metaData2);
+        metaList.add(metaData3);
 
-        // 查询所有数据
+        flysql.build().insert(MetaData.class).save(metaData1);
+        flysql.build().insert(MetaData.class).batchSave(metaList);
+
+        System.out.println("=========================== show all data   ====================================");
         List<MetaData> metaDataList = flysql.build().select(MetaData.class).query();
         metaDataList.forEach(System.out::println);
-        System.out.println("===============================================================");
 
-        // 查询单条数据
+        System.out.println("============================ show single data ===================================");
         MetaData metaData = flysql.build().select(MetaData.class).eq("anString", "data1").getOne();
         System.out.println(metaData);
-        System.out.println("===============================================================");
 
-        // 条件删除数据
+        System.out.println("============================= show after delete data =================================");
         flysql.build().delete(MetaData.class).eq("anString", "data1").doDelete();
         metaDataList = flysql.build().select(MetaData.class).query();
         metaDataList.forEach(System.out::println);
-        System.out.println("===============================================================");
 
-        // 单条更新
+        System.out.println("============================== show after update data  =================================");
         flysql.build().update(MetaData.class).eq("anString", "data3")
             .update("anInt", "4")
             .update("anDouble", "4.4")
@@ -72,6 +73,5 @@ public class TestJdbc {
             .doUpdate();
         metaDataList = flysql.build().select(MetaData.class).query();
         metaDataList.forEach(System.out::println);
-        System.out.println("===============================================================");
     }
 }
