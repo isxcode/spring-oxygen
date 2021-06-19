@@ -66,12 +66,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
 
         String sqlString = parseSqlConditions(initSelectSql(), sqlConditions);
 
-        // 打印日志
-        if (flysqlKey.getFlysqlProperties().getShowLog()) {
-            log.info("[oxygen-flysql-sql]:" + sqlString);
-        } else {
-            log.debug("[oxygen-flysql-sql]:" + sqlString);
-        }
+        printSql(sqlString);
 
         try {
             return flysqlKey.getJdbcTemplate().queryForObject(sqlString, new BeanPropertyRowMapper<>(flysqlKey.getTargetClass()));
@@ -89,12 +84,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
             } else {
                 String sqlString = parseSqlConditions(initSelectSql(), sqlConditions);
 
-                // 打印日志
-                if (flysqlKey.getFlysqlProperties().getShowLog()) {
-                    log.info("[oxygen-flysql-sql]:" + sqlString);
-                } else {
-                    log.debug("[oxygen-flysql-sql]:" + sqlString);
-                }
+                printSql(sqlString);
 
                 // 基础类型返回
                 if (flysqlKey.getTargetClass().isInstance("") || flysqlKey.getTargetClass().isInstance(1)) {
@@ -114,13 +104,6 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
 
         String sqlString = parseSqlConditions(initSelectSql(), sqlConditions) + " limit " + (page - 1) * size + " , " + size;
 
-        // 打印日志
-        if (flysqlKey.getFlysqlProperties().getShowLog()) {
-            log.info("[oxygen-flysql-sql]:" + sqlString);
-        } else {
-            log.debug("[oxygen-flysql-sql]:" + sqlString);
-        }
-
         try {
             return flysqlKey.getJdbcTemplate().query(sqlString, new BeanPropertyRowMapper<>(flysqlKey.getTargetClass()));
         } catch (Exception e) {
@@ -133,12 +116,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
 
         String sqlString = parseSqlConditions(initUpdateSql(), sqlConditions);
 
-        // 打印日志
-        if (flysqlKey.getFlysqlProperties().getShowLog()) {
-            log.info("[oxygen-flysql-sql]:" + sqlString);
-        } else {
-            log.debug("[oxygen-flysql-sql]:" + sqlString);
-        }
+        printSql(sqlString);
 
         try {
             flysqlKey.getJdbcTemplate().update(sqlString);
@@ -148,16 +126,25 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
     }
 
     @Override
-    public void save(Object entity) {
+    public void batchSave(List<A> entity) {
+
+        String sqlString = initBatchSaveSql(entity);
+
+        printSql(sqlString);
+
+        try {
+            flysqlKey.getJdbcTemplate().execute(sqlString);
+        } catch (Exception e) {
+            throw new FlysqlException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void save(A entity) {
 
         String sqlString = initSaveSql(entity);
 
-        // 打印日志
-        if (flysqlKey.getFlysqlProperties().getShowLog()) {
-            log.info("[oxygen-flysql-sql]:" + sqlString);
-        } else {
-            log.debug("[oxygen-flysql-sql]:" + sqlString);
-        }
+        printSql(sqlString);
 
         try {
             if (flysqlKey.getJdbcTemplate() == null) {
@@ -175,12 +162,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
 
         String sqlString = parseSqlConditions(initDeleteSql(), sqlConditions);
 
-        // 打印日志
-        if (flysqlKey.getFlysqlProperties().getShowLog()) {
-            log.info("[oxygen-flysql-sql]:" + sqlString);
-        } else {
-            log.debug("[oxygen-flysql-sql]:" + sqlString);
-        }
+        printSql(sqlString);
 
         try {
             flysqlKey.getJdbcTemplate().update(sqlString);
@@ -193,12 +175,8 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
     public Integer count() {
 
         String sqlString = parseSqlConditions(initCountSql(), sqlConditions);
-        // 打印日志
-        if (flysqlKey.getFlysqlProperties().getShowLog()) {
-            log.info("[oxygen-flysql-sql]:" + sqlString);
-        } else {
-            log.debug("[oxygen-flysql-sql]:" + sqlString);
-        }
+
+        printSql(sqlString);
 
         try {
             return flysqlKey.getJdbcTemplate().queryForObject(sqlString, Integer.class);
@@ -300,17 +278,46 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
      * @return sqlString
      * @since 0.0.1
      */
-    public String initSaveSql(Object entity) {
-
-        List<String> columnList = new ArrayList<>();
-        List<String> valueList = new ArrayList<>();
+    public String initSaveSql(A entity) {
 
         List<FieldBody> fieldBodies = ReflectUtils.queryFields(flysqlKey.getTargetClass());
 
+        return "insert into " + FlysqlUtils.getTableName(flysqlKey.getTargetClass()) + generateSqlCols(fieldBodies) + " values " + generateSqlValues(entity, fieldBodies);
+    }
+
+    /**
+     * init insert sql
+     *
+     * @param entity entity
+     * @return sqlString
+     * @since 0.0.1
+     */
+    public String initBatchSaveSql(List<A> entity) {
+
+        List<FieldBody> fieldBodies = ReflectUtils.queryFields(flysqlKey.getTargetClass());
+
+        List<String> valueSqlList = new ArrayList<>();
+        entity.forEach(e -> valueSqlList.add(generateSqlValues(e, fieldBodies)));
+
+        return "insert into " + FlysqlUtils.getTableName(flysqlKey.getTargetClass()) + generateSqlCols(fieldBodies) + " values " + Strings.join(valueSqlList, ',');
+    }
+
+    public String generateSqlCols(List<FieldBody> fieldBodies) {
+
+        List<String> columnList = new ArrayList<>();
         for (FieldBody metaFieldBody : fieldBodies) {
+            Field metaField = metaFieldBody.getField();
+            columnList.add(columnsMap.get(metaField.getName()).getName());
+        }
+        return "(" + Strings.join(columnList, ',') + ")";
+    }
 
+    public String generateSqlValues(A entity, List<FieldBody> fieldBodies) {
+
+        List<String> valueList = new ArrayList<>();
+
+        for (FieldBody metaFieldBody : fieldBodies) {
             Object invoke;
-
             Field metaField = metaFieldBody.getField();
             if (metaField.isAnnotationPresent(CreatedBy.class) || metaField.isAnnotationPresent(LastModifiedBy.class)) {
                 invoke = getExecutorId();
@@ -328,7 +335,6 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
                 }
             }
 
-            // 如果用户没有指定id 默认雪花id
             if (metaField.isAnnotationPresent(RowId.class)) {
                 if (invoke == null) {
                     invoke = SnowflakeUtils.getNextUuid();
@@ -338,36 +344,28 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
             if (invoke != null) {
 
                 if (ReflectConstants.BOOLEAN.equals(metaField.getType().getName()) || ReflectConstants.BOOLEAN_LOWER.equals(metaField.getType().getName())) {
-                    // 如果是boolean类型需要特殊处理
                     valueList.add(invoke.toString());
                 } else if (ReflectConstants.DATE.equals(metaField.getType().getName())) {
-                    // 如果是Date类型需要特殊处理
                     SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
                     if (DataBaseType.H2.equals(flysqlKey.getDataBaseType())) {
                         try {
                             SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
                             valueList.add(FlysqlExecute.addSingleQuote(sdf2.format(sdf.parse(String.valueOf(invoke)))));
-                        } catch (ParseException e) {
-                            continue;
+                        } catch (ParseException ignored) {
                         }
                     } else {
                         SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         try {
                             valueList.add(FlysqlExecute.addSingleQuote(sdf2.format(sdf.parse(String.valueOf(invoke)))));
-                        } catch (ParseException e) {
-                            continue;
+                        } catch (ParseException ignored) {
                         }
                     }
                 } else {
                     valueList.add(FlysqlExecute.addSingleQuote(invoke));
                 }
-                columnList.add(columnsMap.get(metaField.getName()).getName());
             }
         }
-
-        String tableName = FlysqlUtils.getTableName(flysqlKey.getTargetClass());
-
-        return "insert into " + tableName + " ( " + Strings.join(columnList, ',') + " ) values ( " + Strings.join(valueList, ',') + ")";
+        return "( " + Strings.join(valueList, ',') + ")";
     }
 
     /**
@@ -518,5 +516,18 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
             return true;
         }
         return sqlCondition.getOperateType().equals(sqlOperateType);
+    }
+
+    /**
+     * print sql
+     *
+     * @param sql sql
+     */
+    public void printSql(String sql) {
+        if (flysqlKey.getFlysqlProperties().getShowLog()) {
+            log.info("[oxygen-flysql-sql]:" + sql);
+        } else {
+            log.debug("[oxygen-flysql-sql]:" + sql);
+        }
     }
 }

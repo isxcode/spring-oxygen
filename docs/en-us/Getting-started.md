@@ -9,6 +9,11 @@
 > edit `pom.xml` <br/>
 > Recommend to use `https://repo1.maven.org/maven2/` repository
 
+```bash
+cd demo
+vim pom.xml
+```
+
 ```xml
 
 <dependencies>
@@ -32,6 +37,11 @@
 
 > edit schema file `src/main/resources/db/schema.sql`
 
+```bash
+mkdir -p src/main/resources/db
+vim src/main/resources/db/schema.sql
+```
+
 ```sql
 DROP TABLE IF EXISTS DOGS_T;
 
@@ -48,18 +58,27 @@ CREATE TABLE DOGS_T
 
 > edit spring config file `src/main/resources/application.properties`
 
+```bash
+vim src/main/resources/application.properties
+```
+
 ```properties
 spring.datasource.driver-class-name=org.h2.Driver
 spring.datasource.url=jdbc:h2:~/h2
 spring.datasource.username=root
 spring.datasource.password=root
-spring.sql.init.enabled=true
+spring.sql.init.mode=always
 spring.sql.init.schema-locations=classpath:db/schema.sql
 ```
 
 #### Demo
 
 ##### Entity
+
+```bash
+mkdir -p src/main/java/com/example/demo/dogs
+vim src/main/java/com/example/demo/dogs/DogEntity.java
+```
 
 ```java
 package com.example.demo.dogs;
@@ -70,6 +89,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.io.Serializable;
 
 @Builder
 @NoArgsConstructor
@@ -96,12 +116,15 @@ public class DogEntity implements Serializable {
 
 ##### Controller
 
+```bash
+vim src/main/java/com/example/demo/DemoApplication.java
+```
+
 ```java
 package com.example.demo;
 
 import com.example.demo.dogs.DogEntity;
 import com.isxcode.oxygen.flysql.core.Flysql;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
@@ -109,7 +132,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
@@ -131,21 +153,27 @@ public class DemoApplication {
     public List<DogEntity> queryDogs() {
 
         // add dogs
-        DogEntity.DogEntityBuilder dog = DogEntity.builder()
+        DogEntity dog = DogEntity.builder()
             .id("1")
             .name("li")
             .age(12)
-            .color("black");
+            .color("black")
+            .build();
 
         flysql.build().insert(DogEntity.class).save(dog);
 
         // query dogs
         return flysql.build().select(DogEntity.class).query();
     }
-}
+}   
 ```
 
 #### Run and Test Project
+
+```bash
+mvn package -Dmaven.test.skip
+java -jar demo-0.0.1-SNAPSHOT.jar 
+```
 
 ```log
 Connected to the target VM, address: '127.0.0.1:49967', transport: 'socket'
