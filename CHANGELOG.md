@@ -2,16 +2,19 @@
 
 ### 💥️ Breaking Change
 
+- change query(page,size) to queryPage(page,size) and return result become to FlysqlPage<A>
+
 ### ✨ Feature
 
-- add saveBatch() only support for mysql
+- add saveBatch() and only support for mysql database
 
 ### 🎨 Enhancement
 
 ### 🐛 Fix
 
-- fix notIn() for empty list
-- fix sql contain `'`
+- fix notIn() not support empty list 
+- fix sql() can not contain special symbol like `'` 
+- fix sql() can not support queryPage() to select 
 
 ## 0.0.3
 

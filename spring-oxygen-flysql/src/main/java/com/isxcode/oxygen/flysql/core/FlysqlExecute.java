@@ -7,6 +7,7 @@ import com.isxcode.oxygen.core.snowflake.SnowflakeUtils;
 import com.isxcode.oxygen.flysql.annotation.*;
 import com.isxcode.oxygen.flysql.constant.FlysqlConstants;
 import com.isxcode.oxygen.flysql.entity.FlysqlKey;
+import com.isxcode.oxygen.flysql.entity.FlysqlPage;
 import com.isxcode.oxygen.flysql.entity.SqlCondition;
 import com.isxcode.oxygen.flysql.enums.DataBaseType;
 import com.isxcode.oxygen.flysql.enums.SqlOperateType;
@@ -64,7 +65,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
     @Override
     public A getOne() {
 
-        String sqlString = parseSqlConditions(initSelectSql(), sqlConditions);
+        String sqlString = parseSqlConditions(initSelectSql(), sqlConditions, "SELECT");
 
         printSql(sqlString);
 
@@ -82,7 +83,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
             if (flysqlKey.getJdbcTemplate() == null) {
                 return flysqlKey.getMongoTemplate().find(new Query(parseSqlConditions(sqlConditions)), flysqlKey.getTargetClass(), Objects.requireNonNull(FlysqlUtils.getTableName(flysqlKey.getTargetClass())));
             } else {
-                String sqlString = parseSqlConditions(initSelectSql(), sqlConditions);
+                String sqlString = parseSqlConditions(initSelectSql(), sqlConditions, "SELECT");
 
                 printSql(sqlString);
 
@@ -100,12 +101,25 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
     }
 
     @Override
-    public List<A> query(Integer page, Integer size) {
+    public FlysqlPage<A> queryPage(Integer page, Integer size) {
 
-        String sqlString = parseSqlConditions(initSelectSql(), sqlConditions) + " limit " + (page - 1) * size + " , " + size;
+        FlysqlPage<A> pageResult = new FlysqlPage<>();
+        if (page < 1) {
+            pageResult.setTotal(0);
+            pageResult.setPage(new ArrayList<>());
+            return pageResult;
+        }
+
+        String sqlPageString = parseSqlConditions(initSelectSql(), sqlConditions, "SELECT") + " limit " + (page - 1) * size + " , " + size;
+        String sqlCountString = parseSqlConditions(initCountSql(), sqlConditions, "COUNT");
+
+        printSql(sqlPageString);
+        printSql(sqlCountString);
 
         try {
-            return flysqlKey.getJdbcTemplate().query(sqlString, new BeanPropertyRowMapper<>(flysqlKey.getTargetClass()));
+            pageResult.setPage(flysqlKey.getJdbcTemplate().query(sqlPageString, new BeanPropertyRowMapper<>(flysqlKey.getTargetClass())));
+            pageResult.setTotal(flysqlKey.getJdbcTemplate().queryForObject(sqlCountString, Integer.class));
+            return pageResult;
         } catch (Exception e) {
             throw new FlysqlException(e.getMessage());
         }
@@ -114,7 +128,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
     @Override
     public void doUpdate() {
 
-        String sqlString = parseSqlConditions(initUpdateSql(), sqlConditions);
+        String sqlString = parseSqlConditions(initUpdateSql(), sqlConditions, "UPADTE");
 
         printSql(sqlString);
 
@@ -160,7 +174,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
     @Override
     public void doDelete() {
 
-        String sqlString = parseSqlConditions(initDeleteSql(), sqlConditions);
+        String sqlString = parseSqlConditions(initDeleteSql(), sqlConditions, "DELETE");
 
         printSql(sqlString);
 
@@ -174,7 +188,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
     @Override
     public Integer count() {
 
-        String sqlString = parseSqlConditions(initCountSql(), sqlConditions);
+        String sqlString = parseSqlConditions(initCountSql(), sqlConditions, "COUNT");
 
         printSql(sqlString);
 
@@ -442,10 +456,11 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
      *
      * @param sqlString     sqlString
      * @param sqlConditions sqlConditions
+     * @param executeType   executeType
      * @return sqlString
      * @since 0.0.1
      */
-    public String parseSqlConditions(String sqlString, List<SqlCondition> sqlConditions) {
+    public String parseSqlConditions(String sqlString, List<SqlCondition> sqlConditions, String executeType) {
 
         StringBuilder sqlStringBuilder = new StringBuilder(sqlString);
 
@@ -478,7 +493,11 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
                 case UPDATE:
                     break;
                 case SQL:
-                    sqlStringBuilder = new StringBuilder(" select * from (" + sqlConditionMeta.getColumnName() + ") as alia ");
+                    if (executeType.equals("COUNT")) {
+                        sqlStringBuilder = new StringBuilder(" select count(1) from (" + sqlConditionMeta.getColumnName() + ") as alia ");
+                    } else {
+                        sqlStringBuilder = new StringBuilder(" select * from (" + sqlConditionMeta.getColumnName() + ") as alia ");
+                    }
                     break;
                 default:
                     if (hasOperateType(sqlConditionTemp, SQL) || hasOperateType(sqlConditionTemp, UPDATE) || hasOperateType(sqlConditionTemp, SqlOperateType.SELECT) || hasOperateType(sqlConditionTemp, SqlOperateType.SET_VALUE)) {

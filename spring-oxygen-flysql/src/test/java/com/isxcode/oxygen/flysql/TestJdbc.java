@@ -2,6 +2,7 @@ package com.isxcode.oxygen.flysql;
 
 import com.isxcode.oxygen.flysql.config.FlysqlAutoConfiguration;
 import com.isxcode.oxygen.flysql.core.Flysql;
+import com.isxcode.oxygen.flysql.entity.FlysqlPage;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -55,6 +56,10 @@ public class TestJdbc {
         System.out.println("=========================== show all data   ====================================");
         List<MetaData> metaDataList = flysql.build().select(MetaData.class).query();
         metaDataList.forEach(System.out::println);
+
+        System.out.println("=========================== show page data   ====================================");
+        FlysqlPage<MetaData> flysqlPage = flysql.build().select(MetaData.class).isNotNull("anDate").queryPage(1, 2);
+        System.out.println(flysqlPage);
 
         System.out.println("============================ show single data ===================================");
         MetaData metaData = flysql.build().select(MetaData.class).eq("anString", "data1").getOne();

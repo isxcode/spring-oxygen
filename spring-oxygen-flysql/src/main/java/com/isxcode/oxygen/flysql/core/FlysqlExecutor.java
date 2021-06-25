@@ -1,5 +1,7 @@
 package com.isxcode.oxygen.flysql.core;
 
+import com.isxcode.oxygen.flysql.entity.FlysqlPage;
+
 import java.util.List;
 
 /**
@@ -26,7 +28,7 @@ public interface FlysqlExecutor<A> {
      * @return list[data]
      * @since 2019-12-26
      */
-    List<A> query(Integer page, Integer size);
+    FlysqlPage<A> queryPage(Integer page, Integer size);
 
     /**
      * select one
