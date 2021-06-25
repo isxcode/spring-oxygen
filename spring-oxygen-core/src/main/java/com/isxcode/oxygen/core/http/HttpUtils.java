@@ -49,7 +49,7 @@ public class HttpUtils {
 
         HttpEntity<String> requestEntity = new HttpEntity<>("", headers);
         try {
-            return new RestTemplate().exchange(url + requestBody.toString(), HttpMethod.GET, requestEntity, targetClass).getBody();
+            return new RestTemplate().exchange(url + requestBody, HttpMethod.GET, requestEntity, targetClass).getBody();
         } catch (Exception e) {
             throw new OxygenException(e.getMessage());
         }
