@@ -356,7 +356,6 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
             }
 
             if (invoke != null) {
-
                 if (ReflectConstants.BOOLEAN.equals(metaField.getType().getName()) || ReflectConstants.BOOLEAN_LOWER.equals(metaField.getType().getName())) {
                     valueList.add(invoke.toString());
                 } else if (ReflectConstants.DATE.equals(metaField.getType().getName())) {
@@ -377,6 +376,8 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
                 } else {
                     valueList.add(FlysqlExecute.addSingleQuote(invoke));
                 }
+            }else{
+                valueList.add("NULL");
             }
         }
         return "( " + Strings.join(valueList, ',') + ")";
