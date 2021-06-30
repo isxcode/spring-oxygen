@@ -16,6 +16,7 @@
 - fix sql() can not contain special symbol like `'` 
 - fix sql() can not support queryPage() to select 
 - fix save() can not save custom column
+- fix @SuccessResponse can not return resource
 
 ## 0.0.3
 
