@@ -6,6 +6,8 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 
+import java.io.InputStream;
+
 /**
  * success response advice
  *
@@ -34,6 +36,9 @@ public class SuccessResponseAdvice {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         BaseResponse<Object> baseResponse = new BaseResponse<>();
         if (!"void".equals(signature.getReturnType().getName())) {
+            if (data instanceof InputStream) {
+                return;
+            }
             baseResponse.setCode(ResponseConstant.SUCCESS_CODE);
             if (data.getClass().getDeclaredFields().length == 0) {
                 baseResponse.setData(null);

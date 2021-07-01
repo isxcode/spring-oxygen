@@ -23,7 +23,7 @@ import java.io.InputStream;
 public class XmlUtils {
 
     /**
-     * parse inputsteam content
+     * parse inputSteam content
      *
      * @param inputStream inputStream
      * @param targetClass targetClass
