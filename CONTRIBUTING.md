@@ -137,3 +137,4 @@ gradle publishMavenJavaPublicationToSonatypeRepository
 - [ ] Create GitHub new tag and new branch
 - [ ] Run GitHub action publish to GitHub repository
 - [ ] Run GitHub action publish new version docs
+- [ ] Publish to Sonatype repository

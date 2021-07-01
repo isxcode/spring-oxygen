@@ -1,17 +1,16 @@
 spring:
-
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:~/h2
     username: root
     password: root
-  sql:
-    init:
-      enabled: true
-      schema-locations: classpath:db/schema_h2.sql
   data:
     mongodb:
       uri: mongodb://xdap-app:xdap-app-2020@47.96.19.185:31001/xdap_app_database
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/schema_h2.sql
 
 oxygen:
   flysql:
