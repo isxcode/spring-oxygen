@@ -60,53 +60,80 @@ git push origin latest
 
 6. Pull Request
 
-- https://github.com/isxcode/spring-oxygen/compare
+[https://github.com/isxcode/spring-oxygen/compare](https://github.com/isxcode/spring-oxygen/compare)
 
 > Note:  ispong/spring-oxygen/latest  **==squash merge==>** isxcode/spring-oxygen/latest
 
-7. Build Docs
-
-- http://localhost:3000
+### Build Docs
 
 ```bash
 npm i docsify-cli -g
 cd spring-oxygen
 docsify serve docs
 ```
+[http://localhost:3000](http://localhost:3000)
 
-8. Publish to maven center
+### Publish
 
-- https://oss.sonatype.org/
+#### publish SNAPSHOT to Sonatype repository
 
-> change `gradle.properties` file and set version number and password
+```bash
+vim VERSION.md
 
-```properties
-signing.keyId=57CA7F60
-signing.password=spring-oxygen
-signing.secretKeyRingFile=../.github/secring.gpg
+# -------------- VERSION.md --------------  
+1.0.0-SNAPSHOT
+# -------------- VERSION.md -------------- 
+```
 
-sonatypeUsername=isxcode
+```bash
+vim gradle.properties
+
+# ------------- gradle.properties -------------  
 sonatypePassword=xxx
-
-gpr.user=isxcode
-#gpr.key=xxx
-
-###
+# ------------- gradle.properties -------------
 ```
 
 ```bash
 gradle publishMavenJavaPublicationToSonatypeRepository
 ```
 
-### todo
+#### publish RELEASE to Sonatype repository
 
-[] README.md version number
-[] VERSION.md version number
-[] github tag and make new branch
-[] github publish repository
-[] SECURITY.md version number
-[] docs _homepage.md same with readme.md
-[] building status
-[] dependent version update to latest
-[] fix github security
-[] publish new version docs
+```bash
+vim VERSION.md
+
+# -------------- VERSION.md --------------  
+1.0.0
+# -------------- VERSION.md -------------- 
+```
+
+```bash
+vim gradle.properties
+
+# ------------- gradle.properties -------------  
+sonatypePassword=xxx
+# ------------- gradle.properties -------------
+```
+
+```bash
+gradle publishMavenJavaPublicationToSonatypeRepository
+```
+
+[https://oss.sonatype.org/](https://oss.sonatype.org/)
+
+#### publish RELEASE to GitHub repository
+
+[https://github.com/isxcode/spring-oxygen/actions/workflows/release-github.yml](https://github.com/isxcode/spring-oxygen/actions/workflows/release-github.yml)
+
+### Release new version
+
+- [ ] Fix Pull Request
+- [ ] Edit VERSION.md version number
+- [ ] Edit README.md version number
+- [ ] Edit SECURITY.md version number
+- [ ] Copy README.md to /docs/_homepage.md  
+- [ ] Submit and Fix GitHub Security
+- [ ] Check project badge status
+- [ ] Create GitHub new tag and new branch
+- [ ] Run GitHub action publish to GitHub repository
+- [ ] Run GitHub action publish new version docs
