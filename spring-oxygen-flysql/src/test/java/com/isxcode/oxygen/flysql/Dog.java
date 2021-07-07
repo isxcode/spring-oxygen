@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
- * 测试各种字段类型
+ * dog meta date
  *
  * @author ispong
  * @since 0.0.2
@@ -22,32 +22,22 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@TableName("META_DATA_T")
-public class MetaData extends BaseEntity {
+@TableName("DOGS_T")
+public class Dog extends BaseEntity {
 
-    private String anString;
+    private Integer id;
 
-    private Date anDate;
+    private String name;
 
-    private LocalDate anLocalDate;
+    private Double amountDouble;
 
-    private LocalDateTime anLocalDateTime;
+    private BigDecimal amountBigDecimal;
 
-    private BigDecimal anBigDecimal;
+    private Date birthDate;
 
-    private char anChar;
+    private LocalDate birthLocalDate;
 
-    private int anInt;
+    private LocalDateTime birthLocalDateTime;
 
-    private double anDouble;
-
-    private long anLong;
-
-    private boolean anBoolean;
-
-    private short anShort;
-
-    private float anFloat;
-
-    private byte anByte;
+    private Boolean isAlive;
 }

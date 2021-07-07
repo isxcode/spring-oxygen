@@ -82,7 +82,7 @@ public class MetaDataRepository {
 
     private final Flysql flysql;
 
-    public TestJdbc(Flysql flysql) {
+    public MetaDataRepository(Flysql flysql) {
         this.flysql = flysql;
     }
 
