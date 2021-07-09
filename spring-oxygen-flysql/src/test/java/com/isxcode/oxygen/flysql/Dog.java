@@ -1,10 +1,8 @@
 package com.isxcode.oxygen.flysql;
 
 import com.isxcode.oxygen.flysql.annotation.TableName;
-import com.isxcode.oxygen.flysql.common.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
@@ -21,9 +19,8 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-@TableName("DOGS_T")
-public class Dog extends BaseEntity {
+@TableName("DOGS2_T")
+public class Dog {
 
     private Integer id;
 

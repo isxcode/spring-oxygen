@@ -13,6 +13,8 @@ import com.isxcode.oxygen.flysql.enums.DataBaseType;
 import com.isxcode.oxygen.flysql.enums.SqlOperateType;
 import com.isxcode.oxygen.flysql.enums.SqlType;
 import com.isxcode.oxygen.flysql.exception.FlysqlException;
+import com.isxcode.oxygen.flysql.parse.SqlValue;
+import com.isxcode.oxygen.flysql.parse.SqlValueFactory;
 import com.isxcode.oxygen.flysql.utils.FlysqlUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
@@ -356,25 +358,23 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
             }
 
             if (invoke != null) {
-                if (ReflectConstants.BOOLEAN.equals(metaField.getType().getName()) || ReflectConstants.BOOLEAN_LOWER.equals(metaField.getType().getName())) {
-                    valueList.add(invoke.toString());
-                } else if (ReflectConstants.DATE.equals(metaField.getType().getName())) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
-                    if (DataBaseType.H2.equals(flysqlKey.getDataBaseType())) {
-                        try {
-                            SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-                            valueList.add(FlysqlExecute.addSingleQuote(sdf2.format(sdf.parse(String.valueOf(invoke)))));
-                        } catch (ParseException ignored) {
-                        }
-                    } else {
-                        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        try {
-                            valueList.add(FlysqlExecute.addSingleQuote(sdf2.format(sdf.parse(String.valueOf(invoke)))));
-                        } catch (ParseException ignored) {
-                        }
-                    }
-                } else {
-                    valueList.add(FlysqlExecute.addSingleQuote(invoke));
+                SqlValue sqlValue = SqlValueFactory.getSqlValue(flysqlKey.getDataBaseType());
+                switch (metaField.getType().getName()) {
+                    case ReflectConstants.BOOLEAN:
+                    case ReflectConstants.BOOLEAN_LOWER:
+                        valueList.add(sqlValue.getBooleanValue(invoke.toString()));
+                        break;
+                    case ReflectConstants.DATE:
+                        valueList.add(sqlValue.getDateValue(invoke.toString()));
+                        break;
+                    case ReflectConstants.LOCAL_DATE:
+                        valueList.add(sqlValue.getLocalDateValue(invoke.toString()));
+                        break;
+                    case ReflectConstants.LOCAL_DATE_TIME:
+                        valueList.add(sqlValue.getLocalDateTimeValue(invoke.toString()));
+                        break;
+                    default:
+                        valueList.add(FlysqlExecute.addSingleQuote(invoke));
                 }
             }else{
                 valueList.add("NULL");

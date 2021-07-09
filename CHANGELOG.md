@@ -6,15 +6,16 @@
 
 ### ✨ Feature
 
-- 
+- support new database - sqlServer
 
 ### 🎨 Enhancement
 
-- nothing
+- add more test for flysql - h2/oracle/mysql/sqlserver/mongodb
+- translate value to special database sql
 
 ### 🐛 Fix
 
-- 
+- fix oracle database can not save()
 
 ## v0.6.7
 

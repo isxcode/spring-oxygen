@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://39.99.176.43:30002/dehoop?serverTimezone=Asia/Shanghai
+    username: dehoop
+    password: welcome1
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/schema_mysql.sql
+
+oxygen:
+  flysql:
+    show-log: true

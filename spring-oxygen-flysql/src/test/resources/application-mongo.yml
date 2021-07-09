@@ -1,0 +1,8 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://xdap-app:xdap-app-2020@47.96.19.185:31001/xdap_app_database
+
+oxygen:
+  flysql:
+    show-log: true

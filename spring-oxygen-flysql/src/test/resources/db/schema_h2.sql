@@ -1,13 +1,13 @@
-DROP TABLE IF EXISTS DOG_T;
+DROP TABLE IF EXISTS DOGS_T;
 
-CREATE TABLE DOG_T
+CREATE TABLE DOGS_T
 (
-    id                 INT          NOT NULL,
-    name               VARCHAR(100) NOT NULL,
-    amountDouble       DOUBLE       NOT NULL,
-    amountBigDecimal   DECIMAL      NOT NULL,
-    isAlive            BOOLEAN      NOT NULL,
-    birthDate          TIMESTAMP    NOT NULL,
-    birthLocalDate     TIMESTAMP    NOT NULL,
-    birthLocalDateTime DATETIME     NOT NULL
+    id                    INT          NOT NULL,
+    name                  VARCHAR(100) NOT NULL,
+    amount_double         DOUBLE       NOT NULL,
+    amount_big_decimal    DECIMAL      NOT NULL,
+    is_alive              BOOLEAN      NOT NULL,
+    birth_date            TIMESTAMP    NOT NULL,
+    birth_local_date      TIMESTAMP    NOT NULL,
+    birth_local_date_time DATETIME     NOT NULL
 );
