@@ -1,13 +1,13 @@
 spring:
   datasource:
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    url: jdbc:sqlserver://8.142.166.150:30101;database=dehoop_db
+    url: jdbc:sqlserver://39.103.230.188:30101;database=dehoop_db
     username: dehoop
     password: Dehoop123
   sql:
     init:
       mode: always
-      schema-locations: classpath:db/schema_h2.sql
+      schema-locations: classpath:db/schema_sqlserver.sql
 
 oxygen:
   flysql:

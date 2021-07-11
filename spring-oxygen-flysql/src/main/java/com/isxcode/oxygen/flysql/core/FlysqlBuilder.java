@@ -53,6 +53,8 @@ public class FlysqlBuilder {
                         return DataBaseType.ORACLE;
                     case FlysqlConstants.H2_DB:
                         return DataBaseType.H2;
+                    case FlysqlConstants.SQL_SERVER_DB:
+                        return DataBaseType.SQL_SERVER;
                     case FlysqlConstants.MYSQL_DB:
                     default:
                         return DataBaseType.MYSQL;

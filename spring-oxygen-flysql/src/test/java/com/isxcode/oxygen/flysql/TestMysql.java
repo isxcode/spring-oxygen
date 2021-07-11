@@ -31,7 +31,7 @@ public class TestMysql {
     }
 
     @Test
-    public void testJdbc() {
+    public void testFlysql() {
 
         Dog dog1 = null;
         Dog dog2 = null;
@@ -45,7 +45,6 @@ public class TestMysql {
         } catch (NumberFormatException ignored) {
         }
 
-        dogList.add(dog1);
         dogList.add(dog2);
         dogList.add(dog3);
 

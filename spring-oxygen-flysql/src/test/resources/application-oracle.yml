@@ -4,10 +4,10 @@ spring:
     url: jdbc:oracle:thin:@//39.99.176.43:51952/EE.oracle.docker
     username: dehoop
     password: Dehoop123
-#  sql:
-#    init:
-#      mode: always
-#      schema-locations: classpath:db/schema_oracle.sql
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/schema_oracle.sql
 
 oxygen:
   flysql:

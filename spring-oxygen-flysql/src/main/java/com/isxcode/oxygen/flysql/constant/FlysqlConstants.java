@@ -37,5 +37,10 @@ public interface FlysqlConstants {
      * ORACLE
      */
     String ORACLE_DB = "Oracle";
+
+    /**
+     * Microsoft SQL Server
+     */
+    String SQL_SERVER_DB = "Microsoft SQL Server";
 }
 

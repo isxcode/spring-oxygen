@@ -11,6 +11,10 @@ public interface SqlValue {
         return FlysqlExecute.addSingleQuote(val);
     }
 
+    default String othersVarchar(String val) {
+        return FlysqlExecute.addSingleQuote(val);
+    }
+
     default String getBooleanValue(String val) {
         return val.toString();
     }

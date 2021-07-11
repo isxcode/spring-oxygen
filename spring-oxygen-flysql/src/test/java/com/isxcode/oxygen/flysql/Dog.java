@@ -19,7 +19,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("DOGS2_T")
+@TableName("DOGS_T")
 public class Dog {
 
     private Integer id;

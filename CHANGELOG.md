@@ -12,6 +12,7 @@
 
 - add more test for flysql - h2/oracle/mysql/sqlserver/mongodb
 - translate value to special database sql
+- enhancement table has not return ,back new response. for BadSqlGrammarException
 
 ### 🐛 Fix
 

@@ -21,6 +21,7 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -73,6 +74,8 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
 
         try {
             return flysqlKey.getJdbcTemplate().queryForObject(sqlString, new BeanPropertyRowMapper<>(flysqlKey.getTargetClass()));
+        } catch (BadSqlGrammarException e) {
+            throw new FlysqlException(e.getCause().getMessage());
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
@@ -97,8 +100,8 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
                 }
 
             }
-        } catch (Exception e) {
-            throw new FlysqlException(e.getMessage());
+        } catch (BadSqlGrammarException e) {
+            throw new FlysqlException(e.getCause().getMessage());
         }
     }
 
@@ -122,8 +125,8 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
             pageResult.setPage(flysqlKey.getJdbcTemplate().query(sqlPageString, new BeanPropertyRowMapper<>(flysqlKey.getTargetClass())));
             pageResult.setTotal(flysqlKey.getJdbcTemplate().queryForObject(sqlCountString, Integer.class));
             return pageResult;
-        } catch (Exception e) {
-            throw new FlysqlException(e.getMessage());
+        } catch (BadSqlGrammarException e) {
+            throw new FlysqlException(e.getCause().getMessage());
         }
     }
 
@@ -136,8 +139,8 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
 
         try {
             flysqlKey.getJdbcTemplate().update(sqlString);
-        } catch (Exception e) {
-            throw new FlysqlException(e.getMessage());
+        } catch (BadSqlGrammarException e) {
+            throw new FlysqlException(e.getCause().getMessage());
         }
     }
 
@@ -150,8 +153,8 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
 
         try {
             flysqlKey.getJdbcTemplate().execute(sqlString);
-        } catch (Exception e) {
-            throw new FlysqlException(e.getMessage());
+        } catch (BadSqlGrammarException e) {
+            throw new FlysqlException(e.getCause().getMessage());
         }
     }
 
@@ -168,8 +171,8 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
             } else {
                 flysqlKey.getJdbcTemplate().execute(sqlString);
             }
-        } catch (Exception e) {
-            throw new FlysqlException(e.getMessage());
+        } catch (BadSqlGrammarException e) {
+            throw new FlysqlException(e.getCause().getMessage());
         }
     }
 
@@ -182,8 +185,8 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
 
         try {
             flysqlKey.getJdbcTemplate().update(sqlString);
-        } catch (Exception e) {
-            throw new FlysqlException(e.getMessage());
+        } catch (BadSqlGrammarException e) {
+            throw new FlysqlException(e.getCause().getMessage());
         }
     }
 
@@ -196,8 +199,8 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
 
         try {
             return flysqlKey.getJdbcTemplate().queryForObject(sqlString, Integer.class);
-        } catch (Exception e) {
-            throw new FlysqlException(e.getMessage());
+        } catch (BadSqlGrammarException e) {
+            throw new FlysqlException(e.getCause().getMessage());
         }
     }
 
@@ -376,7 +379,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
                     default:
                         valueList.add(FlysqlExecute.addSingleQuote(invoke));
                 }
-            }else{
+            } else {
                 valueList.add("NULL");
             }
         }

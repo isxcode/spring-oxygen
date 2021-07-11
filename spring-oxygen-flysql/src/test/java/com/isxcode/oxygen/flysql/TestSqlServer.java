@@ -20,12 +20,12 @@ import java.util.List;
 @JdbcTest
 @ContextConfiguration(classes = FlysqlAutoConfiguration.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ActiveProfiles("oracle")
-public class TestOracle {
+@ActiveProfiles("sqlserver")
+public class TestSqlServer {
 
     private final Flysql flysql;
 
-    public TestOracle(@Qualifier("flysql") Flysql flysql) {
+    public TestSqlServer(@Qualifier("flysql") Flysql flysql) {
 
         this.flysql = flysql;
     }
@@ -37,6 +37,7 @@ public class TestOracle {
         Dog dog2 = null;
         Dog dog3 = null;
 
+        ArrayList<Dog> dogList = new ArrayList<>();
         try {
             dog1 = new Dog(1, "jack", 1.1, new BigDecimal("1.1"), new Date(), LocalDate.now(), LocalDateTime.now(), true);
             dog2 = new Dog(2, "john", 1.2, new BigDecimal("1.2"), new Date(), LocalDate.now(), LocalDateTime.now(), true);
@@ -44,13 +45,19 @@ public class TestOracle {
         } catch (NumberFormatException ignored) {
         }
 
+        dogList.add(dog2);
+        dogList.add(dog3);
+
         flysql.build().insert(Dog.class).save(dog1);
-        flysql.build().insert(Dog.class).save(dog2);
-        flysql.build().insert(Dog.class).save(dog3);
+        flysql.build().insert(Dog.class).batchSave(dogList);
 
         System.out.println("=========================== show all data   ====================================");
         List<Dog> dogQuery = flysql.build().select(Dog.class).query();
         dogQuery.forEach(System.out::println);
+
+//        System.out.println("=========================== show page data   ====================================");
+//        FlysqlPage<Dog> dogQueryPage = flysql.build().select(Dog.class).queryPage(1, 2);
+//        System.out.println(dogQueryPage);
 
         System.out.println("============================ show single data ===================================");
         Dog dogGetOne = flysql.build().select(Dog.class).eq("name", "rose").getOne();
