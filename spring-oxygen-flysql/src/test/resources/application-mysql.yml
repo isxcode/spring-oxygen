@@ -1,13 +1,17 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://39.99.176.43:30002/dehoop?serverTimezone=Asia/Shanghai
-    username: dehoop
-    password: welcome1
+    url: ENC(SfOzgWryQ7kCDbAVu9x5b4evrv/Cr6bSyBtNai2IOakNdhHjtLTpe7K5Ui5+ZJZZvLHEYuKC6I+Uk0bWyZ9T0G1HTz6j8Ke9S6va2D9J6ZbOWg1ZpezKZYpkw5dFtAw0+VlwOrqxQkj5KPXiDOngXA==)
+    username: ENC(3V37ICjNHD4NDRvv/PzI8VLdGQ0rIFLmrDetXwFsJO5NtEZI1u2GIz1Zr9EtqVXp)
+    password: ENC(CuHnl943sXWN6yK3cl0hoSF1C92Tp4WklErGc3zxrDadGwP5Mm4QKylWMiYPcON1)
   sql:
     init:
       mode: always
       schema-locations: classpath:db/schema_mysql.sql
+
+jasypt:
+  encryptor:
+    password: oxygen
 
 oxygen:
   flysql:

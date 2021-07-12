@@ -1,13 +1,17 @@
 spring:
   datasource:
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    url: jdbc:sqlserver://39.103.230.188:30101;database=dehoop_db
-    username: dehoop
-    password: Dehoop123
+    url: ENC(nUu+Cv5xc8xkHzJoHsGjU8dCaPaUP11dTjRg8F1xJTx5lmRft95D44L7BAjptdJUE8OBTqTX8e1UsKD4HGGSkfZtXM7x2gyfuGJiBdZi8ayCLcLch8d5HSQvRVRHfNz7)
+    username: ENC(QpGPl4q1Ay4y8ZueCQVkSJITAdd2UAsPL7mwEgZcfaE4rksXMtPXVOM3n9i/nzlC)
+    password: ENC(voGCSNtoMYzrVd6JnAz3Xfe8cCl3YeGgv75m8ZbFpQ4Ij/4zt8T+NYc15UFTCoem)
   sql:
     init:
       mode: always
       schema-locations: classpath:db/schema_sqlserver.sql
+
+jasypt:
+  encryptor:
+    password: oxygen
 
 oxygen:
   flysql:

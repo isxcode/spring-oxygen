@@ -1,7 +1,11 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://xdap-app:xdap-app-2020@47.96.19.185:31001/xdap_app_database
+      uri: mongodb://39.99.176.43:30010/test
+
+jasypt:
+  encryptor:
+    password: oxygen
 
 oxygen:
   flysql:

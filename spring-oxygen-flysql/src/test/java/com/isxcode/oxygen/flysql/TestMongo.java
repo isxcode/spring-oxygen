@@ -12,13 +12,14 @@
 //import java.math.BigDecimal;
 //import java.time.LocalDate;
 //import java.time.LocalDateTime;
+//import java.util.ArrayList;
 //import java.util.Date;
 //import java.util.List;
 //
 //@DataMongoTest
 //@ContextConfiguration(classes = {FlysqlAutoConfiguration.class})
 //@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-//@ActiveProfiles
+//@ActiveProfiles("mongo")
 //public class TestMongo {
 //
 //    private final Flysql flysql;
@@ -31,39 +32,45 @@
 //    @Test
 //    public void testMongo() {
 //
-//        // 插入数据
-//        MetaData metaData1 = new MetaData("data1", new Date(), LocalDate.now(), LocalDateTime.now(), new BigDecimal("1"), '1', 1, 1.1, 1L, true, Short.parseShort("1"), 1f, Byte.parseByte("1"));
-//        MetaData metaData2 = new MetaData("data2", new Date(), LocalDate.now(), LocalDateTime.now(), new BigDecimal("2"), '2', 2, 2.2, 2L, true, Short.parseShort("2"), 2f, Byte.parseByte("2"));
-//        MetaData metaData3 = new MetaData("data3", new Date(), LocalDate.now(), LocalDateTime.now(), new BigDecimal("3"), '3', 3, 3.3, 3L, true, Short.parseShort("3"), 3f, Byte.parseByte("3"));
+//        Dog dog1 = null;
+//        Dog dog2 = null;
+//        Dog dog3 = null;
 //
-//        flysql.buildMongo().insert(MetaData.class).save(metaData1);
-//        flysql.buildMongo().insert(MetaData.class).save(metaData2);
-//        flysql.buildMongo().insert(MetaData.class).save(metaData3);
+//        ArrayList<Dog> dogList = new ArrayList<>();
+//        try {
+//            dog1 = new Dog(1, "jack", 1.1, new BigDecimal("1.1"), new Date(), LocalDate.now(), LocalDateTime.now(), true);
+//            dog2 = new Dog(2, "john", 1.2, new BigDecimal("1.2"), new Date(), LocalDate.now(), LocalDateTime.now(), true);
+//            dog3 = new Dog(3, "rose", 1.3, new BigDecimal("1.3"), new Date(), LocalDate.now(), LocalDateTime.now(), true);
+//        } catch (NumberFormatException ignored) {
+//        }
 //
-//        // 查询所有数据
-//        List<MetaData> metaDataList = flysql.buildMongo().select(MetaData.class).query();
-//        metaDataList.forEach(System.out::println);
-//        System.out.println("===============================================================");
-//
-//        // 查询单条数据
-//        MetaData metaData = flysql.buildMongo().select(MetaData.class).eq("anString", "data1").getOne();
-//        System.out.println(metaData);
-//        System.out.println("===============================================================");
-//
-//        // 条件删除数据
-//        flysql.buildMongo().delete(MetaData.class).eq("anString", "data1").doDelete();
-//        metaDataList = flysql.buildMongo().select(MetaData.class).query();
-//        metaDataList.forEach(System.out::println);
-//        System.out.println("===============================================================");
-//
-//        // 单条更新
-//        flysql.buildMongo().update(MetaData.class).eq("anString", "data3")
-//            .update("anInt", "4")
-//            .update("anDouble", "4.4")
-//            .update("anDate", new Date())
-//            .doUpdate();
-//        metaDataList = flysql.buildMongo().select(MetaData.class).query();
-//        metaDataList.forEach(System.out::println);
-//        System.out.println("===============================================================");
+//        dogList.add(dog2);
+//        dogList.add(dog3);
+////
+////        // 查询所有数据
+////        List<Dog> metaDataList = flysql.buildMongo().select(Dog.class).query();
+////        metaDataList.forEach(System.out::println);
+////        System.out.println("===============================================================");
+////
+////        // 查询单条数据
+////        MetaData metaData = flysql.buildMongo().select(Dog.class).eq("anString", "data1").getOne();
+////        System.out.println(metaData);
+////        System.out.println("===============================================================");
+////
+////        // 条件删除数据
+////        flysql.buildMongo().delete(MetaData.class).eq("anString", "data1").doDelete();
+////        metaDataList = flysql.buildMongo().select(MetaData.class).query();
+////        metaDataList.forEach(System.out::println);
+////        System.out.println("===============================================================");
+////
+////        // 单条更新
+////        flysql.buildMongo().update(MetaData.class).eq("anString", "data3")
+////            .update("anInt", "4")
+////            .update("anDouble", "4.4")
+////            .update("anDate", new Date())
+////            .doUpdate();
+////        metaDataList = flysql.buildMongo().select(MetaData.class).query();
+////        metaDataList.forEach(System.out::println);
+////        System.out.println("===============================================================");
 //    }
 //}
