@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://39.99.176.43:30010/test
+      uri: ENC(f5tA0YiQyIhLdS7TdXED5ml4UsIEM5hH7q1TumWdxcRg78crDAu3j4ix7b9ZYdjcLpp0tr9wPgTTHoKiaZKgqR5zARJ7HehbnMc+rg7//pc=)
 
 jasypt:
   encryptor:

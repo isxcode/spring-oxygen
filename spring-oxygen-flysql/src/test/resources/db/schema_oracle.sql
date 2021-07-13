@@ -6,7 +6,7 @@
 --         execute immediate 'drop table DOGS_T';
 --     end if;
 -- end;
-drop table DOGS_T;
+-- drop table DOGS_T;
 
 CREATE TABLE DOGS_T
 (
