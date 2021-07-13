@@ -1,6 +1,6 @@
 #### Start a new Spring Boot project
 
-?> Recommend to add dependency `Lombok` and `Spring Web`
+?> Recommend adding dependency `Lombok` and `Spring Web`
 
 - [https://spring.io/quickstart](https://spring.io/quickstart)
 
