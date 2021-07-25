@@ -7,6 +7,7 @@
 ### ✨ Feature
 
 - support new database - sqlServer
+- add oxygen exception for any service 
 
 ### 🎨 Enhancement
 
