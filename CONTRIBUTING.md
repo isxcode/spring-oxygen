@@ -127,10 +127,10 @@ gradle publishMavenJavaPublicationToSonatypeRepository
 
 ### Release new version
 
-- [ ] Fix Pull Request
+- [ ] Fix Pull Requests
 - [ ] Edit VERSION.md version number
 - [ ] Edit README.md version number
-- [ ] DOCS-Quick Starter version number 
+- [ ] Edit Quick-Starter.md version number 
 - [ ] Edit SECURITY.md version number
 - [ ] Edit CHANGELOG.md version number
 - [ ] Copy README.md to /docs/_homepage.md  

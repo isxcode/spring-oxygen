@@ -36,4 +36,4 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         source: "docs"
-        target: "/data/nginx/html/oxygen/"
+        target: "/data/nginx/html/spring-oxygen/"
