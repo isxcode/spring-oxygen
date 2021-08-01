@@ -13,12 +13,15 @@ import com.isxcode.oxygen.flysql.enums.DataBaseType;
 import com.isxcode.oxygen.flysql.enums.SqlOperateType;
 import com.isxcode.oxygen.flysql.enums.SqlType;
 import com.isxcode.oxygen.flysql.exception.FlysqlException;
+import com.isxcode.oxygen.flysql.parse.SqlValue;
+import com.isxcode.oxygen.flysql.parse.SqlValueFactory;
 import com.isxcode.oxygen.flysql.utils.FlysqlUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -71,6 +74,8 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
 
         try {
             return flysqlKey.getJdbcTemplate().queryForObject(sqlString, new BeanPropertyRowMapper<>(flysqlKey.getTargetClass()));
+        } catch (BadSqlGrammarException e) {
+            throw new FlysqlException(e.getCause().getMessage());
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
@@ -95,8 +100,8 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
                 }
 
             }
-        } catch (Exception e) {
-            throw new FlysqlException(e.getMessage());
+        } catch (BadSqlGrammarException e) {
+            throw new FlysqlException(e.getCause().getMessage());
         }
     }
 
@@ -120,8 +125,8 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
             pageResult.setPage(flysqlKey.getJdbcTemplate().query(sqlPageString, new BeanPropertyRowMapper<>(flysqlKey.getTargetClass())));
             pageResult.setTotal(flysqlKey.getJdbcTemplate().queryForObject(sqlCountString, Integer.class));
             return pageResult;
-        } catch (Exception e) {
-            throw new FlysqlException(e.getMessage());
+        } catch (BadSqlGrammarException e) {
+            throw new FlysqlException(e.getCause().getMessage());
         }
     }
 
@@ -134,8 +139,8 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
 
         try {
             flysqlKey.getJdbcTemplate().update(sqlString);
-        } catch (Exception e) {
-            throw new FlysqlException(e.getMessage());
+        } catch (BadSqlGrammarException e) {
+            throw new FlysqlException(e.getCause().getMessage());
         }
     }
 
@@ -148,8 +153,8 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
 
         try {
             flysqlKey.getJdbcTemplate().execute(sqlString);
-        } catch (Exception e) {
-            throw new FlysqlException(e.getMessage());
+        } catch (BadSqlGrammarException e) {
+            throw new FlysqlException(e.getCause().getMessage());
         }
     }
 
@@ -166,8 +171,8 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
             } else {
                 flysqlKey.getJdbcTemplate().execute(sqlString);
             }
-        } catch (Exception e) {
-            throw new FlysqlException(e.getMessage());
+        } catch (BadSqlGrammarException e) {
+            throw new FlysqlException(e.getCause().getMessage());
         }
     }
 
@@ -180,8 +185,8 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
 
         try {
             flysqlKey.getJdbcTemplate().update(sqlString);
-        } catch (Exception e) {
-            throw new FlysqlException(e.getMessage());
+        } catch (BadSqlGrammarException e) {
+            throw new FlysqlException(e.getCause().getMessage());
         }
     }
 
@@ -194,8 +199,8 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
 
         try {
             return flysqlKey.getJdbcTemplate().queryForObject(sqlString, Integer.class);
-        } catch (Exception e) {
-            throw new FlysqlException(e.getMessage());
+        } catch (BadSqlGrammarException e) {
+            throw new FlysqlException(e.getCause().getMessage());
         }
     }
 
@@ -356,27 +361,25 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
             }
 
             if (invoke != null) {
-                if (ReflectConstants.BOOLEAN.equals(metaField.getType().getName()) || ReflectConstants.BOOLEAN_LOWER.equals(metaField.getType().getName())) {
-                    valueList.add(invoke.toString());
-                } else if (ReflectConstants.DATE.equals(metaField.getType().getName())) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
-                    if (DataBaseType.H2.equals(flysqlKey.getDataBaseType())) {
-                        try {
-                            SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-                            valueList.add(FlysqlExecute.addSingleQuote(sdf2.format(sdf.parse(String.valueOf(invoke)))));
-                        } catch (ParseException ignored) {
-                        }
-                    } else {
-                        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        try {
-                            valueList.add(FlysqlExecute.addSingleQuote(sdf2.format(sdf.parse(String.valueOf(invoke)))));
-                        } catch (ParseException ignored) {
-                        }
-                    }
-                } else {
-                    valueList.add(FlysqlExecute.addSingleQuote(invoke));
+                SqlValue sqlValue = SqlValueFactory.getSqlValue(flysqlKey.getDataBaseType());
+                switch (metaField.getType().getName()) {
+                    case ReflectConstants.BOOLEAN:
+                    case ReflectConstants.BOOLEAN_LOWER:
+                        valueList.add(sqlValue.getBooleanValue(invoke.toString()));
+                        break;
+                    case ReflectConstants.DATE:
+                        valueList.add(sqlValue.getDateValue(invoke.toString()));
+                        break;
+                    case ReflectConstants.LOCAL_DATE:
+                        valueList.add(sqlValue.getLocalDateValue(invoke.toString()));
+                        break;
+                    case ReflectConstants.LOCAL_DATE_TIME:
+                        valueList.add(sqlValue.getLocalDateTimeValue(invoke.toString()));
+                        break;
+                    default:
+                        valueList.add(FlysqlExecute.addSingleQuote(invoke));
                 }
-            }else{
+            } else {
                 valueList.add("NULL");
             }
         }

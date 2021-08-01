@@ -29,6 +29,11 @@ public enum DataBaseType {
     MONGO,
 
     /**
+     * SqlServer
+     */
+    SQL_SERVER,
+
+    /**
      * nothing
      */
     DEFAULT,

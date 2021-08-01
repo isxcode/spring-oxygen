@@ -1,24 +1,13 @@
-DROP TABLE IF EXISTS META_DATA_T;
+DROP TABLE IF EXISTS DOGS_T;
 
-CREATE TABLE META_DATA_T
+CREATE TABLE DOGS_T
 (
-    is_delete          INT          NOT NULL,
-    created_by         VARCHAR(100) NOT NULL,
-    created_date       TIMESTAMP    NOT NULL,
-    last_modified_by   VARCHAR(100) NOT NULL,
-    last_modified_date TIMESTAMP    NOT NULL,
-    version            INT          NOT NULL,
-    an_byte            TINYINT      NOT NULL,
-    an_int             INT          NOT NULL,
-    an_short           SMALLINT     NOT NULL,
-    an_long            BIGINT       NOT NULL,
-    an_double          DOUBLE       NOT NULL,
-    an_float           FLOAT        NOT NULL,
-    an_boolean         BOOLEAN      NOT NULL,
-    an_char            CHAR         NOT NULL,
-    an_string          VARCHAR(100) NOT NULL,
-    an_date            TIMESTAMP    NOT NULL,
-    an_local_date      TIMESTAMP    NOT NULL,
-    an_local_date_time DATETIME     NOT NULL,
-    an_big_decimal     DECIMAL      NOT NULL
+    id                    INT          NOT NULL,
+    name                  VARCHAR(100) NOT NULL,
+    amount_double         DOUBLE       NOT NULL,
+    amount_big_decimal    DECIMAL      NOT NULL,
+    is_alive              BOOLEAN      NOT NULL,
+    birth_date            TIMESTAMP    NOT NULL,
+    birth_local_date      TIMESTAMP    NOT NULL,
+    birth_local_date_time DATETIME     NOT NULL
 );

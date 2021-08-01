@@ -2,10 +2,18 @@ dependencies {
     implementation(project(':spring-oxygen-core'))
     implementation 'org.springframework.security:spring-security-core'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+    // jdbc
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-    //  不把mongodb 放入依赖中  让用户自己导入
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
+
+    // other driver
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'mysql:mysql-connector-java'
-    runtimeOnly 'com.oracle.ojdbc:ojdbc8'
+    runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
+    runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
+
+    // jasypt
+    compile 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3'
 }

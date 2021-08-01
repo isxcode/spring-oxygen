@@ -42,7 +42,7 @@
 
 [Spring Oxygen](https://github.com/isxcode/spring-oxygen) is rapid development integration framework for [Spring](https://spring.io/) .
 **Important statement, enterprise-level development is recommended to be used with caution!**
-For instructions on use, please check the [website](https://oxygen.isxcode.com) carefully.
+For instructions on use, please check the [website](https://spring-oxygen.isxcode.com) carefully.
 Welcome to develop and maintain together, please follow the [github development](https://github.com/isxcode/spring-oxygen/blob/latest/CONTRIBUTING.md) specification.
 
 ## 📦 Installation
@@ -51,7 +51,7 @@ Welcome to develop and maintain together, please follow the [github development]
 
 ```groovy
 dependencies {
-    implementation 'com.isxcode.oxygen:oxygen-spring-boot-starter:0.6.7'
+    implementation 'com.isxcode.oxygen:oxygen-spring-boot-starter:0.7.3'
 }
 ```
 
@@ -61,7 +61,7 @@ dependencies {
 <dependency>
     <groupId>com.isxcode.oxygen</groupId>
     <artifactId>oxygen-spring-boot-starter</artifactId>
-    <version>0.6.7</version>
+    <version>0.7.3</version>
 </dependency>
 ```
 
@@ -69,11 +69,11 @@ dependencies {
 
 ```yaml
 spring:
-    datasource:
-        driver-class-name: org.h2.Driver
-        url: jdbc:h2:~/h2
-        username: root
-        password: root
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:~/h2
+    username: root
+    password: root
 ```
 
 ```java
@@ -82,7 +82,7 @@ public class MetaDataRepository {
 
     private final Flysql flysql;
 
-    public TestJdbc(Flysql flysql) {
+    public MetaDataRepository(Flysql flysql) {
         this.flysql = flysql;
     }
 
@@ -101,7 +101,7 @@ public class MetaDataRepository {
 
 ## 📒 Documentation
 
-Check out the [Getting Started](https://oxygen.isxcode.com) page for a quick overview.
+Check out the [Getting Started](https://spring-oxygen.isxcode.com) page for a quick overview.
 
 ##  👏 Contributing
 

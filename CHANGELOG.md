@@ -1,4 +1,25 @@
-## 0.6.x
+## v0.7.3
+
+### 💥️ Breaking Change
+
+- nothing
+
+### ✨ Feature
+
+- support new database -- `sqlServer`
+- add oxygen exception for any service 
+
+### 🎨 Enhancement
+
+- add more junit test for flysql(h2/oracle/mysql/sqlserver/mongodb)
+- enhance translate sql value for oracle database
+- enhance new response for BadSqlGrammarException
+
+### 🐛 Fix
+
+- fix oracle database can not save() function
+
+## v0.6.7
 
 ### 💥️ Breaking Change
 
@@ -10,6 +31,8 @@
 
 ### 🎨 Enhancement
 
+- nothing
+
 ### 🐛 Fix
 
 - fix notIn() not support empty list 
@@ -18,7 +41,7 @@
 - fix save() can not save custom column
 - fix @SuccessResponse can not return resource
 
-## 0.0.3
+## v0.0.3
 
 ### 💥️ Breaking Change
 
@@ -46,7 +69,7 @@
 - fix datasource connect not close
 - fix notIn() function not support list object
 
-## 0.0.2
+## v0.0.2
 
 ### 💥️ Breaking Change
 
@@ -85,23 +108,5 @@ flysql.buildMongo().select(MetaData.class).query()
 
 - fix column type is `Boolean` can not insert table
 - fix column type is `Date` can not insert table
-
-
-## 0.0.2-alpha.1
-
-### 💥️ Breaking Change
-
-- nothing
-
-### ✨ Feature
-
-- nothing
-
-### 🎨 Enhancement
-
-- nothing
-
-### 🐛 Fix
-
 - fix flysql can not bean
 - add String result type

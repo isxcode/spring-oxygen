@@ -1,32 +1,21 @@
--- DROP TABLE META_DATA_T;
+-- declare
+--     num number;
+-- begin
+--     select count(1) into num from user_tables where table_name = 'DOGS_T';
+--     if num > 0 then
+--         execute immediate 'drop table DOGS_T';
+--     end if;
+-- end;
+-- drop table DOGS_T;
 
-CREATE TABLE META_DATA_T
+CREATE TABLE DOGS_T
 (
-    id                 VARCHAR2(100) PRIMARY KEY,
-    is_delete          NUMBER        NOT NULL,
-    created_by         VARCHAR2(100) NOT NULL,
-    created_date       TIMESTAMP     NOT NULL,
-    last_modified_by   VARCHAR2(100) NOT NULL,
-    last_modified_date TIMESTAMP     NOT NULL,
-    version            INT           NOT NULL,
-    a_int              INT           NOT NULL,
-    an_int             NUMBER        NOT NULL,
-    a_double           NUMBER        NOT NULL,
-    an_double          NUMBER        NOT NULL,
-    a_long             NUMBER        NOT NULL,
-    an_Long            NUMBER        NOT NULL,
-    a_boolean          NUMBER        NOT NULL,
-    an_boolean         NUMBER        NOT NULL,
-    a_short            NUMBER        NOT NULL,
-    an_short           NUMBER        NOT NULL,
-    a_float            NUMBER        NOT NULL,
-    an_float           NUMBER        NOT NULL,
-    a_byte             RAW(50)       NOT NULL,
-    an_byte            RAW(50)       NOT NULL,
-    a_char             CHAR          NOT NULL,
-    an_string          VARCHAR(100)  NOT NULL,
-    a_date             TIMESTAMP     NOT NULL,
-    an_local_date      DATE          NOT NULL,
-    an_local_date_time TIMESTAMP     NOT NULL,
-    an_big_decimal     NUMBER        NOT NULL
+    id                    INT          NOT NULL,
+    name                  VARCHAR(100) NOT NULL,
+    amount_double         NUMBER       NOT NULL,
+    amount_big_decimal    NUMBER       NOT NULL,
+    is_alive              char(1)      NOT NULL,
+    birth_date            date         NOT NULL,
+    birth_local_date      date         NOT NULL,
+    birth_local_date_time date         NOT NULL
 );

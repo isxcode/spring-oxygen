@@ -1,0 +1,12 @@
+spring:
+  data:
+    mongodb:
+      uri: ENC(f5tA0YiQyIhLdS7TdXED5ml4UsIEM5hH7q1TumWdxcRg78crDAu3j4ix7b9ZYdjcLpp0tr9wPgTTHoKiaZKgqR5zARJ7HehbnMc+rg7//pc=)
+
+jasypt:
+  encryptor:
+    password: oxygen
+
+oxygen:
+  flysql:
+    show-log: true

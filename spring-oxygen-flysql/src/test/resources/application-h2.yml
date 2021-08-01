@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: ENC(4jGi1DIi1rqECJjsX6GP0qNO1A+aJXNDht3pzV98vIiZ0jLkZBcGSPPPZEvef4j/)
+    username: ENC(kkLAiwmWB5veDk7JVT5ieNy/8Yihaq/5bZfqukb5ulZ17HCj6JR7oF+5mkjgAKtw)
+    password: ENC(kkLAiwmWB5veDk7JVT5ieNy/8Yihaq/5bZfqukb5ulZ17HCj6JR7oF+5mkjgAKtw)
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/schema_h2.sql
+
+jasypt:
+  encryptor:
+    password: oxygen
+
+oxygen:
+  flysql:
+    show-log: true

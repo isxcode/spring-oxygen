@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: ENC(gC3zjgAI97DFFonJMFwIUruwC4TicKGiq8ZcsjtdUBYmkZGAV9ZJAZS0fffKoDYlX+HLiI58EM6GaCdiLDGGOTunoRsswxl09FkJD4EU3gi1DrJ1URBLyQNXrRayhEAp)
+    username: ENC(7EkFVwd7X7EEoTuqEM52wEncGY2a5jVPqBYrduvUJHfKqouL66DgkxAHqhVc5hn0)
+    password: ENC(XyXWm1ks9vlygcFsJtArQxAn6zCOq/qeU/cNtCgkcqgy2fB4BV8viepbU0c2GFPa)
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/schema_oracle.sql
+
+jasypt:
+  encryptor:
+    password: oxygen
+
+oxygen:
+  flysql:
+    show-log: true
