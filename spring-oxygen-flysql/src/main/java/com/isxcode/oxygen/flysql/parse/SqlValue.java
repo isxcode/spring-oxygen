@@ -16,7 +16,7 @@ public interface SqlValue {
     }
 
     default String getBooleanValue(String val) {
-        return val.toString();
+        return val;
     }
 
     default String getDateValue(String val) {
