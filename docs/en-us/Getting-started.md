@@ -21,7 +21,7 @@ vim pom.xml
     <dependency>
         <groupId>com.isxcode.oxygen</groupId>
         <artifactId>oxygen-spring-boot-starter</artifactId>
-        <version>0.0.3</version>
+        <version>0.7.3</version>
     </dependency>
 
     <!-- for demo (optional)   -->
@@ -204,7 +204,7 @@ Connected to the target VM, address: '127.0.0.1:49967', transport: 'socket'
 /____/ .___/_/  /_/_/ /_/\__, /      \____/_/|_|\__, /\__, /\___/_/ /_/ 
     /_/                 /____/                 /____//____/             
  Github: https://github.com/isxcode/spring-oxygen
-  Docs : https://oxygen.isxcode.com
+  Docs : https://spring-oxygen.isxcode.com
 2021-06-03 14:51:09.194  WARN 15432 --- [           main] o.s.b.a.f.FreeMarkerAutoConfiguration    : Cannot find template location(s): [classpath:/templates/] (please add some templates, check your FreeMarker configuration, or set spring.freemarker.checkTemplateLocation=false)
 2021-06-03 14:51:09.245  INFO 15432 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
 2021-06-03 14:51:09.252  INFO 15432 --- [           main] com.example.demo.DemoApplication         : Started DemoApplication in 2.319 seconds (JVM running for 3.168)

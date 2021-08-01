@@ -30,7 +30,7 @@ public class OxygenStarterAutoConfiguration {
         System.out.println("/____/ .___/_/  /_/_/ /_/\\__, /      \\____/_/|_|\\__, /\\__, /\\___/_/ /_/ ");
         System.out.println("    /_/                 /____/                 /____//____/             ");
         System.out.println(" Github: https://github.com/isxcode/spring-oxygen");
-        System.out.println("  Docs : https://oxygen.isxcode.com");
+        System.out.println("  Docs : https://spring-oxygen.isxcode.com");
     }
 
 }

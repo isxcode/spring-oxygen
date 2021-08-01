@@ -1,23 +1,23 @@
-## v0.7.x
+## v0.7.3
 
 ### 💥️ Breaking Change
 
-- 
+- nothing
 
 ### ✨ Feature
 
-- support new database - sqlServer
+- support new database -- `sqlServer`
 - add oxygen exception for any service 
 
 ### 🎨 Enhancement
 
-- add more test for flysql - h2/oracle/mysql/sqlserver/mongodb
-- translate value to special database sql
-- enhancement table has not return ,back new response. for BadSqlGrammarException
+- add more junit test for flysql(h2/oracle/mysql/sqlserver/mongodb)
+- enhance translate sql value for oracle database
+- enhance new response for BadSqlGrammarException
 
 ### 🐛 Fix
 
-- fix oracle database can not save()
+- fix oracle database can not save() function
 
 ## v0.6.7
 

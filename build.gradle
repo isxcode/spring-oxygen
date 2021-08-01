@@ -102,7 +102,7 @@ subprojects {
                 pom {
                     name = project.getName()
                     description = 'Spring rapid development integration framework.'
-                    url = 'https://oxygen.isxcode.com'
+                    url = 'https://spring-oxygen.isxcode.com'
                     licenses {
                         license {
                             name = 'The Apache License, Version 2.0'
