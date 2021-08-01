@@ -4,6 +4,7 @@ import com.isxcode.oxygen.flysql.config.FlysqlAutoConfiguration;
 import com.isxcode.oxygen.flysql.core.Flysql;
 import com.isxcode.oxygen.flysql.entity.FlysqlPage;
 import com.ulisesbocchio.jasyptspringboot.configuration.EnableEncryptablePropertiesConfiguration;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Disabled
 @JdbcTest
 @ContextConfiguration(classes = {EnableEncryptablePropertiesConfiguration.class, FlysqlAutoConfiguration.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
