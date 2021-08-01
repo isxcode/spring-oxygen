@@ -9,7 +9,7 @@ public class SqlServerSqlValue implements SqlValue {
 
     @Override
     public String getBooleanValue(String val) {
-        return Boolean.getBoolean(val.toString()) ? "1" : "0";
+        return Boolean.getBoolean(val) ? "1" : "0";
     }
 
     @Override
