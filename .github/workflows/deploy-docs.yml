@@ -26,7 +26,7 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         script_stop: false
         script: |
-          rm -rf /data/nginx/html/oxygen/docs
+          rm -rf /data/nginx/html/spring-oxygen/docs
 
     - name: publish blogs
       uses: appleboy/scp-action@master
