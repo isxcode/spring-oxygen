@@ -1,3 +1,21 @@
+## v0.8.1
+
+### 💥️ Breaking Change
+
+- nothing
+
+### ✨ Feature
+
+- update spring framework to 2.5.4
+
+### 🎨 Enhancement
+
+- nothing
+
+### 🐛 Fix
+
+- nothing
+
 ## v0.7.3
 
 ### 💥️ Breaking Change
