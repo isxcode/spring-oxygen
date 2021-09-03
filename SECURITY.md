@@ -9,6 +9,7 @@
 | 0.0.3   | :white_check_mark: |
 | 0.6.7   | :white_check_mark: |
 | 0.7.3   | :white_check_mark: |
+| 0.8.1   | :white_check_mark: |
 
 ## Reporting a Vulnerability
 

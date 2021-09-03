@@ -21,7 +21,7 @@ vim pom.xml
     <dependency>
         <groupId>com.isxcode.oxygen</groupId>
         <artifactId>oxygen-spring-boot-starter</artifactId>
-        <version>0.7.3</version>
+        <version>0.8.1</version>
     </dependency>
 
     <!-- for demo (optional)   -->

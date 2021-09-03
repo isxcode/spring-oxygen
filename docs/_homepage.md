@@ -61,7 +61,7 @@ dependencies {
 <dependency>
     <groupId>com.isxcode.oxygen</groupId>
     <artifactId>oxygen-spring-boot-starter</artifactId>
-    <version>0.7.3</version>
+    <version>0.8.1</version>
 </dependency>
 ```
 
@@ -69,11 +69,11 @@ dependencies {
 
 ```yaml
 spring:
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:~/h2
-    username: root
-    password: root
+    datasource:
+        driver-class-name: org.h2.Driver
+        url: jdbc:h2:~/h2
+        username: root
+        password: root
 ```
 
 ```java
