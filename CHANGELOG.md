@@ -1,3 +1,28 @@
+## v0.11.x
+
+### 💥️ Breaking Change
+
+- nothing
+
+### ✨ Feature
+
+- nothing
+
+### 🎨 Enhancement
+
+- enhance get more exception for oxygen
+
+```java
+flysql.build()
+    .select(NotesEntity.class)
+    .eq("error_col", userId)
+    .getOne();
+```
+
+### 🐛 Fix
+
+- fix http utils can not visit github oauth url
+
 ## v0.8.1
 
 ### 💥️ Breaking Change

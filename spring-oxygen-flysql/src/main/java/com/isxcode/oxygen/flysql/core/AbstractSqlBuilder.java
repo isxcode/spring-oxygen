@@ -1,5 +1,6 @@
 package com.isxcode.oxygen.flysql.core;
 
+import com.isxcode.oxygen.core.exception.OxygenException;
 import com.isxcode.oxygen.core.reflect.ReflectConstants;
 import com.isxcode.oxygen.flysql.entity.ColumnProperties;
 import com.isxcode.oxygen.flysql.entity.SqlCondition;
@@ -49,7 +50,7 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
 
         List<String> columnNameList = new ArrayList<>(columnNames.length);
         for (String columnName : columnNames) {
-            columnNameList.add(columnsMap.get(columnName).getName() + " " + columnName);
+            columnNameList.add(getColumnName(columnName) + " " + columnName);
         }
         sqlConditions.add(new SqlCondition(SqlOperateType.SELECT, "", Strings.join(columnNameList, ',')));
         return getSelf();
@@ -84,7 +85,7 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
             return getSelf();
         }
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.EQ, columnsMap.get(columnName).getName(), addSingleQuote(value)));
+        sqlConditions.add(new SqlCondition(SqlOperateType.EQ, getColumnName(columnName), addSingleQuote(value)));
         return getSelf();
     }
 
@@ -96,7 +97,7 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
             return getSelf();
         }
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.NE, columnsMap.get(columnName).getName(), addSingleQuote(value)));
+        sqlConditions.add(new SqlCondition(SqlOperateType.NE, getColumnName(columnName), addSingleQuote(value)));
         return getSelf();
     }
 
@@ -108,7 +109,7 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
             return getSelf();
         }
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.GT, columnsMap.get(columnName).getName(), addSingleQuote(value)));
+        sqlConditions.add(new SqlCondition(SqlOperateType.GT, getColumnName(columnName), addSingleQuote(value)));
         return getSelf();
     }
 
@@ -120,7 +121,7 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
             return getSelf();
         }
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.GT_EQ, columnsMap.get(columnName).getName(), addSingleQuote(value)));
+        sqlConditions.add(new SqlCondition(SqlOperateType.GT_EQ, getColumnName(columnName), addSingleQuote(value)));
         return getSelf();
     }
 
@@ -132,7 +133,7 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
             return getSelf();
         }
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.LT, columnsMap.get(columnName).getName(), addSingleQuote(value)));
+        sqlConditions.add(new SqlCondition(SqlOperateType.LT, getColumnName(columnName), addSingleQuote(value)));
         return getSelf();
     }
 
@@ -144,7 +145,7 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
             return getSelf();
         }
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.LT_EQ, columnsMap.get(columnName).getName(), addSingleQuote(value)));
+        sqlConditions.add(new SqlCondition(SqlOperateType.LT_EQ, getColumnName(columnName), addSingleQuote(value)));
         return getSelf();
     }
 
@@ -166,7 +167,7 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
         });
 
         if (!inValues.isEmpty()) {
-            sqlConditions.add(new SqlCondition(SqlOperateType.IN, columnsMap.get(columnName).getName(), "(" + Strings.join(inValues, ',') + ")"));
+            sqlConditions.add(new SqlCondition(SqlOperateType.IN, getColumnName(columnName), "(" + Strings.join(inValues, ',') + ")"));
         }
         return getSelf();
     }
@@ -189,7 +190,7 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
         });
 
         if (!inValues.isEmpty()) {
-            sqlConditions.add(new SqlCondition(SqlOperateType.NOT_IN, columnsMap.get(columnName).getName(), "(" + Strings.join(inValues, ',') + ")"));
+            sqlConditions.add(new SqlCondition(SqlOperateType.NOT_IN, getColumnName(columnName), "(" + Strings.join(inValues, ',') + ")"));
         }
         return getSelf();
     }
@@ -197,35 +198,35 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
     @Override
     public T between(String columnName, Object value1, Object value2) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.BETWEEN, columnsMap.get(columnName).getName(), "(" + addSingleQuote(value1) + " and " + addSingleQuote(value2) + ")"));
+        sqlConditions.add(new SqlCondition(SqlOperateType.BETWEEN, getColumnName(columnName), "(" + addSingleQuote(value1) + " and " + addSingleQuote(value2) + ")"));
         return getSelf();
     }
 
     @Override
     public T notBetween(String columnName, Object value1, Object value2) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.NOT_BETWEEN, columnsMap.get(columnName).getName(), "(" + addSingleQuote(value1) + " and " + addSingleQuote(value2) + ")"));
+        sqlConditions.add(new SqlCondition(SqlOperateType.NOT_BETWEEN, getColumnName(columnName), "(" + addSingleQuote(value1) + " and " + addSingleQuote(value2) + ")"));
         return getSelf();
     }
 
     @Override
     public T orderBy(String columnName, OrderType orderType) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.ORDER_BY, columnsMap.get(columnName).getName(), orderType.getOrderType()));
+        sqlConditions.add(new SqlCondition(SqlOperateType.ORDER_BY, getColumnName(columnName), orderType.getOrderType()));
         return getSelf();
     }
 
     @Override
     public T like(String columnName, String value) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.LIKE, columnsMap.get(columnName).getName(), addSingleQuote(("%" + value + "%"))));
+        sqlConditions.add(new SqlCondition(SqlOperateType.LIKE, getColumnName(columnName), addSingleQuote(("%" + value + "%"))));
         return getSelf();
     }
 
     @Override
     public T notLike(String columnName, String value) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.NOT_LIKE, columnsMap.get(columnName).getName(), addSingleQuote(("%" + value + "%"))));
+        sqlConditions.add(new SqlCondition(SqlOperateType.NOT_LIKE, getColumnName(columnName), addSingleQuote(("%" + value + "%"))));
         return getSelf();
     }
 
@@ -243,28 +244,28 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
             SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
             SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try {
-                sqlConditions.add(new SqlCondition(SqlOperateType.UPDATE, columnsMap.get(columnName).getName(), addSingleQuote(sdf2.format(sdf.parse(String.valueOf(value))))));
+                sqlConditions.add(new SqlCondition(SqlOperateType.UPDATE, getColumnName(columnName), addSingleQuote(sdf2.format(sdf.parse(String.valueOf(value))))));
                 return getSelf();
             } catch (ParseException e) {
                 return getSelf();
             }
         }
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.UPDATE, columnsMap.get(columnName).getName(), addSingleQuote(value)));
+        sqlConditions.add(new SqlCondition(SqlOperateType.UPDATE, getColumnName(columnName), addSingleQuote(value)));
         return getSelf();
     }
 
     @Override
     public T isNull(String columnName) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.IS_NULL, columnsMap.get(columnName).getName(), ""));
+        sqlConditions.add(new SqlCondition(SqlOperateType.IS_NULL, getColumnName(columnName), ""));
         return getSelf();
     }
 
     @Override
     public T isNotNull(String columnName) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.IS_NOT_NULL, columnsMap.get(columnName).getName(), ""));
+        sqlConditions.add(new SqlCondition(SqlOperateType.IS_NOT_NULL, getColumnName(columnName), ""));
         return getSelf();
     }
 
@@ -295,5 +296,15 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
             }
             return "'" + value + "'";
         }
+    }
+
+    public String getColumnName(String columnName) {
+
+        ColumnProperties columnProperties = columnsMap.get(columnName);
+        if (columnProperties == null) {
+            throw new OxygenException("has not column,please check entity exist @ColumnName and value");
+        }
+
+        return columnsMap.get(columnName).getName();
     }
 }
