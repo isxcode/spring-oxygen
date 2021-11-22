@@ -18,6 +18,8 @@ flysql.build()
     .eq("error_col", userId)
     .getOne();
 ```
+- support @successResponse for i18n
+
 
 ### 🐛 Fix
 

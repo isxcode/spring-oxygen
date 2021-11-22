@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.mongo.MongoProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
@@ -34,9 +35,9 @@ public class FlysqlAutoConfiguration {
      */
     @Bean
     @ConditionalOnClass(FlysqlAutoConfiguration.class)
-    private SuccessResponseAdvice initSuccessResponseAdvice() {
+    private SuccessResponseAdvice initSuccessResponseAdvice(MessageSource messageSource) {
 
-        return new SuccessResponseAdvice();
+        return new SuccessResponseAdvice(messageSource);
     }
 
     /**
