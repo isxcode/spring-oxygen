@@ -159,9 +159,13 @@ subprojects {
         toolVersion = "0.8.6"
     }
 
-    bootJar { enabled false }
-
-    jar { enabled true }
-
-    bootRun { enabled false }
+    bootJar {
+        archiveClassifier.set('boot')
+    }
+    jar {
+        archiveClassifier.set('')
+    }
+    bootRun {
+        enabled false
+    }
 }
