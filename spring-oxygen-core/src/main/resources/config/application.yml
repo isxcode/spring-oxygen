@@ -7,7 +7,7 @@ spring:
     enabled: true
     charset: UTF-8
     cache: false
-    check-template-location: true
+    check-template-location: false
     prefer-file-system-access: false
     template-loader-path:
       - classpath:/templates/

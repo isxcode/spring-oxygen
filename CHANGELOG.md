@@ -13,15 +13,21 @@
 - enhance get more exception for oxygen
 
 ```java
-flysql.build()
-    .select(NotesEntity.class)
-    .eq("error_col", userId)
-    .getOne();
+public class demo{ 
+    public void demo1(){
+        flysql.build()
+                .select(NotesEntity.class)
+                .eq("error_col", userId)
+                .getOne();
+    }
+}
 ```
+- support @successResponse for i18n
 
 ### 🐛 Fix
 
-- fix http utils can not visit github oauth url
+- fix http utils can not visit GitHub oauth url
+- fix springboot-2.5.x generate plain.jar can not publish jar to maven center
 
 ## v0.8.1
 
