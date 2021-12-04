@@ -5,6 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.context.MessageSource;
+import org.springframework.context.NoSuchMessageException;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 import java.io.InputStream;
 
@@ -17,6 +20,12 @@ import java.io.InputStream;
 @Aspect
 @Slf4j
 public class SuccessResponseAdvice {
+
+    private final MessageSource messageSource;
+
+    public SuccessResponseAdvice(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 
     @Pointcut("@annotation(com.isxcode.oxygen.flysql.response.SuccessResponse)")
     public void operateLog() {
@@ -45,14 +54,27 @@ public class SuccessResponseAdvice {
             } else {
                 baseResponse.setData(data);
             }
-            baseResponse.setMsg(successResponse.value().isEmpty() ? successResponse.msg() : successResponse.value());
+            baseResponse.setMsg(getMsg(successResponse));
             successResponse(baseResponse);
         } else {
             baseResponse.setCode(ResponseConstant.SUCCESS_CODE);
-            baseResponse.setMsg(successResponse.value().isEmpty() ? successResponse.msg() : successResponse.value());
+            baseResponse.setMsg(getMsg(successResponse));
             successResponse(baseResponse);
         }
 
+    }
+
+    public String getMsg(SuccessResponse successResponse) {
+
+        if (!successResponse.value().isEmpty()) {
+            return successResponse.value();
+        }
+
+        try {
+            return messageSource.getMessage(successResponse.msg(), null, LocaleContextHolder.getLocale());
+        } catch (NoSuchMessageException e) {
+            return successResponse.msg();
+        }
     }
 
     public void successResponse(BaseResponse<Object> baseResponse) {

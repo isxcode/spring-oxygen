@@ -34,22 +34,24 @@ public class HttpUtils {
      */
     public static <A> A doGet(String url, Map<String, String> requestParams, Map<String, String> headerParams, Class<A> targetClass) {
 
-        StringBuilder requestBody = new StringBuilder("?");
+        StringBuilder requestUrl = new StringBuilder(url);
 
         // add params
         if (requestParams != null) {
-            requestParams.forEach((k, v) -> requestBody.append(k).append("=").append(v).append("&"));
+            requestUrl.append("?");
+            requestParams.forEach((k, v) -> requestUrl.append(k).append("=").append(v).append("&"));
         }
 
         // add headers
-        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<String> requestEntity = null;
         if (headerParams != null) {
+            HttpHeaders headers = new HttpHeaders();
             headerParams.forEach(headers::add);
+            requestEntity = new HttpEntity<>(null, headers);
         }
 
-        HttpEntity<String> requestEntity = new HttpEntity<>("", headers);
         try {
-            return new RestTemplate().exchange(url + requestBody, HttpMethod.GET, requestEntity, targetClass).getBody();
+            return new RestTemplate().exchange(requestUrl.toString(), HttpMethod.GET, requestEntity, targetClass).getBody();
         } catch (Exception e) {
             throw new OxygenException(e.getMessage());
         }

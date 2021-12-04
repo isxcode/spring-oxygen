@@ -128,15 +128,14 @@ gradle publishMavenJavaPublicationToSonatypeRepository
 ### Release new version
 
 - [ ] Fix Pull Requests
-- [ ] Edit VERSION.md version number
-- [ ] Edit README.md version number
-- [ ] Edit Quick-Starter.md version number 
+- [ ] Edit version number(0.11.5-SNAPSHOT)
 - [ ] Edit SECURITY.md version number
-- [ ] Edit CHANGELOG.md version number
-- [ ] Copy README.md to /docs/_homepage.md  
+- [ ] Edit CHANGELOG.md version number (## v0.11.5)
+- [ ] Copy README.md to /docs/_homepage.md
 - [ ] Submit and Fix GitHub Security
+- [ ] Merge to isxcode/spring-oxygen/latest
 - [ ] Check project badge status
-- [ ] Create GitHub new tag and new branch
+- [ ] Create GitHub new tag (v0.8.1) and new branch (0.8.1)
 - [ ] Run GitHub action publish to GitHub repository
 - [ ] Run GitHub action publish new version docs
 - [ ] Publish to Sonatype repository

@@ -1,3 +1,53 @@
+
+## v0.12.x
+
+### 💥️ Breaking Change
+
+- nothing
+
+### ✨ Feature
+
+- nothing
+
+### 🎨 Enhancement
+
+- nothing
+
+### 🐛 Fix
+
+- nothing
+
+## v0.11.5
+
+### 💥️ Breaking Change
+
+- nothing
+
+### ✨ Feature
+
+- nothing
+
+### 🎨 Enhancement
+
+- enhance get more exception for oxygen
+
+```java
+public class demo{ 
+    public void demo1(){
+        flysql.build()
+                .select(NotesEntity.class)
+                .eq("error_col", userId)
+                .getOne();
+    }
+}
+```
+- support @successResponse for i18n
+
+### 🐛 Fix
+
+- fix http utils can not visit GitHub oauth url
+- fix springboot-2.5.x generate plain.jar can not publish jar to maven center
+
 ## v0.8.1
 
 ### 💥️ Breaking Change

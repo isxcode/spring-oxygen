@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.5.4'
+    id 'org.springframework.boot' version '2.6.1'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
     id 'maven'
@@ -48,15 +48,15 @@ subprojects {
 
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
-        testCompileOnly 'org.projectlombok:lombok:1.18.20'
-        testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
-        compileOnly 'org.projectlombok:lombok:1.18.20'
-        annotationProcessor 'org.projectlombok:lombok:1.18.20'
+        testCompileOnly 'org.projectlombok:lombok:1.18.22'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+        compileOnly 'org.projectlombok:lombok:1.18.22'
+        annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
         implementation 'org.apache.logging.log4j:log4j-api:2.14.1'
 
         implementation 'org.junit.jupiter:junit-jupiter'
-        testCompile 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+        testCompile 'org.junit.jupiter:junit-jupiter-api:5.8.2'
 
     }
 
@@ -158,10 +158,13 @@ subprojects {
     jacoco {
         toolVersion = "0.8.6"
     }
-
-    bootJar { enabled false }
-
-    jar { enabled true }
-
-    bootRun { enabled false }
+    bootJar {
+        enabled false
+    }
+    jar {
+        classifier('')
+    }
+    bootRun {
+        enabled false
+    }
 }
