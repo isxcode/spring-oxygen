@@ -1,4 +1,23 @@
-## v0.11.x
+
+## v0.12.x
+
+### 💥️ Breaking Change
+
+- nothing
+
+### ✨ Feature
+
+- nothing
+
+### 🎨 Enhancement
+
+- nothing
+
+### 🐛 Fix
+
+- nothing
+
+## v0.11.5
 
 ### 💥️ Breaking Change
 
