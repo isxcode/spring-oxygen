@@ -135,7 +135,7 @@ gradle publishMavenJavaPublicationToSonatypeRepository
 - [ ] Submit and Fix GitHub Security
 - [ ] Merge to isxcode/spring-oxygen/latest
 - [ ] Check project badge status
-- [ ] Create GitHub new tag (v0.8.1) and new branch (0.8.1)
+- [ ] Create GitHub new tag (v0.11.5) and new branch (0.11.5)
 - [ ] Run GitHub action publish to GitHub repository
 - [ ] Run GitHub action publish new version docs
 - [ ] Publish to Sonatype repository
