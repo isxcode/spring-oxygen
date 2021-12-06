@@ -14,6 +14,8 @@ public class FileUtils {
 
     /**
      * translate windows path to str
+     *
+     * @param pathStr pathStr
      */
     public static String translateWindowsPath(String pathStr) {
 
@@ -22,6 +24,8 @@ public class FileUtils {
 
     /**
      * generate dirs
+     *
+     * @param dirPath dirPath
      */
     public static void generateDirs(String dirPath) {
 
@@ -37,6 +41,9 @@ public class FileUtils {
 
     /**
      * generate file
+     *
+     * @param filePath filePath
+     * @return filePath
      */
     public static Path generateFile(String filePath) {
 
@@ -99,6 +106,10 @@ public class FileUtils {
 
     /**
      * copy resources dir file to new file
+     *
+     * @param resourceFilePath resourceFilePath
+     * @param filePath filePath
+     * @param options options
      */
     public static void copyResourceFile(String resourceFilePath, String filePath, OpenOption... options) {
 
