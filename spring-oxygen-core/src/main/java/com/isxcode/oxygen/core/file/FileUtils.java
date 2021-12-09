@@ -16,6 +16,7 @@ public class FileUtils {
      * translate windows path to str
      *
      * @param pathStr pathStr
+     * @return windows path
      */
     public static String translateWindowsPath(String pathStr) {
 

@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -101,6 +100,11 @@ public class HttpUtils {
     public static <T> T doPost(String url, Map<String, String> headerParams, Object requestParams, Class<T> targetCls) throws IOException {
 
         HttpHeaders headers = new HttpHeaders();
+
+        if (headerParams == null || headerParams.get(HttpHeaders.CONTENT_TYPE) == null) {
+            headers.add(HttpHeaders.CONTENT_TYPE, "application/json;charset=UTF-8");
+        }
+
         if (headerParams != null) {
             headerParams.forEach(headers::add);
         }
@@ -141,14 +145,7 @@ public class HttpUtils {
      */
     public static String doPost(String url, Map<String, String> headerParams, Object requestParams) throws IOException {
 
-        HttpHeaders headers = new HttpHeaders();
-        if (headerParams != null) {
-            headerParams.forEach(headers::add);
-        }
-
-        HttpEntity<String> requestEntity = new HttpEntity<>(new ObjectMapper().writeValueAsString(requestParams), headers);
-        return new RestTemplate().exchange(url, HttpMethod.POST, requestEntity, String.class).getBody();
+        return doPost(url, headerParams, requestParams, String.class);
     }
-
 }
 
