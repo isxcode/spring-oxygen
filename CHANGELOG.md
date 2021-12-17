@@ -8,6 +8,7 @@
 ### ✨ Feature
 
 - add file utils
+- add command utils
 
 ### 🎨 Enhancement
 
