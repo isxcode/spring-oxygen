@@ -20,6 +20,8 @@ public class CommandUtils {
      * @param command     command
      * @param logPath     log file path
      * @param waitingTime waiting timeMillis
+     *
+     * @return exit code
      */
     public static int executeCommand(String command, String logPath, long waitingTime) {
 
@@ -54,6 +56,8 @@ public class CommandUtils {
      *
      * @param command command
      * @param logPath log file path
+     *
+     * @return exit code
      */
     public static int executeCommand(String command, String logPath) {
 
@@ -65,6 +69,8 @@ public class CommandUtils {
      *
      * @param command     command
      * @param waitingTime waiting timeMillis
+     *
+     * @return result string
      */
     public static String executeBackCommand(String command, long waitingTime) {
 
