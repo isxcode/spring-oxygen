@@ -7,7 +7,7 @@
 
 ### ✨ Feature
 
-- add file utils
+- add file utils and support delete dir
 - add command utils
 
 ### 🎨 Enhancement

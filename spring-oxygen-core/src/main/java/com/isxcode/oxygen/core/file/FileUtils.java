@@ -124,4 +124,21 @@ public class FileUtils {
             throw new OxygenException("copy resource file error");
         }
     }
+
+    /**
+     * recursion delete file
+     *
+     * @param path path
+     */
+    public static void RecursionDeleteFile(Path path) {
+
+        try {
+            if (Files.isDirectory(path)) {
+                Files.list(path).forEach(FileUtils::RecursionDeleteFile);
+            }
+            Files.deleteIfExists(path);
+        } catch (IOException e) {
+            throw new OxygenException("delete dir error");
+        }
+    }
 }
