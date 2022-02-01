@@ -10,5 +10,5 @@ dependencies {
         'io.jsonwebtoken:jjwt-jackson:0.11.2'
 
     implementation 'org.apache.poi:poi:5.1.0'
-    implementation 'org.apache.poi:poi-ooxml:5.1.0'
+    implementation 'org.apache.poi:poi-ooxml:5.2.0'
 }
