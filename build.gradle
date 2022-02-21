@@ -38,13 +38,9 @@ subprojects {
 
     dependencies {
 
-        implementation('org.springframework.boot:spring-boot-starter-web') {
-            exclude group: 'com.fasterxml.jackson.datatype', module: 'jackson-datatype-jdk8'
-        }
+        implementation('org.springframework.boot:spring-boot-starter-web')
 
-        testImplementation('org.springframework.boot:spring-boot-starter-test') {
-            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-        }
+        testImplementation('org.springframework.boot:spring-boot-starter-test')
 
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
@@ -53,6 +49,7 @@ subprojects {
         compileOnly 'org.projectlombok:lombok:1.18.22'
         annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
+        implementation 'org.apache.logging.log4j:log4j-core:2.17.1'
         implementation 'org.apache.logging.log4j:log4j-api:2.17.1'
 
         implementation 'org.junit.jupiter:junit-jupiter'
