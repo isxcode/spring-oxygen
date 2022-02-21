@@ -1,17 +1,18 @@
 
-## v0.12.x
+## v1.2.1
 
 ### 💥️ Breaking Change
 
-- nothing
+- turn down java version to 1.8
 
 ### ✨ Feature
 
-- nothing
+- add file utils and support delete dir
+- add command utils
 
 ### 🎨 Enhancement
 
-- nothing
+- http utils doPost add default content-type `application/json;charset=UTF-8`
 
 ### 🐛 Fix
 

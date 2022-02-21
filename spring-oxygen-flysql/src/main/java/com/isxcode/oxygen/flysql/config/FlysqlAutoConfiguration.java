@@ -58,7 +58,7 @@ public class FlysqlAutoConfiguration {
      * @param mongoTemplate              mongoTemplate
      * @since 0.0.1
      */
-    @Bean
+    @Bean("flysql")
     @ConditionalOnClass(FlysqlAutoConfiguration.class)
     private Flysql flysql(FlysqlProperties flysqlProperties, @Nullable JdbcTemplate jdbcTemplate, @Nullable MongoTemplate mongoTemplate) {
 

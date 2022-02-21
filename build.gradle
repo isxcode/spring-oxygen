@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.6.1'
+    id 'org.springframework.boot' version '2.6.3'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
     id 'maven'
@@ -33,18 +33,14 @@ subprojects {
     version = newVersion
     group = 'com.isxcode.oxygen'
 
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 
     dependencies {
 
-        implementation('org.springframework.boot:spring-boot-starter-web') {
-            exclude group: 'com.fasterxml.jackson.datatype', module: 'jackson-datatype-jdk8'
-        }
+        implementation('org.springframework.boot:spring-boot-starter-web')
 
-        testImplementation('org.springframework.boot:spring-boot-starter-test') {
-            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-        }
+        testImplementation('org.springframework.boot:spring-boot-starter-test')
 
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
@@ -53,7 +49,9 @@ subprojects {
         compileOnly 'org.projectlombok:lombok:1.18.22'
         annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
-        implementation 'org.apache.logging.log4j:log4j-api:2.14.1'
+        implementation 'org.apache.logging.log4j:log4j-core:2.17.1'
+        implementation 'org.apache.logging.log4j:log4j-api:2.17.1'
+        implementation 'org.apache.logging.log4j:log4j-to-slf4j:2.17.1'
 
         implementation 'org.junit.jupiter:junit-jupiter'
         testCompile 'org.junit.jupiter:junit-jupiter-api:5.8.2'

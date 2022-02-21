@@ -47,11 +47,13 @@ Welcome to develop and maintain together, please follow the [github development]
 
 ## 📦 Installation
 
+[![Maven Version](https://img.shields.io/maven-central/v/com.isxcode.oxygen/oxygen-spring-boot-starter)](https://search.maven.org/artifact/com.isxcode.oxygen/oxygen-spring-boot-starter)
+
 - For Gradle
 
 ```groovy
 dependencies {
-    implementation 'com.isxcode.oxygen:oxygen-spring-boot-starter:0.11.5'
+    implementation 'com.isxcode.oxygen:oxygen-spring-boot-starter:1.2.1'
 }
 ```
 
@@ -61,7 +63,7 @@ dependencies {
 <dependency>
     <groupId>com.isxcode.oxygen</groupId>
     <artifactId>oxygen-spring-boot-starter</artifactId>
-    <version>0.11.5</version>
+    <version>1.2.1</version>
 </dependency>
 ```
 
