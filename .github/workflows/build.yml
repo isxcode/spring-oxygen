@@ -13,7 +13,7 @@ jobs:
       matrix:
         language: ['java']
         java:
-          - 1.8
+          - 8
 
     steps:
     - name: checkout repository
