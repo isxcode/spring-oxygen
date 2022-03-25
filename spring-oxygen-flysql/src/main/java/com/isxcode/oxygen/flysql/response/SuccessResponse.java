@@ -20,5 +20,6 @@ public @interface SuccessResponse {
      *
      * @return msg
      */
-    String msg();
+    String msg() default "";
+
 }
