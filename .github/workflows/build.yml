@@ -30,7 +30,7 @@ jobs:
            ${{ runner.os }}-gradle-
 
     - name: inititalize codeql
-      uses: github/codeql-action/init@v1
+      uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
         config-file: ./.github/codeql/codeql-config.yml
@@ -46,7 +46,7 @@ jobs:
         ./gradlew build test
 
     - name: codeql analysis
-      uses: github/codeql-action/analyze@v1
+      uses: github/codeql-action/analyze@v2
 
     - name: setup .net env
       uses: actions/setup-dotnet@v1.9.0
