@@ -36,7 +36,7 @@ jobs:
         config-file: ./.github/codeql/codeql-config.yml
 
     - name: gradle build
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v3
       with:
         distribution: 'adopt'
         java-version: ${{ matrix.java }}
