@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/isxcode/spring-oxygen" style="border-bottom: none !important;">
-    <img alt="spring-oxygen" width="500" src="https://gitee.com/isxcode/blogs-galaxy-images/raw/master/oxygen/oxygen.png">
+    <img alt="spring-oxygen" width="500" src="https://img.isxcode.com/isxcode_img/spring-oxygen/oxygen.png">
   </a>
 </p>
 
@@ -114,5 +114,5 @@ Read our [contributing guide](https://github.com/isxcode/spring-oxygen/blob/late
 **Thanks for free JetBrains Open Source license**
 
 <a href="https://www.jetbrains.com/?from=spring-oxygen" target="_blank" style="border-bottom: none !important;">
-    <img src="https://gitee.com/isxcode/blogs-galaxy-images/raw/master/jetbrains/jetbrains-3.png" height="100" alt="jetbrains"/>
+    <img src="https://img.isxcode.com/isxcode_img/jetbrains/jetbrains.png" height="100" alt="jetbrains"/>
 </a>
