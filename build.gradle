@@ -1,6 +1,6 @@
 plugins {
-    id 'org.springframework.boot' version '2.6.3'
-    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'org.springframework.boot' version '2.7.2'
+    id 'io.spring.dependency-management' version '1.0.12.RELEASE'
     id 'java'
     id 'maven'
     id 'maven-publish'
@@ -44,17 +44,19 @@ subprojects {
 
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
-        testCompileOnly 'org.projectlombok:lombok:1.18.22'
-        testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
-        compileOnly 'org.projectlombok:lombok:1.18.22'
-        annotationProcessor 'org.projectlombok:lombok:1.18.22'
+        def lombokVersion = '1.18.24'
+        testCompileOnly 'org.projectlombok:lombok:' + lombokVersion
+        testAnnotationProcessor 'org.projectlombok:lombok:' + lombokVersion
+        compileOnly 'org.projectlombok:lombok:' + lombokVersion
+        annotationProcessor 'org.projectlombok:lombok:' + lombokVersion
 
-        implementation 'org.apache.logging.log4j:log4j-core:2.17.1'
-        implementation 'org.apache.logging.log4j:log4j-api:2.17.1'
-        implementation 'org.apache.logging.log4j:log4j-to-slf4j:2.17.1'
+        def log4jVersion = '2.18.0'
+        implementation 'org.apache.logging.log4j:log4j-core:' + log4jVersion
+        implementation 'org.apache.logging.log4j:log4j-api:' + log4jVersion
+        implementation 'org.apache.logging.log4j:log4j-to-slf4j:' + log4jVersion
 
         implementation 'org.junit.jupiter:junit-jupiter'
-        testCompile 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+        testCompile 'org.junit.jupiter:junit-jupiter-api:5.9.0'
 
     }
 
