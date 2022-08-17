@@ -1,9 +1,9 @@
 ---
 name: For Project New Features
 about: Use this template for new features.
-title: "[FEATURE NAME]"
-labels: 
-assignees: ispong
+title: ""
+labels: feature
+assignees: 
 ---
 
 <!--
