@@ -17,10 +17,10 @@ jobs:
 
     steps:
     - name: checkout repository
-      uses: actions/checkout@v2.4.0
+      uses: actions/checkout@v3.0.2
 
     - name: cache gradle
-      uses: actions/cache@v2.1.7
+      uses: actions/cache@v3.0.5
       with:
         path: |
           ~/.gradle/caches
@@ -30,13 +30,13 @@ jobs:
            ${{ runner.os }}-gradle-
 
     - name: inititalize codeql
-      uses: github/codeql-action/init@v1
+      uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
         config-file: ./.github/codeql/codeql-config.yml
 
     - name: gradle build
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v3
       with:
         distribution: 'adopt'
         java-version: ${{ matrix.java }}
@@ -46,15 +46,15 @@ jobs:
         ./gradlew build test
 
     - name: codeql analysis
-      uses: github/codeql-action/analyze@v1
+      uses: github/codeql-action/analyze@v2
 
     - name: setup .net env
-      uses: actions/setup-dotnet@v1.9.0
+      uses: actions/setup-dotnet@v2.1.0
       with:
         dotnet-version: 3.1.401
 
     - name: report generator
-      uses: danielpalme/ReportGenerator-GitHub-Action@5.0.3
+      uses: danielpalme/ReportGenerator-GitHub-Action@5.1.9
       with:
         reports: ./oxygen-spring-boot-starter/build/reports/jacoco/test/jacocoTestReport.xml;./spring-oxygen-core/build/reports/jacoco/test/jacocoTestReport.xml;./spring-oxygen-flysql/build/reports/jacoco/test/jacocoTestReport.xml;./spring-oxygen-freecode/build/reports/jacoco/test/jacocoTestReport.xml;
         sourcedirs: ./oxygen-spring-boot-starter/src/main/java/;./spring-oxygen-core/src/main/java/;./spring-oxygen-flysql/src/main/java/;./spring-oxygen-freecode/src/main/java/;
