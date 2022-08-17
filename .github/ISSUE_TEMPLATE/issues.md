@@ -1,9 +1,9 @@
 ---
 name: For Tracking Issues
 about: Use this template for issues.
-title: "[ISSUE NAME]"
+title: ""
 labels: bug
-assignees: ispong
+assignees: 
 ---
 
 <!--
