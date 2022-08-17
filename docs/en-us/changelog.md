@@ -1,3 +1,21 @@
+## v1.8.1
+
+### 💥️ Breaking Change
+
+- nothing
+
+### ✨ Feature
+
+- add isToday() and isNotToday()
+
+### 🎨 Enhancement
+
+- nothing
+
+### 🐛 Fix
+
+- nothing
+
 
 ## v1.2.1
 

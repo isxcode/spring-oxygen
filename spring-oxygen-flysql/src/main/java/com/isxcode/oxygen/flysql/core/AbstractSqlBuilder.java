@@ -90,6 +90,28 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
     }
 
     @Override
+    public T isToday(String columnName) {
+
+        if (DataBaseType.MONGO.equals(dataBaseType)) {
+            return getSelf();
+        }
+
+        sqlConditions.add(new SqlCondition(SqlOperateType.EQ, "date_format(" + getColumnName(columnName) + ",'%Y-%m-%d')", "date_format(now(), '%Y-%m-%d')"));
+        return getSelf();
+    }
+
+    @Override
+    public T isNotToday(String columnName) {
+
+        if (DataBaseType.MONGO.equals(dataBaseType)) {
+            return getSelf();
+        }
+
+        sqlConditions.add(new SqlCondition(SqlOperateType.NE, "date_format(" + getColumnName(columnName) + ",'%Y-%m-%d')", "date_format(now(), '%Y-%m-%d')"));
+        return getSelf();
+    }
+
+    @Override
     public T ne(String columnName, Object value) {
 
         if (DataBaseType.MONGO.equals(dataBaseType)) {

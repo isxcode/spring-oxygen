@@ -223,4 +223,22 @@ public interface FlysqlCondition<T> {
      */
     T sql(String sqlStr);
 
+    /**
+     * isToday()
+     *
+     * @param columnName columnName
+     * @return se
+     * @since 0.0.1
+     */
+    T isToday(String columnName);
+
+    /**
+     * isNotToday()
+     *
+     * @param columnName columnName
+     * @return se
+     * @since 0.0.1
+     */
+    T isNotToday(String columnName);
+
 }
