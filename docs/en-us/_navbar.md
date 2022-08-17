@@ -1,5 +1,5 @@
 * Community
-    * [Contributing](https://github.com/isxcode/spring-oxygen/blob/latest/CONTRIBUTING.md)
-    * [Changelog](https://github.com/isxcode/spring-oxygen/blob/latest/CHANGELOG.md)
+    * [Contributing](https://spring-oxygen.isxcode.com/#/en-us/contributing)
+    * [Changelog](https://spring-oxygen.isxcode.com/#/en-us/changelog)
     * [License](https://github.com/isxcode/spring-oxygen/blob/latest/LICENSE)
     

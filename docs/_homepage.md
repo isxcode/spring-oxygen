@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/isxcode/spring-oxygen" style="border-bottom: none !important;">
-    <img alt="spring-oxygen" width="500" src="https://gitee.com/isxcode/blogs-galaxy-images/raw/master/oxygen/oxygen.png">
+    <img alt="spring-oxygen" width="500" src="https://img.isxcode.com/isxcode_img/spring-oxygen/oxygen.png">
   </a>
 </p>
 
@@ -24,7 +24,7 @@
 
 <div align="center" class="badge">
 
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/isxcode/spring-oxygen/blob/latest/CONTRIBUTING.md)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://spring-oxygen.isxcode.com/#/en-us/contributing)
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/isxcode/spring-oxygen)
 [![Discussions on github](https://img.shields.io/badge/Discussions-on%20github-blueviolet)](https://github.com/isxcode/spring-oxygen/discussions)
 
@@ -43,7 +43,7 @@
 [Spring Oxygen](https://github.com/isxcode/spring-oxygen) is rapid development integration framework for [Spring](https://spring.io/) .
 **Important statement, enterprise-level development is recommended to be used with caution!**
 For instructions on use, please check the [website](https://spring-oxygen.isxcode.com) carefully.
-Welcome to develop and maintain together, please follow the [github development](https://github.com/isxcode/spring-oxygen/blob/latest/CONTRIBUTING.md) specification.
+Welcome to develop and maintain together, please follow the [github development](https://spring-oxygen.isxcode.com/#/en-us/contributing) specification.
 
 ## 📦 Installation
 
@@ -71,11 +71,11 @@ dependencies {
 
 ```yaml
 spring:
-    datasource:
-        driver-class-name: org.h2.Driver
-        url: jdbc:h2:~/h2
-        username: root
-        password: root
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:~/h2
+    username: root
+    password: root
 ```
 
 ```java
@@ -107,12 +107,12 @@ Check out the [Getting Started](https://spring-oxygen.isxcode.com) page for a qu
 
 ##  👏 Contributing
 
-Read our [contributing guide](https://github.com/isxcode/spring-oxygen/blob/latest/CONTRIBUTING.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to Spring Oxygen.
+Read our [contributing guide](https://spring-oxygen.isxcode.com/#/en-us/contributing) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to Spring Oxygen.
 
 ***
 
 **Thanks for free JetBrains Open Source license**
 
 <a href="https://www.jetbrains.com/?from=spring-oxygen" target="_blank" style="border-bottom: none !important;">
-    <img src="https://gitee.com/isxcode/blogs-galaxy-images/raw/master/jetbrains/jetbrains-3.png" height="100" alt="jetbrains"/>
+    <img src="https://img.isxcode.com/isxcode_img/jetbrains/jetbrains.png" height="100" alt="jetbrains"/>
 </a>

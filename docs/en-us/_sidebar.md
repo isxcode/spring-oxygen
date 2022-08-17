@@ -1,8 +1,8 @@
 - **Getting Started**
     - [Overview](README.md)
-    - [Getting started](/en-us/Getting-started.md)
+    - [Getting started](/en-us/start/Start.md)
 - **Frameworks**
     - Flysql
-        - [Database Config](/en-us/2-1-1-Database-Config.md)
-        - [Flysql Builder](/en-us/2-1-2-Flysql-Builder.md)
-        - [Advance Usage](/en-us/2-1-3-Advance-Usage.md)
+        - [Database Config](/en-us/advance/Database-Config.md)
+        - [Flysql Builder](/en-us/advance/Flysql-Builder.md)
+        - [Advance Usage](/en-us/advance/Advance-Usage.md)

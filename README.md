@@ -24,7 +24,7 @@
 
 <div align="center" class="badge">
 
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/isxcode/spring-oxygen/blob/latest/CONTRIBUTING.md)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://spring-oxygen.isxcode.com/#/en-us/contributing)
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/isxcode/spring-oxygen)
 [![Discussions on github](https://img.shields.io/badge/Discussions-on%20github-blueviolet)](https://github.com/isxcode/spring-oxygen/discussions)
 
@@ -43,7 +43,7 @@
 [Spring Oxygen](https://github.com/isxcode/spring-oxygen) is rapid development integration framework for [Spring](https://spring.io/) .
 **Important statement, enterprise-level development is recommended to be used with caution!**
 For instructions on use, please check the [website](https://spring-oxygen.isxcode.com) carefully.
-Welcome to develop and maintain together, please follow the [github development](https://github.com/isxcode/spring-oxygen/blob/latest/CONTRIBUTING.md) specification.
+Welcome to develop and maintain together, please follow the [github development](https://spring-oxygen.isxcode.com/#/en-us/contributing) specification.
 
 ## 📦 Installation
 
@@ -108,7 +108,7 @@ Check out the [Getting Started](https://spring-oxygen.isxcode.com) page for a qu
 
 ##  👏 Contributing
 
-Read our [contributing guide](https://github.com/isxcode/spring-oxygen/blob/latest/CONTRIBUTING.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to Spring Oxygen.
+Read our [contributing guide](https://spring-oxygen.isxcode.com/#/en-us/contributing) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to Spring Oxygen.
 
 ***
 
