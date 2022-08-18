@@ -7,6 +7,7 @@
 ### ✨ Feature
 
 - add isToday() and isNotToday()
+- support isNotDeleted() for false deletion
 
 ### 🎨 Enhancement
 

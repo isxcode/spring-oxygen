@@ -42,5 +42,13 @@ public interface FlysqlConstants {
      * Microsoft SQL Server
      */
     String SQL_SERVER_DB = "Microsoft SQL Server";
+
+    /*
+     * is delete flag
+     *
+     * @ispong
+     */
+    String IS_DELETE_COL = "IS_DELETE";
+
 }
 

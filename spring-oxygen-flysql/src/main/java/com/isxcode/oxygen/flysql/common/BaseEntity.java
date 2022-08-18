@@ -3,6 +3,7 @@ package com.isxcode.oxygen.flysql.common;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.isxcode.oxygen.flysql.annotation.*;
+import com.isxcode.oxygen.flysql.constant.FlysqlConstants;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -39,5 +40,6 @@ public class BaseEntity {
     private Integer version;
 
     @IsDelete
+    @ColumnName(FlysqlConstants.IS_DELETE_COL)
     private Integer isDelete;
 }
