@@ -241,4 +241,11 @@ public interface FlysqlCondition<T> {
      */
     T isNotToday(String columnName);
 
+    /**
+     * isNotDelete()
+     *
+     * @return se
+     * @since 0.0.1
+     */
+    T isNotDeleted();
 }

@@ -2,6 +2,7 @@ package com.isxcode.oxygen.flysql.core;
 
 import com.isxcode.oxygen.core.exception.OxygenException;
 import com.isxcode.oxygen.core.reflect.ReflectConstants;
+import com.isxcode.oxygen.flysql.constant.FlysqlConstants;
 import com.isxcode.oxygen.flysql.entity.ColumnProperties;
 import com.isxcode.oxygen.flysql.entity.SqlCondition;
 import com.isxcode.oxygen.flysql.enums.DataBaseType;
@@ -108,6 +109,17 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
         }
 
         sqlConditions.add(new SqlCondition(SqlOperateType.NE, "date_format(" + getColumnName(columnName) + ",'%Y-%m-%d')", "date_format(now(), '%Y-%m-%d')"));
+        return getSelf();
+    }
+
+    @Override
+    public T isNotDeleted() {
+
+        if (DataBaseType.MONGO.equals(dataBaseType)) {
+            return getSelf();
+        }
+
+        sqlConditions.add(new SqlCondition(SqlOperateType.EQ, FlysqlConstants.IS_DELETE_COL, 0));
         return getSelf();
     }
 
