@@ -248,4 +248,12 @@ public interface FlysqlCondition<T> {
      * @since 0.0.1
      */
     T isNotDeleted();
+
+    /**
+     * isDeleted()
+     *
+     * @return se
+     * @since 0.0.1
+     */
+    T isDeleted();
 }

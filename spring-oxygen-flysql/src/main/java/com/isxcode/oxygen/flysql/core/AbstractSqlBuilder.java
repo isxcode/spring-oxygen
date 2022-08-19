@@ -124,6 +124,17 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
     }
 
     @Override
+    public T isDeleted() {
+
+        if (DataBaseType.MONGO.equals(dataBaseType)) {
+            return getSelf();
+        }
+
+        sqlConditions.add(new SqlCondition(SqlOperateType.EQ, FlysqlConstants.IS_DELETE_COL, 1));
+        return getSelf();
+    }
+
+    @Override
     public T ne(String columnName, Object value) {
 
         if (DataBaseType.MONGO.equals(dataBaseType)) {

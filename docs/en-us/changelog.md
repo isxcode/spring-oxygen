@@ -8,6 +8,7 @@
 
 - add isToday() and isNotToday()
 - support isNotDeleted() for false deletion
+- support isDeleted() for ture deletion
 
 ### 🎨 Enhancement
 
