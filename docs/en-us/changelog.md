@@ -12,11 +12,11 @@
 
 ### 🎨 Enhancement
 
-- nothing
+- optimize in() use java strong conversion
 
 ### 🐛 Fix
 
-- nothing
+- fix orderBy() used before eq()
 
 
 ## v1.2.1

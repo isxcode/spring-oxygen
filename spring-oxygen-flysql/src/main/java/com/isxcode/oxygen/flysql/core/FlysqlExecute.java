@@ -68,7 +68,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
     @Override
     public A getOne() {
 
-        String sqlString = parseSqlConditions(initSelectSql(), sqlConditions, "SELECT");
+        String sqlString = parseSqlConditions(initSelectSql(), sqlConditions, sqlOrderByConditions,"SELECT");
 
         printSql(sqlString);
 
@@ -88,7 +88,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
             if (flysqlKey.getJdbcTemplate() == null) {
                 return flysqlKey.getMongoTemplate().find(new Query(parseSqlConditions(sqlConditions)), flysqlKey.getTargetClass(), Objects.requireNonNull(FlysqlUtils.getTableName(flysqlKey.getTargetClass())));
             } else {
-                String sqlString = parseSqlConditions(initSelectSql(), sqlConditions, "SELECT");
+                String sqlString = parseSqlConditions(initSelectSql(), sqlConditions, sqlOrderByConditions, "SELECT");
 
                 printSql(sqlString);
 
@@ -115,8 +115,8 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
             return pageResult;
         }
 
-        String sqlPageString = parseSqlConditions(initSelectSql(), sqlConditions, "SELECT") + " limit " + (page - 1) * size + " , " + size;
-        String sqlCountString = parseSqlConditions(initCountSql(), sqlConditions, "COUNT");
+        String sqlPageString = parseSqlConditions(initSelectSql(), sqlConditions, sqlOrderByConditions,"SELECT") + " limit " + (page - 1) * size + " , " + size;
+        String sqlCountString = parseSqlConditions(initCountSql(), sqlConditions, sqlOrderByConditions, "COUNT");
 
         printSql(sqlPageString);
         printSql(sqlCountString);
@@ -133,7 +133,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
     @Override
     public void doUpdate() {
 
-        String sqlString = parseSqlConditions(initUpdateSql(), sqlConditions, "UPADTE");
+        String sqlString = parseSqlConditions(initUpdateSql(), sqlConditions, sqlOrderByConditions, "UPADTE");
 
         printSql(sqlString);
 
@@ -179,7 +179,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
     @Override
     public void doDelete() {
 
-        String sqlString = parseSqlConditions(initDeleteSql(), sqlConditions, "DELETE");
+        String sqlString = parseSqlConditions(initDeleteSql(), sqlConditions, sqlOrderByConditions, "DELETE");
 
         printSql(sqlString);
 
@@ -193,7 +193,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
     @Override
     public Integer count() {
 
-        String sqlString = parseSqlConditions(initCountSql(), sqlConditions, "COUNT");
+        String sqlString = parseSqlConditions(initCountSql(), sqlConditions, sqlOrderByConditions, "COUNT");
 
         printSql(sqlString);
 
@@ -458,13 +458,14 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
     /**
      * parse sql conditions
      *
-     * @param sqlString     sqlString
-     * @param sqlConditions sqlConditions
-     * @param executeType   executeType
+     * @param sqlString            sqlString
+     * @param sqlConditions        sqlConditions
+     * @param sqlOrderByConditions sqlOrderByConditions
+     * @param executeType          executeType
      * @return sqlString
      * @since 0.0.1
      */
-    public String parseSqlConditions(String sqlString, List<SqlCondition> sqlConditions, String executeType) {
+    public String parseSqlConditions(String sqlString, List<SqlCondition> sqlConditions, List<String> sqlOrderByConditions, String executeType) {
 
         StringBuilder sqlStringBuilder = new StringBuilder(sqlString);
 
@@ -513,6 +514,12 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
                     break;
             }
             sqlConditionTemp = sqlConditionMeta;
+        }
+
+        // last order by
+        if (!sqlOrderByConditions.isEmpty()) {
+            sqlStringBuilder.append(" order by ")
+                .append(Strings.join(sqlOrderByConditions, ','));
         }
 
         // 替换需要查询的字段

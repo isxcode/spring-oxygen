@@ -12,7 +12,7 @@ Hello! Thank you for taking the time to contribute! If you want to join us, plea
 
 - Git 2.22+
 - Java 11+
-- Gradle 6.5+
+- Gradle 6.5+ ~ 6.8.3 (not support 7.x)
 
 ### Contribute (Example developer:**ispong** )
 
