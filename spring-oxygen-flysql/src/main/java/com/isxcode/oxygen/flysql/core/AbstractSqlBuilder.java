@@ -28,6 +28,8 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
 
     public List<SqlCondition> sqlConditions = new ArrayList<>();
 
+    public List<String> sqlOrderByConditions = new ArrayList<>();
+
     public Map<String, ColumnProperties> columnsMap;
 
     public DataBaseType dataBaseType;
@@ -257,7 +259,7 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
     @Override
     public T orderBy(String columnName, OrderType orderType) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.ORDER_BY, getColumnName(columnName), orderType.getOrderType()));
+        sqlOrderByConditions.add(getColumnName(columnName) + " " + orderType.getOrderType());
         return getSelf();
     }
 

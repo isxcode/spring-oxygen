@@ -16,7 +16,7 @@
 
 ### 🐛 Fix
 
-- nothing
+- fix orderBy() used before eq()
 
 
 ## v1.2.1
