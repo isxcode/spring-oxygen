@@ -12,7 +12,7 @@
 
 ### 🎨 Enhancement
 
-- nothing
+- optimize in() use java strong conversion
 
 ### 🐛 Fix
 

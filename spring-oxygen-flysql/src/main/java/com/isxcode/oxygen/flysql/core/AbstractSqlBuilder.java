@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 将条件构建成条件list对象
@@ -196,6 +197,20 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
         return getSelf();
     }
 
+    private List<String> parseInValues(Object... values) {
+
+        List<String> inValues = new ArrayList<>();
+        Arrays.stream(values).forEach(value -> {
+            if (value instanceof List) {
+                List<String> tmpValues = Arrays.stream(values).map(String::valueOf).collect(Collectors.toList());
+                tmpValues.forEach(v -> inValues.add(addSingleQuote(v)));
+            } else {
+                inValues.add(addSingleQuote(value));
+            }
+        });
+        return inValues;
+    }
+
     @Override
     public T in(String columnName, Object... values) {
 
@@ -204,14 +219,7 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
             return getSelf();
         }
 
-        List<String> inValues = new ArrayList<>();
-        Arrays.stream(values).forEach(value -> {
-            if (value instanceof List) {
-                ((List) value).stream().forEach(v -> inValues.add(addSingleQuote(v)));
-            } else {
-                inValues.add(addSingleQuote(value));
-            }
-        });
+        List<String> inValues = parseInValues(values);
 
         if (!inValues.isEmpty()) {
             sqlConditions.add(new SqlCondition(SqlOperateType.IN, getColumnName(columnName), "(" + Strings.join(inValues, ',') + ")"));
@@ -227,14 +235,7 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
             return getSelf();
         }
 
-        List<String> inValues = new ArrayList<>();
-        Arrays.stream(values).forEach(value -> {
-            if (value instanceof List) {
-                ((List) value).stream().forEach(v -> inValues.add(addSingleQuote(v)));
-            } else {
-                inValues.add(addSingleQuote(value));
-            }
-        });
+        List<String> inValues = parseInValues(values);
 
         if (!inValues.isEmpty()) {
             sqlConditions.add(new SqlCondition(SqlOperateType.NOT_IN, getColumnName(columnName), "(" + Strings.join(inValues, ',') + ")"));
