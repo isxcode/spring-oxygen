@@ -9,7 +9,6 @@ import com.isxcode.oxygen.flysql.constant.FlysqlConstants;
 import com.isxcode.oxygen.flysql.entity.FlysqlKey;
 import com.isxcode.oxygen.flysql.entity.FlysqlPage;
 import com.isxcode.oxygen.flysql.entity.SqlCondition;
-import com.isxcode.oxygen.flysql.enums.DataBaseType;
 import com.isxcode.oxygen.flysql.enums.SqlOperateType;
 import com.isxcode.oxygen.flysql.enums.SqlType;
 import com.isxcode.oxygen.flysql.exception.FlysqlException;
@@ -27,8 +26,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -180,6 +177,21 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
     public void doDelete() {
 
         String sqlString = parseSqlConditions(initDeleteSql(), sqlConditions, sqlOrderByConditions, "DELETE");
+
+        printSql(sqlString);
+
+        try {
+            flysqlKey.getJdbcTemplate().update(sqlString);
+        } catch (BadSqlGrammarException e) {
+            throw new FlysqlException(e.getCause().getMessage());
+        }
+    }
+
+    @Override
+    public void doIsDelete() {
+
+        sqlConditions.add(new SqlCondition(UPDATE, FlysqlConstants.IS_DELETE_COL, "1"));
+        String sqlString = parseSqlConditions(initUpdateSql(), sqlConditions, sqlOrderByConditions, "UPADTE");
 
         printSql(sqlString);
 

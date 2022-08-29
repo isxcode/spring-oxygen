@@ -37,4 +37,6 @@ public class Dog {
     private LocalDateTime birthLocalDateTime;
 
     private Boolean isAlive;
+
+    private Integer isDelete;
 }
