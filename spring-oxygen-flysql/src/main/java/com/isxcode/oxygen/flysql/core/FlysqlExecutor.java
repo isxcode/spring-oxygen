@@ -68,6 +68,13 @@ public interface FlysqlExecutor<A> {
      */
     void doDelete();
 
+    /*
+     * update is_delete
+     *
+     * @ispong
+     */
+    void doIsDelete();
+
     /**
      * count data
      *

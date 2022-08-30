@@ -9,5 +9,8 @@ CREATE TABLE DOGS_T
     is_alive              BOOLEAN      NOT NULL,
     birth_date            TIMESTAMP    NOT NULL,
     birth_local_date      TIMESTAMP    NOT NULL,
-    birth_local_date_time DATETIME     NOT NULL
+    birth_local_date_time DATETIME     NOT NULL,
+    is_delete             INT          NOT NULL,
+    last_modified_by      VARCHAR(100) NOT NULL,
+    last_modified_date    DATETIME     NOT NULL
 );

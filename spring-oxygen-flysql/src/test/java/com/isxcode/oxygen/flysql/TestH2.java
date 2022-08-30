@@ -76,5 +76,18 @@ public class TestH2 {
             .doUpdate();
         dogQuery = flysql.build().select(Dog.class).query();
         dogQuery.forEach(System.out::println);
+
+        System.out.println("============================== doIsDelete()  =================================");
+        flysql.build().update(Dog.class)
+            .eq("name", "jack")
+            .doIsDelete();
+        dogQuery = flysql.build().select(Dog.class).query();
+        dogQuery.forEach(System.out::println);
+
+        System.out.println("============================== count()  =================================");
+        Integer count = flysql.build().update(Dog.class)
+            .eq("name", "jack")
+            .count();
+        System.out.println(count);
     }
 }

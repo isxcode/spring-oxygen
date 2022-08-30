@@ -9,6 +9,7 @@
 - add isToday() and isNotToday()
 - support isNotDeleted() for false deletion
 - support isDeleted() for ture deletion
+- add doIsDelete() for false deletion
 
 ### 🎨 Enhancement
 
@@ -178,7 +179,7 @@ class demo{
 
 - flysql add new function for mongoDB
 
-```java
+```text
 flysql.buildMongo().select(MetaData.class).query()
 ```
 

@@ -5,11 +5,11 @@ import com.isxcode.oxygen.core.reflect.ReflectConstants;
 import com.isxcode.oxygen.core.reflect.ReflectUtils;
 import com.isxcode.oxygen.core.snowflake.SnowflakeUtils;
 import com.isxcode.oxygen.flysql.annotation.*;
+import com.isxcode.oxygen.flysql.common.OxygenHolder;
 import com.isxcode.oxygen.flysql.constant.FlysqlConstants;
 import com.isxcode.oxygen.flysql.entity.FlysqlKey;
 import com.isxcode.oxygen.flysql.entity.FlysqlPage;
 import com.isxcode.oxygen.flysql.entity.SqlCondition;
-import com.isxcode.oxygen.flysql.enums.DataBaseType;
 import com.isxcode.oxygen.flysql.enums.SqlOperateType;
 import com.isxcode.oxygen.flysql.enums.SqlType;
 import com.isxcode.oxygen.flysql.exception.FlysqlException;
@@ -27,9 +27,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -133,6 +132,8 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
     @Override
     public void doUpdate() {
 
+        sqlConditions.add(new SqlCondition(UPDATE, FlysqlConstants.LAST_MODIFIED_BY, addSingleQuote(OxygenHolder.getUserUuid())));
+        sqlConditions.add(new SqlCondition(UPDATE, FlysqlConstants.LAST_MODIFIED_DATE, addSingleQuote(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()))));
         String sqlString = parseSqlConditions(initUpdateSql(), sqlConditions, sqlOrderByConditions, "UPADTE");
 
         printSql(sqlString);
@@ -180,6 +181,23 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
     public void doDelete() {
 
         String sqlString = parseSqlConditions(initDeleteSql(), sqlConditions, sqlOrderByConditions, "DELETE");
+
+        printSql(sqlString);
+
+        try {
+            flysqlKey.getJdbcTemplate().update(sqlString);
+        } catch (BadSqlGrammarException e) {
+            throw new FlysqlException(e.getCause().getMessage());
+        }
+    }
+
+    @Override
+    public void doIsDelete() {
+
+        sqlConditions.add(new SqlCondition(UPDATE, FlysqlConstants.LAST_MODIFIED_BY, addSingleQuote(OxygenHolder.getUserUuid())));
+        sqlConditions.add(new SqlCondition(UPDATE, FlysqlConstants.LAST_MODIFIED_DATE, addSingleQuote(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()))));
+        sqlConditions.add(new SqlCondition(UPDATE, FlysqlConstants.IS_DELETE_COL, "1"));
+        String sqlString = parseSqlConditions(initUpdateSql(), sqlConditions, sqlOrderByConditions, "UPADTE");
 
         printSql(sqlString);
 

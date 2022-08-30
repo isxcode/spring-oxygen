@@ -1,5 +1,8 @@
 package com.isxcode.oxygen.flysql;
 
+import com.isxcode.oxygen.flysql.annotation.IsDelete;
+import com.isxcode.oxygen.flysql.annotation.LastModifiedBy;
+import com.isxcode.oxygen.flysql.annotation.LastModifiedDate;
 import com.isxcode.oxygen.flysql.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,4 +40,24 @@ public class Dog {
     private LocalDateTime birthLocalDateTime;
 
     private Boolean isAlive;
+
+    @IsDelete
+    private Integer isDelete;
+
+    @LastModifiedBy
+    private String lastModifiedBy;
+
+    @LastModifiedDate
+    private LocalDateTime lastModifiedDate;
+
+    public Dog(Integer id, String name, Double amountDouble, BigDecimal amountBigDecimal, Date birthDate, LocalDate birthLocalDate, LocalDateTime birthLocalDateTime, Boolean isAlive) {
+        this.id = id;
+        this.name = name;
+        this.amountDouble = amountDouble;
+        this.amountBigDecimal = amountBigDecimal;
+        this.birthDate = birthDate;
+        this.birthLocalDate = birthLocalDate;
+        this.birthLocalDateTime = birthLocalDateTime;
+        this.isAlive = isAlive;
+    }
 }

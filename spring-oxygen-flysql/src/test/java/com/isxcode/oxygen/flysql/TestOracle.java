@@ -2,7 +2,6 @@ package com.isxcode.oxygen.flysql;
 
 import com.isxcode.oxygen.flysql.config.FlysqlAutoConfiguration;
 import com.isxcode.oxygen.flysql.core.Flysql;
-import com.isxcode.oxygen.flysql.entity.FlysqlPage;
 import com.ulisesbocchio.jasyptspringboot.configuration.EnableEncryptablePropertiesConfiguration;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,6 @@ import org.springframework.test.context.ContextConfiguration;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
