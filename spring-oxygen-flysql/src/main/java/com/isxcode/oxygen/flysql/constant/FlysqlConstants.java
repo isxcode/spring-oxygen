@@ -50,5 +50,19 @@ public interface FlysqlConstants {
      */
     String IS_DELETE_COL = "IS_DELETE";
 
+    /*
+     * LAST_MODIFIED_DATE flag
+     *
+     * @ispong
+     */
+    String LAST_MODIFIED_DATE = "LAST_MODIFIED_DATE";
+
+    /*
+     * LAST_MODIFIED_BY flag
+     *
+     * @ispong
+     */
+    String LAST_MODIFIED_BY = "LAST_MODIFIED_BY";
+
 }
 
