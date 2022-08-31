@@ -33,8 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.isxcode.oxygen.flysql.enums.SqlOperateType.SQL;
-import static com.isxcode.oxygen.flysql.enums.SqlOperateType.UPDATE;
+import static com.isxcode.oxygen.flysql.enums.SqlOperateType.*;
 
 /**
  * flysql 执行逻辑实现
@@ -503,6 +502,8 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
                     break;
                 case OR:
                 case AND:
+                case AND_END:
+                case AND_START:
                     sqlStringBuilder.append(sqlConditionMeta.getOperateType().getCode());
                     break;
                 case ORDER_BY:
@@ -526,7 +527,9 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
                     if (hasOperateType(sqlConditionTemp, SQL) || hasOperateType(sqlConditionTemp, UPDATE) || hasOperateType(sqlConditionTemp, SqlOperateType.SELECT) || hasOperateType(sqlConditionTemp, SqlOperateType.SET_VALUE)) {
                         sqlStringBuilder.append(" where ");
                     } else {
-                        sqlStringBuilder.append(" and ");
+                        if (!hasOperateType(sqlConditionTemp, AND_START) && !hasOperateType(sqlConditionMeta, AND_START) && !hasOperateType(sqlConditionMeta, AND_END) && !hasOperateType(sqlConditionTemp, OR) && !hasOperateType(sqlConditionTemp, AND)) {
+                            sqlStringBuilder.append(" and ");
+                        }
                     }
                     sqlStringBuilder.append(sqlConditionMeta.getColumnName()).append(sqlConditionMeta.getOperateType().getCode()).append(sqlConditionMeta.getValue());
                     break;

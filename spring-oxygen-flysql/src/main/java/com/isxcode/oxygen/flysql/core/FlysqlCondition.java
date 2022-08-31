@@ -256,4 +256,20 @@ public interface FlysqlCondition<T> {
      * @since 0.0.1
      */
     T isDeleted();
+
+    /**
+     * andStart()
+     *
+     * @return se
+     * @since 0.0.1
+     */
+    T andStart();
+
+    /**
+     * andEnd()
+     *
+     * @return se
+     * @since 0.0.1
+     */
+    T andEnd();
 }

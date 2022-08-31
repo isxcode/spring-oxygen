@@ -2,7 +2,6 @@ package com.isxcode.oxygen.flysql.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * sql operate type
@@ -121,9 +120,18 @@ public enum SqlOperateType {
     /**
      * sql()
      */
-    SQL(""),;
+    SQL(""),
 
-    @Setter
+    /**
+     * andStart()
+     */
+    AND_START(" and ( "),
+
+    /**
+     * andEnd()
+     */
+    AND_END(" ) "),;
+
     @Getter
-    private String code;
+    private final String code;
 }

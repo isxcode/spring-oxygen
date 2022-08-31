@@ -321,7 +321,21 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
     public T sql(String sqlStr) {
 
         sqlConditions.add(new SqlCondition(SqlOperateType.SQL, sqlStr, ""));
-        return getSelf();
+        return this.getSelf();
+    }
+
+    @Override
+    public T andStart() {
+
+        sqlConditions.add(new SqlCondition(SqlOperateType.AND_START, "", ""));
+        return this.getSelf();
+    }
+
+    @Override
+    public T andEnd() {
+
+        sqlConditions.add(new SqlCondition(SqlOperateType.AND_END,"", ""));
+        return this.getSelf();
     }
 
     /**
