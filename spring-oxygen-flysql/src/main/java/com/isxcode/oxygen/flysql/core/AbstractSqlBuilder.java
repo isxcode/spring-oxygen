@@ -256,14 +256,14 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
     @Override
     public T between(String columnName, Object value1, Object value2) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.BETWEEN, getColumnName(columnName), "(" + addSingleQuote(value1) + " and " + addSingleQuote(value2) + ")"));
+        sqlConditions.add(new SqlCondition(SqlOperateType.BETWEEN, getColumnName(columnName), addSingleQuote(value1) + " and " + addSingleQuote(value2)));
         return getSelf();
     }
 
     @Override
     public T notBetween(String columnName, Object value1, Object value2) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.NOT_BETWEEN, getColumnName(columnName), "(" + addSingleQuote(value1) + " and " + addSingleQuote(value2) + ")"));
+        sqlConditions.add(new SqlCondition(SqlOperateType.NOT_BETWEEN, getColumnName(columnName), addSingleQuote(value1) + " and " + addSingleQuote(value2)));
         return getSelf();
     }
 
