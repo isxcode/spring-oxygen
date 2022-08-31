@@ -100,6 +100,11 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
             return getSelf();
         }
 
+        if (DataBaseType.H2.equals(dataBaseType)) {
+            sqlConditions.add(new SqlCondition(SqlOperateType.EQ, getColumnName(columnName), "now()"));
+            return getSelf();
+        }
+
         sqlConditions.add(new SqlCondition(SqlOperateType.EQ, "date_format(" + getColumnName(columnName) + ",'%Y-%m-%d')", "date_format(now(), '%Y-%m-%d')"));
         return getSelf();
     }
@@ -108,6 +113,11 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
     public T isNotToday(String columnName) {
 
         if (DataBaseType.MONGO.equals(dataBaseType)) {
+            return getSelf();
+        }
+
+        if (DataBaseType.H2.equals(dataBaseType)) {
+            sqlConditions.add(new SqlCondition(SqlOperateType.NE, getColumnName(columnName), "now()"));
             return getSelf();
         }
 
@@ -246,14 +256,14 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
     @Override
     public T between(String columnName, Object value1, Object value2) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.BETWEEN, getColumnName(columnName), "(" + addSingleQuote(value1) + " and " + addSingleQuote(value2) + ")"));
+        sqlConditions.add(new SqlCondition(SqlOperateType.BETWEEN, getColumnName(columnName), addSingleQuote(value1) + " and " + addSingleQuote(value2)));
         return getSelf();
     }
 
     @Override
     public T notBetween(String columnName, Object value1, Object value2) {
 
-        sqlConditions.add(new SqlCondition(SqlOperateType.NOT_BETWEEN, getColumnName(columnName), "(" + addSingleQuote(value1) + " and " + addSingleQuote(value2) + ")"));
+        sqlConditions.add(new SqlCondition(SqlOperateType.NOT_BETWEEN, getColumnName(columnName), addSingleQuote(value1) + " and " + addSingleQuote(value2)));
         return getSelf();
     }
 
@@ -321,7 +331,21 @@ public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
     public T sql(String sqlStr) {
 
         sqlConditions.add(new SqlCondition(SqlOperateType.SQL, sqlStr, ""));
-        return getSelf();
+        return this.getSelf();
+    }
+
+    @Override
+    public T andStart() {
+
+        sqlConditions.add(new SqlCondition(SqlOperateType.AND_START, "", ""));
+        return this.getSelf();
+    }
+
+    @Override
+    public T andEnd() {
+
+        sqlConditions.add(new SqlCondition(SqlOperateType.AND_END,"", ""));
+        return this.getSelf();
     }
 
     /**

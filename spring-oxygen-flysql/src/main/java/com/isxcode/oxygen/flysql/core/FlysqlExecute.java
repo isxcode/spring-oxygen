@@ -33,8 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.isxcode.oxygen.flysql.enums.SqlOperateType.SQL;
-import static com.isxcode.oxygen.flysql.enums.SqlOperateType.UPDATE;
+import static com.isxcode.oxygen.flysql.enums.SqlOperateType.*;
 
 /**
  * flysql 执行逻辑实现
@@ -488,6 +487,9 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
         StringBuilder sqlStringBuilder = new StringBuilder(sqlString);
 
         boolean selectFlag = true;
+        boolean limitFlag = false;
+        boolean whereFlag = false;
+        Integer limitValue = null;
 
         SqlCondition sqlConditionTemp = null;
 
@@ -503,7 +505,14 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
                     break;
                 case OR:
                 case AND:
-                    sqlStringBuilder.append(sqlConditionMeta.getOperateType().getCode());
+                case AND_END:
+                case AND_START:
+                    if (whereFlag) {
+                        sqlStringBuilder.append(sqlConditionMeta.getOperateType().getCode());
+                    } else {
+                        whereFlag = true;
+                        sqlStringBuilder.append(" where ( ");
+                    }
                     break;
                 case ORDER_BY:
                     if (hasOperateType(sqlConditionTemp, SqlOperateType.ORDER_BY)) {
@@ -522,11 +531,18 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
                         sqlStringBuilder = new StringBuilder(" select * from (" + sqlConditionMeta.getColumnName() + ") as alia ");
                     }
                     break;
+                case LIMIT:
+                    limitFlag = true;
+                    limitValue = Integer.parseInt(String.valueOf(sqlConditionMeta.getValue()));
+                    break;
                 default:
                     if (hasOperateType(sqlConditionTemp, SQL) || hasOperateType(sqlConditionTemp, UPDATE) || hasOperateType(sqlConditionTemp, SqlOperateType.SELECT) || hasOperateType(sqlConditionTemp, SqlOperateType.SET_VALUE)) {
                         sqlStringBuilder.append(" where ");
+                        whereFlag = true;
                     } else {
-                        sqlStringBuilder.append(" and ");
+                        if (!hasOperateType(sqlConditionTemp, AND_START) && !hasOperateType(sqlConditionMeta, AND_START) && !hasOperateType(sqlConditionMeta, AND_END) && !hasOperateType(sqlConditionTemp, OR) && !hasOperateType(sqlConditionTemp, AND)) {
+                            sqlStringBuilder.append(" and ");
+                        }
                     }
                     sqlStringBuilder.append(sqlConditionMeta.getColumnName()).append(sqlConditionMeta.getOperateType().getCode()).append(sqlConditionMeta.getValue());
                     break;
@@ -538,6 +554,11 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
         if (!sqlOrderByConditions.isEmpty()) {
             sqlStringBuilder.append(" order by ")
                 .append(Strings.join(sqlOrderByConditions, ','));
+        }
+
+        // last limit
+        if (limitFlag) {
+            sqlStringBuilder.append(" limit ").append(limitValue);
         }
 
         // 替换需要查询的字段
