@@ -35,7 +35,7 @@ public enum SqlOperateType {
     /**
      * between()
      */
-    BETWEEN(" and "),
+    BETWEEN(" between "),
 
     /**
      * lt()

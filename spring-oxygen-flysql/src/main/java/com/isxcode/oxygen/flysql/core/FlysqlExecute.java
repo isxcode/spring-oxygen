@@ -488,6 +488,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
 
         boolean selectFlag = true;
         boolean limitFlag = false;
+        boolean whereFlag = false;
         Integer limitValue = null;
 
         SqlCondition sqlConditionTemp = null;
@@ -506,7 +507,12 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
                 case AND:
                 case AND_END:
                 case AND_START:
-                    sqlStringBuilder.append(sqlConditionMeta.getOperateType().getCode());
+                    if (whereFlag) {
+                        sqlStringBuilder.append(sqlConditionMeta.getOperateType().getCode());
+                    } else {
+                        whereFlag = true;
+                        sqlStringBuilder.append(" where ( ");
+                    }
                     break;
                 case ORDER_BY:
                     if (hasOperateType(sqlConditionTemp, SqlOperateType.ORDER_BY)) {
@@ -530,8 +536,9 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
                     limitValue = Integer.parseInt(String.valueOf(sqlConditionMeta.getValue()));
                     break;
                 default:
-                    if (hasOperateType(sqlConditionTemp, SQL) || hasOperateType(sqlConditionTemp, UPDATE) || hasOperateType(sqlConditionTemp, SqlOperateType.SELECT) || hasOperateType(sqlConditionTemp, SqlOperateType.SET_VALUE) || hasOperateType(sqlConditionTemp, AND_START)) {
+                    if (hasOperateType(sqlConditionTemp, SQL) || hasOperateType(sqlConditionTemp, UPDATE) || hasOperateType(sqlConditionTemp, SqlOperateType.SELECT) || hasOperateType(sqlConditionTemp, SqlOperateType.SET_VALUE)) {
                         sqlStringBuilder.append(" where ");
+                        whereFlag = true;
                     } else {
                         if (!hasOperateType(sqlConditionTemp, AND_START) && !hasOperateType(sqlConditionMeta, AND_START) && !hasOperateType(sqlConditionMeta, AND_END) && !hasOperateType(sqlConditionTemp, OR) && !hasOperateType(sqlConditionTemp, AND)) {
                             sqlStringBuilder.append(" and ");
