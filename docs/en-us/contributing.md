@@ -128,9 +128,9 @@ gradle publishMavenJavaPublicationToSonatypeRepository
 ### Release new version
 
 - [ ] Fix Pull Requests
-- [ ] Edit version number(0.11.5-SNAPSHOT)
+- [ ] Edit version number(0.11.5-SNAPSHOT/1.9.1)
 - [ ] Edit SECURITY.md version number
-- [ ] Edit CHANGELOG.md version number (## v0.11.5)
+- [ ] Edit CHANGELOG.md version number and copy issues record to (## v0.11.5)
 - [ ] Copy README.md to /docs/_homepage.md
 - [ ] Submit and Fix GitHub Security
 - [ ] Merge to isxcode/spring-oxygen/latest
