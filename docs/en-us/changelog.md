@@ -1,4 +1,4 @@
-## v1.8.1
+## v1.9.1
 
 ### 💥️ Breaking Change
 
@@ -10,6 +10,8 @@
 - support isNotDeleted() for false deletion
 - support isDeleted() for ture deletion
 - add doIsDelete() for false deletion
+- add andStart() and andEnd() feature
+- auto update @LastModifiedDate column for executor and date feature
 
 ### 🎨 Enhancement
 
@@ -18,7 +20,10 @@
 ### 🐛 Fix
 
 - fix orderBy() used before eq()
-
+- fix andStart() use first error bug
+- fix limit() error bug
+- fix use between() error bug
+- fix H2 use isToday() and isNotToday() error bug
 
 ## v1.2.1
 

@@ -53,7 +53,7 @@ Welcome to develop and maintain together, please follow the [github development]
 
 ```groovy
 dependencies {
-    implementation 'com.isxcode.oxygen:oxygen-spring-boot-starter:1.2.1'
+    implementation 'com.isxcode.oxygen:oxygen-spring-boot-starter:1.9.1'
 }
 ```
 
@@ -63,7 +63,7 @@ dependencies {
 <dependency>
     <groupId>com.isxcode.oxygen</groupId>
     <artifactId>oxygen-spring-boot-starter</artifactId>
-    <version>1.2.1</version>
+    <version>1.9.1</version>
 </dependency>
 ```
 
