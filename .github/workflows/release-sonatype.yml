@@ -6,9 +6,6 @@ on:
       branch:
         description: 'which branch'
         required: true
-      version:
-        description: 'version number'
-        required: true
 
 jobs:
   release:
@@ -40,7 +37,7 @@ jobs:
         distribution: 'adopt'
         java-version: ${{ matrix.java }}
     - run: |
-        echo 'project.version=${{ github.event.inputs.version }}' >> gradle.properties
+        chmod +x gradlew
         ./gradlew build -x test
 
     - name: publish to sonatype
