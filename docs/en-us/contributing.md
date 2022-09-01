@@ -132,10 +132,10 @@ gradle publishMavenJavaPublicationToSonatypeRepository
 - [ ] Edit SECURITY.md version number
 - [ ] Edit CHANGELOG.md version number and copy issues record to (## v0.11.5)
 - [ ] Copy README.md to /docs/_homepage.md
-- [ ] Submit and Fix GitHub Security
+- [ ] Submit and Check and Fix GitHub Security
 - [ ] Merge to isxcode/spring-oxygen/latest
 - [ ] Check project badge status
 - [ ] Create GitHub new tag (v0.11.5) and new branch (0.11.5)
 - [ ] Run GitHub action publish to GitHub repository
-- [ ] Run GitHub action publish new version docs
+- [ ] Run GitHub action publish to Sonatype repository
 - [ ] Publish to Sonatype repository
