@@ -1,5 +1,6 @@
 package com.isxcode.oxygen.flysql;
 
+import com.isxcode.oxygen.flysql.common.OxygenHolder;
 import com.isxcode.oxygen.flysql.config.FlysqlAutoConfiguration;
 import com.isxcode.oxygen.flysql.core.Flysql;
 import com.isxcode.oxygen.flysql.entity.FlysqlPage;
@@ -141,6 +142,8 @@ public class TestH2 {
             .orderBy("birthLocalDate", OrderType.DESC)
             .query();
         dogQuery.forEach(System.out::println);
+
+        OxygenHolder.setUserUuid("userId");
     }
 
 }
