@@ -19,6 +19,7 @@ import com.isxcode.oxygen.flysql.utils.FlysqlUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.jdbc.BadSqlGrammarException;
@@ -76,6 +77,8 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>> imple
             throw new FlysqlException(e.getCause().getMessage());
         } catch (EmptyResultDataAccessException e) {
             return null;
+        } catch (IncorrectResultSizeDataAccessException e) {
+            return flysqlKey.getJdbcTemplate().query(sqlString, new BeanPropertyRowMapper<>(flysqlKey.getTargetClass())).get(0);
         }
     }
 
