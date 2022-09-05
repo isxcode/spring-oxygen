@@ -53,14 +53,14 @@ public class FlysqlAutoConfiguration {
     /**
      * 初始化flysql factory
      *
-     * @param flysqlProperties configs
-     * @param jdbcTemplate               jdbcTemplate
-     * @param mongoTemplate              mongoTemplate
+     * @param flysqlProperties     configs
+     * @param dataSourceProperties dataSourceProperties
+     * @param mongoTemplate        mongoTemplate
      * @since 0.0.1
      */
     @Bean("flysql")
     @ConditionalOnClass(FlysqlAutoConfiguration.class)
-    private Flysql flysql(FlysqlProperties flysqlProperties, @Nullable JdbcTemplate jdbcTemplate, @Nullable MongoTemplate mongoTemplate) {
+    private Flysql flysql(FlysqlProperties flysqlProperties, @Nullable DataSourceProperties dataSourceProperties, @Nullable MongoTemplate mongoTemplate) {
 
         Map<String, JdbcTemplate> jdbcTemplateMap;
         Map<String, MongoTemplate> mongoTemplateMap;
@@ -73,8 +73,9 @@ public class FlysqlAutoConfiguration {
             jdbcTemplateMap = new HashMap<>(dataSourcePropertiesMap.size() + 1);
             dataSourcePropertiesMap.forEach((k, v) -> jdbcTemplateMap.put(k, new JdbcTemplate(v.initializeDataSourceBuilder().build())));
         }
-        if (jdbcTemplate != null) {
-            jdbcTemplateMap.put(FlysqlConstants.PRIMARY_DATASOURCE_NAME, jdbcTemplate);
+
+        if (dataSourceProperties != null && dataSourceProperties.initializeDataSourceBuilder() != null) {
+            jdbcTemplateMap.put(FlysqlConstants.PRIMARY_DATASOURCE_NAME, new JdbcTemplate(dataSourceProperties.initializeDataSourceBuilder().build()));
         }
 
         // 集成mongodb数据库

@@ -25,7 +25,13 @@ public class OxygenHolder {
         Authentication authentication = new Authentication() {
             @Override
             public boolean equals(Object another) {
-                return false;
+
+                if (!(another instanceof Authentication)) {
+                    return false;
+                }
+
+                Authentication auth = (Authentication) another;
+                return auth.getName().equals(this.getName());
             }
 
             @Override
