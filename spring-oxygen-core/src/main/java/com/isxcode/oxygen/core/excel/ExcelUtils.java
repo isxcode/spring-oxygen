@@ -106,10 +106,20 @@ public class ExcelUtils {
                     Method writeMethod = fieldBody.getWriteMethod();
                     switch (fieldBody.getClassName()) {
                         case ReflectConstants.STRING:
-                            writeMethod.invoke(target, metaCell.getStringCellValue());
+                            if (metaCell.getStringCellValue() != null) {
+                                writeMethod.invoke(target, metaCell.getStringCellValue());
+                            }
+                            break;
+                        case ReflectConstants.LOCAL_DATE:
+                            if (metaCell.getLocalDateTimeCellValue() != null) {
+                                LocalDateTime dateTimeCellValue = metaCell.getLocalDateTimeCellValue();
+                                writeMethod.invoke(target, dateTimeCellValue.toLocalDate());
+                            }
                             break;
                         case ReflectConstants.LOCAL_DATE_TIME:
-                            writeMethod.invoke(target, metaCell.getLocalDateTimeCellValue());
+                            if (metaCell.getLocalDateTimeCellValue() != null) {
+                                writeMethod.invoke(target, metaCell.getLocalDateTimeCellValue());
+                            }
                             break;
                         case ReflectConstants.DOUBLE:
                             writeMethod.invoke(target, metaCell.getNumericCellValue());
@@ -120,7 +130,9 @@ public class ExcelUtils {
                             writeMethod.invoke(target, Integer.parseInt(cellValue));
                             break;
                         case ReflectConstants.DATE:
-                            writeMethod.invoke(target, metaCell.getDateCellValue());
+                            if (metaCell.getDateCellValue() != null) {
+                                writeMethod.invoke(target, metaCell.getDateCellValue());
+                            }
                             break;
                         default:
                             throw new OxygenException("not support properties class");
@@ -168,7 +180,13 @@ public class ExcelUtils {
      */
     public static void generateFile(List<?> data, OutputStream outputStream) {
 
-        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFWorkbook workbook;
+        try {
+            //noinspection resource
+            workbook = new XSSFWorkbook();
+        }catch (Exception e){
+            throw new OxygenException(e.getMessage());
+        }
         XSSFSheet sheet = workbook.createSheet();
 
         try {
