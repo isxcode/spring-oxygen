@@ -11,8 +11,75 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+/*
+ * https://commons.apache.org/proper/commons-exec/tutorial.html
+ *
+ * @ispong
+ */
 @Slf4j
 public class CommandUtils {
+
+    public static String LINUX_BASH = "/bin/sh";
+    public static String WINDOWS_CMD = "C:\\Windows\\System32\\cmd.exe";
+    public static long DEFAULT_WAITING_TIME = 60000;
+
+    /**
+     * execute command to log file
+     *
+     * @param command command
+     * @param logPath log file path
+     * @return exit code
+     */
+    public static int execute(String command, String logPath) {
+
+        return execute(command, logPath, DEFAULT_WAITING_TIME);
+    }
+
+    /**
+     * execute command, return log content
+     *
+     * @param command command
+     * @return command result str
+     */
+    public static String executeBack(String command) {
+
+        return executeBack(command, DEFAULT_WAITING_TIME);
+    }
+
+    /**
+     * execute command to log file
+     *
+     * @param command command
+     * @return exit code
+     */
+    public static int execute(String command) {
+
+        return execute(command, DEFAULT_WAITING_TIME);
+    }
+
+    /**
+     * execute command, return log content
+     *
+     * @param command     command
+     * @param waitingTime waiting timeMillis
+     * @return exit code
+     */
+    public static int execute(String command, long waitingTime) {
+
+        DefaultExecutor executor = new DefaultExecutor();
+        CommandLine cmdLine = generateCommandLine(command);
+
+        try {
+            // set watchdog for waiting
+            ExecuteWatchdog watchdog = new ExecuteWatchdog(waitingTime);
+            executor.setWatchdog(watchdog);
+            return executor.execute(cmdLine);
+
+        } catch (IOException e) {
+            log.debug(e.getMessage());
+            throw new OxygenException("execute command error");
+        }
+    }
 
     /**
      * execute command to log file
@@ -20,19 +87,14 @@ public class CommandUtils {
      * @param command     command
      * @param logPath     log file path
      * @param waitingTime waiting timeMillis
-     *
      * @return exit code
      */
-    public static int executeCommand(String command, String logPath, long waitingTime) {
-
-        String[] cmd = {"-c", command};
-        CommandLine cmdLine = CommandLine.parse("/bin/sh");
-        cmdLine.addArguments(cmd, false);
+    public static int execute(String command, String logPath, long waitingTime) {
 
         DefaultExecutor executor = new DefaultExecutor();
+        CommandLine cmdLine = generateCommandLine(command);
 
         try {
-
             // set log file path
             FileOutputStream fileOutputStream = new FileOutputStream(logPath, true);
             PumpStreamHandler streamHandler = new PumpStreamHandler(fileOutputStream, fileOutputStream, null);
@@ -52,33 +114,16 @@ public class CommandUtils {
     }
 
     /**
-     * execute command to log file
-     *
-     * @param command command
-     * @param logPath log file path
-     *
-     * @return exit code
-     */
-    public static int executeCommand(String command, String logPath) {
-
-        return executeCommand(command, logPath, 60000);
-    }
-
-    /**
-     * execute command to log file
+     * execute command, return log content
      *
      * @param command     command
      * @param waitingTime waiting timeMillis
-     *
      * @return result string
      */
-    public static String executeBackCommand(String command, long waitingTime) {
-
-        String[] cmd = {"-c", command};
-        CommandLine cmdLine = CommandLine.parse("/bin/sh");
-        cmdLine.addArguments(cmd, false);
+    public static String executeBack(String command, long waitingTime) {
 
         DefaultExecutor executor = new DefaultExecutor();
+        CommandLine cmdLine = generateCommandLine(command);
 
         try {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -101,53 +146,24 @@ public class CommandUtils {
     }
 
     /**
-     * execute command to log file
+     * generate CommandLine
      *
      * @param command command
-     * @return command result str
+     * @return CommandLine
      */
-    public static String executeBackCommand(String command) {
+    private static CommandLine generateCommandLine(String command) {
 
-        return executeBackCommand(command, 60000);
-    }
-
-    /**
-     * execute command to log file
-     *
-     * @param command     command
-     * @param waitingTime waiting timeMillis
-     * @return exit code
-     */
-    public static int executeNoBackCommand(String command, long waitingTime) {
-
-        String[] cmd = {"-c", command};
-        CommandLine cmdLine = CommandLine.parse("/bin/sh");
-        cmdLine.addArguments(cmd, false);
-
-        DefaultExecutor executor = new DefaultExecutor();
-
-        try {
-
-            // set watchdog for waiting
-            ExecuteWatchdog watchdog = new ExecuteWatchdog(waitingTime);
-            executor.setWatchdog(watchdog);
-            return executor.execute(cmdLine);
-
-        } catch (IOException e) {
-            log.debug(e.getMessage());
-            throw new OxygenException("execute command error");
+        CommandLine cmdLine;
+        String[] cmd;
+        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+            cmd = new String[]{"/c", command};
+            cmdLine = CommandLine.parse(WINDOWS_CMD);
+        } else {
+            cmd = new String[]{"-c", command};
+            cmdLine = CommandLine.parse(LINUX_BASH);
         }
-    }
-
-    /**
-     * execute command to log file
-     *
-     * @param command command
-     * @return exit code
-     */
-    public static int executeNoBackCommand(String command) {
-
-        return executeNoBackCommand(command, 60000);
+        cmdLine.addArguments(cmd, false);
+        return cmdLine;
     }
 
 }
