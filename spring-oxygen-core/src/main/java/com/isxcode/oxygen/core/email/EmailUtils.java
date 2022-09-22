@@ -35,6 +35,60 @@ public class EmailUtils {
     }
 
     /**
+     * send simple email
+     *
+     * @param email      email
+     * @param content    content
+     * @param subject    subject
+     * @param senderName senderName
+     * @since 0.0.1
+     */
+    public static void sendSimpleEmail(String email, String content, String subject, String senderName) {
+
+        try {
+            sendEmail(Collections.singletonList(email), content, subject, senderName, false, null, null);
+        } catch (MessagingException e) {
+            throw new OxygenException(e.getMessage());
+        }
+    }
+
+    /**
+     * send simple emails
+     *
+     * @param emails     emails
+     * @param content    content
+     * @param subject    subject
+     * @param senderName senderName
+     * @since 0.0.1
+     */
+    public static void sendSimpleEmail(List<String> emails, String content, String subject, String senderName) {
+
+        try {
+            sendEmail(emails, content, subject, senderName, false, null, null);
+        } catch (Exception e) {
+            throw new OxygenException(e.getMessage());
+        }
+    }
+
+    /**
+     * send html email
+     *
+     * @param email      email
+     * @param content    content
+     * @param subject    subject
+     * @param senderName senderName
+     * @since 0.0.1
+     */
+    public static void sendNormalHtmlEmail(String email, String content, String subject, String senderName) {
+
+        try {
+            sendEmail(Collections.singletonList(email), content, subject, senderName, true, null, null);
+        } catch (Exception e) {
+            throw new OxygenException(e.getMessage());
+        }
+    }
+
+    /**
      * send email main
      *
      * @param toEmails      toEmails
@@ -100,59 +154,4 @@ public class EmailUtils {
         }
 
     }
-
-    /**
-     * send simple email
-     *
-     * @param email      email
-     * @param content    content
-     * @param subject    subject
-     * @param senderName senderName
-     * @since 0.0.1
-     */
-    public static void sendSimpleEmail(String email, String content, String subject, String senderName) {
-
-        try {
-            sendEmail(Collections.singletonList(email), content, subject, senderName, false, null, null);
-        } catch (MessagingException e) {
-            throw new OxygenException(e.getMessage());
-        }
-    }
-
-    /**
-     * send simple emails
-     *
-     * @param emails     emails
-     * @param content    content
-     * @param subject    subject
-     * @param senderName senderName
-     * @since 0.0.1
-     */
-    public static void sendSimpleEmail(List<String> emails, String content, String subject, String senderName) {
-
-        try {
-            sendEmail(emails, content, subject, senderName, false, null, null);
-        } catch (Exception e) {
-            throw new OxygenException(e.getMessage());
-        }
-    }
-
-    /**
-     * send html email
-     *
-     * @param email      email
-     * @param content    content
-     * @param subject    subject
-     * @param senderName senderName
-     * @since 0.0.1
-     */
-    public static void sendNormalHtmlEmail(String email, String content, String subject, String senderName) {
-
-        try {
-            sendEmail(Collections.singletonList(email), content, subject, senderName, true, null, null);
-        } catch (Exception e) {
-            throw new OxygenException(e.getMessage());
-        }
-    }
-
 }
