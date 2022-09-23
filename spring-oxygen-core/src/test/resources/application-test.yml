@@ -1,3 +1,8 @@
+test:
+  email: ispong@outlook.com
+  emailContent: hello,test for oxygen
+  senderName: ispong
+
 spring:
   mail:
     host: smtp.qq.com
