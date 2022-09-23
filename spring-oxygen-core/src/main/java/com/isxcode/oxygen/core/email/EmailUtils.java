@@ -148,6 +148,7 @@ public class EmailUtils {
                 try {
                     javaMailSender.send(message);
                 } catch (Exception e) {
+                    log.error(e.getMessage());
                     log.info("email fail to send");
                 }
             });
