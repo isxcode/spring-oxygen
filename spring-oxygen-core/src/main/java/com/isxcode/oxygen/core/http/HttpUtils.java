@@ -21,42 +21,6 @@ import java.util.Map;
 public class HttpUtils {
 
     /**
-     * http get
-     *
-     * @param url           url
-     * @param headerParams  header
-     * @param requestParams params
-     * @param targetClass   targetClass
-     * @param <A>           A
-     * @return A
-     * @since 0.0.1
-     */
-    public static <A> A doGet(String url, Map<String, String> requestParams, Map<String, String> headerParams, Class<A> targetClass) {
-
-        StringBuilder requestUrl = new StringBuilder(url);
-
-        // add params
-        if (requestParams != null) {
-            requestUrl.append("?");
-            requestParams.forEach((k, v) -> requestUrl.append(k).append("=").append(v).append("&"));
-        }
-
-        // add headers
-        HttpEntity<String> requestEntity = null;
-        if (headerParams != null) {
-            HttpHeaders headers = new HttpHeaders();
-            headerParams.forEach(headers::add);
-            requestEntity = new HttpEntity<>(null, headers);
-        }
-
-        try {
-            return new RestTemplate().exchange(requestUrl.toString(), HttpMethod.GET, requestEntity, targetClass).getBody();
-        } catch (Exception e) {
-            throw new OxygenException(e.getMessage());
-        }
-    }
-
-    /**
      * simple get
      *
      * @param url         url
@@ -83,6 +47,37 @@ public class HttpUtils {
     public static <A> A doGet(String url, Map<String, String> headerParams, Class<A> targetClass) {
 
         return doGet(url, null, headerParams, targetClass);
+    }
+
+    /**
+     * post http
+     *
+     * @param <T>           T
+     * @param url           url
+     * @param requestParams requestParams
+     * @param targetCls     targetCls
+     * @return T
+     * @throws IOException JACKSON EXCEPTION
+     * @since 0.0.1
+     */
+    public static <T> T doPost(String url, Object requestParams, Class<T> targetCls) throws IOException {
+
+        return doPost(url, null, requestParams, targetCls);
+    }
+
+    /**
+     * 执行post请求
+     *
+     * @param url           url
+     * @param requestParams requestParams
+     * @param headerParams  headerParams
+     * @return data string
+     * @throws IOException JACKSON EXCEPTION
+     * @since 0.0.1
+     */
+    public static String doPost(String url, Map<String, String> headerParams, Object requestParams) throws IOException {
+
+        return doPost(url, headerParams, requestParams, String.class);
     }
 
     /**
@@ -118,34 +113,40 @@ public class HttpUtils {
     }
 
     /**
-     * post http
-     *
-     * @param <T>           T
-     * @param url           url
-     * @param requestParams requestParams
-     * @param targetCls     targetCls
-     * @return T
-     * @throws IOException JACKSON EXCEPTION
-     * @since 0.0.1
-     */
-    public static <T> T doPost(String url, Object requestParams, Class<T> targetCls) throws IOException {
-
-        return doPost(url, null, requestParams, targetCls);
-    }
-
-    /**
-     * 执行post请求
+     * http get
      *
      * @param url           url
-     * @param requestParams requestParams
-     * @param headerParams  headerParams
-     * @return data string
-     * @throws IOException JACKSON EXCEPTION
+     * @param headerParams  header
+     * @param requestParams params
+     * @param targetClass   targetClass
+     * @param <A>           A
+     * @return A
      * @since 0.0.1
      */
-    public static String doPost(String url, Map<String, String> headerParams, Object requestParams) throws IOException {
+    public static <A> A doGet(String url, Map<String, String> requestParams, Map<String, String> headerParams, Class<A> targetClass) {
 
-        return doPost(url, headerParams, requestParams, String.class);
+        StringBuilder requestUrl = new StringBuilder(url);
+
+        // add params
+        if (requestParams != null) {
+            requestUrl.append("?");
+            requestParams.forEach((k, v) -> requestUrl.append(k).append("=").append(v).append("&"));
+        }
+
+        // add headers
+        HttpEntity<String> requestEntity = null;
+        if (headerParams != null) {
+            HttpHeaders headers = new HttpHeaders();
+            headerParams.forEach(headers::add);
+            requestEntity = new HttpEntity<>(null, headers);
+        }
+
+        try {
+            return new RestTemplate().exchange(requestUrl.toString(), HttpMethod.GET, requestEntity, targetClass).getBody();
+        } catch (Exception e) {
+            throw new OxygenException(e.getMessage());
+        }
     }
+
 }
 

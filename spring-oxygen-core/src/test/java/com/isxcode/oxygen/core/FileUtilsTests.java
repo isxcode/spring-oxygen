@@ -9,7 +9,7 @@ import java.nio.file.StandardOpenOption;
 
 public class FileUtilsTests {
 
-    private String userHomePath = System.getProperty("user.home");
+    private final String userHomePath = System.getProperty("user.home");
 
     @Test
     public void testGenerateDir() {

@@ -9,14 +9,13 @@ import org.springframework.boot.autoconfigure.mail.MailSenderAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@ContextConfiguration(classes = {MailSenderAutoConfiguration.class, OxygenCoreAutoConfiguration.class, FreeMarkerConfigurer.class})
+@ContextConfiguration(classes = {MailSenderAutoConfiguration.class, OxygenCoreAutoConfiguration.class})
 public class EmailUtilsTests {
 
     @Value("${test.email}")

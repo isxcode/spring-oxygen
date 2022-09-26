@@ -2,6 +2,7 @@ test:
   email: ispong@outlook.com
   emailContent: hello,test for oxygen
   senderName: ispong
+  templateName: test.ftl
 
 spring:
   mail:
@@ -9,3 +10,7 @@ spring:
     port: 465
     username: 450065195@qq.com
     password: mykzuzuyxphzbghb
+  freemarker:
+    suffix: .ftl
+    template-loader-path:
+      - classpath:templates2/
