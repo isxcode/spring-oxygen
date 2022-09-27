@@ -1,6 +1,7 @@
 package com.isxcode.oxygen.core.file;
 
 import com.isxcode.oxygen.core.exception.OxygenException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 
+@Slf4j
 public class FileUtils {
 
     /**
@@ -35,6 +37,7 @@ public class FileUtils {
             try {
                 Files.createDirectories(dir);
             } catch (IOException e) {
+                log.info(e.getMessage());
                 throw new OxygenException("create dir path error");
             }
         }
@@ -59,6 +62,7 @@ public class FileUtils {
             try {
                 return Files.createFile(file);
             } catch (IOException e) {
+                log.info(e.getMessage());
                 throw new OxygenException("create file path error");
             }
         } else {
@@ -83,6 +87,7 @@ public class FileUtils {
         try {
             Files.write(file, content.getBytes(), options);
         } catch (IOException e) {
+            log.info(e.getMessage());
             throw new OxygenException("write content error");
         }
     }
@@ -121,6 +126,7 @@ public class FileUtils {
         try {
             Files.write(file, IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8).getBytes(), options);
         } catch (IOException e) {
+            log.info(e.getMessage());
             throw new OxygenException("copy resource file error");
         }
     }
@@ -130,15 +136,26 @@ public class FileUtils {
      *
      * @param path path
      */
-    public static void RecursionDeleteFile(Path path) {
+    public static void recursionDeleteFile(Path path) {
 
         try {
             if (Files.isDirectory(path)) {
-                Files.list(path).forEach(FileUtils::RecursionDeleteFile);
+                Files.list(path).forEach(FileUtils::recursionDeleteFile);
             }
             Files.deleteIfExists(path);
         } catch (IOException e) {
+            log.info(e.getMessage());
             throw new OxygenException("delete dir error");
         }
+    }
+
+    /**
+     * recursion delete file
+     *
+     * @param path path
+     */
+    public static void recursionDeleteFile(String path) {
+
+        recursionDeleteFile(Paths.get(path));
     }
 }
