@@ -17,7 +17,7 @@ public class ReflectUtilsTests {
         Dog dog = ReflectUtils.newInstance(Dog.class);
         dog.setAge(12);
         dog.setName("alen");
-        System.out.println("dog:" + dog.toString());
+        System.out.println("dog:" + dog);
     }
 
     @Test
@@ -33,11 +33,21 @@ public class ReflectUtilsTests {
                     writeMethod.invoke(dog, "alen");
                     Object dogName = readMethod.invoke(dog);
                     System.out.println("dogName" + dogName);
-                    System.out.println(dog.toString());
+                    System.out.println(dog);
                 }
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Test
+    public void testName() {
+
+        System.out.println(ReflectUtils.upperFirstCase("userName"));
+
+        System.out.println(ReflectUtils.humpToLine("userName"));
+
+        System.out.println(ReflectUtils.lineToHump("user_name"));
     }
 }
