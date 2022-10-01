@@ -56,7 +56,7 @@ subprojects {
         implementation 'org.apache.logging.log4j:log4j-to-slf4j:' + log4jVersion
 
         implementation 'org.junit.jupiter:junit-jupiter'
-        testCompile 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+        testCompile 'org.junit.jupiter:junit-jupiter-api:5.9.1'
 
         implementation 'com.google.code.findbugs:annotations:3.0.1u2'
     }
