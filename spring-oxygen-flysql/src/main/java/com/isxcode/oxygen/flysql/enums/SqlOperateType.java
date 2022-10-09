@@ -12,126 +12,78 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum SqlOperateType {
 
-    /**
-     * select()
-     */
-    SELECT(""),
+	/** select() */
+	SELECT(""),
 
-    /**
-     * eq()
-     */
-    EQ(" = "),
+	/** eq() */
+	EQ(" = "),
 
-    /**
-     * ne()
-     */
-    NE(" != "),
+	/** ne() */
+	NE(" != "),
 
-    /**
-     * setVar()
-     */
-    SET_VALUE(""),
+	/** setVar() */
+	SET_VALUE(""),
 
-    /**
-     * between()
-     */
-    BETWEEN(" between "),
+	/** between() */
+	BETWEEN(" between "),
 
-    /**
-     * lt()
-     */
-    LT(" < "),
+	/** lt() */
+	LT(" < "),
 
-    /**
-     * ltEq()
-     */
-    LT_EQ(" <= "),
+	/** ltEq() */
+	LT_EQ(" <= "),
 
-    /**
-     * gt()
-     */
-    GT(" > "),
+	/** gt() */
+	GT(" > "),
 
-    /**
-     * gtEq()
-     */
-    GT_EQ(" >= "),
+	/** gtEq() */
+	GT_EQ(" >= "),
 
-    /**
-     * orderBy()
-     */
-    ORDER_BY(""),
+	/** orderBy() */
+	ORDER_BY(""),
 
-    /**
-     * like()
-     */
-    LIKE(" like "),
+	/** like() */
+	LIKE(" like "),
 
-    /**
-     * notIn()
-     */
-    NOT_IN(" not in "),
+	/** notIn() */
+	NOT_IN(" not in "),
 
-    /**
-     * in()
-     */
-    IN(" in "),
+	/** in() */
+	IN(" in "),
 
-    /**
-     * or()
-     */
-    OR(" or "),
+	/** or() */
+	OR(" or "),
 
-    /**
-     * and()
-     */
-    AND(" and "),
+	/** and() */
+	AND(" and "),
 
-    /**
-     * limit()
-     */
-    LIMIT(" limit "),
+	/** limit() */
+	LIMIT(" limit "),
 
-    /**
-     * update()
-     */
-    UPDATE(" update "),
+	/** update() */
+	UPDATE(" update "),
 
-    /**
-     * isNull()
-     */
-    IS_NULL(" is null "),
+	/** isNull() */
+	IS_NULL(" is null "),
 
-    /**
-     * isNull()
-     */
-    IS_NOT_NULL(" is not null "),
+	/** isNull() */
+	IS_NOT_NULL(" is not null "),
 
-    /**
-     * notBetween()
-     */
-    NOT_BETWEEN(" not between "),
+	/** notBetween() */
+	NOT_BETWEEN(" not between "),
 
-    /**
-     * notLike()
-     */
-    NOT_LIKE(" not like "),
+	/** notLike() */
+	NOT_LIKE(" not like "),
 
-    /**
-     * sql()
-     */
-    SQL(""),
+	/** sql() */
+	SQL(""),
 
-    /**
-     * andStart()
-     */
-    AND_START(" and ( "),
+	/** andStart() */
+	AND_START(" and ( "),
 
-    /**
-     * andEnd()
-     */
-    AND_END(" ) "),;
+	/** andEnd() */
+	AND_END(" ) "),
+	;
 
-    @Getter
-    private final String code;
+	@Getter private final String code;
 }

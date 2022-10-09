@@ -13,17 +13,12 @@ import lombok.Setter;
 @AllArgsConstructor
 public enum OrderType {
 
-    /**
-     * 降序
-     */
-    DESC("desc"),
+	/** 降序 */
+	DESC("desc"),
 
-    /**
-     * 升序
-     */
-    ASC("asc"),;
+	/** 升序 */
+	ASC("asc"),
+	;
 
-    @Getter
-    @Setter
-    private String orderType;
+	@Getter @Setter private String orderType;
 }

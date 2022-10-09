@@ -5,10 +5,9 @@ import org.junit.jupiter.api.Test;
 
 public class DateUtilsTests {
 
-    @Test
-    public void testUtils() {
+	@Test
+	public void testUtils() {
 
-        System.out.println(DateUtils.parseLocalDateStr("2020-12-12"));
-    }
+		System.out.println(DateUtils.parseLocalDateStr("2020-12-12"));
+	}
 }
-

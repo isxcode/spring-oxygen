@@ -20,47 +20,46 @@ import org.springframework.context.annotation.Bean;
 @EnableConfigurationProperties(FreecodeProperties.class)
 public class FreecodeAutoConfiguration {
 
-    /**
-     * init freecode repository
-     *
-     * @return FreecodeRepository
-     * @since 0.0.1
-     */
-    @Bean
-    @ConditionalOnClass(FreecodeAutoConfiguration.class)
-    public FreecodeRepository initFreecodeRepository() {
+	/**
+	 * init freecode repository
+	 *
+	 * @return FreecodeRepository
+	 * @since 0.0.1
+	 */
+	@Bean
+	@ConditionalOnClass(FreecodeAutoConfiguration.class)
+	public FreecodeRepository initFreecodeRepository() {
 
-        return new FreecodeRepository();
-    }
+		return new FreecodeRepository();
+	}
 
-    /**
-     * init freecode service
-     *
-     * @param freecodeProperties freecodeProperties
-     * @param freecodeRepository freecodeRepository
-     * @return FreecodeService
-     * @since 0.0.1
-     */
-    @Bean
-    @ConditionalOnClass(FreecodeRepository.class)
-    public FreecodeService initFreecodeService(FreecodeRepository freecodeRepository,
-                                               FreecodeProperties freecodeProperties) {
+	/**
+	 * init freecode service
+	 *
+	 * @param freecodeProperties freecodeProperties
+	 * @param freecodeRepository freecodeRepository
+	 * @return FreecodeService
+	 * @since 0.0.1
+	 */
+	@Bean
+	@ConditionalOnClass(FreecodeRepository.class)
+	public FreecodeService initFreecodeService(
+			FreecodeRepository freecodeRepository, FreecodeProperties freecodeProperties) {
 
-        return new FreecodeService(freecodeRepository, freecodeProperties);
-    }
+		return new FreecodeService(freecodeRepository, freecodeProperties);
+	}
 
-    /**
-     * init freecode controller
-     *
-     * @param freecodeService freecodeService
-     * @return FreecodeController
-     * @since 0.0.1
-     */
-    @Bean
-    @ConditionalOnBean(FreecodeService.class)
-    public FreecodeController initFreecodeController(FreecodeService freecodeService) {
+	/**
+	 * init freecode controller
+	 *
+	 * @param freecodeService freecodeService
+	 * @return FreecodeController
+	 * @since 0.0.1
+	 */
+	@Bean
+	@ConditionalOnBean(FreecodeService.class)
+	public FreecodeController initFreecodeController(FreecodeService freecodeService) {
 
-        return new FreecodeController(freecodeService);
-    }
-
+		return new FreecodeController(freecodeService);
+	}
 }

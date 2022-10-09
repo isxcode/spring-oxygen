@@ -8,24 +8,15 @@ package com.isxcode.oxygen.core.secret;
  */
 public interface SecretConstants {
 
-    /**
-     * RSA
-     */
-    String RSA = "RSA";
+	/** RSA */
+	String RSA = "RSA";
 
-    /**
-     * AES
-     */
-    String AES = "AES";
+	/** AES */
+	String AES = "AES";
 
-    /**
-     * aes default key
-     */
-    String AES_KEY = "OXYGEN";
+	/** aes default key */
+	String AES_KEY = "OXYGEN";
 
-    /**
-     * jwt default claim key
-     */
-    String CLAIM_KEY = "CLAIM";
-
+	/** jwt default claim key */
+	String CLAIM_KEY = "CLAIM";
 }

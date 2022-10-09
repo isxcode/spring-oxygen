@@ -1,5 +1,3 @@
 package com.isxcode.oxygen.flysql.parse;
 
-public class MysqlSqlValue implements SqlValue {
-
-}
+public class MysqlSqlValue implements SqlValue {}

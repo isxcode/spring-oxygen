@@ -8,18 +8,17 @@ import java.lang.annotation.*;
 @Documented
 public @interface SuccessResponse {
 
-    /**
-     * default msg
-     *
-     * @return default msg
-     */
-    String value() default "";
+	/**
+	 * default msg
+	 *
+	 * @return default msg
+	 */
+	String value() default "";
 
-    /**
-     * msg
-     *
-     * @return msg
-     */
-    String msg() default "";
-
+	/**
+	 * msg
+	 *
+	 * @return msg
+	 */
+	String msg() default "";
 }

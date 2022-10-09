@@ -1,13 +1,12 @@
 package com.isxcode.oxygen.flysql.entity;
 
+import java.util.List;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
-public class FlysqlPage<T>{
+public class FlysqlPage<T> {
 
-    private List<T> page;
+	private List<T> page;
 
-    private Integer total;
+	private Integer total;
 }

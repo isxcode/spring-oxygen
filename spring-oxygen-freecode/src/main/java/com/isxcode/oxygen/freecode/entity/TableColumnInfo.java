@@ -17,73 +17,57 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TableColumnInfo {
 
-    /**
-     * field
-     */
-    private String field;
+	/** field */
+	private String field;
 
-    /**
-     * type
-     */
-    private String type;
+	/** type */
+	private String type;
 
-    /**
-     * collation
-     */
-    private String collation;
+	/** collation */
+	private String collation;
 
-    /**
-     * key
-     */
-    private String key;
+	/** key */
+	private String key;
 
-    /**
-     * extra
-     */
-    private String extra;
+	/** extra */
+	private String extra;
 
-    /**
-     * privileges
-     */
-    private String privileges;
+	/** privileges */
+	private String privileges;
 
-    /**
-     * comment
-     */
-    private String comment;
+	/** comment */
+	private String comment;
 
-    /**
-     * origin field
-     */
-    private String originField;
+	/** origin field */
+	private String originField;
 
-    /**
-     * get origin field
-     * @return OriginField
-     */
-    public String getOriginField() {
+	/**
+	 * get origin field
+	 *
+	 * @return OriginField
+	 */
+	public String getOriginField() {
 
-        return this.field.toLowerCase();
-    }
+		return this.field.toLowerCase();
+	}
 
-    /**
-     * get data type
-     *
-     * @return data type
-     */
-    public String getType() {
+	/**
+	 * get data type
+	 *
+	 * @return data type
+	 */
+	public String getType() {
 
-        return FreecodeUtils.parseDataType(this.type);
-    }
+		return FreecodeUtils.parseDataType(this.type);
+	}
 
-    /**
-     * get data field
-     *
-     * @return data field
-     */
-    public String getField() {
+	/**
+	 * get data field
+	 *
+	 * @return data field
+	 */
+	public String getField() {
 
-        return ReflectUtils.lineToHump(this.field);
-    }
-
+		return ReflectUtils.lineToHump(this.field);
+	}
 }

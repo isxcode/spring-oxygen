@@ -15,24 +15,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/freecode")
 public class FreecodeController {
 
-    private final FreecodeService freecodeService;
+	private final FreecodeService freecodeService;
 
-    public FreecodeController(FreecodeService freecodeService) {
+	public FreecodeController(FreecodeService freecodeService) {
 
-        this.freecodeService = freecodeService;
-    }
+		this.freecodeService = freecodeService;
+	}
 
-    /**
-     * generate code api
-     *
-     * @param tableNames tableNames(split ,)
-     * @since 0.0.1
-     */
-    @SuccessResponse("generate success!!!")
-    @GetMapping("/generate")
-    public void generateCode(@RequestParam String tableNames) {
+	/**
+	 * generate code api
+	 *
+	 * @param tableNames tableNames(split ,)
+	 * @since 0.0.1
+	 */
+	@SuccessResponse("generate success!!!")
+	@GetMapping("/generate")
+	public void generateCode(@RequestParam String tableNames) {
 
-        freecodeService.startFreecode(tableNames);
-    }
-
+		freecodeService.startFreecode(tableNames);
+	}
 }

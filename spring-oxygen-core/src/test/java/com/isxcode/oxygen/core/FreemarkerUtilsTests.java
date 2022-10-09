@@ -14,58 +14,62 @@ import org.springframework.test.context.ContextConfiguration;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@ContextConfiguration(classes = {OxygenCoreAutoConfiguration.class, FreeMarkerAutoConfiguration.class, MailSenderAutoConfiguration.class})
+@ContextConfiguration(
+		classes = {
+			OxygenCoreAutoConfiguration.class,
+			FreeMarkerAutoConfiguration.class,
+			MailSenderAutoConfiguration.class
+		})
 public class FreemarkerUtilsTests {
 
-    @Value("${test.templateName}")
-    private String templateName;
+	@Value("${test.templateName}")
+	private String templateName;
 
-    private final Dog dog = new Dog("wang", 15);
+	private final Dog dog = new Dog("wang", 15);
 
-    private final String templateContent = "this dog name is ${name} and age is ${age}";
+	private final String templateContent = "this dog name is ${name} and age is ${age}";
 
-    @Test
-    public void testContentToFile() {
+	@Test
+	public void testContentToFile() {
 
-        try {
-            FreemarkerUtils.contentToFile(templateContent, dog, "freemarker1.log");
-        } catch (OxygenException e) {
-            System.out.println(e.getMessage());
-            throw e;
-        }
-    }
+		try {
+			FreemarkerUtils.contentToFile(templateContent, dog, "freemarker1.log");
+		} catch (OxygenException e) {
+			System.out.println(e.getMessage());
+			throw e;
+		}
+	}
 
-    @Test
-    public void testContentToString() {
+	@Test
+	public void testContentToString() {
 
-        try {
-            System.out.println(FreemarkerUtils.contentToString(templateContent, dog));
-        } catch (OxygenException e) {
-            System.out.println(e.getMessage());
-            throw e;
-        }
-    }
+		try {
+			System.out.println(FreemarkerUtils.contentToString(templateContent, dog));
+		} catch (OxygenException e) {
+			System.out.println(e.getMessage());
+			throw e;
+		}
+	}
 
-    @Test
-    public void testTemplateToFile() {
+	@Test
+	public void testTemplateToFile() {
 
-        try {
-            FreemarkerUtils.templateToFile(templateName, dog, "freemarker2.log");
-        } catch (OxygenException e) {
-            System.out.println(e.getMessage());
-            throw e;
-        }
-    }
+		try {
+			FreemarkerUtils.templateToFile(templateName, dog, "freemarker2.log");
+		} catch (OxygenException e) {
+			System.out.println(e.getMessage());
+			throw e;
+		}
+	}
 
-    @Test
-    public void testTemplateToString() {
+	@Test
+	public void testTemplateToString() {
 
-        try {
-            System.out.println(FreemarkerUtils.templateToString(templateName, dog));
-        } catch (OxygenException e) {
-            System.out.println(e.getMessage());
-            throw e;
-        }
-    }
+		try {
+			System.out.println(FreemarkerUtils.templateToString(templateName, dog));
+		} catch (OxygenException e) {
+			System.out.println(e.getMessage());
+			throw e;
+		}
+	}
 }
-

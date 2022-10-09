@@ -4,9 +4,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.isxcode.oxygen.flysql.annotation.*;
 import com.isxcode.oxygen.flysql.constant.FlysqlConstants;
-import lombok.Data;
-
 import java.time.LocalDateTime;
+import lombok.Data;
 
 /**
  * base entity
@@ -17,29 +16,26 @@ import java.time.LocalDateTime;
 @Data
 public class BaseEntity {
 
-//    @RowId
-//    private String id;
+	//    @RowId
+	//    private String id;
 
-    @CreatedDate
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    private LocalDateTime createdDate;
+	@CreatedDate
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	private LocalDateTime createdDate;
 
-    @CreatedBy
-    private String createdBy;
+	@CreatedBy private String createdBy;
 
-    @LastModifiedDate
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    private LocalDateTime lastModifiedDate;
+	@LastModifiedDate
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	private LocalDateTime lastModifiedDate;
 
-    @LastModifiedBy
-    private String lastModifiedBy;
+	@LastModifiedBy private String lastModifiedBy;
 
-    @Version
-    private Integer version;
+	@Version private Integer version;
 
-    @IsDelete
-    @ColumnName(FlysqlConstants.IS_DELETE_COL)
-    private Integer isDelete;
+	@IsDelete
+	@ColumnName(FlysqlConstants.IS_DELETE_COL)
+	private Integer isDelete;
 }

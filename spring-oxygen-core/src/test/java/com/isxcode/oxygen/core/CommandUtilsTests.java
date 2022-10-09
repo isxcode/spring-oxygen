@@ -5,14 +5,13 @@ import org.junit.jupiter.api.Test;
 
 public class CommandUtilsTests {
 
-    @Test
-    public void testCommand() {
+	@Test
+	public void testCommand() {
 
-        System.out.println(CommandUtils.executeBack("dir"));
+		System.out.println(CommandUtils.executeBack("dir"));
 
-        System.out.println(CommandUtils.execute("dir", "command.log"));
+		System.out.println(CommandUtils.execute("dir", "command.log"));
 
-        System.out.println(CommandUtils.execute("dir"));
-    }
+		System.out.println(CommandUtils.execute("dir"));
+	}
 }
-

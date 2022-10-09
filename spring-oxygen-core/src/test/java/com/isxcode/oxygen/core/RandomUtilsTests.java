@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 
 public class RandomUtilsTests {
 
-    @Test
-    public void testRandom() {
+	@Test
+	public void testRandom() {
 
-        System.out.println("data-->" + RandomUtils.generateNumber(7));
-    }
+		System.out.println("data-->" + RandomUtils.generateNumber(7));
+	}
 }

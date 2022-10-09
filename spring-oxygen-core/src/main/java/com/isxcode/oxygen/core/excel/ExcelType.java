@@ -14,33 +14,21 @@ import java.lang.annotation.*;
 @Documented
 public @interface ExcelType {
 
-    /**
-     * @return cell name
-     */
-    String cellName();
+	/** @return cell name */
+	String cellName();
 
-    /**
-     * @return cell width
-     */
-    int cellWidth() default 10000;
+	/** @return cell width */
+	int cellWidth() default 10000;
 
-    /**
-     * @return cell index
-     */
-    int cellIndex() default -1;
+	/** @return cell index */
+	int cellIndex() default -1;
 
-    /**
-     * @return cell color
-     */
-    int[] cellColor() default {245, 247, 250};
+	/** @return cell color */
+	int[] cellColor() default {245, 247, 250};
 
-    /**
-     * @return data format
-     */
-    String cellDateFormat() default "yyyy/mm/dd";
+	/** @return data format */
+	String cellDateFormat() default "yyyy/mm/dd";
 
-    /**
-     * @return number format
-     */
-    String cellDoubleFormat() default "0.00";
+	/** @return number format */
+	String cellDoubleFormat() default "0.00";
 }

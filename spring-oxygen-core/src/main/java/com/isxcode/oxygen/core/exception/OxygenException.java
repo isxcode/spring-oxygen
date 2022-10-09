@@ -8,8 +8,8 @@ package com.isxcode.oxygen.core.exception;
  */
 public class OxygenException extends RuntimeException {
 
-    public OxygenException(String message) {
+	public OxygenException(String message) {
 
-        super("[oxygen-core]==> " + message);
-    }
+		super("[oxygen-core]==> " + message);
+	}
 }

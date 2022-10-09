@@ -10,266 +10,266 @@ import com.isxcode.oxygen.flysql.enums.OrderType;
  */
 public interface FlysqlCondition<T> {
 
-    /**
-     * select('A','B')
-     *
-     * @param columnNames columnNames
-     * @return self
-     * @since 0.0.1
-     */
-    T select(String... columnNames);
+	/**
+	 * select('A','B')
+	 *
+	 * @param columnNames columnNames
+	 * @return self
+	 * @since 0.0.1
+	 */
+	T select(String... columnNames);
 
-    /**
-     * setVar()
-     *
-     * @param columnName columnName
-     * @param value      value
-     * @return self
-     * @since 0.0.1
-     */
-    T setValue(String columnName, String value);
+	/**
+	 * setVar()
+	 *
+	 * @param columnName columnName
+	 * @param value value
+	 * @return self
+	 * @since 0.0.1
+	 */
+	T setValue(String columnName, String value);
 
-    /**
-     * or()
-     *
-     * @return self
-     * @since 0.0.1
-     */
-    T or();
+	/**
+	 * or()
+	 *
+	 * @return self
+	 * @since 0.0.1
+	 */
+	T or();
 
-    /**
-     * and()
-     *
-     * @return self
-     * @since 0.0.1
-     */
-    T and();
+	/**
+	 * and()
+	 *
+	 * @return self
+	 * @since 0.0.1
+	 */
+	T and();
 
-    /**
-     * eq()
-     *
-     * @param columnName columnName
-     * @param value      value
-     * @return self
-     * @since 0.0.1
-     */
-    T eq(String columnName, Object value);
+	/**
+	 * eq()
+	 *
+	 * @param columnName columnName
+	 * @param value value
+	 * @return self
+	 * @since 0.0.1
+	 */
+	T eq(String columnName, Object value);
 
-    /**
-     * ne()
-     *
-     * @param columnName columnName
-     * @param value      value
-     * @return self
-     * @since 0.0.1
-     */
-    T ne(String columnName, Object value);
+	/**
+	 * ne()
+	 *
+	 * @param columnName columnName
+	 * @param value value
+	 * @return self
+	 * @since 0.0.1
+	 */
+	T ne(String columnName, Object value);
 
-    /**
-     * gt()
-     *
-     * @param columnName columnName
-     * @param value      value
-     * @return self
-     * @since 0.0.1
-     */
-    T gt(String columnName, Object value);
+	/**
+	 * gt()
+	 *
+	 * @param columnName columnName
+	 * @param value value
+	 * @return self
+	 * @since 0.0.1
+	 */
+	T gt(String columnName, Object value);
 
-    /**
-     * gtEq()
-     *
-     * @param columnName columnName
-     * @param value      value
-     * @return self
-     * @since 0.0.1
-     */
-    T gtEq(String columnName, Object value);
+	/**
+	 * gtEq()
+	 *
+	 * @param columnName columnName
+	 * @param value value
+	 * @return self
+	 * @since 0.0.1
+	 */
+	T gtEq(String columnName, Object value);
 
-    /**
-     * lt()
-     *
-     * @param columnName columnName
-     * @param value      value
-     * @return self
-     * @since 0.0.1
-     */
-    T lt(String columnName, Object value);
+	/**
+	 * lt()
+	 *
+	 * @param columnName columnName
+	 * @param value value
+	 * @return self
+	 * @since 0.0.1
+	 */
+	T lt(String columnName, Object value);
 
-    /**
-     * ltEq()
-     *
-     * @param columnName columnName
-     * @param value      value
-     * @return self
-     * @since 0.0.1
-     */
-    T ltEq(String columnName, Object value);
+	/**
+	 * ltEq()
+	 *
+	 * @param columnName columnName
+	 * @param value value
+	 * @return self
+	 * @since 0.0.1
+	 */
+	T ltEq(String columnName, Object value);
 
-    /**
-     * in()
-     *
-     * @param columnName columnName
-     * @param values     values
-     * @return self
-     * @since 0.0.1
-     */
-    T in(String columnName, Object... values);
+	/**
+	 * in()
+	 *
+	 * @param columnName columnName
+	 * @param values values
+	 * @return self
+	 * @since 0.0.1
+	 */
+	T in(String columnName, Object... values);
 
-    /**
-     * notIn()
-     *
-     * @param columnName columnName
-     * @param values     values
-     * @return self
-     * @since 0.0.1
-     */
-    T notIn(String columnName, Object... values);
+	/**
+	 * notIn()
+	 *
+	 * @param columnName columnName
+	 * @param values values
+	 * @return self
+	 * @since 0.0.1
+	 */
+	T notIn(String columnName, Object... values);
 
-    /**
-     * between()
-     *
-     * @param columnName columnName
-     * @param value1     value1
-     * @param value2     value2
-     * @return self
-     * @since 0.0.1
-     */
-    T between(String columnName, Object value1, Object value2);
+	/**
+	 * between()
+	 *
+	 * @param columnName columnName
+	 * @param value1 value1
+	 * @param value2 value2
+	 * @return self
+	 * @since 0.0.1
+	 */
+	T between(String columnName, Object value1, Object value2);
 
-    /**
-     * between()
-     *
-     * @param columnName columnName
-     * @param value1     value1
-     * @param value2     value2
-     * @return self
-     * @since 0.0.1
-     */
-    T notBetween(String columnName, Object value1, Object value2);
+	/**
+	 * between()
+	 *
+	 * @param columnName columnName
+	 * @param value1 value1
+	 * @param value2 value2
+	 * @return self
+	 * @since 0.0.1
+	 */
+	T notBetween(String columnName, Object value1, Object value2);
 
-    /**
-     * orderBy()
-     *
-     * @param columnName columnName
-     * @param orderType  orderType(desc,asc)
-     * @return self
-     * @since 0.0.1
-     */
-    T orderBy(String columnName, OrderType orderType);
+	/**
+	 * orderBy()
+	 *
+	 * @param columnName columnName
+	 * @param orderType orderType(desc,asc)
+	 * @return self
+	 * @since 0.0.1
+	 */
+	T orderBy(String columnName, OrderType orderType);
 
-    /**
-     * like()
-     *
-     * @param columnName columnName
-     * @param value      value
-     * @return self
-     * @since 0.0.1
-     */
-    T like(String columnName, String value);
+	/**
+	 * like()
+	 *
+	 * @param columnName columnName
+	 * @param value value
+	 * @return self
+	 * @since 0.0.1
+	 */
+	T like(String columnName, String value);
 
-    /**
-     * notLike()
-     *
-     * @param columnName columnName
-     * @param value      value
-     * @return self
-     * @since 0.0.1
-     */
-    T notLike(String columnName, String value);
+	/**
+	 * notLike()
+	 *
+	 * @param columnName columnName
+	 * @param value value
+	 * @return self
+	 * @since 0.0.1
+	 */
+	T notLike(String columnName, String value);
 
-    /**
-     * limit()
-     *
-     * @param value limit number
-     * @return self
-     * @since 0.0.1
-     */
-    T limit(Integer value);
+	/**
+	 * limit()
+	 *
+	 * @param value limit number
+	 * @return self
+	 * @since 0.0.1
+	 */
+	T limit(Integer value);
 
-    /**
-     * update()
-     *
-     * @param columnName columnName
-     * @param value      value
-     * @return self
-     * @since 0.0.1
-     */
-    T update(String columnName, Object value);
+	/**
+	 * update()
+	 *
+	 * @param columnName columnName
+	 * @param value value
+	 * @return self
+	 * @since 0.0.1
+	 */
+	T update(String columnName, Object value);
 
-    /**
-     * isNull()
-     *
-     * @param columnName columnName
-     * @return self
-     * @since 0.0.1
-     */
-    T isNull(String columnName);
+	/**
+	 * isNull()
+	 *
+	 * @param columnName columnName
+	 * @return self
+	 * @since 0.0.1
+	 */
+	T isNull(String columnName);
 
-    /**
-     * isNull()
-     *
-     * @param columnName columnName
-     * @return self
-     * @since 0.0.1
-     */
-    T isNotNull(String columnName);
+	/**
+	 * isNull()
+	 *
+	 * @param columnName columnName
+	 * @return self
+	 * @since 0.0.1
+	 */
+	T isNotNull(String columnName);
 
-    /**
-     * sql()
-     *
-     * @param sqlStr sql语句
-     * @return se
-     * @since 0.0.1
-     */
-    T sql(String sqlStr);
+	/**
+	 * sql()
+	 *
+	 * @param sqlStr sql语句
+	 * @return se
+	 * @since 0.0.1
+	 */
+	T sql(String sqlStr);
 
-    /**
-     * isToday()
-     *
-     * @param columnName columnName
-     * @return se
-     * @since 0.0.1
-     */
-    T isToday(String columnName);
+	/**
+	 * isToday()
+	 *
+	 * @param columnName columnName
+	 * @return se
+	 * @since 0.0.1
+	 */
+	T isToday(String columnName);
 
-    /**
-     * isNotToday()
-     *
-     * @param columnName columnName
-     * @return se
-     * @since 0.0.1
-     */
-    T isNotToday(String columnName);
+	/**
+	 * isNotToday()
+	 *
+	 * @param columnName columnName
+	 * @return se
+	 * @since 0.0.1
+	 */
+	T isNotToday(String columnName);
 
-    /**
-     * isNotDelete()
-     *
-     * @return se
-     * @since 0.0.1
-     */
-    T isNotDeleted();
+	/**
+	 * isNotDelete()
+	 *
+	 * @return se
+	 * @since 0.0.1
+	 */
+	T isNotDeleted();
 
-    /**
-     * isDeleted()
-     *
-     * @return se
-     * @since 0.0.1
-     */
-    T isDeleted();
+	/**
+	 * isDeleted()
+	 *
+	 * @return se
+	 * @since 0.0.1
+	 */
+	T isDeleted();
 
-    /**
-     * andStart()
-     *
-     * @return se
-     * @since 0.0.1
-     */
-    T andStart();
+	/**
+	 * andStart()
+	 *
+	 * @return se
+	 * @since 0.0.1
+	 */
+	T andStart();
 
-    /**
-     * andEnd()
-     *
-     * @return se
-     * @since 0.0.1
-     */
-    T andEnd();
+	/**
+	 * andEnd()
+	 *
+	 * @return se
+	 * @since 0.0.1
+	 */
+	T andEnd();
 }

@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 public class DateUtils {
 
-    public static LocalDate parseLocalDateStr(String dateStr) {
+	public static LocalDate parseLocalDateStr(String dateStr) {
 
-        return LocalDate.parse(dateStr);
-    }
+		return LocalDate.parse(dateStr);
+	}
 }

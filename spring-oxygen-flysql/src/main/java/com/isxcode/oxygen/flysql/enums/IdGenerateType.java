@@ -8,18 +8,12 @@ package com.isxcode.oxygen.flysql.enums;
  */
 public enum IdGenerateType {
 
-    /**
-     * snowflake
-     */
-    SNOW_FLACK,
+	/** snowflake */
+	SNOW_FLACK,
 
-    /**
-     * UUID
-     */
-    UUID,
+	/** UUID */
+	UUID,
 
-    /**
-     * increment
-     */
-    INCREMENT,
+	/** increment */
+	INCREMENT,
 }

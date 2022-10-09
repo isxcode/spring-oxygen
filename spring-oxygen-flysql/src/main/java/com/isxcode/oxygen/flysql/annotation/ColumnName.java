@@ -13,9 +13,10 @@ import java.lang.annotation.*;
 @Documented
 public @interface ColumnName {
 
-    /**
-     * db column name
-     * @return column name
-     */
-    String value();
+	/**
+	 * db column name
+	 *
+	 * @return column name
+	 */
+	String value();
 }

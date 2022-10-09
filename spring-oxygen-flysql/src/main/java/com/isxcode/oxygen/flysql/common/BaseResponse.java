@@ -15,18 +15,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BaseResponse<T> {
 
-    /**
-     * code
-     */
-    private String code;
+	/** code */
+	private String code;
 
-    /**
-     * msg
-     */
-    private String msg;
+	/** msg */
+	private String msg;
 
-    /**
-     * data
-     */
-    private T data;
+	/** data */
+	private T data;
 }
