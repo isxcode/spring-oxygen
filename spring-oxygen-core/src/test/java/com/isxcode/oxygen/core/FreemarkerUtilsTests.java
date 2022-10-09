@@ -2,6 +2,7 @@ package com.isxcode.oxygen.core;
 
 import com.isxcode.oxygen.core.config.OxygenCoreAutoConfiguration;
 import com.isxcode.oxygen.core.exception.OxygenException;
+import com.isxcode.oxygen.core.file.FileUtils;
 import com.isxcode.oxygen.core.freemarker.FreemarkerUtils;
 import com.isxcode.oxygen.core.pojo.Dog;
 import org.junit.jupiter.api.Test;

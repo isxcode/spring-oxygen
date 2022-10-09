@@ -16,7 +16,7 @@ public class FileUtilsTests {
 	@Test
 	public void testGenerateFile() {
 
-		FileUtils.generateFile("test" + File.separator + "file" + File.separator + "file.test");
+		FileUtils.generateFile("test" + File.separator + "file" + File.separator + "file1.test");
 	}
 
 	@Test
@@ -24,7 +24,7 @@ public class FileUtilsTests {
 
 		FileUtils.StringToFile(
 				"hello",
-				"test" + File.separator + "file" + File.separator + "file.test",
+				"test" + File.separator + "file" + File.separator + "file2.test",
 				StandardOpenOption.WRITE);
 	}
 
@@ -33,7 +33,7 @@ public class FileUtilsTests {
 
 		FileUtils.copyResourceFile(
 				"application-test.yml",
-				"test" + File.separator + "file" + File.separator + "file.test",
+				"test" + File.separator + "file" + File.separator + "file3.test",
 				StandardOpenOption.WRITE);
 	}
 

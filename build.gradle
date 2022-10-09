@@ -1,6 +1,6 @@
 plugins {
-    id 'org.springframework.boot' version '2.7.3'
-    id 'io.spring.dependency-management' version '1.0.13.RELEASE'
+    id 'org.springframework.boot' version '2.7.4'
+    id 'io.spring.dependency-management' version '1.0.14.RELEASE'
     id 'java'
     id 'maven'
     id 'maven-publish'
@@ -59,7 +59,7 @@ subprojects {
         implementation 'org.apache.logging.log4j:log4j-to-slf4j:' + log4jVersion
 
         implementation 'org.junit.jupiter:junit-jupiter'
-        testCompile 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+        testCompile 'org.junit.jupiter:junit-jupiter-api:5.9.1'
 
         implementation 'com.google.code.findbugs:annotations:3.0.1u2'
     }
