@@ -1,12 +1,11 @@
 package com.isxcode.oxygen.core.reflect;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 
 /**
  * class properties
@@ -20,23 +19,15 @@ import java.lang.reflect.Method;
 @AllArgsConstructor
 public class FieldBody {
 
-    /**
-     * read method
-     */
-    private Method readMethod;
+	/** read method */
+	private Method readMethod;
 
-    /**
-     * write method
-     */
-    private Method writeMethod;
+	/** write method */
+	private Method writeMethod;
 
-    /**
-     * field
-     */
-    private Field field;
+	/** field */
+	private Field field;
 
-    /**
-     * className
-     */
-    private String className;
+	/** className */
+	private String className;
 }

@@ -12,5 +12,4 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
-public @interface IsDelete {
-}
+public @interface IsDelete {}

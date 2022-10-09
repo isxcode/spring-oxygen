@@ -1,9 +1,8 @@
 package com.isxcode.oxygen.freecode.annotation;
 
 import com.isxcode.oxygen.freecode.config.FreecodeAutoConfiguration;
-import org.springframework.context.annotation.Import;
-
 import java.lang.annotation.*;
+import org.springframework.context.annotation.Import;
 
 /**
  * freecode starter
@@ -15,6 +14,4 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Import(FreecodeAutoConfiguration.class)
 @Documented
-public @interface EnableFreecode {
-
-}
+public @interface EnableFreecode {}

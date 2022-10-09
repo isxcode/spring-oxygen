@@ -14,5 +14,5 @@ import java.lang.annotation.*;
 @Documented
 public @interface FlysqlViews {
 
-    FlysqlView[] value();
+	FlysqlView[] value();
 }

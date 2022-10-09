@@ -12,8 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class OxygenCliApplication {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
-        SpringApplication.run(OxygenCliApplication.class, args);
-    }
+		SpringApplication.run(OxygenCliApplication.class, args);
+	}
 }

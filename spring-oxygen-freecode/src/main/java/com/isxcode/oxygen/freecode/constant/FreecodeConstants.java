@@ -11,19 +11,19 @@ import java.util.List;
  */
 public interface FreecodeConstants {
 
-    /**
-     * java file suffix
-     */
-    String JAVA_FILE_SUFFIX = ".java";
+	/** java file suffix */
+	String JAVA_FILE_SUFFIX = ".java";
 
-    /**
-     * table name split str
-     */
-    String splitStr = ",";
+	/** table name split str */
+	String splitStr = ",";
 
-    /**
-     * sys columns
-     */
-    List<String> sysColumns = Arrays.asList("created_date", "created_by", "last_modified_date", "last_modified_by", "version", "is_delete");
-
+	/** sys columns */
+	List<String> sysColumns =
+			Arrays.asList(
+					"created_date",
+					"created_by",
+					"last_modified_date",
+					"last_modified_by",
+					"version",
+					"is_delete");
 }

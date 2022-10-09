@@ -15,16 +15,9 @@
  */
 
 /**
- * reflect   : provide java reflect utils
- * xml       : parse xml file
- * secret    : provide ase rsa jwt encrypt utils
- * snowflake : snowflake id
- * random    : generate phone verifty number
- * http      : provide http utils
- * freemarker: provide tool to generate file or string
- * excel     : excel utils to parse and generate
- * email     : add send email utils
+ * reflect : provide java reflect utils xml : parse xml file secret : provide ase rsa jwt encrypt
+ * utils snowflake : snowflake id random : generate phone verifty number http : provide http utils
+ * freemarker: provide tool to generate file or string excel : excel utils to parse and generate
+ * email : add send email utils
  */
 package com.isxcode.oxygen.core;
-
-

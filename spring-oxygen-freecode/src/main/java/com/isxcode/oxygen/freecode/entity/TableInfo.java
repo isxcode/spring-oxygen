@@ -11,9 +11,6 @@ import lombok.Data;
 @Data
 public class TableInfo {
 
-    /**
-     * table comment
-     */
-    private String tableComment;
+	/** table comment */
+	private String tableComment;
 }
-

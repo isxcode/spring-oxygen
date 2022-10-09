@@ -8,61 +8,45 @@ package com.isxcode.oxygen.flysql.constant;
  */
 public interface FlysqlConstants {
 
-    /**
-     * 默认数据库名称
-     */
-    String PRIMARY_DATASOURCE_NAME = "oxygen_primary_database_name";
+	/** 默认数据库名称 */
+	String PRIMARY_DATASOURCE_NAME = "oxygen_primary_database_name";
 
-    /**
-     * default view name
-     */
-    String PRIMARY_VIEW_NAME = "primary";
+	/** default view name */
+	String PRIMARY_VIEW_NAME = "primary";
 
-    /**
-     * replace key
-     */
-    String SELECT_REPLACE_CONTENT = "##flysql_columns_info##";
+	/** replace key */
+	String SELECT_REPLACE_CONTENT = "##flysql_columns_info##";
 
-    /**
-     * H2
-     */
-    String H2_DB = "H2";
+	/** H2 */
+	String H2_DB = "H2";
 
-    /**
-     * MYSQL
-     */
-    String MYSQL_DB = "MySQL";
+	/** MYSQL */
+	String MYSQL_DB = "MySQL";
 
-    /**
-     * ORACLE
-     */
-    String ORACLE_DB = "Oracle";
+	/** ORACLE */
+	String ORACLE_DB = "Oracle";
 
-    /**
-     * Microsoft SQL Server
-     */
-    String SQL_SERVER_DB = "Microsoft SQL Server";
+	/** Microsoft SQL Server */
+	String SQL_SERVER_DB = "Microsoft SQL Server";
 
-    /*
-     * is delete flag
-     *
-     * @ispong
-     */
-    String IS_DELETE_COL = "IS_DELETE";
+	/*
+	 * is delete flag
+	 *
+	 * @ispong
+	 */
+	String IS_DELETE_COL = "IS_DELETE";
 
-    /*
-     * LAST_MODIFIED_DATE flag
-     *
-     * @ispong
-     */
-    String LAST_MODIFIED_DATE = "LAST_MODIFIED_DATE";
+	/*
+	 * LAST_MODIFIED_DATE flag
+	 *
+	 * @ispong
+	 */
+	String LAST_MODIFIED_DATE = "LAST_MODIFIED_DATE";
 
-    /*
-     * LAST_MODIFIED_BY flag
-     *
-     * @ispong
-     */
-    String LAST_MODIFIED_BY = "LAST_MODIFIED_BY";
-
+	/*
+	 * LAST_MODIFIED_BY flag
+	 *
+	 * @ispong
+	 */
+	String LAST_MODIFIED_BY = "LAST_MODIFIED_BY";
 }
-

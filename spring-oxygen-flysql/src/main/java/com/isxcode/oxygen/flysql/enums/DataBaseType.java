@@ -8,33 +8,21 @@ package com.isxcode.oxygen.flysql.enums;
  */
 public enum DataBaseType {
 
-    /**
-     * H2
-     */
-    H2,
+	/** H2 */
+	H2,
 
-    /**
-     * Mysql
-     */
-    MYSQL,
+	/** Mysql */
+	MYSQL,
 
-    /**
-     * Oracle
-     */
-    ORACLE,
+	/** Oracle */
+	ORACLE,
 
-    /**
-     * mongoDB
-     */
-    MONGO,
+	/** mongoDB */
+	MONGO,
 
-    /**
-     * SqlServer
-     */
-    SQL_SERVER,
+	/** SqlServer */
+	SQL_SERVER,
 
-    /**
-     * nothing
-     */
-    DEFAULT,
+	/** nothing */
+	DEFAULT,
 }

@@ -1,7 +1,6 @@
 package com.isxcode.oxygen.flysql.annotation;
 
 import com.isxcode.oxygen.flysql.enums.IdGenerateType;
-
 import java.lang.annotation.*;
 
 /**
@@ -16,5 +15,5 @@ import java.lang.annotation.*;
 @Documented
 public @interface RowId {
 
-    IdGenerateType generateType() default IdGenerateType.SNOW_FLACK;
+	IdGenerateType generateType() default IdGenerateType.SNOW_FLACK;
 }

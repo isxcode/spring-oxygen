@@ -8,9 +8,8 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration(classes = OxygenStarterAutoConfiguration.class)
 public class OxygenSpringBootStarterTests {
 
-    @Test
-    public void testStarter() {
-        System.out.println("hello oxygen");
-    }
-
+	@Test
+	public void testStarter() {
+		System.out.println("hello oxygen");
+	}
 }

@@ -10,33 +10,27 @@ import lombok.Getter;
  */
 public abstract class AbstractException extends RuntimeException {
 
-    /**
-     * code
-     */
-    @Getter
-    private final String code;
+	/** code */
+	@Getter private final String code;
 
-    /**
-     * msg
-     */
-    @Getter
-    private final String msg;
+	/** msg */
+	@Getter private final String msg;
 
-    public AbstractException(AbstractExceptionEnum abstractExceptionEnum) {
+	public AbstractException(AbstractExceptionEnum abstractExceptionEnum) {
 
-        this.code = abstractExceptionEnum.getCode();
-        this.msg = abstractExceptionEnum.getMsg();
-    }
+		this.code = abstractExceptionEnum.getCode();
+		this.msg = abstractExceptionEnum.getMsg();
+	}
 
-    public AbstractException(String code, String msg) {
+	public AbstractException(String code, String msg) {
 
-        this.code = code;
-        this.msg = msg;
-    }
+		this.code = code;
+		this.msg = msg;
+	}
 
-    public AbstractException(String msg) {
+	public AbstractException(String msg) {
 
-        this.code = null;
-        this.msg = msg;
-    }
+		this.code = null;
+		this.msg = msg;
+	}
 }

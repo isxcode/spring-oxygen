@@ -29,18 +29,12 @@ import lombok.Data;
 @AllArgsConstructor
 public class SqlCondition {
 
-    /**
-     * 条件类型
-     */
-    private SqlOperateType operateType;
+	/** 条件类型 */
+	private SqlOperateType operateType;
 
-    /**
-     * 字段名
-     */
-    private String columnName;
+	/** 字段名 */
+	private String columnName;
 
-    /**
-     * 字段内容
-     */
-    private Object value;
+	/** 字段内容 */
+	private Object value;
 }

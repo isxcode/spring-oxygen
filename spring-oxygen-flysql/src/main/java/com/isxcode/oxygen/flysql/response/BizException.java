@@ -8,18 +8,18 @@ package com.isxcode.oxygen.flysql.response;
  */
 public class BizException extends AbstractException {
 
-    public BizException(AbstractExceptionEnum abstractExceptionEnum) {
+	public BizException(AbstractExceptionEnum abstractExceptionEnum) {
 
-        super(abstractExceptionEnum);
-    }
+		super(abstractExceptionEnum);
+	}
 
-    public BizException(String code, String msg) {
+	public BizException(String code, String msg) {
 
-        super(code, msg);
-    }
+		super(code, msg);
+	}
 
-    public BizException(String msg) {
+	public BizException(String msg) {
 
-        super(msg);
-    }
+		super(msg);
+	}
 }

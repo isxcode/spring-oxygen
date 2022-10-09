@@ -12,5 +12,4 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
-public @interface Version {
-}
+public @interface Version {}

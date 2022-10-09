@@ -13,9 +13,10 @@ import java.lang.annotation.*;
 @Documented
 public @interface TableName {
 
-    /**
-     * table name
-     * @return table name
-     */
-    String value();
+	/**
+	 * table name
+	 *
+	 * @return table name
+	 */
+	String value();
 }

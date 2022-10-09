@@ -10,18 +10,12 @@ import com.isxcode.oxygen.cli.pojo.ProjectInfo;
  */
 public class LocalStorage {
 
-    /**
-     * project basic info
-     */
-    public static ProjectInfo projectInfo = new ProjectInfo();
+	/** project basic info */
+	public static ProjectInfo projectInfo = new ProjectInfo();
 
-    /**
-     * now command code to show which command
-     */
-    public static String nowCommandCode = "INIT";
+	/** now command code to show which command */
+	public static String nowCommandCode = "INIT";
 
-    /**
-     * project local path
-     */
-    public static String localPath = null;
+	/** project local path */
+	public static String localPath = null;
 }

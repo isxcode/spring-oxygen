@@ -5,12 +5,11 @@ import org.junit.jupiter.api.Test;
 
 public class MatcherUtilsTests {
 
-    @Test
-    public void testExcelParseFile() {
+	@Test
+	public void testExcelParseFile() {
 
-        String url = "https://baidu.com";
-        String matcherParse = MatcherUtils.matcherParse("https://", ".com", url);
-        System.out.println(matcherParse);
-    }
-
+		String url = "https://baidu.com";
+		String matcherParse = MatcherUtils.matcherParse("https://", ".com", url);
+		System.out.println(matcherParse);
+	}
 }

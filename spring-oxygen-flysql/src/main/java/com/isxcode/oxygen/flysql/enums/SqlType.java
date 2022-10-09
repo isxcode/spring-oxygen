@@ -8,28 +8,18 @@ package com.isxcode.oxygen.flysql.enums;
  */
 public enum SqlType {
 
-    /**
-     * insert sql
-     */
-    INSERT,
+	/** insert sql */
+	INSERT,
 
-    /**
-     * delete sql
-     */
-    DELETE,
+	/** delete sql */
+	DELETE,
 
-    /**
-     * update sql
-     */
-    UPDATE,
+	/** update sql */
+	UPDATE,
 
-    /**
-     * sql view select
-     */
-    VIEW,
+	/** sql view select */
+	VIEW,
 
-    /**
-     * select sql
-     */
-    SELECT,
+	/** select sql */
+	SELECT,
 }

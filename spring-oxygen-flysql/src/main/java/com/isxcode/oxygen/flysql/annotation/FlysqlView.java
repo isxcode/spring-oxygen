@@ -1,7 +1,6 @@
 package com.isxcode.oxygen.flysql.annotation;
 
 import com.isxcode.oxygen.flysql.constant.FlysqlConstants;
-
 import java.lang.annotation.*;
 
 /**
@@ -17,21 +16,24 @@ import java.lang.annotation.*;
 @Repeatable(FlysqlViews.class)
 public @interface FlysqlView {
 
-    /**
-     * datasource name
-     * @return datasource name
-     */
-    String datasource();
+	/**
+	 * datasource name
+	 *
+	 * @return datasource name
+	 */
+	String datasource();
 
-    /**
-     * view name
-     * @return view name
-     */
-    String name() default FlysqlConstants.PRIMARY_VIEW_NAME;
+	/**
+	 * view name
+	 *
+	 * @return view name
+	 */
+	String name() default FlysqlConstants.PRIMARY_VIEW_NAME;
 
-    /**
-     * view sql
-     * @return view sql
-     */
-    String value();
+	/**
+	 * view sql
+	 *
+	 * @return view sql
+	 */
+	String value();
 }

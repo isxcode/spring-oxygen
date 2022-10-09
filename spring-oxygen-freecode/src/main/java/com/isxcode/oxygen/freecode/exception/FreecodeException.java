@@ -8,8 +8,8 @@ package com.isxcode.oxygen.freecode.exception;
  */
 public class FreecodeException extends RuntimeException {
 
-    public FreecodeException(String message) {
+	public FreecodeException(String message) {
 
-        super("[oxygen-freecode] " + message);
-    }
+		super("[oxygen-freecode] " + message);
+	}
 }

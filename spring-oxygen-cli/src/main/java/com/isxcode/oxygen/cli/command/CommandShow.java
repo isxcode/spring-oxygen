@@ -8,19 +8,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class CommandShow implements PromptProvider {
 
-    @Override
-    public AttributedString getPrompt() {
+	@Override
+	public AttributedString getPrompt() {
 
-        String commandShowStr = "";
+		String commandShowStr = "";
 
-        switch (LocalStorage.nowCommandCode) {
+		switch (LocalStorage.nowCommandCode) {
+			case "Select Build Tool":
+				commandShowStr = "select build tool:>";
+			default:
+				commandShowStr = "spring-oxygen:>";
+		}
 
-            case "Select Build Tool":
-                commandShowStr = "select build tool:>";
-            default:
-                commandShowStr = "spring-oxygen:>";
-        }
-
-        return new AttributedString(commandShowStr);
-    }
+		return new AttributedString(commandShowStr);
+	}
 }

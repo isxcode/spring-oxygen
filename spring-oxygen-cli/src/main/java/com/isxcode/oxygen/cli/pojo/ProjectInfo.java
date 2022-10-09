@@ -11,13 +11,13 @@ import lombok.Data;
 @Data
 public class ProjectInfo {
 
-    private String group;
+	private String group;
 
-    private String artifact;
+	private String artifact;
 
-    private String name;
+	private String name;
 
-    private String description;
+	private String description;
 
-    private String packageName;
+	private String packageName;
 }

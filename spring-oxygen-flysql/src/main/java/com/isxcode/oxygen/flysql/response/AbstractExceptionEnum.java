@@ -7,7 +7,7 @@ package com.isxcode.oxygen.flysql.response;
  */
 public interface AbstractExceptionEnum {
 
-    String getCode();
+	String getCode();
 
-    String getMsg();
+	String getMsg();
 }
