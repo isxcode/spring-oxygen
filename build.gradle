@@ -6,9 +6,12 @@ plugins {
     id 'maven-publish'
     id 'signing'
     id 'jacoco'
+    id 'com.diffplug.spotless' version '6.11.0'
 }
 
 allprojects {
+    apply plugin: 'com.diffplug.spotless'
+
     repositories {
         maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
         mavenCentral()
@@ -167,5 +170,19 @@ subprojects {
     }
     bootRun {
         enabled false
+    }
+}
+
+spotless {
+    java {
+        enforceCheck false
+        importOrder()
+        target '**/*.java'
+        targetExclude 'spring-oxygen/*'
+        googleJavaFormat('1.7')
+        removeUnusedImports()
+        endWithNewline()
+        indentWithTabs(2)
+        trimTrailingWhitespace()
     }
 }
