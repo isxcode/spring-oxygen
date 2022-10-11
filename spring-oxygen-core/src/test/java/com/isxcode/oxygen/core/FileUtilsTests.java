@@ -7,39 +7,33 @@ import org.junit.jupiter.api.Test;
 
 public class FileUtilsTests {
 
+	private final String dirPath = "file";
+
 	@Test
 	public void testGenerateDir() {
 
-		FileUtils.generateDirs("test");
+		FileUtils.generateDirs(dirPath);
 	}
 
 	@Test
 	public void testGenerateFile() {
 
-		FileUtils.generateFile("test" + File.separator + "file" + File.separator + "file1.test");
+		FileUtils.generateFile(dirPath + File.separator + "file1.txt");
 	}
 
 	@Test
 	public void testStringToFile() {
 
 		FileUtils.StringToFile(
-				"hello",
-				"test" + File.separator + "file" + File.separator + "file2.test",
-				StandardOpenOption.WRITE);
+				"hello", dirPath + File.separator + "file2.txt", StandardOpenOption.WRITE);
 	}
 
 	@Test
 	public void testCopyResourceFile() {
 
 		FileUtils.copyResourceFile(
-				"application-test.yml",
-				"test" + File.separator + "file" + File.separator + "file3.test",
-				StandardOpenOption.WRITE);
-	}
+				"application-test.yml", dirPath + File.separator + "file3.txt", StandardOpenOption.WRITE);
 
-	@Test
-	public void testRecursionDeleteFile() {
-
-		FileUtils.recursionDeleteFile("test");
+		FileUtils.recursionDeleteFile(dirPath);
 	}
 }

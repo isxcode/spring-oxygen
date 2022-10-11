@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 public class CommandUtilsTests {
 
-    @Test
+	@Test
 	@SneakyThrows
 	public void testCommand() {
 
@@ -15,8 +15,8 @@ public class CommandUtilsTests {
 
 		System.out.println(CommandUtils.execute("dir"));
 
-        System.out.println(CommandUtils.execute("dir", "command.log"));
+		System.out.println(CommandUtils.execute("dir", "command.log"));
 
-        FileUtils.recursionDeleteFile("command.log");
-    }
+		FileUtils.recursionDeleteFile("command.log");
+	}
 }
