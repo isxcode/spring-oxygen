@@ -93,9 +93,9 @@ public class CommandUtils {
 		DefaultExecutor executor = new DefaultExecutor();
 		CommandLine cmdLine = generateCommandLine(command);
 
-		try {
+		try (FileOutputStream fileOutputStream = new FileOutputStream(logPath, true)) {
+
 			// set log file path
-			FileOutputStream fileOutputStream = new FileOutputStream(logPath, true);
 			PumpStreamHandler streamHandler =
 					new PumpStreamHandler(fileOutputStream, fileOutputStream, null);
 			executor.setStreamHandler(streamHandler);
@@ -106,7 +106,6 @@ public class CommandUtils {
 
 			// execute command
 			return executor.execute(cmdLine);
-
 		} catch (IOException e) {
 			log.debug(e.getMessage());
 			throw new OxygenException("execute command error");

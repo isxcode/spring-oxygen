@@ -34,7 +34,7 @@ public class FreemarkerUtilsTests {
 	public void testContentToFile() {
 
 		try {
-			FreemarkerUtils.contentToFile(templateContent, dog, "freemarker1.log");
+			FreemarkerUtils.contentToFile(templateContent, dog, "freemarker1.txt");
 		} catch (OxygenException e) {
 			System.out.println(e.getMessage());
 			throw e;
@@ -56,7 +56,7 @@ public class FreemarkerUtilsTests {
 	public void testTemplateToFile() {
 
 		try {
-			FreemarkerUtils.templateToFile(templateName, dog, "freemarker2.log");
+			FreemarkerUtils.templateToFile(templateName, dog, "freemarker2.txt");
 		} catch (OxygenException e) {
 			System.out.println(e.getMessage());
 			throw e;
@@ -72,5 +72,8 @@ public class FreemarkerUtilsTests {
 			System.out.println(e.getMessage());
 			throw e;
 		}
+
+		FileUtils.recursionDeleteFile("freemarker1.txt");
+		FileUtils.recursionDeleteFile("freemarker2.txt");
 	}
 }
