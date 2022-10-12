@@ -10,6 +10,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
 import java.util.*;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * JWT utils
@@ -17,6 +18,7 @@ import java.util.*;
  * @author ispong
  * @since 0.0.1
  */
+@Slf4j
 public class JwtUtils {
 
 	private static Key key;
@@ -70,6 +72,7 @@ public class JwtUtils {
 
 		} catch (JsonProcessingException e) {
 
+			log.error(e.getMessage());
 			throw new OxygenException(e.getMessage());
 		}
 	}
@@ -153,6 +156,7 @@ public class JwtUtils {
 			ObjectMapper objectMapper = new ObjectMapper();
 			return objectMapper.readValue(targetJsonStr, targetClass);
 		} catch (JsonProcessingException e) {
+			log.error(e.getMessage());
 			throw new OxygenException(e.getMessage());
 		}
 	}

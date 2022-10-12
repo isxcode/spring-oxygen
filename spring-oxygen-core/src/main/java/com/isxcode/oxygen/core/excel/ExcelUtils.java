@@ -149,6 +149,7 @@ public class ExcelUtils {
 				| IllegalAccessException
 				| InvocationTargetException
 				| InvalidFormatException e) {
+			log.error(e.getMessage());
 			throw new OxygenException(e.getMessage());
 		}
 	}
@@ -175,9 +176,11 @@ public class ExcelUtils {
 			try (OutputStream fileOut = response.getOutputStream()) {
 				generateFile(data, fileOut);
 			} catch (IOException e) {
+				log.error(e.getMessage());
 				throw new OxygenException(e.getMessage());
 			}
 		} catch (UnsupportedEncodingException e) {
+			log.error(e.getMessage());
 			throw new OxygenException(e.getMessage());
 		}
 	}
@@ -196,6 +199,7 @@ public class ExcelUtils {
 			//noinspection resource
 			workbook = new XSSFWorkbook();
 		} catch (Exception e) {
+			log.error(e.getMessage());
 			throw new OxygenException(e.getMessage());
 		}
 		XSSFSheet sheet = workbook.createSheet();
@@ -316,6 +320,7 @@ public class ExcelUtils {
 			workbook.write(outputStream);
 
 		} catch (Exception e) {
+			log.error(e.getMessage());
 			throw new OxygenException(e.getMessage());
 		}
 	}

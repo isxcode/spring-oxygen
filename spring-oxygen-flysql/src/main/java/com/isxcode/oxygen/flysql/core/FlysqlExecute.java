@@ -75,6 +75,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>>
 					.getJdbcTemplate()
 					.queryForObject(sqlString, new BeanPropertyRowMapper<>(flysqlKey.getTargetClass()));
 		} catch (BadSqlGrammarException e) {
+			log.error(e.getMessage());
 			throw new FlysqlException(e.getCause().getMessage());
 		} catch (EmptyResultDataAccessException e) {
 			return null;
@@ -113,6 +114,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>>
 				}
 			}
 		} catch (BadSqlGrammarException e) {
+			log.error(e.getMessage());
 			throw new FlysqlException(e.getCause().getMessage());
 		}
 	}
@@ -148,6 +150,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>>
 					flysqlKey.getJdbcTemplate().queryForObject(sqlCountString, Integer.class));
 			return pageResult;
 		} catch (BadSqlGrammarException e) {
+			log.error(e.getMessage());
 			throw new FlysqlException(e.getCause().getMessage());
 		}
 	}
@@ -172,6 +175,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>>
 		try {
 			flysqlKey.getJdbcTemplate().update(sqlString);
 		} catch (BadSqlGrammarException e) {
+			log.error(e.getMessage());
 			throw new FlysqlException(e.getCause().getMessage());
 		}
 	}
@@ -186,6 +190,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>>
 		try {
 			flysqlKey.getJdbcTemplate().execute(sqlString);
 		} catch (BadSqlGrammarException e) {
+			log.error(e.getMessage());
 			throw new FlysqlException(e.getCause().getMessage());
 		}
 	}
@@ -208,6 +213,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>>
 				flysqlKey.getJdbcTemplate().execute(sqlString);
 			}
 		} catch (BadSqlGrammarException e) {
+			log.error(e.getMessage());
 			throw new FlysqlException(e.getCause().getMessage());
 		}
 	}
@@ -223,6 +229,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>>
 		try {
 			flysqlKey.getJdbcTemplate().update(sqlString);
 		} catch (BadSqlGrammarException e) {
+			log.error(e.getMessage());
 			throw new FlysqlException(e.getCause().getMessage());
 		}
 	}
@@ -248,6 +255,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>>
 		try {
 			flysqlKey.getJdbcTemplate().update(sqlString);
 		} catch (BadSqlGrammarException e) {
+			log.error(e.getMessage());
 			throw new FlysqlException(e.getCause().getMessage());
 		}
 	}
@@ -263,6 +271,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>>
 		try {
 			return flysqlKey.getJdbcTemplate().queryForObject(sqlString, Integer.class);
 		} catch (BadSqlGrammarException e) {
+			log.error(e.getMessage());
 			throw new FlysqlException(e.getCause().getMessage());
 		}
 	}

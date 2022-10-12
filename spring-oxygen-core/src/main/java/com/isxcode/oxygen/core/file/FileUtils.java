@@ -36,7 +36,7 @@ public class FileUtils {
 			try {
 				Files.createDirectories(dir);
 			} catch (IOException e) {
-				log.info(e.getMessage());
+				log.error(e.getMessage());
 				throw new OxygenException("create dir path error");
 			}
 		}
@@ -61,7 +61,7 @@ public class FileUtils {
 			try {
 				return Files.createFile(file);
 			} catch (IOException e) {
-				log.info(e.getMessage());
+				log.error(e.getMessage());
 				throw new OxygenException("create file path error");
 			}
 		} else {
@@ -87,7 +87,7 @@ public class FileUtils {
 		try {
 			Files.write(file, content.getBytes(), options);
 		} catch (IOException e) {
-			log.info(e.getMessage());
+			log.error(e.getMessage());
 			throw new OxygenException("write content error");
 		}
 	}
@@ -130,7 +130,7 @@ public class FileUtils {
 					IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8).getBytes(),
 					options);
 		} catch (IOException e) {
-			log.info(e.getMessage());
+			log.error(e.getMessage());
 			throw new OxygenException("copy resource file error");
 		}
 	}
@@ -148,7 +148,7 @@ public class FileUtils {
 			}
 			Files.deleteIfExists(path);
 		} catch (IOException e) {
-			log.info(e.getMessage());
+			log.error(e.getMessage());
 			throw new OxygenException("delete dir error");
 		}
 	}

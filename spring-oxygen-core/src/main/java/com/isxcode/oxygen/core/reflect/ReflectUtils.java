@@ -9,6 +9,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 
 /**
@@ -17,6 +18,7 @@ import org.springframework.beans.BeanUtils;
  * @author ispong
  * @since 0.0.1
  */
+@Slf4j
 public class ReflectUtils {
 
 	/**
@@ -35,6 +37,7 @@ public class ReflectUtils {
 				| IllegalAccessException
 				| InvocationTargetException
 				| NoSuchMethodException e) {
+			log.error(e.getMessage());
 			throw new OxygenException(e.getMessage());
 		}
 	}

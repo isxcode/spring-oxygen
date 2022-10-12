@@ -75,6 +75,7 @@ public class FreecodeService {
 				try {
 					FreecodeUtils.generateFile(directoryName, fileName, templateName, freecodeInfo);
 				} catch (IOException e) {
+					log.error(e.getMessage());
 					throw new FreecodeException(e.getMessage());
 				}
 			}

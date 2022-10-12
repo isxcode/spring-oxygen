@@ -9,6 +9,7 @@ import com.isxcode.oxygen.flysql.properties.FlysqlProperties;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Objects;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -18,6 +19,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * @author ispong
  * @version 0.0.1
  */
+@Slf4j
 public class FlysqlBuilder {
 
 	private JdbcTemplate jdbcTemplate;
@@ -59,14 +61,14 @@ public class FlysqlBuilder {
 						return DataBaseType.MYSQL;
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				log.error(e.getMessage());
 				throw new FlysqlException("datasource link error");
 			} finally {
 				if (connection != null) {
 					try {
 						connection.close();
 					} catch (SQLException e) {
-						e.printStackTrace();
+						log.error(e.getMessage());
 					}
 				}
 			}

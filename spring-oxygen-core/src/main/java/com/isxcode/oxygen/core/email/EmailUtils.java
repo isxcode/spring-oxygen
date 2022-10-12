@@ -48,6 +48,7 @@ public class EmailUtils {
 		try {
 			sendEmail(Collections.singletonList(email), content, subject, senderName, false, null, null);
 		} catch (MessagingException e) {
+			log.error(e.getMessage());
 			throw new OxygenException(e.getMessage());
 		}
 	}
@@ -67,6 +68,7 @@ public class EmailUtils {
 		try {
 			sendEmail(emails, content, subject, senderName, false, null, null);
 		} catch (Exception e) {
+			log.error(e.getMessage());
 			throw new OxygenException(e.getMessage());
 		}
 	}
@@ -86,6 +88,7 @@ public class EmailUtils {
 		try {
 			sendEmail(Collections.singletonList(email), content, subject, senderName, true, null, null);
 		} catch (Exception e) {
+			log.error(e.getMessage());
 			throw new OxygenException(e.getMessage());
 		}
 	}

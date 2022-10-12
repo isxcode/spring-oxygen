@@ -42,6 +42,7 @@ public class XmlUtils {
 			return target;
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 
+			log.error(e.getMessage());
 			throw new OxygenException(e.getMessage());
 		}
 	}

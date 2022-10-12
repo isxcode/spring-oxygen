@@ -44,6 +44,7 @@ public class AesUtils {
 				| NoSuchPaddingException
 				| BadPaddingException
 				| IllegalBlockSizeException e) {
+			log.error(e.getMessage());
 			throw new OxygenException(e.getMessage());
 		}
 	}
@@ -81,6 +82,7 @@ public class AesUtils {
 				| InvalidKeyException
 				| BadPaddingException
 				| IllegalBlockSizeException e) {
+			log.error(e.getMessage());
 			throw new OxygenException(e.getMessage());
 		}
 	}
