@@ -11,6 +11,7 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * RSA utils
@@ -18,6 +19,7 @@ import javax.crypto.NoSuchPaddingException;
  * @author ispong
  * @since 0.0.1
  */
+@Slf4j
 public class RsaUtils {
 
 	/**
@@ -44,6 +46,7 @@ public class RsaUtils {
 				| InvalidKeyException
 				| BadPaddingException
 				| IllegalBlockSizeException e) {
+			log.error(e.getMessage());
 			throw new OxygenException(e.getMessage());
 		}
 	}
@@ -71,6 +74,7 @@ public class RsaUtils {
 				| BadPaddingException
 				| IllegalBlockSizeException
 				| InvalidKeyException e) {
+			log.error(e.getMessage());
 			throw new OxygenException(e.getMessage());
 		}
 	}
@@ -96,6 +100,7 @@ public class RsaUtils {
 			//
 			// System.out.println(Base64.getEncoder().encodeToString(keyPair.getPrivate().getEncoded()));
 		} catch (NoSuchAlgorithmException e) {
+			log.error(e.getMessage());
 			throw new OxygenException(e.getMessage());
 		}
 	}

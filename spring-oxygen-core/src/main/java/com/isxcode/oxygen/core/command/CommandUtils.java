@@ -75,7 +75,7 @@ public class CommandUtils {
 			return executor.execute(cmdLine);
 
 		} catch (IOException e) {
-			log.debug(e.getMessage());
+			log.error(e.getMessage());
 			throw new OxygenException("execute command error");
 		}
 	}
@@ -107,7 +107,7 @@ public class CommandUtils {
 			// execute command
 			return executor.execute(cmdLine);
 		} catch (IOException e) {
-			log.debug(e.getMessage());
+			log.error(e.getMessage());
 			throw new OxygenException("execute command error");
 		}
 	}
@@ -140,7 +140,7 @@ public class CommandUtils {
 			return new String(bytes, 0, bytes.length);
 
 		} catch (IOException e) {
-			log.debug(e.getMessage());
+			log.error(e.getMessage());
 			throw new OxygenException("execute command error");
 		}
 	}

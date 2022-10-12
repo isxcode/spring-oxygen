@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 
 /**
@@ -24,6 +25,7 @@ import org.apache.logging.log4j.util.Strings;
  * @author ispong
  * @version v0.1.0
  */
+@Slf4j
 public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
 
 	public List<SqlCondition> sqlConditions = new ArrayList<>();

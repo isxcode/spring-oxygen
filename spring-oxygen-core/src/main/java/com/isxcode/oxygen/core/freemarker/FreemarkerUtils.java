@@ -61,6 +61,7 @@ public class FreemarkerUtils {
 			Files.write(
 					path, FreeMarkerTemplateUtils.processTemplateIntoString(template, params).getBytes());
 		} catch (TemplateException | IOException e) {
+			log.error(e.getMessage());
 			throw new OxygenException(e.getMessage());
 		}
 	}
@@ -80,6 +81,7 @@ public class FreemarkerUtils {
 			Template template = freeMarkerConfigurer.getConfiguration().getTemplate(templateFileName);
 			return FreeMarkerTemplateUtils.processTemplateIntoString(template, params);
 		} catch (TemplateException | IOException e) {
+			log.error(e.getMessage());
 			throw new OxygenException(e.getMessage());
 		}
 	}
@@ -110,6 +112,7 @@ public class FreemarkerUtils {
 			Files.write(
 					path, FreeMarkerTemplateUtils.processTemplateIntoString(template, params).getBytes());
 		} catch (TemplateException | IOException e) {
+			log.error(e.getMessage());
 			throw new OxygenException(e.getMessage());
 		}
 	}
@@ -129,6 +132,7 @@ public class FreemarkerUtils {
 			Template template = new Template("", templateContent, configuration);
 			return FreeMarkerTemplateUtils.processTemplateIntoString(template, params);
 		} catch (TemplateException | IOException e) {
+			log.error(e.getMessage());
 			throw new OxygenException(e.getMessage());
 		}
 	}
