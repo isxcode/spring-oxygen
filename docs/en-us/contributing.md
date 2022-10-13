@@ -128,7 +128,7 @@ gradle publishMavenJavaPublicationToSonatypeRepository
 ### Release new version
 
 - [ ] Fix Pull Requests
-- [ ] Edit version number(0.11.5-SNAPSHOT/1.9.1)
+- [ ] Edit version number(0.11.5-SNAPSHOT/1.9.1) and README.md
 - [ ] Edit SECURITY.md version number
 - [ ] Edit CHANGELOG.md version number and copy issues record to (## v0.11.5)
 - [ ] Copy README.md to /docs/_homepage.md

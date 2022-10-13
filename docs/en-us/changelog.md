@@ -1,3 +1,32 @@
+## v1.10.3
+
+### 💥️ Breaking Change
+
+- nothing
+
+### ✨ Feature
+
+- support set userId to OxygenHolder
+- add matcherUtils feature
+- add dateUtils() feature
+
+### 🎨 Enhancement
+
+- Fix code scanning alert - Equals method does not inspect argument type
+- art command utils art
+- art email utils art
+- art freemarker utils art
+- art file utils art
+- art reflect utils art
+- support print error info and trace feature
+
+### 🐛 Fix
+
+- conflict @QuartzDataSource and jdbcTemplate bug
+- fix getOne() org.springframework.dao.IncorrectResultSizeDataAccessException: Incorrect result size: expected 1, actual 2 bug
+- ExcelUtils not support LOCAL_DATE bug
+- fix commandUtils logfile always in process bug
+
 ## v1.9.1
 
 ### 💥️ Breaking Change

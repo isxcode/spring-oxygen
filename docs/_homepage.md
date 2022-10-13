@@ -63,7 +63,7 @@ dependencies {
 <dependency>
     <groupId>com.isxcode.oxygen</groupId>
     <artifactId>oxygen-spring-boot-starter</artifactId>
-    <version>1.9.1</version>
+    <version>1.10.3</version>
 </dependency>
 ```
 
