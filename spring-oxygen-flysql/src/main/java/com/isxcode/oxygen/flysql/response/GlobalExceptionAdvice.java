@@ -1,6 +1,7 @@
 package com.isxcode.oxygen.flysql.response;
 
 import com.isxcode.oxygen.flysql.common.BaseResponse;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -96,11 +97,12 @@ public class GlobalExceptionAdvice extends ResponseEntityExceptionHandler {
 	}
 
 	@Override
+	@NonNull
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(
 			MethodArgumentNotValidException ex,
-			HttpHeaders headers,
-			HttpStatus status,
-			WebRequest request) {
+			@NonNull HttpHeaders headers,
+			@NonNull HttpStatus status,
+			@NonNull WebRequest request) {
 		ObjectError objectError = ex.getBindingResult().getAllErrors().get(0);
 		return new ResponseEntity<>(
 				new BaseResponse<>("400", objectError.getDefaultMessage(), ""), HttpStatus.OK);

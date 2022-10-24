@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 @SpringBootTest
 @ContextConfiguration(classes = {OxygenCoreAutoConfiguration.class, FreeMarkerConfigurer.class})
-public class SecretUtilsTasks {
+public class SecretUtilsTest {
 
 	@Test
 	public void testAesNoKey() {

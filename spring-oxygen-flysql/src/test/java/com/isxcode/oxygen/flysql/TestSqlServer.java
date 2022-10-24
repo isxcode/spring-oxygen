@@ -85,11 +85,6 @@ public class TestSqlServer {
 		List<Dog> dogQuery = flysql.build().select(Dog.class).query();
 		dogQuery.forEach(System.out::println);
 
-		//        System.out.println("=========================== show page data
-		// ====================================");
-		//        FlysqlPage<Dog> dogQueryPage = flysql.build().select(Dog.class).queryPage(1, 2);
-		//        System.out.println(dogQueryPage);
-
 		System.out.println(
 				"============================ show single data ===================================");
 		Dog dogGetOne = flysql.build().select(Dog.class).eq("name", "rose").getOne();

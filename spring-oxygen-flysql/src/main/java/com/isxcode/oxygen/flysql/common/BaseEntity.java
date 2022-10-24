@@ -16,9 +16,6 @@ import lombok.Data;
 @Data
 public class BaseEntity {
 
-	//    @RowId
-	//    private String id;
-
 	@CreatedDate
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	@JsonSerialize(using = LocalDateTimeSerializer.class)

@@ -5,6 +5,8 @@ import com.isxcode.oxygen.core.exception.OxygenException;
 import com.isxcode.oxygen.core.file.FileUtils;
 import com.isxcode.oxygen.core.freemarker.FreemarkerUtils;
 import com.isxcode.oxygen.core.pojo.Dog;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.freemarker.FreeMarkerAutoConfiguration;
@@ -33,6 +35,10 @@ public class FreemarkerUtilsTests {
 	@Test
 	public void testContentToFile() {
 
+		if (Files.exists(Paths.get("freemarker1.txt"))) {
+			FileUtils.recursionDeleteFile("freemarker1.txt");
+		}
+
 		try {
 			FreemarkerUtils.contentToFile(templateContent, dog, "freemarker1.txt");
 		} catch (OxygenException e) {
@@ -54,6 +60,10 @@ public class FreemarkerUtilsTests {
 
 	@Test
 	public void testTemplateToFile() {
+
+		if (Files.exists(Paths.get("freemarker2.txt"))) {
+			FileUtils.recursionDeleteFile("freemarker2.txt");
+		}
 
 		try {
 			FreemarkerUtils.templateToFile(templateName, dog, "freemarker2.txt");

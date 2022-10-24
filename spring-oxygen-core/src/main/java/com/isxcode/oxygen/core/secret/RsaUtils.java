@@ -91,14 +91,6 @@ public class RsaUtils {
 			KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(SecretConstants.RSA);
 			keyPairGenerator.initialize(2048);
 			return keyPairGenerator.generateKeyPair();
-
-			//            System.out.println("publicKey:");
-			//
-			// System.out.println(Base64.getEncoder().encodeToString(keyPair.getPublic().getEncoded()));
-			//
-			//            System.out.println("privateKey:");
-			//
-			// System.out.println(Base64.getEncoder().encodeToString(keyPair.getPrivate().getEncoded()));
 		} catch (NoSuchAlgorithmException e) {
 			log.error(e.getMessage());
 			throw new OxygenException(e.getMessage());

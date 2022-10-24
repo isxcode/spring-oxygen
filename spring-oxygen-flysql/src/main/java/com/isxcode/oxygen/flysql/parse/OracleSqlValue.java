@@ -30,9 +30,7 @@ public class OracleSqlValue implements SqlValue {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
-			return "TO_DATE('"
-					+ sdf2.format(sdf.parse(String.valueOf(val)))
-					+ "', 'YYYY-MM-DD HH24:MI:SS')";
+			return "TO_DATE('" + sdf2.format(sdf.parse(val)) + "', 'YYYY-MM-DD HH24:MI:SS')";
 		} catch (ParseException e) {
 			return null;
 		}

@@ -18,9 +18,9 @@ import org.apache.commons.exec.PumpStreamHandler;
 @Slf4j
 public class CommandUtils {
 
-	public static String LINUX_BASH = "/bin/sh";
-	public static String WINDOWS_CMD = "C:\\Windows\\System32\\cmd.exe";
-	public static long DEFAULT_WAITING_TIME = 60000;
+	public static final String LINUX_BASH = "/bin/sh";
+	public static final String WINDOWS_CMD = "C:\\Windows\\System32\\cmd.exe";
+	public static final long DEFAULT_WAITING_TIME = 60000;
 
 	/**
 	 * execute command to log file

@@ -28,13 +28,13 @@ import org.apache.logging.log4j.util.Strings;
 @Slf4j
 public abstract class AbstractSqlBuilder<T> implements FlysqlCondition<T> {
 
-	public List<SqlCondition> sqlConditions = new ArrayList<>();
+	public final List<SqlCondition> sqlConditions = new ArrayList<>();
 
-	public List<String> sqlOrderByConditions = new ArrayList<>();
+	public final List<String> sqlOrderByConditions = new ArrayList<>();
 
-	public Map<String, ColumnProperties> columnsMap;
+	public final Map<String, ColumnProperties> columnsMap;
 
-	public DataBaseType dataBaseType;
+	public final DataBaseType dataBaseType;
 
 	public AbstractSqlBuilder(Class<?> genericType, DataBaseType dataBaseType) {
 

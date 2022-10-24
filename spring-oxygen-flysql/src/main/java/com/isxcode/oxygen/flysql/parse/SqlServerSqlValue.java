@@ -34,7 +34,7 @@ public class SqlServerSqlValue implements SqlValue {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		try {
-			return "N'" + sdf2.format(sdf.parse(String.valueOf(val))) + "'";
+			return "N'" + sdf2.format(sdf.parse(val)) + "'";
 		} catch (ParseException e) {
 			return null;
 		}
