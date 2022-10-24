@@ -14,8 +14,3 @@
  * limitations under the License.
  */
 package com.isxcode.oxygen.flysql;
-
-/**
- * 通过FlysqlAutoConfiguration初始化Flysql对象。初始化所有的template对象（jdbcTemplate/mongoTemplate） 接着用户指定数据库类型和名称
- * 生成指定的FlysqlBuilder
- */

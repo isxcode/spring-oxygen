@@ -2,7 +2,6 @@ package com.isxcode.oxygen.flysql.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * 排序
@@ -20,5 +19,5 @@ public enum OrderType {
 	ASC("asc"),
 	;
 
-	@Getter @Setter private String orderType;
+	@Getter private final String orderType;
 }

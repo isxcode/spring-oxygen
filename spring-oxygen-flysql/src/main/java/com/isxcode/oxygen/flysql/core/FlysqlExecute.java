@@ -167,6 +167,10 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>>
 						FlysqlConstants.LAST_MODIFIED_DATE,
 						addSingleQuote(
 								DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()))));
+		executeUpdate();
+	}
+
+	private void executeUpdate() {
 		String sqlString =
 				parseSqlConditions(initUpdateSql(), sqlConditions, sqlOrderByConditions, "UPADTE");
 
@@ -247,17 +251,7 @@ public class FlysqlExecute<A> extends AbstractSqlBuilder<FlysqlExecute<A>>
 						addSingleQuote(
 								DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()))));
 		sqlConditions.add(new SqlCondition(UPDATE, FlysqlConstants.IS_DELETE_COL, "1"));
-		String sqlString =
-				parseSqlConditions(initUpdateSql(), sqlConditions, sqlOrderByConditions, "UPADTE");
-
-		printSql(sqlString);
-
-		try {
-			flysqlKey.getJdbcTemplate().update(sqlString);
-		} catch (BadSqlGrammarException e) {
-			log.error(e.getMessage());
-			throw new FlysqlException(e.getCause().getMessage());
-		}
+		executeUpdate();
 	}
 
 	@Override

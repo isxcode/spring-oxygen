@@ -62,7 +62,7 @@ public class FlysqlUtils {
 
 	/* get table name
 	 *
-	 * @param targetClass targetClass
+	 * @param targetClass tCls
 	 * @return tableName
 	 * @since 0.0.1
 	 */
