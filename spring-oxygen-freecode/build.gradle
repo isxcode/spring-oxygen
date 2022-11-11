@@ -1,4 +1,0 @@
-dependencies {
-    implementation(project(':spring-oxygen-core'))
-    implementation(project(':spring-oxygen-flysql'))
-}

@@ -22,14 +22,14 @@ public class CommandCenter {
 		this.commandService = commandService;
 	}
 
-	@ShellMethod(key = "init", value = "init project")
+	@ShellMethod(key = "docs", value = "init project")
 	public String init() {
 
 		if (commandService.canGenerateProject()) {
 
 			nowCommandCode = "Select Build Tool";
 
-			return "" + "select build tool: \n" + "    [A] Gradle \n" + "    [B] Maven ";
+			return "" + "what can i help you: \n" + "    [A] Gradle \n" + "    [B] Maven ";
 		}
 
 		return "please full project info: \n\n"
@@ -92,16 +92,13 @@ public class CommandCenter {
 		return "";
 	}
 
-	@ShellMethod(key = "B", value = "B Choose")
-	public String B() {
-
-		return "";
-	}
+	@ShellMethod(key = "start", value = "B Choose", group = "subCommands")
+	public void start() {}
 
 	@ShellMethod(key = "C", value = "C Choose")
 	public String C() {
 
-		return "";
+		return "C";
 	}
 
 	public void Y() {}
