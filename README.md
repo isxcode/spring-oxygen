@@ -115,5 +115,5 @@ Read our [contributing guide](https://spring-oxygen.isxcode.com/#/en-us/contribu
 **Thanks for free JetBrains Open Source license**
 
 <a href="https://www.jetbrains.com/?from=spring-oxygen" target="_blank" style="border-bottom: none !important;">
-    <img src="https://img.isxcode.com/isxcode_img/jetbrains/jetbrains.png" height="100" alt="jetbrains"/>
+    <img src="https://img.isxcode.com/index_img/jetbrains/jetbrains-3.png" height="100" alt="jetbrains"/>
 </a>
