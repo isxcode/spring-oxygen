@@ -16,5 +16,5 @@ dependencies {
     runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
 
     // jasypt
-    compile 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
+    compile 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
 }
